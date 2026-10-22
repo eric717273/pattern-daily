@@ -1,0 +1,1324 @@
+import type { SlotOption, SubstitutionFrame } from '../types';
+
+/**
+ * Palmer-style substitution tables (母框) that drill the 13 Deconstruction Dozen
+ * grammar points. Frame f(2N-1) / f(2N) belong to dozen sentence N:
+ * the first is level 1 (daily, simple vocabulary), the second level 2 (work / social).
+ *
+ * HARD RULE: every combination of one option per slot is grammatical, natural English
+ * and reads acceptably in Chinese. Subject-verb agreement is kept safe either by using
+ * only subjects that take the same verb form, or by putting the inflected form
+ * (is / are / has / wants ...) inside the subject slot.
+ */
+const o = (en: string, zh: string): SlotOption => ({ en, zh });
+
+export const FRAMES_CORE: SubstitutionFrame[] = [
+  // ---------- 1. be + adjective ----------
+  {
+    id: 'f001',
+    title: '描述东西的状态',
+    pattern: '{subject} is {adjective} {time}.',
+    patternZh: '{subject}{time}{adjective}。',
+    slots: [
+      {
+        key: 'subject',
+        labelZh: '主语',
+        options: [
+          o('The soup', '汤'),
+          o('The pasta', '意面'),
+          o('The pizza', '披萨'),
+          o('The bread', '面包'),
+          o('The sandwich', '三明治'),
+        ],
+      },
+      {
+        key: 'adjective',
+        labelZh: '形容词',
+        options: [
+          o('hot', '很热'),
+          o('cold', '凉了'),
+          o('fresh', '很新鲜'),
+          o('ready', '好了'),
+          o('delicious', '味道很好'),
+        ],
+      },
+      {
+        key: 'time',
+        labelZh: '时间',
+        options: [
+          o('right now', '现在'),
+          o('today', '今天'),
+          o('this morning', '今天早上'),
+          o('at lunch', '午饭时'),
+        ],
+      },
+    ],
+    grammar: ['be-adj'],
+    scene: 'daily',
+    level: 1,
+    examples: [
+      o('The soup is hot right now.', '汤现在很热。'),
+      o('The pizza is ready at lunch.', '披萨午饭时好了。'),
+      o('The bread is fresh today.', '面包今天很新鲜。'),
+    ],
+    tipZh: '主语后面永远要有 is，不能像中文那样直接说“汤热”。形容词不变形，时间词放在句尾。',
+    source: 'seed',
+  },
+  {
+    id: 'f002',
+    title: '汇报工作进度',
+    pattern: '{subject} is {status} {time}.',
+    patternZh: '{subject}{time}{status}。',
+    slots: [
+      {
+        key: 'subject',
+        labelZh: '主语',
+        options: [
+          o('The proposal', '方案'),
+          o('The report', '报告'),
+          o('The presentation', '演示文稿'),
+          o('The contract', '合同'),
+          o('The budget', '预算'),
+        ],
+      },
+      {
+        key: 'status',
+        labelZh: '状态',
+        options: [
+          o('ready for review', '可以审阅了'),
+          o('waiting for approval', '正在等待批准'),
+          o('on hold', '被搁置'),
+          o('on track', '进展顺利'),
+          o('under revision', '正在修订中'),
+        ],
+      },
+      {
+        key: 'time',
+        labelZh: '时间',
+        options: [
+          o('as of today', '截至今天'),
+          o('at the moment', '眼下'),
+          o('for now', '目前'),
+          o('this week', '本周'),
+        ],
+      },
+    ],
+    grammar: ['be-adj'],
+    scene: 'work',
+    level: 2,
+    examples: [
+      o('The proposal is waiting for approval at the moment.', '方案眼下正在等待批准。'),
+      o('The budget is on track this week.', '预算本周进展顺利。'),
+      o('The contract is under revision for now.', '合同目前正在修订中。'),
+    ],
+    tipZh: '“is + 介词短语/形容词短语”是汇报进度的万能句式，on hold、on track、under revision 都当作整块背。',
+    source: 'seed',
+  },
+
+  // ---------- 2. possessive ----------
+  {
+    id: 'f003',
+    title: '说明东西是谁的',
+    pattern: '{start} {owner} {thing}.',
+    patternZh: '{start}{owner}{thing}。',
+    slots: [
+      {
+        key: 'start',
+        labelZh: '开头',
+        options: [o('It is', '它是'), o('This is', '这是'), o('That is', '那是')],
+      },
+      {
+        key: 'owner',
+        labelZh: '所有者',
+        options: [
+          o("John's", '约翰的'),
+          o("Mary's", '玛丽的'),
+          o("my sister's", '我姐姐的'),
+          o("my dad's", '我爸爸的'),
+          o("Tom's", '汤姆的'),
+        ],
+      },
+      {
+        key: 'thing',
+        labelZh: '物品',
+        options: [
+          o('bag', '包'),
+          o('phone', '手机'),
+          o('coat', '外套'),
+          o('umbrella', '雨伞'),
+          o('bike', '自行车'),
+        ],
+      },
+    ],
+    grammar: ['possessive'],
+    scene: 'daily',
+    level: 1,
+    examples: [
+      o("It is John's bag.", '它是约翰的包。'),
+      o("That is my dad's umbrella.", '那是我爸爸的雨伞。'),
+      o("This is Mary's phone.", '这是玛丽的手机。'),
+    ],
+    tipZh: "“某人的”直接在名字后加 's，后面的名词前不要再加 the 或 a。",
+    source: 'seed',
+  },
+  {
+    id: 'f004',
+    title: '指出谁的重点是什么',
+    pattern: '{start} {owner} {adjective} {noun}.',
+    patternZh: '{start}{owner}{adjective}{noun}。',
+    slots: [
+      {
+        key: 'start',
+        labelZh: '开头',
+        options: [o('This is', '这是'), o('That is', '那是'), o('It is', '这是')],
+      },
+      {
+        key: 'owner',
+        labelZh: '所有者',
+        options: [
+          o("the client's", '客户的'),
+          o("Sarah's", '萨拉的'),
+          o("our manager's", '我们经理的'),
+          o("the company's", '公司的'),
+          o("David's", '大卫的'),
+        ],
+      },
+      {
+        key: 'adjective',
+        labelZh: '形容词',
+        options: [o('main', '主要'), o('current', '当前'), o('key', '关键')],
+      },
+      {
+        key: 'noun',
+        labelZh: '名词',
+        options: [
+          o('concern', '关注点'),
+          o('priority', '优先事项'),
+          o('responsibility', '职责'),
+          o('problem', '问题'),
+        ],
+      },
+    ],
+    grammar: ['possessive'],
+    scene: 'work',
+    level: 2,
+    examples: [
+      o("That is Sarah's main concern.", '那是萨拉的主要关注点。'),
+      o("This is the company's key priority.", '这是公司的关键优先事项。'),
+      o("It is our manager's current problem.", '这是我们经理的当前问题。'),
+    ],
+    tipZh: "所有格 + 形容词 + 名词的顺序是固定的：先 's，再形容词，最后名词。",
+    source: 'seed',
+  },
+
+  // ---------- 3. double object ----------
+  {
+    id: 'f005',
+    title: '把东西给某人',
+    pattern: '{subject} {verb} {recipient} {thing} {time}.',
+    patternZh: '{subject}{time}{verb}{recipient}{thing}。',
+    slots: [
+      {
+        key: 'subject',
+        labelZh: '主语',
+        options: [o('I', '我'), o('We', '我们'), o('They', '他们'), o('You', '你')],
+      },
+      {
+        key: 'verb',
+        labelZh: '动词',
+        options: [o('give', '给'), o('send', '寄给'), o('bring', '带给'), o('hand', '递给')],
+      },
+      {
+        key: 'recipient',
+        labelZh: '接收者',
+        options: [o('John', '约翰'), o('Mary', '玛丽'), o('my sister', '我姐姐'), o('the kids', '孩子们')],
+      },
+      {
+        key: 'thing',
+        labelZh: '东西',
+        options: [o('the keys', '钥匙'), o('the book', '书'), o('the photos', '照片'), o('the tickets', '票')],
+      },
+      {
+        key: 'time',
+        labelZh: '频率',
+        options: [
+          o('every day', '每天'),
+          o('every week', '每周'),
+          o('every Friday', '每周五'),
+          o('on weekends', '周末'),
+        ],
+      },
+    ],
+    grammar: ['double-object'],
+    scene: 'daily',
+    level: 1,
+    examples: [
+      o('I give John the keys every day.', '我每天给约翰钥匙。'),
+      o('We send my sister the photos every week.', '我们每周寄给我姐姐照片。'),
+      o('They bring the kids the tickets on weekends.', '他们周末带给孩子们票。'),
+    ],
+    tipZh: '动词后面先放“人”，再放“东西”，中间不加 to。这个顺序和中文“给他一本书”是一样的。',
+    source: 'seed',
+  },
+  {
+    id: 'f006',
+    title: '承诺把资料发给对方',
+    pattern: '{subject} {verb} {recipient} {thing} {time}.',
+    patternZh: '{subject}{time}把{thing}{verb}{recipient}。',
+    slots: [
+      {
+        key: 'subject',
+        labelZh: '主语',
+        options: [o("I'll", '我会'), o("We'll", '我们会'), o("You'll", '你会'), o("They'll", '他们会')],
+      },
+      {
+        key: 'verb',
+        labelZh: '动词',
+        options: [
+          o('send', '发给'),
+          o('forward', '转发给'),
+          o('give', '交给'),
+          o('email', '用邮件发给'),
+        ],
+      },
+      {
+        key: 'recipient',
+        labelZh: '接收者',
+        options: [o('the client', '客户'), o('the team', '团队'), o('the manager', '经理'), o('Sarah', '萨拉')],
+      },
+      {
+        key: 'thing',
+        labelZh: '资料',
+        options: [
+          o('the revised quote', '修改后的报价单'),
+          o('the final report', '最终报告'),
+          o('the updated schedule', '最新日程'),
+          o('the signed contract', '签好的合同'),
+        ],
+      },
+      {
+        key: 'time',
+        labelZh: '时间',
+        options: [
+          o('by Friday', '在周五之前'),
+          o('before the meeting', '在会议之前'),
+          o('by the end of the day', '在今天下班前'),
+          o('as soon as possible', '尽快'),
+          o('this afternoon', '今天下午'),
+        ],
+      },
+    ],
+    grammar: ['double-object'],
+    scene: 'work',
+    level: 2,
+    examples: [
+      o("I'll send the client the revised quote by Friday.", '我会在周五之前把修改后的报价单发给客户。'),
+      o("We'll forward Sarah the signed contract as soon as possible.", '我们会尽快把签好的合同转发给萨拉。'),
+      o("You'll email the manager the final report this afternoon.", '你会今天下午把最终报告用邮件发给经理。'),
+    ],
+    tipZh: "I'll / We'll 后面直接跟动词原形，再接“人 + 东西”。口语中 send、forward、email 都可以用这个结构。",
+    source: 'seed',
+  },
+
+  // ---------- 4. object pronouns ----------
+  {
+    id: 'f007',
+    title: '把东西给他/她/他们',
+    pattern: '{subject} {verb} {pronoun} {thing} {time}.',
+    patternZh: '{subject}{time}{verb}{pronoun}{thing}。',
+    slots: [
+      {
+        key: 'subject',
+        labelZh: '主语',
+        options: [o('I', '我'), o('We', '我们'), o('You', '你')],
+      },
+      {
+        key: 'verb',
+        labelZh: '动词',
+        options: [o('give', '给'), o('send', '寄给'), o('bring', '带给'), o('hand', '递给')],
+      },
+      {
+        key: 'pronoun',
+        labelZh: '宾格代词',
+        options: [o('him', '他'), o('her', '她'), o('them', '他们')],
+      },
+      {
+        key: 'thing',
+        labelZh: '东西',
+        options: [o('the keys', '钥匙'), o('the book', '书'), o('the tickets', '票'), o('a gift', '一份礼物')],
+      },
+      {
+        key: 'time',
+        labelZh: '时间',
+        options: [o('today', '今天'), o('every day', '每天'), o('on Sundays', '周日'), o('every morning', '每天早上')],
+      },
+    ],
+    grammar: ['object-pronoun', 'double-object'],
+    scene: 'daily',
+    level: 1,
+    examples: [
+      o('We give him the keys today.', '我们今天给他钥匙。'),
+      o('I send them a gift on Sundays.', '我周日寄给他们一份礼物。'),
+      o('You bring her the book every morning.', '你每天早上带给她书。'),
+    ],
+    tipZh: '做宾语时代词要换格：he→him，she→her，they→them。宾格代词紧跟动词，后面再放东西。',
+    source: 'seed',
+  },
+  {
+    id: 'f008',
+    title: '礼貌地请对方把东西给某人',
+    pattern: 'Please {verb} {pronoun} {thing} {time}.',
+    patternZh: '请{time}把{thing}{verb}{pronoun}。',
+    slots: [
+      {
+        key: 'verb',
+        labelZh: '动词',
+        options: [
+          o('send', '发给'),
+          o('give', '交给'),
+          o('forward', '转发给'),
+          o('bring', '带给'),
+        ],
+      },
+      {
+        key: 'pronoun',
+        labelZh: '宾格代词',
+        options: [o('me', '我'), o('him', '他'), o('her', '她'), o('us', '我们'), o('them', '他们')],
+      },
+      {
+        key: 'thing',
+        labelZh: '资料',
+        options: [o('the agenda', '议程'), o('the invoice', '发票'), o('the draft', '草稿'), o('the slides', '幻灯片')],
+      },
+      {
+        key: 'time',
+        labelZh: '时间',
+        options: [
+          o('before the meeting', '在会议之前'),
+          o('by noon', '在中午之前'),
+          o('as soon as possible', '尽快'),
+          o('this afternoon', '今天下午'),
+        ],
+      },
+    ],
+    grammar: ['object-pronoun', 'double-object'],
+    scene: 'work',
+    level: 2,
+    examples: [
+      o('Please send me the agenda before the meeting.', '请在会议之前把议程发给我。'),
+      o('Please forward them the draft as soon as possible.', '请尽快把草稿转发给他们。'),
+      o('Please bring her the invoice this afternoon.', '请今天下午把发票带给她。'),
+    ],
+    tipZh: 'Please + 动词原形是最安全的请求句式。人称代词一律用宾格：me、him、her、us、them。',
+    source: 'seed',
+  },
+
+  // ---------- 5. third-person -s ----------
+  {
+    id: 'f009',
+    title: '描述别人的日常习惯',
+    pattern: '{subject} {verb} {object} to {recipient} {time}.',
+    patternZh: '{subject}{time}把{object}{verb}{recipient}。',
+    slots: [
+      {
+        key: 'subject',
+        labelZh: '主语',
+        options: [o('He', '他'), o('She', '她'), o('My brother', '我哥哥'), o('Our neighbor', '我们的邻居')],
+      },
+      {
+        key: 'verb',
+        labelZh: '动词(第三人称)',
+        options: [
+          o('gives', '给'),
+          o('sends', '寄给'),
+          o('brings', '带给'),
+          o('passes', '递给'),
+          o('hands', '交给'),
+        ],
+      },
+      {
+        key: 'object',
+        labelZh: '东西',
+        options: [o('it', '它'), o('the book', '那本书'), o('the keys', '钥匙'), o('the letter', '那封信')],
+      },
+      {
+        key: 'recipient',
+        labelZh: '接收者',
+        options: [o('John', '约翰'), o('Mary', '玛丽'), o('the teacher', '老师'), o('my mother', '我妈妈')],
+      },
+      {
+        key: 'time',
+        labelZh: '时间',
+        options: [
+          o('every morning', '每天早上'),
+          o('every Friday', '每周五'),
+          o('after lunch', '午饭后'),
+          o('at noon', '中午'),
+        ],
+      },
+    ],
+    grammar: ['third-person-s', 'pronoun-order'],
+    scene: 'daily',
+    level: 1,
+    examples: [
+      o('He gives it to John every morning.', '他每天早上把它给约翰。'),
+      o('My brother brings the letter to my mother after lunch.', '我哥哥午饭后把那封信带给我妈妈。'),
+      o('She hands the keys to the teacher at noon.', '她中午把钥匙交给老师。'),
+    ],
+    tipZh: '主语是 he / she / 一个人名时，动词一定要加 -s。这个表里所有的主语都是第三人称单数，所以动词都带 -s。',
+    source: 'seed',
+  },
+  {
+    id: 'f010',
+    title: '描述同事的工作习惯',
+    pattern: '{subject} {verb} {object} {time}.',
+    patternZh: '{subject}{time}{verb}{object}。',
+    slots: [
+      {
+        key: 'subject',
+        labelZh: '主语',
+        options: [
+          o('Our manager', '我们经理'),
+          o('The client', '客户'),
+          o('My colleague', '我的同事'),
+          o('Sarah', '萨拉'),
+          o('The finance team', '财务团队'),
+        ],
+      },
+      {
+        key: 'verb',
+        labelZh: '动词(第三人称)',
+        options: [
+          o('reviews', '审阅'),
+          o('approves', '批准'),
+          o('updates', '更新'),
+          o('checks', '核对'),
+        ],
+      },
+      {
+        key: 'object',
+        labelZh: '对象',
+        options: [o('the budget', '预算'), o('the schedule', '日程'), o('the contract', '合同'), o('the report', '报告')],
+      },
+      {
+        key: 'time',
+        labelZh: '时间',
+        options: [
+          o('every Monday', '每周一'),
+          o('before each meeting', '每次会议之前'),
+          o('at the end of the month', '每月底'),
+          o('twice a week', '每周两次'),
+          o('every quarter', '每个季度'),
+        ],
+      },
+    ],
+    grammar: ['third-person-s'],
+    scene: 'work',
+    level: 2,
+    examples: [
+      o('Our manager reviews the report every Monday.', '我们经理每周一审阅报告。'),
+      o('Sarah updates the schedule before each meeting.', '萨拉每次会议之前更新日程。'),
+      o('The finance team approves the budget every quarter.', '财务团队每个季度批准预算。'),
+    ],
+    tipZh: '谈论“习惯和常规”用一般现在时，主语是单数的人或团队时动词加 -s。团队名词（team）在这里当作单数。',
+    source: 'seed',
+  },
+
+  // ---------- 6. pronoun order ----------
+  {
+    id: 'f011',
+    title: '用代词说“把它给他”',
+    pattern: '{subject} {verb} {object} to {pronoun} {time}.',
+    patternZh: '{subject}{time}把{object}{verb}{pronoun}。',
+    slots: [
+      {
+        key: 'subject',
+        labelZh: '主语',
+        options: [o('He', '他'), o('She', '她'), o('My mom', '我妈妈'), o('Tom', '汤姆')],
+      },
+      {
+        key: 'verb',
+        labelZh: '动词(第三人称)',
+        options: [
+          o('gives', '给'),
+          o('sends', '寄给'),
+          o('brings', '带给'),
+          o('passes', '递给'),
+          o('hands', '交给'),
+        ],
+      },
+      {
+        key: 'object',
+        labelZh: '东西',
+        options: [o('it', '它'), o('all of them', '它们全部'), o('both of them', '它们两个')],
+      },
+      {
+        key: 'pronoun',
+        labelZh: '宾格代词',
+        options: [o('him', '他'), o('her', '她'), o('me', '我'), o('us', '我们')],
+      },
+      {
+        key: 'time',
+        labelZh: '频率',
+        options: [o('every day', '每天'), o('every week', '每周'), o('every Monday', '每周一')],
+      },
+    ],
+    grammar: ['pronoun-order', 'object-pronoun', 'third-person-s'],
+    scene: 'daily',
+    level: 1,
+    examples: [
+      o('She gives it to him every day.', '她每天把它给他。'),
+      o('My mom brings both of them to us every Monday.', '我妈妈每周一把它们两个带给我们。'),
+      o('Tom sends it to her every week.', '汤姆每周把它寄给她。'),
+    ],
+    tipZh: '东西和接收者都是代词时，永远是“it/them + to + 宾格代词”，不要说 gives him it。',
+    source: 'seed',
+  },
+  {
+    id: 'f012',
+    title: '说明谁把东西交给谁',
+    pattern: '{subject} {verb} {object} to {pronoun} {time}.',
+    patternZh: '{subject}{time}把{object}{verb}{pronoun}。',
+    slots: [
+      {
+        key: 'subject',
+        labelZh: '主语',
+        options: [
+          o('Our manager', '我们经理'),
+          o('The client', '客户'),
+          o('My assistant', '我的助理'),
+          o('Sarah', '萨拉'),
+        ],
+      },
+      {
+        key: 'verb',
+        labelZh: '动词(第三人称)',
+        options: [
+          o('forwards', '转发给'),
+          o('submits', '提交给'),
+          o('presents', '展示给'),
+          o('delivers', '交付给'),
+        ],
+      },
+      {
+        key: 'object',
+        labelZh: '东西',
+        options: [o('it', '它'), o('all of them', '它们全部'), o('both of them', '它们两个')],
+      },
+      {
+        key: 'pronoun',
+        labelZh: '宾格代词',
+        options: [o('him', '他'), o('her', '她'), o('us', '我们'), o('me', '我')],
+      },
+      {
+        key: 'time',
+        labelZh: '时间',
+        options: [
+          o('before noon', '在中午之前'),
+          o('after the meeting', '在会后'),
+          o('by the deadline', '在截止日期前'),
+          o('every week', '每周'),
+          o('on time', '准时'),
+        ],
+      },
+    ],
+    grammar: ['pronoun-order', 'object-pronoun', 'third-person-s'],
+    scene: 'work',
+    level: 2,
+    examples: [
+      o('Sarah forwards it to me before noon.', '萨拉在中午之前把它转发给我。'),
+      o('The client submits all of them to us by the deadline.', '客户在截止日期前把它们全部提交给我们。'),
+      o('My assistant delivers it to him on time.', '我的助理准时把它交付给他。'),
+    ],
+    tipZh: '动词 + 代词宾语 + to + 宾格代词，是职场里转交文件最常用的句型。主语是单数时别忘了 -s。',
+    source: 'seed',
+  },
+
+  // ---------- 7. question inversion ----------
+  {
+    id: 'f013',
+    title: '询问东西的状态',
+    pattern: '{subject} {adverb} {adjective}?',
+    patternZh: '{subject}{adverb}{adjective}吗？',
+    slots: [
+      {
+        key: 'subject',
+        labelZh: 'Be+主语',
+        options: [
+          o('Is the coffee', '咖啡'),
+          o('Is the soup', '汤'),
+          o('Are the eggs', '鸡蛋'),
+          o('Are the noodles', '面条'),
+          o('Is your tea', '你的茶'),
+        ],
+      },
+      {
+        key: 'adverb',
+        labelZh: '副词',
+        options: [o('still', '还'), o('really', '真的'), o('always', '总是')],
+      },
+      {
+        key: 'adjective',
+        labelZh: '形容词',
+        options: [o('hot', '热'), o('cold', '凉'), o('fresh', '新鲜')],
+      },
+    ],
+    grammar: ['question-inversion', 'be-adj', 'plural'],
+    scene: 'daily',
+    level: 1,
+    examples: [
+      o('Is the soup still hot?', '汤还热吗？'),
+      o('Are the eggs really fresh?', '鸡蛋真的新鲜吗？'),
+      o('Is your tea always cold?', '你的茶总是凉吗？'),
+    ],
+    tipZh: '一般疑问句把 is / are 提到句首：Is the soup hot? 副词 still / really / always 放在主语之后、形容词之前。',
+    source: 'seed',
+  },
+  {
+    id: 'f014',
+    title: '礼貌地询问能否做某事',
+    pattern: '{aux} {verb} {time}?',
+    patternZh: '{aux}{time}{verb}吗？',
+    slots: [
+      {
+        key: 'aux',
+        labelZh: '情态+主语',
+        options: [
+          o('Can I', '我能'),
+          o('Can we', '我们能'),
+          o('Could you', '你能'),
+          o('Will they', '他们会'),
+          o('Will she', '她会'),
+        ],
+      },
+      {
+        key: 'verb',
+        labelZh: '动作',
+        options: [
+          o('check the schedule', '核对日程'),
+          o('review the draft', '审阅草稿'),
+          o('confirm the booking', '确认预订'),
+          o('send the invoice', '发送发票'),
+          o('update the contract', '更新合同'),
+        ],
+      },
+      {
+        key: 'time',
+        labelZh: '时间',
+        options: [
+          o('before the meeting', '在会议之前'),
+          o('by tomorrow', '在明天之前'),
+          o('this afternoon', '今天下午'),
+          o('by the end of the week', '在本周末之前'),
+        ],
+      },
+    ],
+    grammar: ['question-inversion', 'modal-must'],
+    scene: 'work',
+    level: 2,
+    examples: [
+      o('Could you review the draft before the meeting?', '你能在会议之前审阅草稿吗？'),
+      o('Can we send the invoice by tomorrow?', '我们能在明天之前发送发票吗？'),
+      o('Will she update the contract this afternoon?', '她会今天下午更新合同吗？'),
+    ],
+    tipZh: '情态动词提到主语前面就是问句，后面的动词永远用原形。Could you 比 Can you 更礼貌。',
+    source: 'seed',
+  },
+
+  // ---------- 8. plural ----------
+  {
+    id: 'f015',
+    title: '描述多个东西',
+    pattern: '{subject} are {degree} {adjective}.',
+    patternZh: '{subject}{degree}{adjective}。',
+    slots: [
+      {
+        key: 'subject',
+        labelZh: '复数主语',
+        options: [
+          o('The shoes', '鞋子'),
+          o('The windows', '窗户'),
+          o('The towels', '毛巾'),
+          o('The plates', '盘子'),
+          o('The chairs', '椅子'),
+        ],
+      },
+      {
+        key: 'degree',
+        labelZh: '程度',
+        options: [o('very', '非常'), o('really', '真的很'), o('quite', '相当'), o('pretty', '挺')],
+      },
+      {
+        key: 'adjective',
+        labelZh: '形容词',
+        options: [o('new', '新'), o('clean', '干净'), o('old', '旧'), o('dirty', '脏')],
+      },
+    ],
+    grammar: ['plural', 'be-adj'],
+    scene: 'daily',
+    level: 1,
+    examples: [
+      o('The shoes are very new.', '鞋子非常新。'),
+      o('The plates are pretty dirty.', '盘子挺脏。'),
+      o('The windows are really clean.', '窗户真的很干净。'),
+    ],
+    tipZh: '复数名词加 -s，be 动词用 are。形容词永远不变，只在 very / really 等程度词后面出现。',
+    source: 'seed',
+  },
+  {
+    id: 'f016',
+    title: '汇报多项数据',
+    pattern: '{subject} are {status} {time}.',
+    patternZh: '{subject}{time}{status}。',
+    slots: [
+      {
+        key: 'subject',
+        labelZh: '复数主语',
+        options: [
+          o('The sales figures', '销售数据'),
+          o('The survey results', '调查结果'),
+          o('The customer numbers', '客户数量'),
+          o('The profit margins', '利润率'),
+          o('The quarterly results', '季度业绩'),
+        ],
+      },
+      {
+        key: 'status',
+        labelZh: '状况',
+        options: [
+          o('better than expected', '好于预期'),
+          o('lower than last year', '低于去年'),
+          o('in line with the forecast', '与预测相符'),
+          o('very encouraging', '非常令人鼓舞'),
+          o('below our target', '低于我们的目标'),
+        ],
+      },
+      {
+        key: 'time',
+        labelZh: '时间',
+        options: [
+          o('this quarter', '本季度'),
+          o('so far', '到目前为止'),
+          o('this month', '本月'),
+          o('at the moment', '目前'),
+        ],
+      },
+    ],
+    grammar: ['plural', 'be-adj'],
+    scene: 'work',
+    level: 2,
+    examples: [
+      o('The sales figures are better than expected this quarter.', '销售数据本季度好于预期。'),
+      o('The profit margins are lower than last year so far.', '利润率到目前为止低于去年。'),
+      o('The survey results are very encouraging at the moment.', '调查结果目前非常令人鼓舞。'),
+    ],
+    tipZh: 'figures、results、numbers、margins 都是复数，配 are。数据类名词在汇报里几乎总是复数。',
+    source: 'seed',
+  },
+
+  // ---------- 9. must ----------
+  {
+    id: 'f017',
+    title: '表达必须做的事',
+    pattern: '{subject} {modal} {verb} {time}.',
+    patternZh: '{subject}{time}{modal}{verb}。',
+    slots: [
+      {
+        key: 'subject',
+        labelZh: '主语',
+        options: [o('I', '我'), o('We', '我们'), o('You', '你'), o('They', '他们')],
+      },
+      {
+        key: 'modal',
+        labelZh: '情态',
+        options: [o('must', '必须'), o('have to', '得'), o('need to', '需要'), o('should', '应该')],
+      },
+      {
+        key: 'verb',
+        labelZh: '动作',
+        options: [
+          o('call the doctor', '给医生打电话'),
+          o('buy some milk', '买点牛奶'),
+          o('clean the kitchen', '打扫厨房'),
+          o('pay the bill', '付账单'),
+          o('wash the car', '洗车'),
+        ],
+      },
+      {
+        key: 'time',
+        labelZh: '时间',
+        options: [
+          o('today', '今天'),
+          o('tonight', '今晚'),
+          o('before dinner', '晚饭前'),
+          o('this weekend', '这个周末'),
+          o('tomorrow morning', '明天早上'),
+        ],
+      },
+    ],
+    grammar: ['modal-must'],
+    scene: 'daily',
+    level: 1,
+    examples: [
+      o('I must pay the bill before dinner.', '我晚饭前必须付账单。'),
+      o('We have to buy some milk tonight.', '我们今晚得买点牛奶。'),
+      o('They should wash the car this weekend.', '他们这个周末应该洗车。'),
+    ],
+    tipZh: 'must、should 后面直接接动词原形；have to、need to 的 to 是固定搭配，后面同样是原形。',
+    source: 'seed',
+  },
+  {
+    id: 'f018',
+    title: '提醒必须完成的工作',
+    pattern: '{subject} {modal} {verb} {time}.',
+    patternZh: '{subject}{time}{modal}{verb}。',
+    slots: [
+      {
+        key: 'subject',
+        labelZh: '主语',
+        options: [o('I', '我'), o('We', '我们'), o('You', '你'), o('They', '他们')],
+      },
+      {
+        key: 'modal',
+        labelZh: '情态',
+        options: [o('must', '必须'), o('need to', '需要'), o('have to', '得'), o('should', '应该')],
+      },
+      {
+        key: 'verb',
+        labelZh: '工作',
+        options: [
+          o('submit the report', '提交报告'),
+          o('confirm the budget', '确认预算'),
+          o('brief the client', '向客户通报情况'),
+          o('update the schedule', '更新日程'),
+          o('sign the contract', '签署合同'),
+        ],
+      },
+      {
+        key: 'time',
+        labelZh: '期限',
+        options: [
+          o('by Friday', '在周五之前'),
+          o('before the meeting', '在会议之前'),
+          o('by the end of the day', '在今天下班前'),
+          o('ahead of the deadline', '在截止日期之前'),
+        ],
+      },
+    ],
+    grammar: ['modal-must'],
+    scene: 'work',
+    level: 2,
+    examples: [
+      o('I must submit the report by Friday.', '我在周五之前必须提交报告。'),
+      o('We need to confirm the budget before the meeting.', '我们在会议之前需要确认预算。'),
+      o('You should sign the contract ahead of the deadline.', '你在截止日期之前应该签署合同。'),
+    ],
+    tipZh: 'must 最强硬，have to 强调外部要求，should 是建议。工作场合对同事多用 need to / should 更委婉。',
+    source: 'seed',
+  },
+
+  // ---------- 10. want to ----------
+  {
+    id: 'f019',
+    title: '表达想做什么',
+    pattern: '{start} to {verb} {time}.',
+    patternZh: '{start}{time}{verb}。',
+    slots: [
+      {
+        key: 'start',
+        labelZh: '主语+想要',
+        options: [
+          o('I want', '我想'),
+          o('We want', '我们想'),
+          o('He wants', '他想'),
+          o('They want', '他们想'),
+          o("I'd like", '我很想'),
+        ],
+      },
+      {
+        key: 'verb',
+        labelZh: '动作',
+        options: [
+          o('visit my grandma', '去看望我奶奶'),
+          o('cook dinner', '做晚饭'),
+          o('learn a new song', '学一首新歌'),
+          o('watch a movie', '看场电影'),
+          o('take a walk', '散散步'),
+        ],
+      },
+      {
+        key: 'time',
+        labelZh: '时间',
+        options: [o('tonight', '今晚'), o('tomorrow', '明天'), o('this weekend', '这个周末'), o('after work', '下班后')],
+      },
+    ],
+    grammar: ['want-to'],
+    scene: 'daily',
+    level: 1,
+    examples: [
+      o('I want to cook dinner tonight.', '我想今晚做晚饭。'),
+      o('He wants to take a walk after work.', '他想下班后散散步。'),
+      o("I'd like to visit my grandma tomorrow.", '我很想明天去看望我奶奶。'),
+    ],
+    tipZh: 'want 后面一定要加 to 再接动词原形。主语是 he / she 时用 wants，I\'d like 比 I want 更礼貌。',
+    source: 'seed',
+  },
+  {
+    id: 'f020',
+    title: '提出想谈的事',
+    pattern: '{start} to {verb} {time}.',
+    patternZh: '{start}{time}{verb}。',
+    slots: [
+      {
+        key: 'start',
+        labelZh: '主语+想要',
+        options: [
+          o("I'd like", '我想'),
+          o("We'd like", '我们希望'),
+          o('We want', '我们想'),
+          o('My manager wants', '我的经理想'),
+          o('The client wants', '客户想'),
+        ],
+      },
+      {
+        key: 'verb',
+        labelZh: '动作',
+        options: [
+          o('schedule a meeting with you', '和你安排一次会议'),
+          o('discuss the new proposal', '讨论新的提案'),
+          o('get your feedback on the draft', '听取你对草稿的反馈'),
+          o('follow up on the contract', '跟进合同'),
+          o('go over the budget', '过一遍预算'),
+        ],
+      },
+      {
+        key: 'time',
+        labelZh: '时间',
+        options: [o('this week', '本周'), o('before Friday', '周五之前'), o('next month', '下个月'), o('as soon as possible', '尽快')],
+      },
+    ],
+    grammar: ['want-to'],
+    scene: 'work',
+    level: 2,
+    examples: [
+      o("I'd like to schedule a meeting with you this week.", '我想本周和你安排一次会议。'),
+      o('The client wants to discuss the new proposal next month.', '客户想下个月讨论新的提案。'),
+      o('We want to go over the budget as soon as possible.', '我们想尽快过一遍预算。'),
+    ],
+    tipZh: "职场中 I'd like to ... 比 I want to ... 礼貌得多；第三人称用 wants to。",
+    source: 'seed',
+  },
+
+  // ---------- 11. going to ----------
+  {
+    id: 'f021',
+    title: '说明接下来的打算',
+    pattern: '{subject} {verb} {time}.',
+    patternZh: '{subject}{time}{verb}。',
+    slots: [
+      {
+        key: 'subject',
+        labelZh: '主语+be going to',
+        options: [
+          o("I'm going to", '我打算'),
+          o("We're going to", '我们打算'),
+          o("She's going to", '她打算'),
+          o("They're going to", '他们打算'),
+          o("He's going to", '他打算'),
+        ],
+      },
+      {
+        key: 'verb',
+        labelZh: '动作',
+        options: [
+          o('cook dinner', '做晚饭'),
+          o('clean the house', '打扫房子'),
+          o('call my mom', '给我妈妈打电话'),
+          o('go shopping', '去购物'),
+          o('watch a movie', '看场电影'),
+        ],
+      },
+      {
+        key: 'time',
+        labelZh: '时间',
+        options: [
+          o('tomorrow', '明天'),
+          o('tonight', '今晚'),
+          o('this weekend', '这个周末'),
+          o('next week', '下周'),
+          o('on Saturday', '周六'),
+        ],
+      },
+    ],
+    grammar: ['going-to'],
+    scene: 'daily',
+    level: 1,
+    examples: [
+      o("I'm going to cook dinner tonight.", '我打算今晚做晚饭。'),
+      o("They're going to watch a movie on Saturday.", '他们打算周六看场电影。'),
+      o("She's going to go shopping next week.", '她打算下周去购物。'),
+    ],
+    tipZh: "be 动词随主语变化：I'm / he's / they're，后面的 going to 之后用动词原形。",
+    source: 'seed',
+  },
+  {
+    id: 'f022',
+    title: '宣布工作计划',
+    pattern: '{subject} {verb} {time}.',
+    patternZh: '{subject}{time}{verb}。',
+    slots: [
+      {
+        key: 'subject',
+        labelZh: '主语+be going to',
+        options: [
+          o("I'm going to", '我打算'),
+          o("We're going to", '我们打算'),
+          o("She's going to", '她打算'),
+          o("They're going to", '他们打算'),
+          o('The team is going to', '团队打算'),
+        ],
+      },
+      {
+        key: 'verb',
+        labelZh: '计划',
+        options: [
+          o('launch the new product', '推出新产品'),
+          o('present the results', '汇报结果'),
+          o('finalize the budget', '敲定预算'),
+          o('hire two more developers', '再招两名开发人员'),
+          o('review the contract', '审核合同'),
+        ],
+      },
+      {
+        key: 'time',
+        labelZh: '时间',
+        options: [
+          o('next month', '下个月'),
+          o('on Monday', '周一'),
+          o('before the end of the quarter', '在本季度末之前'),
+          o('early next week', '下周初'),
+          o('by the end of the year', '在年底之前'),
+        ],
+      },
+    ],
+    grammar: ['going-to'],
+    scene: 'work',
+    level: 2,
+    examples: [
+      o("We're going to launch the new product next month.", '我们打算下个月推出新产品。'),
+      o("She's going to hire two more developers early next week.", '她打算下周初再招两名开发人员。'),
+      o('The team is going to present the results by the end of the year.', '团队打算在年底之前汇报结果。'),
+    ],
+    tipZh: 'be going to 表示已有安排或计划。团队名词（The team）搭配 is，不是 are。',
+    source: 'seed',
+  },
+
+  // ---------- 12. negation + modal ----------
+  {
+    id: 'f023',
+    title: '表达不能做某事',
+    pattern: '{subject} {modal} {verb} {time}.',
+    patternZh: '{subject}{time}{modal}{verb}。',
+    slots: [
+      {
+        key: 'subject',
+        labelZh: '主语',
+        options: [
+          o('I', '我'),
+          o('We', '我们'),
+          o('You', '你'),
+          o('They', '他们'),
+          o('She', '她'),
+        ],
+      },
+      {
+        key: 'modal',
+        labelZh: '否定情态',
+        options: [o("can't", '不能'), o("won't", '不会'), o("shouldn't", '不应该')],
+      },
+      {
+        key: 'verb',
+        labelZh: '动作',
+        options: [
+          o('eat the cake', '吃蛋糕'),
+          o('drink the coffee', '喝咖啡'),
+          o('open the window', '开窗户'),
+          o('use the phone', '用手机'),
+          o('drive the car', '开车'),
+        ],
+      },
+      {
+        key: 'time',
+        labelZh: '时间',
+        options: [o('today', '今天'), o('tonight', '今晚'), o('this week', '本周'), o('this weekend', '这个周末')],
+      },
+    ],
+    grammar: ['negation-modal'],
+    scene: 'daily',
+    level: 1,
+    examples: [
+      o("I can't eat the cake today.", '我今天不能吃蛋糕。'),
+      o("They shouldn't drink the coffee tonight.", '他们今晚不应该喝咖啡。'),
+      o("She won't drive the car this weekend.", '她这个周末不会开车。'),
+    ],
+    tipZh: "情态动词的否定直接加 not（can't / won't / shouldn't），后面接动词原形，不要用 do。",
+    source: 'seed',
+  },
+  {
+    id: 'f024',
+    title: '委婉地拒绝或说明做不到',
+    pattern: '{subject} {modal} {verb} {time}.',
+    patternZh: '{subject}{time}{modal}{verb}。',
+    slots: [
+      {
+        key: 'subject',
+        labelZh: '主语',
+        options: [o('I', '我'), o('We', '我们'), o('You', '你'), o('They', '他们')],
+      },
+      {
+        key: 'modal',
+        labelZh: '否定情态',
+        options: [
+          o("can't", '不能'),
+          o("won't be able to", '无法'),
+          o("shouldn't", '不应该'),
+          o("don't need to", '不需要'),
+        ],
+      },
+      {
+        key: 'verb',
+        labelZh: '动作',
+        options: [
+          o('approve the budget', '批准预算'),
+          o('accept the offer', '接受报价'),
+          o('share the files', '分享文件'),
+          o('sign the contract', '签署合同'),
+          o('confirm the order', '确认订单'),
+        ],
+      },
+      {
+        key: 'time',
+        labelZh: '时间/情况',
+        options: [
+          o('this week', '本周'),
+          o('until Friday', '周五之前'),
+          o('on such short notice', '在这么仓促的情况下'),
+          o('at this stage', '现阶段'),
+        ],
+      },
+    ],
+    grammar: ['negation-modal'],
+    scene: 'work',
+    level: 2,
+    examples: [
+      o("We can't accept the offer until Friday.", '我们周五之前不能接受报价。'),
+      o("I won't be able to approve the budget on such short notice.", '我在这么仓促的情况下无法批准预算。'),
+      o("You don't need to share the files at this stage.", '你现阶段不需要分享文件。'),
+    ],
+    tipZh: "拒绝时用 I won't be able to ... 比 I can't ... 更委婉；don't need to 表示“不必”，和 mustn't 不同。",
+    source: 'seed',
+  },
+
+  // ---------- 13. present perfect ----------
+  {
+    id: 'f025',
+    title: '说明已经做完的事',
+    pattern: '{subject} {adverb} {done}.',
+    patternZh: '{subject}{adverb}{done}。',
+    slots: [
+      {
+        key: 'subject',
+        labelZh: '主语+have',
+        options: [
+          o('I have', '我'),
+          o('We have', '我们'),
+          o('She has', '她'),
+          o('They have', '他们'),
+          o('He has', '他'),
+        ],
+      },
+      {
+        key: 'adverb',
+        labelZh: '副词',
+        options: [o('already', '已经'), o('just', '刚刚'), o('finally', '终于')],
+      },
+      {
+        key: 'done',
+        labelZh: '已完成的事',
+        options: [
+          o('eaten lunch', '吃了午饭'),
+          o('finished the homework', '做完了作业'),
+          o('cleaned the kitchen', '打扫了厨房'),
+          o('done the laundry', '洗好了衣服'),
+          o('paid the bill', '付了账单'),
+        ],
+      },
+    ],
+    grammar: ['present-perfect'],
+    scene: 'daily',
+    level: 1,
+    examples: [
+      o('I have already eaten lunch.', '我已经吃了午饭。'),
+      o('She has finally finished the homework.', '她终于做完了作业。'),
+      o('They have just paid the bill.', '他们刚刚付了账单。'),
+    ],
+    tipZh: 'have / has + 过去分词。already、just、finally 放在 have 与过去分词之间；主语是 he / she 时用 has。',
+    source: 'seed',
+  },
+  {
+    id: 'f026',
+    title: '汇报已经完成的工作',
+    pattern: '{subject} {adverb} {done} {purpose}.',
+    patternZh: '{subject}{adverb}为{purpose}{done}。',
+    slots: [
+      {
+        key: 'subject',
+        labelZh: '主语+have',
+        options: [
+          o('I have', '我'),
+          o('We have', '我们'),
+          o('She has', '她'),
+          o('They have', '他们'),
+          o('The team has', '团队'),
+        ],
+      },
+      {
+        key: 'adverb',
+        labelZh: '副词',
+        options: [o('already', '已经'), o('just', '刚刚'), o('recently', '最近'), o('finally', '终于')],
+      },
+      {
+        key: 'done',
+        labelZh: '已完成的事',
+        options: [
+          o('sent the invoice', '发出了发票'),
+          o('approved the budget', '批准了预算'),
+          o('signed the contract', '签署了合同'),
+          o('updated the schedule', '更新了日程'),
+          o('booked the venue', '订好了场地'),
+        ],
+      },
+      {
+        key: 'purpose',
+        labelZh: '为了谁/什么',
+        options: [
+          o('for the client', '客户'),
+          o('for the sales team', '销售团队'),
+          o('for the new project', '新项目'),
+          o('for next quarter', '下个季度'),
+          o('for the launch', '产品发布'),
+        ],
+      },
+    ],
+    grammar: ['present-perfect'],
+    scene: 'work',
+    level: 2,
+    examples: [
+      o('We have already sent the invoice for the client.', '我们已经为客户发出了发票。'),
+      o('The team has recently approved the budget for next quarter.', '团队最近为下个季度批准了预算。'),
+      o('She has finally booked the venue for the launch.', '她终于为产品发布订好了场地。'),
+    ],
+    tipZh: '现在完成时强调“已完成，与现在有关”，不要和 yesterday、last week 这类明确的过去时间连用。',
+    source: 'seed',
+  },
+];

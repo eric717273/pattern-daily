@@ -1,0 +1,301 @@
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+import type { DozenSentence } from '../../types';
+
+vi.mock('../../content', () => ({
+  DOZEN: Array.from({ length: 13 }, (_, i) => ({
+    id: `d${String(i + 1).padStart(2, '0')}`,
+    order: i + 1,
+    en: `Sentence ${i + 1}.`,
+    zh: `句子${i + 1}。`,
+    grammar: ['be-adj'],
+    focusZh: '焦点',
+    alignment: [],
+    trapsZh: [],
+    variants: [],
+    frameIds: [],
+  })),
+}));
+
+const supabaseMock = vi.hoisted(() => ({
+  client: null as unknown,
+  configured: false,
+}));
+vi.mock('../sync/client', () => ({
+  getSupabase: () => supabaseMock.client,
+  supabaseConfigured: () => supabaseMock.configured,
+}));
+
+import { saveSettings } from '../settings';
+import {
+  AiError,
+  aiConfigured,
+  deconstruct,
+  generateFrame,
+  generateOutputPrompts,
+  gradeOutput,
+  testConnection,
+} from './index';
+
+const fetchMock = vi.fn();
+
+function completion(content: unknown): Response {
+  const text = typeof content === 'string' ? content : JSON.stringify(content);
+  return new Response(JSON.stringify({ choices: [{ message: { content: text } }] }), {
+    status: 200,
+    headers: { 'Content-Type': 'application/json' },
+  });
+}
+function status(code: number): Response {
+  return new Response('{}', { status: code });
+}
+
+const feedback = { score: 88, correct: true, corrected: 'I must go.', explanationZh: '很好。', alternatives: ['I have to go.'] };
+
+const frameJson = {
+  title: '表达打算',
+  pattern: '{subject} {aux} {verb} the {object}.',
+  patternZh: '{subject}{aux}{verb}{object}。',
+  slots: [
+    { key: 'subject', labelZh: '主语', options: [{ en: 'I', zh: '我' }, { en: 'We', zh: '我们' }, { en: 'They', zh: '他们' }] },
+    { key: 'aux', labelZh: '助动词', options: [{ en: 'must', zh: '必须' }, { en: 'can', zh: '能' }, { en: 'will', zh: '会' }] },
+    { key: 'verb', labelZh: '动词', options: [{ en: 'send', zh: '发送' }, { en: 'review', zh: '审阅' }, { en: 'finish', zh: '完成' }] },
+    { key: 'object', labelZh: '宾语', options: [{ en: 'report', zh: '报告' }, { en: 'email', zh: '邮件' }, { en: 'plan', zh: '计划' }] },
+  ],
+  grammar: ['modal-must'],
+  scene: 'daily',
+  level: 1,
+  examples: [{ en: 'I must send the report.', zh: '我必须发送报告。' }, { en: 'We can review the plan.', zh: '我们能审阅计划。' }],
+};
+
+const deconJson = {
+  zh: '我必须把它给他。',
+  skeleton: '[主语] must [动作] [宾语] to [宾语]',
+  alignment: [
+    { en: 'I', zh: '我', role: 'subject' },
+    { en: 'must', zh: '必须', role: 'aux', note: '后接原形' },
+  ],
+  grammar: ['modal-must'],
+  nearestDozenId: 'd09',
+  explanationZh: '说明',
+};
+
+beforeEach(() => {
+  localStorage.clear();
+  fetchMock.mockReset();
+  vi.stubGlobal('fetch', fetchMock);
+  supabaseMock.client = null;
+  supabaseMock.configured = false;
+  saveSettings({ deepseekApiKey: 'sk-test' });
+});
+afterEach(() => {
+  vi.unstubAllGlobals();
+  vi.restoreAllMocks();
+});
+
+async function code(p: Promise<unknown>): Promise<string> {
+  try {
+    await p;
+  } catch (e) {
+    if (e instanceof AiError) return e.code;
+    throw e;
+  }
+  return 'ok';
+}
+
+describe('transport (direct)', () => {
+  it('sends a DeepSeek JSON-mode request and parses the result', async () => {
+    fetchMock.mockResolvedValueOnce(completion(feedback));
+    const r = await gradeOutput({ promptZh: '我必须走了', grammar: ['modal-must'], userEn: 'I must go' });
+    expect(r).toEqual(feedback);
+    const [url, init] = fetchMock.mock.calls[0] as [string, RequestInit];
+    expect(url).toBe('https://api.deepseek.com/chat/completions');
+    expect((init.headers as Record<string, string>).Authorization).toBe('Bearer sk-test');
+    const body = JSON.parse(init.body as string);
+    expect(body.model).toBe('deepseek-chat');
+    expect(body.stream).toBe(false);
+    expect(body.response_format).toEqual({ type: 'json_object' });
+    expect(JSON.stringify(body.messages).toLowerCase()).toContain('json');
+  });
+
+  it('no key -> no-key without calling fetch', async () => {
+    saveSettings({ deepseekApiKey: '' });
+    expect(await code(gradeOutput({ grammar: [], userEn: 'x' }))).toBe('no-key');
+    expect(fetchMock).not.toHaveBeenCalled();
+  });
+
+  it('maps fetch TypeError to cors when online, network when offline', async () => {
+    fetchMock.mockRejectedValue(new TypeError('Failed to fetch'));
+    vi.spyOn(navigator, 'onLine', 'get').mockReturnValue(true);
+    expect(await code(testConnection())).toBe('cors');
+    vi.spyOn(navigator, 'onLine', 'get').mockReturnValue(false);
+    expect(await code(testConnection())).toBe('network');
+  });
+
+  it.each([
+    [401, 'auth'],
+    [403, 'auth'],
+    [402, 'auth'],
+    [429, 'rate'],
+    [503, 'network'],
+  ])('HTTP %i -> %s', async (st, expected) => {
+    fetchMock.mockResolvedValue(status(st));
+    expect(await code(testConnection())).toBe(expected);
+    expect(fetchMock).toHaveBeenCalledTimes(1); // not retried
+  });
+
+  it('402 gives the balance message', async () => {
+    fetchMock.mockResolvedValue(status(402));
+    await expect(testConnection()).rejects.toThrow('DeepSeek 余额不足');
+  });
+
+  it('retries once on invalid JSON, then succeeds', async () => {
+    fetchMock.mockResolvedValueOnce(completion('this is not json')).mockResolvedValueOnce(completion(feedback));
+    const r = await gradeOutput({ grammar: [], userEn: 'I must go' });
+    expect(r.score).toBe(88);
+    expect(fetchMock).toHaveBeenCalledTimes(2);
+  });
+
+  it('retries once on failed validation, then bad-response', async () => {
+    fetchMock.mockResolvedValue(completion({ score: 'high' }));
+    expect(await code(gradeOutput({ grammar: [], userEn: 'x' }))).toBe('bad-response');
+    expect(fetchMock).toHaveBeenCalledTimes(2);
+  });
+
+  it('missing choices -> bad-response', async () => {
+    fetchMock.mockResolvedValue(new Response('{"foo":1}', { status: 200 }));
+    expect(await code(testConnection())).toBe('bad-response');
+  });
+
+  it('accepts a fenced json block', async () => {
+    fetchMock.mockResolvedValueOnce(completion('```json\n' + JSON.stringify(feedback) + '\n```'));
+    expect((await gradeOutput({ grammar: [], userEn: 'x' })).corrected).toBe('I must go.');
+  });
+});
+
+describe('proxy mode', () => {
+  beforeEach(() => {
+    saveSettings({ aiMode: 'proxy', deepseekApiKey: '' });
+  });
+
+  it('proxy-unavailable when supabase is not configured', async () => {
+    expect(await code(testConnection())).toBe('proxy-unavailable');
+  });
+
+  it('proxy-unavailable when signed out', async () => {
+    supabaseMock.configured = true;
+    supabaseMock.client = {
+      auth: { getSession: async () => ({ data: { session: null } }) },
+      functions: { invoke: vi.fn() },
+    };
+    expect(await code(testConnection())).toBe('proxy-unavailable');
+  });
+
+  it('invokes ai-proxy with the request body and no key', async () => {
+    supabaseMock.configured = true;
+    const invoke = vi.fn().mockResolvedValue({ data: { choices: [{ message: { content: JSON.stringify(feedback) } }] }, error: null });
+    supabaseMock.client = { auth: { getSession: async () => ({ data: { session: { user: {} } } }) }, functions: { invoke } };
+    const r = await gradeOutput({ grammar: [], userEn: 'I must go' });
+    expect(r.score).toBe(88);
+    expect(invoke).toHaveBeenCalledWith('ai-proxy', expect.anything());
+    const body = (invoke.mock.calls[0][1] as { body: Record<string, unknown> }).body;
+    expect(body.response_format).toEqual({ type: 'json_object' });
+    expect(JSON.stringify(body)).not.toContain('Bearer');
+    expect(fetchMock).not.toHaveBeenCalled();
+  });
+
+  it('maps proxy HTTP errors', async () => {
+    supabaseMock.configured = true;
+    const err = Object.assign(new Error('x'), { name: 'FunctionsHttpError', context: new Response('{}', { status: 429 }) });
+    supabaseMock.client = {
+      auth: { getSession: async () => ({ data: { session: {} } }) },
+      functions: { invoke: async () => ({ data: null, error: err }) },
+    };
+    expect(await code(testConnection())).toBe('rate');
+  });
+});
+
+describe('aiConfigured', () => {
+  it('depends on the mode', () => {
+    expect(aiConfigured()).toBe(true);
+    saveSettings({ deepseekApiKey: '' });
+    expect(aiConfigured()).toBe(false);
+    saveSettings({ aiMode: 'proxy' });
+    expect(aiConfigured()).toBe(false);
+    supabaseMock.configured = true;
+    expect(aiConfigured()).toBe(true);
+  });
+});
+
+describe('deconstruct', () => {
+  it('returns a typed result and uses the input sentence', async () => {
+    fetchMock.mockResolvedValueOnce(completion({ ...deconJson, frame: frameJson }));
+    const r = await deconstruct('  I must give it to him.  ');
+    expect(r.en).toBe('I must give it to him.');
+    expect(r.nearestDozenId).toBe('d09');
+    expect(r.alignment[1].note).toBe('后接原形');
+    expect(r.frame?.source).toBe('ai');
+    expect(r.frame?.id).toMatch(/^u-/);
+    const prompt = JSON.parse((fetchMock.mock.calls[0][1] as RequestInit).body as string).messages[1].content as string;
+    expect(prompt).toContain('d13: Sentence 13.');
+  });
+
+  it('drops an invalid optional frame but keeps the rest', async () => {
+    fetchMock.mockResolvedValueOnce(completion({ ...deconJson, frame: { ...frameJson, pattern: '{nope}' } }));
+    const r = await deconstruct('I must go.');
+    expect(r.frame).toBeUndefined();
+  });
+
+  it.each([
+    ['invalid role', { ...deconJson, alignment: [{ en: 'I', zh: '我', role: 'noun' }] }],
+    ['invalid grammar', { ...deconJson, grammar: ['past-tense'] }],
+    ['unknown dozen id', { ...deconJson, nearestDozenId: 'd99' }],
+    ['empty alignment', { ...deconJson, alignment: [] }],
+  ])('rejects %s', async (_n, payload) => {
+    fetchMock.mockResolvedValue(completion(payload));
+    expect(await code(deconstruct('I must go.'))).toBe('bad-response');
+  });
+});
+
+describe('generateFrame', () => {
+  it('stamps id/source and honours requested scene & level', async () => {
+    fetchMock.mockResolvedValueOnce(completion(frameJson));
+    const f = await generateFrame({ topic: '工作汇报', scene: 'work', level: 2 });
+    expect(f.id).toMatch(/^u-[0-9a-f-]{36}$/);
+    expect(f.source).toBe('ai');
+    expect(f.scene).toBe('work');
+    expect(f.level).toBe(2);
+  });
+
+  it.each([
+    ['placeholder without slot', { ...frameJson, pattern: '{subject} {aux} {verb} the {thing}.' }],
+    ['slot missing from pattern', { ...frameJson, patternZh: '{subject}{aux}{verb}。' }],
+    ['2 options', { ...frameJson, slots: [{ ...frameJson.slots[0], options: frameJson.slots[0].options.slice(0, 2) }, ...frameJson.slots.slice(1)] }],
+    ['7 options', { ...frameJson, slots: [{ ...frameJson.slots[0], options: Array.from({ length: 7 }, (_, i) => ({ en: `w${i}`, zh: `词${i}` })) }, ...frameJson.slots.slice(1)] }],
+    ['1 example', { ...frameJson, examples: frameJson.examples.slice(0, 1) }],
+    ['bad scene', { ...frameJson, scene: 'sports' }],
+    ['bad level', { ...frameJson, level: 4 }],
+    ['bad grammar', { ...frameJson, grammar: ['passive'] }],
+    ['duplicate keys', { ...frameJson, slots: [frameJson.slots[0], frameJson.slots[0], ...frameJson.slots.slice(2)] }],
+  ])('rejects %s', async (_n, payload) => {
+    fetchMock.mockResolvedValue(completion(payload));
+    expect(await code(generateFrame({ topic: 't', scene: 'daily', level: 1 }))).toBe('bad-response');
+  });
+});
+
+describe('generateOutputPrompts', () => {
+  const dozen = { id: 'd09', order: 9, en: 'I must give it to him.', zh: '我必须把它给他。', focusZh: '情态', grammar: ['modal-must'], alignment: [], trapsZh: [], variants: [], frameIds: [] } as DozenSentence;
+
+  it('returns exactly count prompts', async () => {
+    fetchMock.mockResolvedValueOnce(
+      completion({ prompts: [1, 2, 3, 4].map((n) => ({ promptZh: `题${n}`, hintEn: `hint ${n}` })) }),
+    );
+    const r = await generateOutputPrompts({ dozen, frames: [], scenes: ['work'], count: 3 });
+    expect(r).toHaveLength(3);
+    expect(r[0]).toEqual({ promptZh: '题1', hintEn: 'hint 1' });
+  });
+
+  it('rejects too few prompts', async () => {
+    fetchMock.mockResolvedValue(completion({ prompts: [{ promptZh: 'a', hintEn: 'b' }] }));
+    expect(await code(generateOutputPrompts({ dozen, frames: [], scenes: [], count: 3 }))).toBe('bad-response');
+  });
+});
