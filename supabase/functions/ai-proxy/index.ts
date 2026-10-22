@@ -7,7 +7,9 @@ import { createClient } from 'npm:@supabase/supabase-js@2';
 
 const DEEPSEEK_URL = 'https://api.deepseek.com/chat/completions';
 const ALLOWED_MODELS = ['deepseek-chat', 'deepseek-reasoner'];
-const MAX_TOKENS_CAP = 2000;
+const MAX_TOKENS_CAP = 4096;
+// deepseek-reasoner: the reasoning chain counts toward max_tokens
+const REASONER_MAX_TOKENS_CAP = 8192;
 const MAX_BODY_BYTES = 64 * 1024;
 const MAX_MESSAGES = 20;
 
@@ -74,14 +76,17 @@ Deno.serve(async (req: Request): Promise<Response> => {
     }
   }
 
-  const requestedMax = typeof input.max_tokens === 'number' && input.max_tokens > 0 ? input.max_tokens : MAX_TOKENS_CAP;
+  const isReasoner = model === 'deepseek-reasoner';
+  const cap = isReasoner ? REASONER_MAX_TOKENS_CAP : MAX_TOKENS_CAP;
+  const requestedMax = typeof input.max_tokens === 'number' && input.max_tokens > 0 ? input.max_tokens : cap;
   const payload: Record<string, unknown> = {
     model,
     messages: messages.map((m) => ({ role: (m as Record<string, unknown>).role, content: (m as Record<string, unknown>).content })),
-    max_tokens: Math.min(Math.floor(requestedMax), MAX_TOKENS_CAP),
+    max_tokens: Math.min(Math.floor(requestedMax), cap),
     stream: false,
   };
-  if (typeof input.temperature === 'number') payload.temperature = Math.min(Math.max(input.temperature, 0), 1.5);
+  // the reasoner ignores temperature, so it is not forwarded
+  if (!isReasoner && typeof input.temperature === 'number') payload.temperature = Math.min(Math.max(input.temperature, 0), 1.5);
   if (isRecord(input.response_format) && input.response_format.type === 'json_object') {
     payload.response_format = { type: 'json_object' };
   }

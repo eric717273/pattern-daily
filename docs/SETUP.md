@@ -83,7 +83,7 @@ supabase functions deploy ai-proxy
 
 说明：
 
-- 函数会校验调用者的登录状态（必须是已登录用户），只放行 `deepseek-chat` 与 `deepseek-reasoner` 两个模型，并把单次输出限制在 2000 token 以内，防止被滥用。
+- 函数会校验调用者的登录状态（必须是已登录用户），只放行 `deepseek-chat` 与 `deepseek-reasoner` 两个模型，并把单次输出限制在 4096 token 以内（`deepseek-reasoner` 为 8192，因为推理过程也计入输出），防止被滥用。
 - 修改 secret 后无需重新部署，立即生效。
 
 ---

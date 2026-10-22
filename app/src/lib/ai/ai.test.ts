@@ -38,9 +38,9 @@ import {
 
 const fetchMock = vi.fn();
 
-function completion(content: unknown): Response {
+function completion(content: unknown, finishReason = 'stop', extraMessage: Record<string, unknown> = {}): Response {
   const text = typeof content === 'string' ? content : JSON.stringify(content);
-  return new Response(JSON.stringify({ choices: [{ message: { content: text } }] }), {
+  return new Response(JSON.stringify({ choices: [{ message: { content: text, ...extraMessage }, finish_reason: finishReason }] }), {
     status: 200,
     headers: { 'Content-Type': 'application/json' },
   });
@@ -156,7 +156,7 @@ describe('transport (direct)', () => {
   });
 
   it('retries once on failed validation, then bad-response', async () => {
-    fetchMock.mockResolvedValue(completion({ score: 'high' }));
+    fetchMock.mockImplementation(() => Promise.resolve(completion({ score: 'high' })));
     expect(await code(gradeOutput({ grammar: [], userEn: 'x' }))).toBe('bad-response');
     expect(fetchMock).toHaveBeenCalledTimes(2);
   });
@@ -169,6 +169,65 @@ describe('transport (direct)', () => {
   it('accepts a fenced json block', async () => {
     fetchMock.mockResolvedValueOnce(completion('```json\n' + JSON.stringify(feedback) + '\n```'));
     expect((await gradeOutput({ grammar: [], userEn: 'x' })).corrected).toBe('I must go.');
+  });
+});
+
+function sentBody(call = 0): Record<string, unknown> {
+  return JSON.parse((fetchMock.mock.calls[call][1] as RequestInit).body as string) as Record<string, unknown>;
+}
+
+describe('token budgets and truncation', () => {
+  it('uses 4000 max_tokens for deconstruct and generateFrame, small budgets elsewhere', async () => {
+    fetchMock.mockResolvedValueOnce(completion(deconJson));
+    await deconstruct('I must go.');
+    expect(sentBody(0).max_tokens).toBe(4000);
+    fetchMock.mockResolvedValueOnce(completion(frameJson));
+    await generateFrame({ topic: 't', scene: 'daily', level: 1 });
+    expect(sentBody(1).max_tokens).toBe(4000);
+    fetchMock.mockResolvedValueOnce(completion(feedback));
+    await gradeOutput({ grammar: [], userEn: 'x' });
+    expect(sentBody(2).max_tokens).toBeLessThanOrEqual(2000);
+    expect(sentBody(2).temperature).toBe(0.2);
+  });
+
+  it('deepseek-reasoner: 8000 tokens, no temperature, parses content only', async () => {
+    saveSettings({ deepseekModel: 'deepseek-reasoner' });
+    fetchMock.mockResolvedValueOnce(
+      completion(feedback, 'stop', { reasoning_content: '{"score": 1, "corrected": "WRONG", "explanationZh": "WRONG"}' }),
+    );
+    const r = await gradeOutput({ grammar: [], userEn: 'I must go' });
+    expect(r.corrected).toBe('I must go.');
+    const body = sentBody(0);
+    expect(body.model).toBe('deepseek-reasoner');
+    expect(body.max_tokens).toBe(8000);
+    expect('temperature' in body).toBe(false);
+    fetchMock.mockResolvedValueOnce(completion(deconJson));
+    await deconstruct('I must go.');
+    expect(sentBody(1).max_tokens).toBe(8000);
+  });
+
+  it('reasoner with empty content (reasoning only) is a bad-response', async () => {
+    saveSettings({ deepseekModel: 'deepseek-reasoner' });
+    fetchMock.mockImplementation(() => Promise.resolve(completion('', 'length', { reasoning_content: 'thinking...' })));
+    expect(await code(testConnection())).toBe('bad-response');
+  });
+
+  it('finish_reason length -> retry once, then truncation message', async () => {
+    fetchMock.mockImplementation(() => Promise.resolve(completion('{"zh": "被截', 'length')));
+    const p = deconstruct('I must go.');
+    await expect(p).rejects.toMatchObject({ code: 'bad-response', message: expect.stringContaining('AI 输出被截断') });
+    expect(fetchMock).toHaveBeenCalledTimes(2);
+  });
+
+  it('a truncated first attempt can be recovered by the retry', async () => {
+    fetchMock.mockResolvedValueOnce(completion('{"score": 8', 'length')).mockResolvedValueOnce(completion(feedback));
+    expect((await gradeOutput({ grammar: [], userEn: 'x' })).score).toBe(88);
+    expect(fetchMock).toHaveBeenCalledTimes(2);
+  });
+
+  it('does not accept complete-looking JSON when finish_reason is length', async () => {
+    fetchMock.mockImplementation(() => Promise.resolve(completion(feedback, 'length')));
+    expect(await code(gradeOutput({ grammar: [], userEn: 'x' }))).toBe('bad-response');
   });
 });
 
@@ -251,7 +310,7 @@ describe('deconstruct', () => {
     ['unknown dozen id', { ...deconJson, nearestDozenId: 'd99' }],
     ['empty alignment', { ...deconJson, alignment: [] }],
   ])('rejects %s', async (_n, payload) => {
-    fetchMock.mockResolvedValue(completion(payload));
+    fetchMock.mockImplementation(() => Promise.resolve(completion(payload)));
     expect(await code(deconstruct('I must go.'))).toBe('bad-response');
   });
 });
@@ -277,7 +336,7 @@ describe('generateFrame', () => {
     ['bad grammar', { ...frameJson, grammar: ['passive'] }],
     ['duplicate keys', { ...frameJson, slots: [frameJson.slots[0], frameJson.slots[0], ...frameJson.slots.slice(2)] }],
   ])('rejects %s', async (_n, payload) => {
-    fetchMock.mockResolvedValue(completion(payload));
+    fetchMock.mockImplementation(() => Promise.resolve(completion(payload)));
     expect(await code(generateFrame({ topic: 't', scene: 'daily', level: 1 }))).toBe('bad-response');
   });
 });
@@ -295,7 +354,7 @@ describe('generateOutputPrompts', () => {
   });
 
   it('rejects too few prompts', async () => {
-    fetchMock.mockResolvedValue(completion({ prompts: [{ promptZh: 'a', hintEn: 'b' }] }));
+    fetchMock.mockImplementation(() => Promise.resolve(completion({ prompts: [{ promptZh: 'a', hintEn: 'b' }] })));
     expect(await code(generateOutputPrompts({ dozen, frames: [], scenes: [], count: 3 }))).toBe('bad-response');
   });
 });

@@ -34,14 +34,22 @@ export interface ChatOptions {
 
 const ENDPOINT = 'https://api.deepseek.com/chat/completions';
 const TIMEOUT_MS = 60_000;
-const DEFAULT_MAX_TOKENS = 1800; // the ai-proxy caps at 2000
+const DEFAULT_MAX_TOKENS = 1800; // the ai-proxy caps at 4096 (8192 for the reasoner)
+/** The reasoning chain counts toward max_tokens, so the reasoner needs a much larger budget. */
+export const REASONER_MAX_TOKENS = 8000;
+
+export function isReasoner(model: string): boolean {
+  return model === 'deepseek-reasoner';
+}
 
 function buildBody(model: string, messages: ChatMessage[], opts: ChatOptions) {
+  const reasoner = isReasoner(model);
   return {
     model,
     messages,
-    temperature: opts.temperature ?? 0.3,
-    max_tokens: opts.maxTokens ?? DEFAULT_MAX_TOKENS,
+    // deepseek-reasoner ignores temperature, so don't send it
+    ...(reasoner ? {} : { temperature: opts.temperature ?? 0.3 }),
+    max_tokens: reasoner ? REASONER_MAX_TOKENS : (opts.maxTokens ?? DEFAULT_MAX_TOKENS),
     response_format: { type: 'json_object' as const },
     stream: false,
   };
@@ -70,12 +78,19 @@ function fetchFailure(): AiError {
   return new AiError('network', '当前没有网络连接，AI 功能暂不可用。');
 }
 
-/** Extract choices[0].message.content from a chat-completions payload. */
-function extractContent(payload: unknown): string {
+export interface Completion {
+  /** choices[0].message.content only (never reasoning_content). */
+  content: string;
+  /** finish_reason === 'length': the output hit max_tokens and is cut off. */
+  truncated: boolean;
+}
+
+/** Extract choices[0].message.content and finish_reason from a chat-completions payload. */
+function extractCompletion(payload: unknown): Completion {
   if (isRecord(payload) && Array.isArray(payload.choices)) {
     const first: unknown = payload.choices[0];
     if (isRecord(first) && isRecord(first.message) && typeof first.message.content === 'string') {
-      return first.message.content;
+      return { content: first.message.content, truncated: first.finish_reason === 'length' };
     }
   }
   throw new AiError('bad-response', 'AI 返回的内容格式不对，请重试。');
@@ -142,8 +157,8 @@ async function requestProxy(body: ReturnType<typeof buildBody>): Promise<unknown
   return data;
 }
 
-/** Sends one chat request and returns the raw assistant message content (a JSON string). */
-export async function requestContent(messages: ChatMessage[], opts: ChatOptions = {}): Promise<string> {
+/** Sends one chat request and returns the raw assistant message content (a JSON string) plus truncation info. */
+export async function requestCompletion(messages: ChatMessage[], opts: ChatOptions = {}): Promise<Completion> {
   const s = getSettings();
   const body = buildBody(s.deepseekModel || 'deepseek-chat', messages, opts);
   let payload: unknown;
@@ -155,7 +170,7 @@ export async function requestContent(messages: ChatMessage[], opts: ChatOptions 
     }
     payload = await requestDirect(body, s.deepseekApiKey.trim());
   }
-  return extractContent(payload);
+  return extractCompletion(payload);
 }
 
 /** Parse model output as JSON, tolerating a ```json fence. */
@@ -176,8 +191,14 @@ export async function chatJson<T>(
   opts: ChatOptions = {},
 ): Promise<T> {
   let lastReason = '';
+  let lastTruncated = false;
   for (let attempt = 0; attempt < 2; attempt++) {
-    const content = await requestContent(messages, opts);
+    const { content, truncated } = await requestCompletion(messages, opts);
+    lastTruncated = truncated;
+    if (truncated) {
+      lastReason = '输出被截断';
+      continue;
+    }
     try {
       return validate(parseJsonContent(content));
     } catch (e) {
@@ -185,5 +206,6 @@ export async function chatJson<T>(
       lastReason = e instanceof ValidationError ? e.message : 'JSON 解析失败';
     }
   }
+  if (lastTruncated) throw new AiError('bad-response', 'AI 输出被截断，请重试或缩短句子。');
   throw new AiError('bad-response', `AI 返回的结果不符合要求（${lastReason}），请重试。`);
 }

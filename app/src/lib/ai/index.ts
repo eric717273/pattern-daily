@@ -63,7 +63,7 @@ export function deconstruct(sentenceEn: string): Promise<Deconstruction> {
   return chatJson(
     buildDeconstructMessages(en, DOZEN),
     (u) => validateDeconstruction(u, { en, dozenIds }),
-    { temperature: 0.2, maxTokens: 1900 },
+    { temperature: 0.2, maxTokens: 4000 },
   );
 }
 
@@ -73,7 +73,7 @@ export async function generateFrame(i: {
   level: 1 | 2 | 3;
   grammar?: GrammarPoint[];
 }): Promise<SubstitutionFrame> {
-  const frame = await chatJson(buildFrameMessages(i), validateFrame, { temperature: 0.7, maxTokens: 1900 });
+  const frame = await chatJson(buildFrameMessages(i), validateFrame, { temperature: 0.7, maxTokens: 4000 });
   return {
     ...frame,
     scene: i.scene,
