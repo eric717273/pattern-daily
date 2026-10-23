@@ -2,10 +2,12 @@ import type { Chunk, DozenSentence, GrammarPoint, Scene, SubstitutionFrame } fro
 import type { ChatMessage } from './deepseek';
 import { GRAMMAR_POINTS, SCENES, SLOT_ROLES } from './validate';
 
-export const SYSTEM_PROMPT = `你是一位面向中文母语者的英语教练，教学法来自两位大师：
+export const SYSTEM_PROMPT = `你是一位面向中文母语者的英语教练，教学法分为两条互相独立的线：
+【解码线】
 1. Tim Ferriss 的「12 句解构法」：用最简单的词汇暴露英语的底层骨架（语序、代词、时态、倒装、否定、情态动词），再用中英逐字对照看清中英文差异。
+【语块线】
 2. Harold Palmer 的「替换表（母框）」：固定句子骨架，把词块换成同一语法家族的其他成员，通过大量替换把句型变成脱口而出的习惯。
-3. 语块线（Palmer + 词汇法）：训练的是自动化，不是语法分析。语块和母框只讲意思、场合、语气和用法，**绝不做语法分析或讲语法术语**。
+3. 词汇法（语块 / formulaic sequences）：整块记忆常用表达，听到就懂、张口就来。语块线训练的是自动化，不是语法分析：凡是围绕语块或母框的任务，只讲意思、场合、语气和用法，绝不做语法分析，也不使用语法术语。
 规则：
 - 所有解释一律使用简体中文，简洁、具体、不说空话；英文例句必须地道自然。
 - 你必须只输出一个合法的 JSON 对象（JSON only），不要输出 Markdown 代码块、前言或任何多余文字。
@@ -44,7 +46,9 @@ const FRAME_RULES = `母框（substitution frame）的硬性规则：
 export interface GradeInput {
   promptZh?: string;
   skeletonEn?: string;
-  grammar: GrammarPoint[];
+  grammar?: GrammarPoint[];
+  /** Chunk track: the chunk (or frame pattern) the learner is supposed to use, e.g. "It's up to you." */
+  targetChunk?: string;
   userEn: string;
 }
 
@@ -52,14 +56,28 @@ export function buildGradeMessages(i: GradeInput): ChatMessage[] {
   const lines: string[] = ['请批改学习者写的这句英语，并以 JSON 返回结果。', ''];
   if (i.promptZh) lines.push(`中文题目（学习者要表达的意思）：${i.promptZh}`);
   if (i.skeletonEn) lines.push(`要求使用的句型骨架：${i.skeletonEn}`);
-  if (i.grammar.length) lines.push(`要求练习的语法点：${i.grammar.join(', ')}`);
+  if (i.grammar?.length) lines.push(`要求练习的语法点：${i.grammar.join(', ')}`);
+  if (i.targetChunk) lines.push(`要求自然用上的语块/句型：${i.targetChunk}（"…" 表示后面接内容，母框里的 {…} 可替换）`);
   lines.push(`学习者的句子：${i.userEn}`, '');
+  if (i.targetChunk) {
+    lines.push(
+      `这是语块线的输出练习，请按下面的标准批改（不要做语法分析）：
+1. 是否自然地用上了目标语块/句型（原样或合理变形均可；没用上或用得生硬要扣分，并在 corrected 里示范如何自然地用）；
+2. 是否准确表达了中文题目的意思；3. 整句是否地道、没有明显错误（有错误时只给出修正和一句话原因，不讲语法术语）。
+评分 0-100：90 以上=自然用上语块且整句地道；70-89=用上了但有小问题；50-69=没用上目标语块或有明显错误；50 以下=严重错误或偏题。
+correct：用上目标语块且表达了题意且没有明显错误时为 true。corrected：修正后或更自然的版本（必须包含目标语块；若原句已完美，则与原句相同）。explanationZh：用简体中文简要说明语块用得是否自然、哪里可以更地道，不超过 100 字，不做语法分析。alternatives：0-3 个同样用上该语块的其他自然说法。`,
+      '',
+    );
+  } else {
   lines.push(
     `评判标准：
 1. 语法是否正确；2. 是否用了给定的句型骨架/语法点（若给出）；3. 是否准确表达了中文题目的意思（若给出）；4. 是否自然地道。
 评分 0-100：90 以上=正确且自然；70-89=基本正确但有小问题；50-69=有明显错误；50 以下=严重错误或偏题。鼓励但要严格，不要为了好听而放水。
 correct：语法正确且表达了题意时为 true。corrected：修正后或更自然的版本（若原句已完美，则与原句相同）。explanationZh：用简体中文简要指出错误和原因（完美时给一句简短肯定），不超过 120 字。alternatives：0-3 个其他自然说法。`,
     '',
+  );
+  }
+  lines.push(
     '只返回如下形状的 JSON：',
     `{
   "score": 85,

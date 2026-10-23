@@ -63,6 +63,8 @@ export const FRAMES_CORE: SubstitutionFrame[] = [
     ],
     tipZh: '主语后面永远要有 is，不能像中文那样直接说“汤热”。形容词不变形，时间词放在句尾。',
     source: 'seed',
+    category: 'describe',
+    freq: 1,
   },
   {
     id: 'f002',
@@ -113,6 +115,8 @@ export const FRAMES_CORE: SubstitutionFrame[] = [
     ],
     tipZh: '“is + 介词短语/形容词短语”是汇报进度的万能句式，on hold、on track、under revision 都当作整块背。',
     source: 'seed',
+    category: 'work',
+    freq: 2,
   },
 
   // ---------- 2. possessive ----------
@@ -160,6 +164,8 @@ export const FRAMES_CORE: SubstitutionFrame[] = [
     ],
     tipZh: "“某人的”直接在名字后加 's，后面的名词前不要再加 the 或 a。",
     source: 'seed',
+    category: 'describe',
+    freq: 2,
   },
   {
     id: 'f004',
@@ -209,6 +215,8 @@ export const FRAMES_CORE: SubstitutionFrame[] = [
     ],
     tipZh: "所有格 + 形容词 + 名词的顺序是固定的：先 's，再形容词，最后名词。",
     source: 'seed',
+    category: 'work',
+    freq: 3,
   },
 
   // ---------- 3. double object ----------
@@ -259,6 +267,8 @@ export const FRAMES_CORE: SubstitutionFrame[] = [
     ],
     tipZh: '动词后面先放“人”，再放“东西”，中间不加 to。这个顺序和中文“给他一本书”是一样的。',
     source: 'seed',
+    category: 'describe',
+    freq: 3,
   },
   {
     id: 'f006',
@@ -318,6 +328,8 @@ export const FRAMES_CORE: SubstitutionFrame[] = [
     ],
     tipZh: "I'll / We'll 后面直接跟动词原形，再接“人 + 东西”。口语中 send、forward、email 都可以用这个结构。",
     source: 'seed',
+    category: 'work',
+    freq: 1,
   },
 
   // ---------- 4. object pronouns ----------
@@ -363,6 +375,8 @@ export const FRAMES_CORE: SubstitutionFrame[] = [
     ],
     tipZh: '做宾语时代词要换格：he→him，she→her，they→them。宾格代词紧跟动词，后面再放东西。',
     source: 'seed',
+    category: 'describe',
+    freq: 3,
   },
   {
     id: 'f008',
@@ -411,6 +425,8 @@ export const FRAMES_CORE: SubstitutionFrame[] = [
     ],
     tipZh: 'Please + 动词原形是最安全的请求句式。人称代词一律用宾格：me、him、her、us、them。',
     source: 'seed',
+    category: 'request',
+    freq: 1,
   },
 
   // ---------- 5. third-person -s ----------
@@ -467,6 +483,8 @@ export const FRAMES_CORE: SubstitutionFrame[] = [
     ],
     tipZh: '主语是 he / she / 一个人名时，动词一定要加 -s。这个表里所有的主语都是第三人称单数，所以动词都带 -s。',
     source: 'seed',
+    category: 'describe',
+    freq: 3,
   },
   {
     id: 'f010',
@@ -522,6 +540,8 @@ export const FRAMES_CORE: SubstitutionFrame[] = [
     ],
     tipZh: '谈论“习惯和常规”用一般现在时，主语是单数的人或团队时动词加 -s。团队名词（team）在这里当作单数。',
     source: 'seed',
+    category: 'describe',
+    freq: 2,
   },
 
   // ---------- 6. pronoun order ----------
@@ -573,6 +593,8 @@ export const FRAMES_CORE: SubstitutionFrame[] = [
     ],
     tipZh: '东西和接收者都是代词时，永远是“it/them + to + 宾格代词”，不要说 gives him it。',
     source: 'seed',
+    category: 'describe',
+    freq: 3,
   },
   {
     id: 'f012',
@@ -632,6 +654,8 @@ export const FRAMES_CORE: SubstitutionFrame[] = [
     ],
     tipZh: '动词 + 代词宾语 + to + 宾格代词，是职场里转交文件最常用的句型。主语是单数时别忘了 -s。',
     source: 'seed',
+    category: 'work',
+    freq: 3,
   },
 
   // ---------- 7. question inversion ----------
@@ -673,6 +697,8 @@ export const FRAMES_CORE: SubstitutionFrame[] = [
     ],
     tipZh: '一般疑问句把 is / are 提到句首：Is the soup hot? 副词 still / really / always 放在主语之后、形容词之前。',
     source: 'seed',
+    category: 'question',
+    freq: 2,
   },
   {
     id: 'f014',
@@ -723,6 +749,9 @@ export const FRAMES_CORE: SubstitutionFrame[] = [
     ],
     tipZh: '情态动词提到主语前面就是问句，后面的动词永远用原形。Could you 比 Can you 更礼貌。',
     source: 'seed',
+    category: 'request',
+    freq: 1,
+    soundZh: 'Could you → Couldja；Can I → Can-nai（连读）',
   },
 
   // ---------- 8. plural ----------
@@ -764,6 +793,8 @@ export const FRAMES_CORE: SubstitutionFrame[] = [
     ],
     tipZh: '复数名词加 -s，be 动词用 are。形容词永远不变，只在 very / really 等程度词后面出现。',
     source: 'seed',
+    category: 'describe',
+    freq: 2,
   },
   {
     id: 'f016',
@@ -814,6 +845,8 @@ export const FRAMES_CORE: SubstitutionFrame[] = [
     ],
     tipZh: 'figures、results、numbers、margins 都是复数，配 are。数据类名词在汇报里几乎总是复数。',
     source: 'seed',
+    category: 'describe',
+    freq: 2,
   },
 
   // ---------- 9. must ----------
@@ -866,6 +899,9 @@ export const FRAMES_CORE: SubstitutionFrame[] = [
     ],
     tipZh: 'must、should 后面直接接动词原形；have to、need to 的 to 是固定搭配，后面同样是原形。',
     source: 'seed',
+    category: 'plan',
+    freq: 1,
+    soundZh: 'have to → hafta；need to → needa；should → shud（弱读）',
   },
   {
     id: 'f018',
@@ -915,6 +951,9 @@ export const FRAMES_CORE: SubstitutionFrame[] = [
     ],
     tipZh: 'must 最强硬，have to 强调外部要求，should 是建议。工作场合对同事多用 need to / should 更委婉。',
     source: 'seed',
+    category: 'work',
+    freq: 2,
+    soundZh: 'need to → needa；have to → hafta',
   },
 
   // ---------- 10. want to ----------
@@ -962,6 +1001,9 @@ export const FRAMES_CORE: SubstitutionFrame[] = [
     ],
     tipZh: 'want 后面一定要加 to 再接动词原形。主语是 he / she 时用 wants，I\'d like 比 I want 更礼貌。',
     source: 'seed',
+    category: 'plan',
+    freq: 1,
+    soundZh: 'want to → wanna；I\'d like to → I\'d like-ta',
   },
   {
     id: 'f020',
@@ -1007,6 +1049,9 @@ export const FRAMES_CORE: SubstitutionFrame[] = [
     ],
     tipZh: "职场中 I'd like to ... 比 I want to ... 礼貌得多；第三人称用 wants to。",
     source: 'seed',
+    category: 'work',
+    freq: 2,
+    soundZh: 'I\'d like to → I\'d like-ta；want to → wanna',
   },
 
   // ---------- 11. going to ----------
@@ -1060,6 +1105,9 @@ export const FRAMES_CORE: SubstitutionFrame[] = [
     ],
     tipZh: "be 动词随主语变化：I'm / he's / they're，后面的 going to 之后用动词原形。",
     source: 'seed',
+    category: 'plan',
+    freq: 1,
+    soundZh: 'going to → gonna；I\'m going to → I\'m gonna',
   },
   {
     id: 'f022',
@@ -1111,6 +1159,9 @@ export const FRAMES_CORE: SubstitutionFrame[] = [
     ],
     tipZh: 'be going to 表示已有安排或计划。团队名词（The team）搭配 is，不是 are。',
     source: 'seed',
+    category: 'work',
+    freq: 2,
+    soundZh: 'going to → gonna',
   },
 
   // ---------- 12. negation + modal ----------
@@ -1163,6 +1214,9 @@ export const FRAMES_CORE: SubstitutionFrame[] = [
     ],
     tipZh: "情态动词的否定直接加 not（can't / won't / shouldn't），后面接动词原形，不要用 do。",
     source: 'seed',
+    category: 'agree',
+    freq: 1,
+    soundZh: 'can\'t 的 t 常被吞掉，靠元音拉长来区别 can（弱读 /kən/）；shouldn\'t → shudn\'t',
   },
   {
     id: 'f024',
@@ -1217,6 +1271,9 @@ export const FRAMES_CORE: SubstitutionFrame[] = [
     ],
     tipZh: "拒绝时用 I won't be able to ... 比 I can't ... 更委婉；don't need to 表示“不必”，和 mustn't 不同。",
     source: 'seed',
+    category: 'work',
+    freq: 2,
+    soundZh: 'won\'t be able to → won\'t-be-able-ta；can\'t 的 t 常被吞掉',
   },
 
   // ---------- 13. present perfect ----------
@@ -1264,6 +1321,9 @@ export const FRAMES_CORE: SubstitutionFrame[] = [
     ],
     tipZh: 'have / has + 过去分词。already、just、finally 放在 have 与过去分词之间；主语是 he / she 时用 has。',
     source: 'seed',
+    category: 'experience',
+    freq: 1,
+    soundZh: 'I have → I\'ve；she has → she\'s；have/has 弱读，几乎听不见',
   },
   {
     id: 'f026',
@@ -1320,5 +1380,8 @@ export const FRAMES_CORE: SubstitutionFrame[] = [
     ],
     tipZh: '现在完成时强调“已完成，与现在有关”，不要和 yesterday、last week 这类明确的过去时间连用。',
     source: 'seed',
+    category: 'work',
+    freq: 2,
+    soundZh: 'we have → we\'ve；has → \'s，弱读后很容易漏听',
   },
 ];

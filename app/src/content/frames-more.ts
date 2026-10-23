@@ -79,6 +79,8 @@ export const FRAMES_MORE: SubstitutionFrame[] = [
     tipZh:
       '表达心情用 be + 形容词 + about + 引起心情的事。be 动词不能省（不能说 I so nervous），程度词 so / really / a bit / pretty 放在形容词前面。',
     source: 'seed',
+    category: 'feeling',
+    freq: 1,
   },
 
   // ---------- f062 说明原因 ----------
@@ -130,6 +132,9 @@ export const FRAMES_MORE: SubstitutionFrame[] = [
     tipZh:
       '先说结果，再用 because 说原因：结果 + because + 完整的句子（主语 + 动词）。不要像中文那样把 because 后面的句子省掉主语。',
     source: 'seed',
+    category: 'connector',
+    freq: 1,
+    soundZh: 'because → \'cause（口语常缩成 cuz）',
   },
 
   // ---------- f063 问对方过去做过什么 ----------
@@ -183,6 +188,9 @@ export const FRAMES_MORE: SubstitutionFrame[] = [
     tipZh:
       '问过去的事用 Did you + 动词原形：Did you go，不是 Did you went。时间词 yesterday / last night 等放在句尾，且要用过去的时间，不能和 have 连用。',
     source: 'seed',
+    category: 'question',
+    freq: 1,
+    soundZh: 'did you → didja',
   },
 
   // ---------- f064 主动提出帮忙 ----------
@@ -235,6 +243,9 @@ export const FRAMES_MORE: SubstitutionFrame[] = [
     tipZh:
       'Would you like me to / Do you want me to 后面接动词原形（不加 to）：Would you like me to call a taxi? 主动帮忙时用这几个句头最自然，Can I 更随意。',
     source: 'seed',
+    category: 'offer',
+    freq: 1,
+    soundZh: 'Would you like me to → Wouldja like me-ta；Do you want me to → Dya want me-ta',
   },
 
   // ---------- f065 点餐 ----------
@@ -297,6 +308,9 @@ export const FRAMES_MORE: SubstitutionFrame[] = [
     tipZh:
       'Can I have / Could I get 是点餐万能开头，比 I want 礼貌得多。to go 是外带（英国多说 to take away），for here 是堂食。饮料前别忘了 a / an。',
     source: 'seed',
+    category: 'travel',
+    freq: 1,
+    soundZh: 'Can I have → Can-nai-have；Could I get → Could-dai-get',
   },
 
   // ---------- f066 说明会需要什么 ----------
@@ -350,6 +364,9 @@ export const FRAMES_MORE: SubstitutionFrame[] = [
     tipZh:
       "I'm going to need … 表示“到时候我会需要……”，比直接说 I need 更有预见感。need 后面接名词，不是动词：need a haircut；for + 事件说明用途。",
     source: 'seed',
+    category: 'plan',
+    freq: 2,
+    soundZh: 'going to need → gonna need',
   },
 
   // ---------- f067 向医生说明症状 ----------
@@ -403,6 +420,9 @@ export const FRAMES_MORE: SubstitutionFrame[] = [
     tipZh:
       "症状持续到现在，用现在完成时 I've had …，再用 since + 起点（昨天、周一）。如果说一段时间则用 for：for three days。症状名词前通常要加 a。",
     source: 'seed',
+    category: 'problem',
+    freq: 2,
+    soundZh: 'I\'ve had → I\'ve-had',
   },
 
   // ---------- f068 请人帮忙解决设备问题 ----------
@@ -462,6 +482,9 @@ export const FRAMES_MORE: SubstitutionFrame[] = [
     tipZh:
       "描述设备坏了：won't + 动词原形（won't turn on）表示“怎么也打不开”，can't connect 表示“连不上”。my 后面不要再加 the。请求帮助用 Could you … 更礼貌。",
     source: 'seed',
+    category: 'problem',
+    freq: 1,
+    soundZh: 'won\'t turn on → wont-turn-on；Do you know how to → Dya know how-ta',
   },
 
   // ---------- f069 询问数量 ----------
@@ -515,6 +538,9 @@ export const FRAMES_MORE: SubstitutionFrame[] = [
     tipZh:
       '可数名词（people、bags、days）用 How many，不可数名词（time、money）用 How much。疑问句里助动词放在主语前面：How much time do we need，不是 we need。',
     source: 'seed',
+    category: 'question',
+    freq: 1,
+    soundZh: 'do we need → d\'we need；do you think we\'ll → d\'ya think we\'ll',
   },
 
   // ---------- f070 预约或改约 ----------
@@ -566,6 +592,9 @@ export const FRAMES_MORE: SubstitutionFrame[] = [
     tipZh:
       "I'd like to + 动词原形 是电话预约、改约时最礼貌的开头。appointment 指与医生、律师、理发师等的预约；餐厅订位说 reservation。",
     source: 'seed',
+    category: 'travel',
+    freq: 2,
+    soundZh: 'I\'d like to → I\'d like-ta',
   },
 
   // ---------- f071 比较两样东西 ----------
@@ -628,6 +657,8 @@ export const FRAMES_MORE: SubstitutionFrame[] = [
     tipZh:
       '比较级 + than：cheaper than、better than、more … than。程度词放在比较级前面：much / a lot / a bit / slightly cheaper，不要放在 than 后面。than I expected 是“比我预想的”常用说法。',
     source: 'seed',
+    category: 'describe',
+    freq: 2,
   },
 
   // ---------- f072 谈过去的习惯 ----------
@@ -681,6 +712,9 @@ export const FRAMES_MORE: SubstitutionFrame[] = [
     tipZh:
       'used to + 动词原形 说“过去经常……，现在不了”，to 后面是原形，不要写成 used to played。否定和疑问用 didn’t use to / Did you use to。',
     source: 'seed',
+    category: 'experience',
+    freq: 2,
+    soundZh: 'used to → useta',
   },
 
   // ---------- f073 预测将来 ----------
@@ -733,6 +767,9 @@ export const FRAMES_MORE: SubstitutionFrame[] = [
     tipZh:
       "预测将来用 will（常缩写成 it'll）：I think + 句子，that 可以省略。语气从弱到强：I guess < I think < I'm pretty sure。时间词放在句尾。",
     source: 'seed',
+    category: 'opinion',
+    freq: 2,
+    soundZh: 'it\'ll → ittle；I bet → I-bet',
   },
 
   // ---------- f074 给对方建议 ----------
@@ -785,6 +822,9 @@ export const FRAMES_MORE: SubstitutionFrame[] = [
     tipZh:
       "If I were you, I'd … 是给建议的经典句式，假设语气里 if 后面用 were（不是 was）。后面接动词原形。比 You should 更委婉，不会显得在命令别人。",
     source: 'seed',
+    category: 'advice',
+    freq: 1,
+    soundZh: 'If I were you, I\'d → If-I-wer-ya, I\'d',
   },
 
   // =====================================================================
@@ -840,6 +880,9 @@ export const FRAMES_MORE: SubstitutionFrame[] = [
     tipZh:
       '电话里自报家门用 This is …（不说 I am …），找人用 Could I speak to …?。找不到具体的人时，可以说 someone in + 部门 / the person in charge of + 事情。',
     source: 'seed',
+    category: 'work',
+    freq: 1,
+    soundZh: 'Could I → Could-dai；this is → this-iz',
   },
 
   // ---------- f076 写邮件说明来意 ----------
@@ -892,6 +935,9 @@ export const FRAMES_MORE: SubstitutionFrame[] = [
     tipZh:
       "I'm writing to + 动词原形 是邮件开头点明来意的固定说法，to 后面不要加 for。结尾一句要跟着来意走，Please let me know … 和 I look forward to … 最常用。",
     source: 'seed',
+    category: 'work',
+    freq: 1,
+    soundZh: 'I\'m writing to → I\'m writin\'-ta',
   },
 
   // ---------- f077 说明操作步骤 ----------
@@ -943,6 +989,9 @@ export const FRAMES_MORE: SubstitutionFrame[] = [
     tipZh:
       'First … Then … 让步骤一目了然。需要先完成的事用 you need to，完成之后才可以做的事用 you can。后面都接动词原形。',
     source: 'seed',
+    category: 'work',
+    freq: 2,
+    soundZh: 'need to → needa',
   },
 
   // ---------- f078 通知安排有变 ----------
@@ -1005,6 +1054,9 @@ export const FRAMES_MORE: SubstitutionFrame[] = [
     tipZh:
       'has been + 过去分词 是被动语态的现在完成时，强调“已经改了”，不必说是谁改的。后面的 to + 新时间 说明改到什么时候。',
     source: 'seed',
+    category: 'work',
+    freq: 1,
+    soundZh: 'has been moved → has-bin-moved（been 弱读）',
   },
 
   // ---------- f079 解释为什么没能及时处理 ----------
@@ -1066,6 +1118,9 @@ export const FRAMES_MORE: SubstitutionFrame[] = [
     tipZh:
       'had to 是 have to 的过去式，表示“当时不得不……”，后面接动词原形。先说原因（I had to …），再用 so 带出结果，比单纯说 Sorry 更有说服力。',
     source: 'seed',
+    category: 'thanks',
+    freq: 2,
+    soundZh: 'had to → hadta',
   },
 
   // ---------- f080 礼貌地表示不同意 ----------
@@ -1116,6 +1171,9 @@ export const FRAMES_MORE: SubstitutionFrame[] = [
     tipZh:
       '先认同、再用 but 提出不同意见，是职场里最不伤人的说法。for now / right now / at this stage 把反对限定在“现在”，给对方留面子。',
     source: 'seed',
+    category: 'agree',
+    freq: 3,
+    soundZh: 'I see what you mean → I see whatcha mean；that won\'t → that-wont',
   },
 
   // ---------- f081 委婉地提出协商 ----------
@@ -1168,6 +1226,9 @@ export const FRAMES_MORE: SubstitutionFrame[] = [
     tipZh:
       'Would it be possible to + 动词原形 是协商、争取让步时最常用的委婉句式，比 Can you 客气得多。句尾加 just this once 之类的缓和语，更容易被接受。',
     source: 'seed',
+    category: 'request',
+    freq: 3,
+    soundZh: 'Would it be → Woulditbe（连读）',
   },
 
   // ---------- f082 确认自己的理解 ----------
@@ -1220,6 +1281,9 @@ export const FRAMES_MORE: SubstitutionFrame[] = [
     tipZh:
       '复述对方的话来确认理解：what you’re saying is that + 完整句子。末尾的确认问句要用倒装：is that right / did I get that right，不能说 that is right?。',
     source: 'seed',
+    category: 'clarify',
+    freq: 2,
+    soundZh: 'what you\'re saying → whatcher saying；did I get that right → didn-I-get-that-right',
   },
 
   // ---------- f083 递上对方要的东西 ----------
@@ -1281,6 +1345,9 @@ export const FRAMES_MORE: SubstitutionFrame[] = [
     tipZh:
       '用 that 引导定语从句来说明“哪一个”：the report that I told you about。从句里的 that 指的是宾语，常常可以省略：the report I told you about。',
     source: 'seed',
+    category: 'work',
+    freq: 3,
+    soundZh: 'here\'s the → here-zthe；told you → told-ya',
   },
 
   // ---------- f084 不确定但答应查清楚 ----------
@@ -1334,6 +1401,9 @@ export const FRAMES_MORE: SubstitutionFrame[] = [
     tipZh:
       "I'm not sure + 疑问词 + 陈述语序：I’m not sure where the file is，不是 where is the file。I'll check and let you know 是不知道答案时的体面回答。",
     source: 'seed',
+    category: 'work',
+    freq: 2,
+    soundZh: 'let you know → letcha know；I\'m not sure → I\'m not-sure',
   },
 
   // =====================================================================
@@ -1391,6 +1461,9 @@ export const FRAMES_MORE: SubstitutionFrame[] = [
     tipZh:
       'Is there + a / an + 单数名词 问“有没有”，注意 a pharmacy / an ATM 的 a / an。复数用 Are there any …?。near here 和 around here 都是“这附近”。',
     source: 'seed',
+    category: 'travel',
+    freq: 1,
+    soundZh: 'is there a → is-there-a',
   },
 
   // ---------- f086 告诉别人某地在哪 ----------
@@ -1444,6 +1517,8 @@ export const FRAMES_MORE: SubstitutionFrame[] = [
     tipZh:
       '说位置用 be + 介词短语：is next to / is across from / is behind。next to = 紧挨着，across from = 在对面，around the corner = 拐个弯就到。',
     source: 'seed',
+    category: 'travel',
+    freq: 2,
   },
 
   // ---------- f087 问班次时间 ----------
@@ -1506,6 +1581,9 @@ export const FRAMES_MORE: SubstitutionFrame[] = [
     tipZh:
       'What time does + 主语 + 动词原形？助动词 does 已经带了第三人称 -s，所以后面是 leave，不是 leaves。arrive / leave / depart 是班次时间最常用的三个动词。',
     source: 'seed',
+    category: 'travel',
+    freq: 1,
+    soundZh: 'what time does → whaddime-duz',
   },
 
   // ---------- f088 请人推荐 ----------
@@ -1568,6 +1646,9 @@ export const FRAMES_MORE: SubstitutionFrame[] = [
     tipZh:
       'recommend 后面直接跟名词：recommend a good restaurant，不用 to。Do you happen to know … 语气更随意，像是“碰巧你知道的话”。',
     source: 'seed',
+    category: 'request',
+    freq: 2,
+    soundZh: 'can you → kenya；do you happen to know → dya happen-ta know',
   },
 
   // ---------- f089 问路程要多久 ----------
@@ -1621,6 +1702,9 @@ export const FRAMES_MORE: SubstitutionFrame[] = [
     tipZh:
       'How long does it take to + 动词原形 问“要花多长时间”，it 是固定的形式主语。交通方式用 by + 无冠词名词（by bus），步行说 on foot。',
     source: 'seed',
+    category: 'travel',
+    freq: 1,
+    soundZh: 'how long does it take → how-long-duzit-take',
   },
 
   // ---------- f090 买车票 ----------
@@ -1684,6 +1768,8 @@ export const FRAMES_MORE: SubstitutionFrame[] = [
     tipZh:
       "I'd like + 名词 是买票、点东西的礼貌说法。single = 单程（美式说 one-way），return = 往返（美式说 round-trip）。票数和 ticket 的单复数要一致。",
     source: 'seed',
+    category: 'travel',
+    freq: 2,
   },
 
   // ---------- f091 说明东西落在哪了 ----------
@@ -1746,6 +1832,9 @@ export const FRAMES_MORE: SubstitutionFrame[] = [
     tipZh:
       "leave 的过去分词是 left：I've left my phone in the taxi。I think 让语气更不肯定、更礼貌。忘带用 leave，丢了用 lose：I've lost my wallet。",
     source: 'seed',
+    category: 'problem',
+    freq: 3,
+    soundZh: 'I\'ve left → I\'ve-left；Could you → Couldja',
   },
 
   // =====================================================================
@@ -1802,6 +1891,9 @@ export const FRAMES_MORE: SubstitutionFrame[] = [
     tipZh:
       "How's + 事情 + going? 是关心别人近况的万能问法，how's 是 how is 的缩写。不要说 How is your job going on。",
     source: 'seed',
+    category: 'social',
+    freq: 1,
+    soundZh: 'how\'s → howz；going → goin\'',
   },
 
   // ---------- f093 感谢并说明原因 ----------
@@ -1854,6 +1946,9 @@ export const FRAMES_MORE: SubstitutionFrame[] = [
     tipZh:
       '感谢的原因放在 for 后面，动词要用 -ing 形式：Thanks for helping me，不是 Thanks for help me。me 是宾语，不能说 helping I。',
     source: 'seed',
+    category: 'thanks',
+    freq: 1,
+    soundZh: 'Thanks so much for → Thanks-so-much-fer',
   },
 
   // ---------- f094 夸奖别人 ----------
@@ -1906,6 +2001,8 @@ export const FRAMES_MORE: SubstitutionFrame[] = [
     tipZh:
       '夸别人用 I really like / I love + your + 名词，对方的东西前要有 your。夸奖后常常接一个问题，比如 Where did you get it?，聊天就能继续下去。',
     source: 'seed',
+    category: 'social',
+    freq: 1,
   },
 
   // ---------- f095 聊自己的爱好 ----------
@@ -1958,6 +2055,9 @@ export const FRAMES_MORE: SubstitutionFrame[] = [
     tipZh:
       "be into + 名词 / 动名词 = 迷上了……。I've been into … lately 表示“最近一直迷着”。说完后抛一个问题给对方，对话才不会冷场。",
     source: 'seed',
+    category: 'social',
+    freq: 2,
+    soundZh: 'into → in-too',
   },
 
   // ---------- f096 表示惊讶 ----------
@@ -2018,6 +2118,9 @@ export const FRAMES_MORE: SubstitutionFrame[] = [
     tipZh:
       '表示惊讶：No way! / Wow! 开头，再用 I didn’t know / I had no idea 说“我之前不知道”，后面接完整句子。I never knew 语气更强。',
     source: 'seed',
+    category: 'feeling',
+    freq: 1,
+    soundZh: 'I didn\'t know → I didn\' know；I had no idea → I-had-no-idea',
   },
 
   // ---------- f097 指认某个人 ----------
@@ -2070,6 +2173,8 @@ export const FRAMES_MORE: SubstitutionFrame[] = [
     tipZh:
       'the one who + 动词 用来说明“就是那个……的人”。who 在从句里当主语，所以后面的动词要跟着变：lives、sits、knows 都要加 -s。',
     source: 'seed',
+    category: 'social',
+    freq: 3,
   },
 
   // =====================================================================
@@ -2131,6 +2236,8 @@ export const FRAMES_MORE: SubstitutionFrame[] = [
     tipZh:
       '“A 对我来说……，但 B ……”用 A is … for me, but B is …。for me 说明“对我而言”，放在形容词后面。speaking、pronunciation 这类做主语的名词不用加 the。',
     source: 'seed',
+    category: 'describe',
+    freq: 2,
   },
 
   // ---------- f099 请老师讲解区别 ----------
@@ -2183,6 +2290,9 @@ export const FRAMES_MORE: SubstitutionFrame[] = [
     tipZh:
       'the difference between A and B = A 和 B 的区别。请对方换一种讲法，可以加 with an example（举个例子）或 in simple English（用简单的英语）。',
     source: 'seed',
+    category: 'clarify',
+    freq: 2,
+    soundZh: 'Could you → Couldja',
   },
 
   // ---------- f100 表达学习上的遗憾 ----------
@@ -2234,5 +2344,8 @@ export const FRAMES_MORE: SubstitutionFrame[] = [
     tipZh:
       'I wish I could + 动词原形 表达“要是我能……就好了”（现实中做不到）。wish 后面的 could 是对现在的遗憾，不要用 can。后面的 but 说明原因。',
     source: 'seed',
+    category: 'feeling',
+    freq: 3,
+    soundZh: 'I wish I could → I-wish-I-cud',
   },
 ];

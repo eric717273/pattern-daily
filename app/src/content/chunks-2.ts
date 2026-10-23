@@ -452,8 +452,8 @@ export const CHUNKS_2: Chunk[] = [
       { en: 'We split the cost evenly. Does that make sense?', zh: '我们平摊费用。这样说得通吗？' },
       { en: 'A: So you start on Monday and finish on Friday. Does that make sense? B: Yes, that\'s clear.', zh: 'A：所以你周一开始、周五完成。你听明白了吗？B：明白，很清楚。' },
     ],
-    noteZh: '讲完一段解释后确认对方是否跟上，比 Do you understand? 友好，不会显得在质疑对方。别人说 Does that make sense? 时，回答 Yeah, that makes sense 即可。',
-    soundZh: 'Does that → "duzzat"；make sense → "may-ksense"，两词连读紧凑',
+    noteZh: '讲完一段解释后确认对方是否跟上，比 Do you understand? 友好，不像在质疑对方。',
+    soundZh: 'Does that → "duzzat"；make sense → "may-ksense"，连读紧凑',
   },
   {
     id: 'c083',

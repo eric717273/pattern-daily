@@ -67,6 +67,9 @@ export const FRAMES_SCENES: SubstitutionFrame[] = [
     tipZh:
       '汇报"已经做完"用现在完成时 have + 过去分词，重点是结果；already / just 放在 have 和过去分词之间。不要和 yesterday、last week 等明确的过去时间连用。',
     source: 'seed',
+    category: 'work',
+    freq: 1,
+    soundZh: 'I\'ve already → I\'ve-ahl-ready；we\'ve → weev',
   },
 
   // ---------- f028 提出建议 ----------
@@ -120,6 +123,9 @@ export const FRAMES_SCENES: SubstitutionFrame[] = [
     tipZh:
       '四种句头都能接动词原形，语气从直接到委婉：Why don\'t we 最常用，Shall we 稍正式，What if we 更像试探。时间放在句尾。',
     source: 'seed',
+    category: 'offer',
+    freq: 1,
+    soundZh: 'Why don\'t we → Why-don-we（t 吞音）；What if we → Whadif-we',
   },
 
   // ---------- f029 请对方说明 ----------
@@ -172,6 +178,9 @@ export const FRAMES_SCENES: SubstitutionFrame[] = [
     tipZh:
       '没听懂时先说 Sorry 再坦白，比沉默或只说 "What?" 礼貌得多。didn\'t catch 指"没听清"，don\'t understand 指"没理解"，别混用。',
     source: 'seed',
+    category: 'clarify',
+    freq: 1,
+    soundZh: 'didn\'t catch → didn(t)-catch（t 吞音）；Sorry to → Sorry-ta',
   },
 
   // ---------- f030 约时间 ----------
@@ -233,6 +242,9 @@ export const FRAMES_SCENES: SubstitutionFrame[] = [
     tipZh:
       '约时间用 Are you free / available + 时间，be 动词提到主语前面。free 更随意，available 更职场；时间放在形容词后面，不要加介词 at。',
     source: 'seed',
+    category: 'plan',
+    freq: 1,
+    soundZh: 'are you free → Arya free',
   },
 
   // ---------- f031 请人转交 ----------
@@ -305,6 +317,9 @@ export const FRAMES_SCENES: SubstitutionFrame[] = [
     tipZh:
       '物品是代词（it / them / that）时，必须先说物品再说 to + 人：send it to him，不能说 send him it。如果物品是名词，才可以说 send him the file。',
     source: 'seed',
+    category: 'request',
+    freq: 2,
+    soundZh: 'Could you → Couldja；send it to → sen-di-ta（it 与 to 连读）',
   },
 
   // ---------- f032 说明计划 ----------
@@ -358,6 +373,9 @@ export const FRAMES_SCENES: SubstitutionFrame[] = [
     tipZh:
       "be planning to / be hoping to 后面都接动词原形，比 I will 更委婉，适合向同事或上级说明还没完全确定的计划。be 动词要跟主语变化：I'm / We're。",
     source: 'seed',
+    category: 'plan',
+    freq: 2,
+    soundZh: 'planning to → plannin\'-ta；hoping to → hopin\'-ta',
   },
 
   // ---------- f033 表达观点 ----------
@@ -418,6 +436,9 @@ export const FRAMES_SCENES: SubstitutionFrame[] = [
     tipZh:
       "否定观点时英语习惯说 I don't think we should...，而不是 I think we shouldn't...。情态动词 should / can / have to 后面一律接动词原形。",
     source: 'seed',
+    category: 'opinion',
+    freq: 1,
+    soundZh: 'I think we should → I-think-we-shud；don\'t think → doan-think',
   },
 
   // ---------- f034 道歉并补救 ----------
@@ -479,6 +500,9 @@ export const FRAMES_SCENES: SubstitutionFrame[] = [
     tipZh:
       "道歉后一定要给出补救时间，这样才显得负责。过去没做的事用 didn't / wasn't able to + 动词原形；forgot to 后面也接原形。",
     source: 'seed',
+    category: 'thanks',
+    freq: 2,
+    soundZh: 'forgot to → forgotta；didn\'t get a chance to → didn\' get-a chance-ta',
   },
 
   // ---------- f035 有条件的承诺 ----------
@@ -542,6 +566,8 @@ export const FRAMES_SCENES: SubstitutionFrame[] = [
     tipZh:
       'if 从句用一般现在时（if the client agrees），主句才用 will，不要在 if 后面再加 will。send you an update 是双宾语结构：先说人，再说东西。',
     source: 'seed',
+    category: 'offer',
+    freq: 3,
   },
 
   // ---------- f036 表达偏好 ----------
@@ -602,6 +628,9 @@ export const FRAMES_SCENES: SubstitutionFrame[] = [
     tipZh:
       "would rather 后面直接接动词原形（不加 to），than 后面也用原形：I'd rather meet than write。口语里 I'd 是 I would 的缩写，不是 I had。",
     source: 'seed',
+    category: 'opinion',
+    freq: 3,
+    soundZh: 'I\'d rather → I\'d-rather（\'d 极弱）；rather than → rather-thn',
   },
 
   // ---------- f037 汇报未完成 ----------
@@ -664,6 +693,9 @@ export const FRAMES_SCENES: SubstitutionFrame[] = [
     tipZh:
       '先说"还没完成"，再用 but 给出积极的进展，是职场汇报的好习惯。still 放在 be 动词之后、working 之前。第二个分句里的 it 指前面的工作。',
     source: 'seed',
+    category: 'work',
+    freq: 1,
+    soundZh: 'still working on → still workin\' on',
   },
 
   // ---------- f038 委婉请求 ----------
@@ -714,6 +746,9 @@ export const FRAMES_SCENES: SubstitutionFrame[] = [
     tipZh:
       'Would you mind 后面接动词 -ing，不是原形。想答应时说 "Not at all" 或 "Sure, no problem"（别说 Yes，Yes 会被理解为"介意"）。',
     source: 'seed',
+    category: 'request',
+    freq: 2,
+    soundZh: 'Would you mind → Wouldja mind',
   },
 
   // =====================================================================
@@ -772,6 +807,9 @@ export const FRAMES_SCENES: SubstitutionFrame[] = [
     tipZh:
       "这一组开头词的力度不同：have to / need to 是必须做，I'd better 是\"最好做，否则有麻烦\"，I'm going to 是已经决定，I want to 是个人意愿。后面都接动词原形。",
     source: 'seed',
+    category: 'plan',
+    freq: 1,
+    soundZh: 'have to → hafta；I\'d better → I\'d-better（better 的 t 变轻 d）；going to → gonna；want to → wanna',
   },
 
   // ---------- f040 请求许可 ----------
@@ -824,6 +862,9 @@ export const FRAMES_SCENES: SubstitutionFrame[] = [
     tipZh:
       'Can I... 是最常用的请求许可句型，朋友之间直接用；对陌生人在句尾加 if you don\'t mind 会更礼貌。借东西用 borrow（借入），不要和 lend（借出）弄混。',
     source: 'seed',
+    category: 'request',
+    freq: 1,
+    soundZh: 'Can I → Can-nai；if you don\'t mind → if-ya-doan-mind',
   },
 
   // ---------- f041 询问物主 ----------
@@ -887,6 +928,9 @@ export const FRAMES_SCENES: SubstitutionFrame[] = [
     tipZh:
       "物主后面加 's 表示\"……的\"：Tom's laptop。问句要把 is 提到 that 前面（Is that...?）。如果物主是 your sister 这样的短语，'s 加在最后一个词上：your sister's bag。",
     source: 'seed',
+    category: 'question',
+    freq: 2,
+    soundZh: 'Is that → Izzat',
   },
 
   // ---------- f042 说明谁把东西给了谁 ----------
@@ -959,6 +1003,8 @@ export const FRAMES_SCENES: SubstitutionFrame[] = [
     tipZh:
       '宾语是代词时顺序固定：动词 + 物品 + to + 人（gave it to her）。不能说 gave her it。想用"人在前"的说法，物品必须是名词：gave her the book。',
     source: 'seed',
+    category: 'experience',
+    freq: 2,
   },
 
   // ---------- f043 从没做过 ----------
@@ -1012,6 +1058,9 @@ export const FRAMES_SCENES: SubstitutionFrame[] = [
     tipZh:
       "I've never + 过去分词 表示\"到现在为止从没有过\"的经历，不加具体时间。注意不规则过去分词：been、ridden、seen。结尾的 to 后面省略了重复的动词。",
     source: 'seed',
+    category: 'experience',
+    freq: 1,
+    soundZh: 'I\'ve never → I\'ve-never；I\'d love to → I\'d-love-ta',
   },
 
   // ---------- f044 评价物品 ----------
@@ -1066,6 +1115,8 @@ export const FRAMES_SCENES: SubstitutionFrame[] = [
     tipZh:
       'this + 单数名词用 is，these + 复数名词用 are，be 动词要和名词的单复数一致。shoes、jeans 总是复数形式，所以用 these ... are。程度词 a bit / a little 修饰形容词时，不要加 very。',
     source: 'seed',
+    category: 'opinion',
+    freq: 1,
   },
 
   // ---------- f045 有条件的计划 ----------
@@ -1129,6 +1180,9 @@ export const FRAMES_SCENES: SubstitutionFrame[] = [
     tipZh:
       'be going to 表示已有打算，加 probably 语气变弱。as long as 后面的条件从句用一般现在时，不要写 will。时间可以放在 as long as 之前。',
     source: 'seed',
+    category: 'plan',
+    freq: 3,
+    soundZh: 'going to → gonna；as long as → as-long-az',
   },
 
   // ---------- f046 说别人的习惯 ----------
@@ -1192,6 +1246,8 @@ export const FRAMES_SCENES: SubstitutionFrame[] = [
     tipZh:
       '主语是 he / she / my boss 这样的第三人称单数时，一般现在时的动词要加 -s（gets、works、cooks）。which 指代前面整件事，后面可以接评论。',
     source: 'seed',
+    category: 'social',
+    freq: 3,
   },
 
   // =====================================================================
@@ -1249,6 +1305,9 @@ export const FRAMES_SCENES: SubstitutionFrame[] = [
     tipZh:
       '问路先用 Excuse me 引起注意。how can I get to + 地点 是万能问法；交通方式用 by + 无冠词的交通工具（by bus），走路是 on foot。',
     source: 'seed',
+    category: 'travel',
+    freq: 1,
+    soundZh: 'How can I → How-can-nai；get to → get-ta',
   },
 
   // ---------- f048 前台请求 ----------
@@ -1301,6 +1360,9 @@ export const FRAMES_SCENES: SubstitutionFrame[] = [
     tipZh:
       "I'd like to 比 I want to 礼貌得多，酒店、餐厅、柜台都适用，后面接动词原形。句尾加 please 或 if possible 能让语气更柔和。",
     source: 'seed',
+    category: 'travel',
+    freq: 2,
+    soundZh: 'I\'d like to → I\'d like-ta',
   },
 
   // ---------- f049 买东西问货 ----------
@@ -1363,6 +1425,9 @@ export const FRAMES_SCENES: SubstitutionFrame[] = [
     tipZh:
       "指示词要和商品的单复数一致：this jacket / these shoes。鞋、裤子这类成对的东西在英语里是复数（shoes、jeans）。问尺码用 in a bigger size，问颜色直接 in black。",
     source: 'seed',
+    category: 'travel',
+    freq: 2,
+    soundZh: 'Do you have → Dya have；by any chance → by-any-chance（连读）',
   },
 
   // ---------- f050 反映问题 ----------
@@ -1415,6 +1480,9 @@ export const FRAMES_SCENES: SubstitutionFrame[] = [
     tipZh:
       "先用 I think there's a problem with... 客观地说出问题，不要直接指责对方，再用 Could you... 提出请求。it 指代前面提到的东西，me 是宾格，不能写成 I。",
     source: 'seed',
+    category: 'problem',
+    freq: 1,
+    soundZh: 'there\'s a → there-za；Could you → Couldja',
   },
 
   // ---------- f051 间接询问 ----------
@@ -1468,6 +1536,9 @@ export const FRAMES_SCENES: SubstitutionFrame[] = [
     tipZh:
       '嵌入式问句里不再倒装：说 where I can buy a ticket，不说 where can I buy a ticket。只有外层的 Could you 才倒装。先说明自己的处境，对方更愿意帮忙。',
     source: 'seed',
+    category: 'question',
+    freq: 2,
+    soundZh: 'Could you tell me → Couldja tell me',
   },
 
   // =====================================================================
@@ -1524,6 +1595,9 @@ export const FRAMES_SCENES: SubstitutionFrame[] = [
     tipZh:
       'Have you ever + 过去分词? 是聊天破冰的经典问法，问的是\"有没有这种经历\"，不说具体时间。回答用 Yes, I have. / No, never. 追问细节时才改用一般过去时。',
     source: 'seed',
+    category: 'experience',
+    freq: 1,
+    soundZh: 'Have you ever → Havya-ever',
   },
 
   // ---------- f053 发出邀请 ----------
@@ -1577,6 +1651,9 @@ export const FRAMES_SCENES: SubstitutionFrame[] = [
     tipZh:
       'Do you want to...? 是朋友间最自然的邀请。比它更随意的是 Wanna...?，更礼貌的是 Would you like to...?。助动词 do 放在主语 you 之前，want 后面的动词用原形。',
     source: 'seed',
+    category: 'offer',
+    freq: 1,
+    soundZh: 'Do you want to → Dya wanna',
   },
 
   // ---------- f054 一直想做的事 ----------
@@ -1629,6 +1706,9 @@ export const FRAMES_SCENES: SubstitutionFrame[] = [
     tipZh:
       "I've always wanted to + 动词原形，用现在完成时表示\"从以前一直到现在都想\"。后半句常用 but I've never... 说明还没实现的原因。",
     source: 'seed',
+    category: 'feeling',
+    freq: 2,
+    soundZh: 'I\'ve always wanted to → I\'ve always wanted-ta',
   },
 
   // ---------- f055 婉拒邀请 ----------
@@ -1702,6 +1782,9 @@ export const FRAMES_SCENES: SubstitutionFrame[] = [
     tipZh:
       "拒绝邀请的公式：先感谢或表示遗憾，再说 I can't make it，最后简短给出理由。can't 后面接动词原形；owner's 表示\"某人的\"活动，名字或名词后加 's。",
     source: 'seed',
+    category: 'offer',
+    freq: 2,
+    soundZh: 'can\'t make it → can\'t-make-it（make it 连读成 makit）',
   },
 
   // ---------- f056 转述别人的看法 ----------
@@ -1764,6 +1847,8 @@ export const FRAMES_SCENES: SubstitutionFrame[] = [
     tipZh:
       "转述一次具体的话用过去式（said / told me / mentioned）；转述对方一贯的看法用一般现在时，第三人称单数动词要加 -s（my friend thinks）。口语里不必严格改时态，that 也常可省略。",
     source: 'seed',
+    category: 'social',
+    freq: 3,
   },
 
   // =====================================================================
@@ -1818,6 +1903,9 @@ export const FRAMES_SCENES: SubstitutionFrame[] = [
     tipZh:
       'How do you say X in English? 是学英语最有用的一句，无论词汇多少都能靠它继续对话。how 后面用 do you 倒装，动词用原形。',
     source: 'seed',
+    category: 'question',
+    freq: 1,
+    soundZh: 'how do you → how-d\'ya',
   },
 
   // ---------- f058 学习目标 ----------
@@ -1869,6 +1957,9 @@ export const FRAMES_SCENES: SubstitutionFrame[] = [
     tipZh:
       "want to / need to / hope to 后面接动词原形；by 是介词，后面必须接 -ing 形式（by practicing），不能接原形。",
     source: 'seed',
+    category: 'plan',
+    freq: 2,
+    soundZh: 'want to → wanna；trying to → tryin\'-ta',
   },
 
   // ---------- f059 倾诉学习困难 ----------
@@ -1931,6 +2022,9 @@ export const FRAMES_SCENES: SubstitutionFrame[] = [
     tipZh:
       "I've been studying ... for + 一段时间，表示从过去持续到现在的动作；for 后面接时间长度（two years），since 后面才接起点。still 放在主语之后、动词之前。",
     source: 'seed',
+    category: 'problem',
+    freq: 2,
+    soundZh: 'I\'ve been → I\'ve-bin（been 弱读）',
   },
 
   // ---------- f060 向老师求助 ----------
@@ -1993,5 +2087,8 @@ export const FRAMES_SCENES: SubstitutionFrame[] = [
     tipZh:
       'have trouble with + 名词 表示\"在……上有困难\"。give me an example 是双宾语结构：先说人（me），再说东西（an example）；人是代词时要用宾格 me，不能用 I。',
     source: 'seed',
+    category: 'request',
+    freq: 2,
+    soundZh: 'Could you → Couldja',
   },
 ];
