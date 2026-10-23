@@ -1,6 +1,7 @@
 import type {
   AiFeedback,
   AlignmentToken,
+  Chunk,
   DozenSentence,
   GrammarPoint,
   Scene,
@@ -12,6 +13,7 @@ import { getSettings } from '../settings';
 import { supabaseConfigured } from '../sync/client';
 import { AiError, chatJson } from './deepseek';
 import {
+  buildChunkPromptsMessages,
   buildDeconstructMessages,
   buildFrameMessages,
   buildGradeMessages,
@@ -20,6 +22,7 @@ import {
 } from './prompts';
 import {
   isRecord,
+  validateChunkPrompts,
   validateDeconstruction,
   validateFeedback,
   validateFrame,
@@ -46,10 +49,15 @@ export function aiConfigured(s: Settings = getSettings()): boolean {
   return s.deepseekApiKey.trim() !== '';
 }
 
+/**
+ * Grades one learner sentence. Chunk track: pass `targetChunk` (the chunk or frame pattern to use) and
+ * `grammar: []` or omit it; the grade then judges whether the chunk was used naturally, with no grammar analysis.
+ */
 export function gradeOutput(i: {
   promptZh?: string;
   skeletonEn?: string;
-  grammar: GrammarPoint[];
+  grammar?: GrammarPoint[];
+  targetChunk?: string;
   userEn: string;
 }): Promise<AiFeedback> {
   return chatJson(buildGradeMessages(i), validateFeedback, { temperature: 0.2 });
@@ -90,6 +98,22 @@ export function generateOutputPrompts(i: {
   count: number;
 }): Promise<{ promptZh: string; hintEn: string }[]> {
   return chatJson(buildOutputPromptsMessages(i), (u) => validateOutputPrompts(u, i.count), {
+    temperature: 0.8,
+  });
+}
+
+/**
+ * Chunk track output step: `count` realistic Chinese situations that make the learner use today's
+ * chunks/frames naturally. One target item per prompt (rotating); the hint is the target's key words only.
+ */
+export function generateChunkPrompts(i: {
+  items: Array<{ kind: 'chunk'; chunk: Chunk } | { kind: 'frame'; frame: SubstitutionFrame }>;
+  scenes: Scene[];
+  count: number;
+}): Promise<{ promptZh: string; hintEn: string; targetId: string }[]> {
+  if (i.items.length === 0) return Promise.reject(new AiError('bad-response', '今天没有可以出题的语块。'));
+  const ids = i.items.map((it) => (it.kind === 'chunk' ? it.chunk.id : it.frame.id));
+  return chatJson(buildChunkPromptsMessages(i), (u) => validateChunkPrompts(u, i.count, ids), {
     temperature: 0.8,
   });
 }

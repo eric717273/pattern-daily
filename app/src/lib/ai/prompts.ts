@@ -65,28 +65,34 @@ export function buildGradeMessages(i: GradeInput): ChatMessage[] {
 1. 是否自然地用上了目标语块/句型（原样或合理变形均可；没用上或用得生硬要扣分，并在 corrected 里示范如何自然地用）；
 2. 是否准确表达了中文题目的意思；3. 整句是否地道、没有明显错误（有错误时只给出修正和一句话原因，不讲语法术语）。
 评分 0-100：90 以上=自然用上语块且整句地道；70-89=用上了但有小问题；50-69=没用上目标语块或有明显错误；50 以下=严重错误或偏题。
-correct：用上目标语块且表达了题意且没有明显错误时为 true。corrected：修正后或更自然的版本（必须包含目标语块；若原句已完美，则与原句相同）。explanationZh：用简体中文简要说明语块用得是否自然、哪里可以更地道，不超过 100 字，不做语法分析。alternatives：0-3 个同样用上该语块的其他自然说法。`,
+correct：用上目标语块且表达了题意且没有明显错误时为 true。corrected：修正后或更自然的版本（应包含目标语块；若原句已完美，则与原句相同）。explanationZh：用简体中文简要说明语块用得是否自然、哪里可以更地道，不超过 100 字，不做语法分析。alternatives：0-3 个同样用上该语块的其他自然说法。`,
       '',
+      '只返回如下形状的 JSON：',
+      `{
+  "score": 90,
+  "correct": true,
+  "corrected": "It's up to you. I'm fine with either one.",
+  "explanationZh": "用得很自然，It's up to you 正是把决定权交给对方的常用说法。",
+  "alternatives": ["Whatever you prefer. It's up to you."]
+}`,
     );
   } else {
-  lines.push(
-    `评判标准：
+    lines.push(
+      `评判标准：
 1. 语法是否正确；2. 是否用了给定的句型骨架/语法点（若给出）；3. 是否准确表达了中文题目的意思（若给出）；4. 是否自然地道。
 评分 0-100：90 以上=正确且自然；70-89=基本正确但有小问题；50-69=有明显错误；50 以下=严重错误或偏题。鼓励但要严格，不要为了好听而放水。
 correct：语法正确且表达了题意时为 true。corrected：修正后或更自然的版本（若原句已完美，则与原句相同）。explanationZh：用简体中文简要指出错误和原因（完美时给一句简短肯定），不超过 120 字。alternatives：0-3 个其他自然说法。`,
-    '',
-  );
-  }
-  lines.push(
-    '只返回如下形状的 JSON：',
-    `{
+      '',
+      '只返回如下形状的 JSON：',
+      `{
   "score": 85,
   "correct": true,
   "corrected": "I am going to finish the report tomorrow.",
   "explanationZh": "语法正确。tomorrow 放句尾更自然。",
   "alternatives": ["I'm going to finish the report tomorrow."]
 }`,
-  );
+    );
+  }
   return [
     { role: 'system', content: SYSTEM_PROMPT },
     { role: 'user', content: lines.join('\n') },
@@ -201,6 +207,58 @@ ${frames || '（无）'}
 {
   "prompts": [
     { "promptZh": "告诉同事你明天必须把报告交给经理。", "hintEn": "submit, report, manager" }
+  ]
+}`;
+  return [
+    { role: 'system', content: SYSTEM_PROMPT },
+    { role: 'user', content: user },
+  ];
+}
+
+// ---------- generateChunkPrompts ----------
+
+export type ChunkPromptItem = { kind: 'chunk'; chunk: Chunk } | { kind: 'frame'; frame: SubstitutionFrame };
+
+export interface ChunkPromptsInput {
+  items: ChunkPromptItem[];
+  scenes: Scene[];
+  count: number;
+}
+
+export function chunkPromptItemId(it: ChunkPromptItem): string {
+  return it.kind === 'chunk' ? it.chunk.id : it.frame.id;
+}
+
+function describeChunkPromptItem(it: ChunkPromptItem): string {
+  if (it.kind === 'chunk') {
+    const c = it.chunk;
+    return `- id=${c.id} 【固定语块】${c.en}（${c.zh}）${c.noteZh ? ` 用法：${c.noteZh}` : ''}`;
+  }
+  const f = it.frame;
+  const slots = f.slots.map((s) => `${s.key}: ${s.options.map((o) => o.en).join(' / ')}`).join('; ');
+  return `- id=${f.id} 【替换母框】${f.title}：${f.pattern}  可替换：${slots}`;
+}
+
+export function buildChunkPromptsMessages(i: ChunkPromptsInput): ChatMessage[] {
+  const ids = i.items.map(chunkPromptItemId);
+  const targets = Array.from({ length: i.count }, (_, k) => `第 ${k + 1} 题 → ${ids[k % ids.length]}`).join('；');
+  const user = `请为学习者出 ${i.count} 道「情景输出」题，并以 JSON 返回。学习者今天刚学了下面这些语块/母框，要在题目情景里自然地把它们用出来。
+
+今日语块与母框：
+${i.items.map(describeChunkPromptItem).join('\n')}
+学习者偏好的场景：${i.scenes.length ? i.scenes.join(', ') : 'daily'}
+
+要求：
+1. 每道题给出一个真实、具体的中文情景 promptZh（1-2 句，说清谁在对谁说话、发生了什么），情景要让该语块/母框成为最自然的说法，学习者读完应该想到用它，但题目里不要出现该英文表达，也不要直译出答案。
+2. 每道题只针对【一个】目标，用 targetId 标明（必须是上面列出的 id 之一）；按顺序轮流覆盖所有目标，建议分配：${targets}。
+3. hintEn 只给目标语块里的 1-3 个关键词（英文，逗号分隔），不能是完整答案；母框题给出母框中固定的关键词即可。
+4. 情景互不相同，口语化、贴近生活或工作；不要要求学习者分析语法。
+5. 题目数量必须正好是 ${i.count}。
+
+只返回如下形状的 JSON：
+{
+  "prompts": [
+    { "promptZh": "朋友问你周末去哪家餐厅吃饭，你其实都行，想让他来决定。", "hintEn": "up to", "targetId": "${ids[0]}" }
   ]
 }`;
   return [
