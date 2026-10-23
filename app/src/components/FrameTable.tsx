@@ -18,6 +18,12 @@ export interface FrameTableProps {
   showSentence?: boolean;
   /** Show the Chinese translation of the assembled sentence. Default true. */
   showSentenceZh?: boolean;
+  /** Compact view: only the picked option of every column (for drills). Default false. */
+  compact?: boolean;
+  /** Display only: cells cannot be tapped. Default false. */
+  readOnly?: boolean;
+  /** Slot key whose picked option hides its English (shows "?" + the Chinese): used before an answer is revealed. */
+  maskEnSlot?: string;
   className?: string;
 }
 
@@ -43,6 +49,9 @@ export function FrameTable({
   highlightSlot,
   showSentence = true,
   showSentenceZh = true,
+  compact = false,
+  readOnly = false,
+  maskEnSlot,
   className,
 }: FrameTableProps) {
   const columns = useMemo(() => orderedSlots(frame), [frame]);
@@ -50,13 +59,14 @@ export function FrameTable({
   const total = useMemo(() => countCombos(frame), [frame]);
 
   const pick = (key: string, index: number) => {
+    if (readOnly) return;
     onChange({ ...combo.picks, [key]: index });
   };
 
   return (
     <div className={className}>
       <div
-        className="no-scrollbar -mx-4 snap-x overflow-x-auto px-4 pb-1 md:mx-0 md:px-0"
+        className="no-scrollbar -mx-4 snap-x overflow-x-auto px-4 py-1 md:mx-0 md:px-0"
         role="group"
         aria-label="替换表"
       >
@@ -71,7 +81,8 @@ export function FrameTable({
                 role="group"
                 aria-label={slot.labelZh}
                 className={cx(
-                  'flex w-[8.75rem] shrink-0 snap-start flex-col gap-1.5 rounded-2xl p-1 transition md:min-w-[8.75rem] md:flex-1',
+                  'flex shrink-0 snap-start flex-col gap-1.5 rounded-2xl p-1 transition md:flex-1',
+                  compact ? 'w-[7.25rem] md:min-w-[7.25rem]' : 'w-[8.75rem] md:min-w-[8.75rem]',
                   emphasized && cx('ring-2', style.ring, 'bg-slate-100/80 dark:bg-slate-800/50'),
                 )}
               >
@@ -80,14 +91,17 @@ export function FrameTable({
                 </div>
                 {slot.options.map((opt, i) => {
                   const isSel = i === selected;
+                  if (compact && !isSel) return null;
                   return (
                     <button
                       key={i}
                       type="button"
                       aria-pressed={isSel}
+                      aria-disabled={readOnly || undefined}
                       onClick={() => pick(slot.key, i)}
                       className={cx(
-                        'flex min-h-[3.25rem] flex-col items-center justify-center rounded-xl border px-2 py-1.5 text-center transition active:scale-[0.97]',
+                        'flex min-h-[3.25rem] flex-col items-center justify-center rounded-xl border px-2 py-1.5 text-center transition',
+                        readOnly ? 'cursor-default' : 'active:scale-[0.97]',
                         isSel
                           ? cx(style.selected, 'shadow-sm')
                           : cx(
@@ -96,7 +110,9 @@ export function FrameTable({
                             ),
                       )}
                     >
-                      <span className="font-en text-[15px] leading-tight font-medium">{opt.en}</span>
+                      <span className="font-en text-[15px] leading-tight font-medium">
+                        {maskEnSlot === slot.key && isSel ? '?' : opt.en}
+                      </span>
                       <span className={cx('mt-0.5 text-xs leading-tight', isSel ? 'opacity-85' : 'text-slate-500 dark:text-slate-400')}>
                         {opt.zh}
                       </span>
@@ -108,7 +124,7 @@ export function FrameTable({
           })}
         </div>
       </div>
-      {columns.length > 2 && (
+      {columns.length > 2 && !compact && (
         <p className="mt-1 text-center text-xs text-slate-400 md:hidden dark:text-slate-500">左右滑动查看全部列</p>
       )}
 

@@ -65,6 +65,7 @@ export function todayStr(now?: Date): string;                      // 本地时�
 export function dayIndexFor(startDate: string, today: string): number; // 从 1 开始
 export function getDayPlan(dayIndex: number, frames: SubstitutionFrame[]): DayPlan;
 ```
+课序规则：「第 N 课」按**已完成的课数**推进，不按日历天数——今天的 dayIndex = 已存在的当天会话的 dayIndex，否则 = 日期早于今天且已完成（`completedAt`）的会话数 + 1（`repo.getTodayDayIndex`），所以漏练的日子不会跳过内容。`dayIndexFor` 仅保留作日历换算工具。
 计划规则：第 1–13 天每天学 1 个新的解构句（按 order），母框取与该句 grammar 有交集、尚未出现过的 2 个。第 14–30 天每天 3 个母框，按 level 递进、场景轮换，dozenId 轮流复习。31 天以后进入维护期，确定性地轮换。
 
 ### repo.ts
@@ -75,7 +76,8 @@ export function updateProfile(patch: Partial<Profile>): Promise<Profile>;
 export function ensureCards(kind: CardKind, refIds: string[]): Promise<void>;
 export function getDueCards(now: number, limit: number): Promise<CardState[]>;
 export function gradeCard(cardId: string, grade: Grade, mode: DrillMode, durationMs: number): Promise<CardState>;
-export function getOrCreateSession(date: string): Promise<DailySession>;
+export function getOrCreateSession(date: string): Promise<DailySession>;   // 新建时 dayIndex = getTodayDayIndex(date)
+export function getTodayDayIndex(today: string): Promise<number>;
 export function markStepDone(date: string, step: StepKey, activeMs: number): Promise<DailySession>;
 export function saveAttempt(a: Omit<Attempt, 'id' | 'updatedAt' | 'createdAt'>): Promise<Attempt>;
 export function listAttempts(refId?: string, limit?: number): Promise<Attempt[]>;

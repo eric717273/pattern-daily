@@ -31,6 +31,7 @@ import {
   getOrCreateProfile,
   getOrCreateSession,
   getStats,
+  getTodayDayIndex,
   gradeCard,
   importData,
   listAttempts,
@@ -191,12 +192,12 @@ describe('cards', () => {
 });
 
 describe('sessions', () => {
-  it('getOrCreateSession derives dayIndex from the profile start date', async () => {
+  it('getOrCreateSession starts at lesson 1 and ignores the calendar start date', async () => {
     await updateProfile({ startDate: '2026-03-01' });
     const s = await getOrCreateSession('2026-03-05');
     expect(s.id).toBe('2026-03-05');
     expect(s.date).toBe('2026-03-05');
-    expect(s.dayIndex).toBe(5);
+    expect(s.dayIndex).toBe(1);
     expect(s.stepsDone).toEqual([]);
     expect(s.activeMs).toBe(0);
     expect(s.completedAt).toBeUndefined();
@@ -211,7 +212,7 @@ describe('sessions', () => {
     expect(s.stepsDone).toEqual(['warmup']);
     expect(s.activeMs).toBe(60_000);
     expect(s.completedAt).toBeUndefined();
-    expect(s.dayIndex).toBe(2);
+    expect(s.dayIndex).toBe(1);
 
     s = await markStepDone('2026-03-02', 'warmup', 10_000); // same step again: not duplicated
     expect(s.stepsDone).toEqual(['warmup']);
@@ -227,6 +228,43 @@ describe('sessions', () => {
     s = await markStepDone('2026-03-02', 'output', 100);
     expect(s.completedAt).toBe(completedAt);
     expect(await db.sessions.count()).toBe(1);
+  });
+
+  it('lesson number advances by completed lessons, not calendar days', async () => {
+    expect(await getTodayDayIndex('2026-05-01')).toBe(1);
+    await completeDay('2026-05-01');
+    expect(await getTodayDayIndex('2026-05-02')).toBe(2);
+    // two missed days: the next lesson is still lesson 2
+    expect(await getTodayDayIndex('2026-05-05')).toBe(2);
+    const s = await getOrCreateSession('2026-05-05');
+    expect(s.dayIndex).toBe(2);
+    // an unfinished session does not count
+    expect(await getTodayDayIndex('2026-05-06')).toBe(2);
+    await completeDay('2026-05-05');
+    expect(await getTodayDayIndex('2026-05-06')).toBe(3);
+  });
+
+  it('getTodayDayIndex returns the stored index of an existing session (even after it is completed)', async () => {
+    await completeDay('2026-05-01');
+    const s = await getOrCreateSession('2026-05-02');
+    expect(s.dayIndex).toBe(2);
+    await completeDay('2026-05-02');
+    expect(await getTodayDayIndex('2026-05-02')).toBe(2);
+    expect(await getTodayDayIndex('2026-05-01')).toBe(1);
+  });
+
+  it('only completed sessions before the date count; deleted and later ones do not', async () => {
+    await completeDay('2026-06-01');
+    await completeDay('2026-06-05'); // later than the queried date
+    await markStepDone('2026-06-02', 'warmup', 1); // started, not finished
+    await db.sessions.update('2026-06-01', { deleted: true });
+    expect(await getTodayDayIndex('2026-06-04')).toBe(1);
+  });
+
+  it('markStepDone on a new session uses the completed-lessons rule', async () => {
+    await completeDay('2026-07-01');
+    const s = await markStepDone('2026-07-09', 'warmup', 10);
+    expect(s.dayIndex).toBe(2);
   });
 
   it('markStepDone creates the session when missing', async () => {

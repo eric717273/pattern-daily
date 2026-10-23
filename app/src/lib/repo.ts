@@ -15,7 +15,7 @@ import type {
 } from '../types';
 import { SEED_FRAMES } from '../content';
 import { db, SYNCED_TABLES } from './db';
-import { dayIndexFor, todayStr } from './plan';
+import { todayStr } from './plan';
 import { newCard, schedule } from './srs';
 
 /** Dispatches a 'change' event after every local write (sync debounces on it). */
@@ -131,40 +131,53 @@ export async function gradeCard(
 
 // ---------- sessions ----------
 
-async function loadOrCreateSession(date: string, startDate: string): Promise<DailySession> {
-  return db.transaction('rw', db.sessions, async () => {
+/**
+ * Lesson number for `date`, counted in COMPLETED lessons, not calendar days, so a missed day never skips
+ * content: an existing session keeps its dayIndex; otherwise it is (completed sessions before `date`) + 1.
+ * Reads sessions only, so it can run inside a sessions transaction.
+ */
+async function computeDayIndex(date: string): Promise<number> {
+  const existing = await db.sessions.get(date);
+  if (existing && !existing.deleted) return existing.dayIndex;
+  const done = await db.sessions
+    .filter((s) => !s.deleted && s.completedAt !== undefined && s.date < date)
+    .count();
+  return done + 1;
+}
+
+export async function getTodayDayIndex(today: string): Promise<number> {
+  return computeDayIndex(today);
+}
+
+export async function getOrCreateSession(date: string): Promise<DailySession> {
+  await getOrCreateProfile();
+  const { session, created } = await db.transaction('rw', db.sessions, async () => {
     const existing = await db.sessions.get(date);
-    if (existing && !existing.deleted) return existing;
+    if (existing && !existing.deleted) return { session: existing, created: false };
     const fresh = touch<DailySession>({
       id: date,
       date,
-      dayIndex: dayIndexFor(startDate, date),
+      dayIndex: await computeDayIndex(date),
       stepsDone: [],
       activeMs: 0,
       updatedAt: 0,
     });
     await db.sessions.put(fresh);
-    return fresh;
+    return { session: fresh, created: true };
   });
-}
-
-export async function getOrCreateSession(date: string): Promise<DailySession> {
-  const profile = await getOrCreateProfile();
-  const before = await db.sessions.get(date);
-  const session = await loadOrCreateSession(date, profile.startDate);
-  if (!before || before.deleted) notify();
+  if (created) notify();
   return session;
 }
 
 /** Records a finished step. The day counts as completed (completedAt set) once all four steps are done. */
 export async function markStepDone(date: string, step: StepKey, activeMs: number): Promise<DailySession> {
-  const profile = await getOrCreateProfile();
+  await getOrCreateProfile();
   const next = await db.transaction('rw', db.sessions, async () => {
     const existing = await db.sessions.get(date);
     const base: DailySession =
       existing && !existing.deleted
         ? existing
-        : { id: date, date, dayIndex: dayIndexFor(profile.startDate, date), stepsDone: [], activeMs: 0, updatedAt: 0 };
+        : { id: date, date, dayIndex: await computeDayIndex(date), stepsDone: [], activeMs: 0, updatedAt: 0 };
     const stepsDone = base.stepsDone.includes(step) ? base.stepsDone : [...base.stepsDone, step];
     const complete = ALL_STEPS.every((s) => stepsDone.includes(s));
     const updated = touch<DailySession>({

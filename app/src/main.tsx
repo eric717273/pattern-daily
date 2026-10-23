@@ -4,10 +4,10 @@ import { registerSW } from 'virtual:pwa-register';
 import './index.css';
 import App from './App';
 import { getOrCreateProfile } from './lib/repo';
-import { startAutoSync } from './lib/sync';
 
 void getOrCreateProfile().catch(() => undefined);
-startAutoSync();
+// Load the sync engine (supabase-js) after the shell so it stays out of the entry chunk.
+void import('./lib/sync').then((m) => m.startAutoSync());
 registerSW({ immediate: true });
 
 const root = document.getElementById('root');

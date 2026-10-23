@@ -1,35 +1,46 @@
+import { lazy, Suspense, type ComponentType, type ReactElement } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { Layout } from './components/Layout';
-import { AnalyzePage } from './pages/AnalyzePage';
-import { DozenDetailPage } from './pages/DozenDetailPage';
-import { DozenListPage } from './pages/DozenListPage';
-import { DrillPlaceholder } from './pages/DrillPlaceholder';
-import { FrameDetailPage } from './pages/FrameDetailPage';
-import { FramesListPage } from './pages/FramesListPage';
-import { MePage } from './pages/MePage';
-import { NotFoundPage } from './pages/NotFoundPage';
-import { TodayPage } from './pages/TodayPage';
+import { PageLoading } from './components/ui';
 
-/**
- * All routes. Phase 2: replace the page placeholders (TodayPage / AnalyzePage / MePage) and the two
- * `DrillPlaceholder` routes with the real implementations - keep the paths.
- */
+/** Lazy-load a page module that exports its component by name. */
+function page<K extends string>(load: () => Promise<Record<K, ComponentType>>, name: K): ReactElement {
+  const Page = lazy(async (): Promise<{ default: ComponentType }> => ({ default: (await load())[name] }));
+  return (
+    <Suspense fallback={<PageLoading />}>
+      <Page />
+    </Suspense>
+  );
+}
+
+const today = page(() => import('./pages/TodayPage'), 'TodayPage');
+const dozenList = page(() => import('./pages/DozenListPage'), 'DozenListPage');
+const dozenDetail = page(() => import('./pages/DozenDetailPage'), 'DozenDetailPage');
+const framesList = page(() => import('./pages/FramesListPage'), 'FramesListPage');
+const frameDetail = page(() => import('./pages/FrameDetailPage'), 'FrameDetailPage');
+const singleDrill = page(() => import('./pages/FrameDrillPages'), 'FrameSingleDrillPage');
+const translateDrill = page(() => import('./pages/FrameDrillPages'), 'FrameTranslateDrillPage');
+const analyze = page(() => import('./pages/AnalyzePage'), 'AnalyzePage');
+const me = page(() => import('./pages/MePage'), 'MePage');
+const notFound = page(() => import('./pages/NotFoundPage'), 'NotFoundPage');
+
+/** All routes. Every page is a lazy chunk so the first load only ships the shell. */
 export function AppRoutes() {
   return (
     <Routes>
       <Route element={<Layout />}>
-        <Route index element={<TodayPage />} />
-        <Route path="dozen" element={<DozenListPage />} />
-        <Route path="dozen/:id" element={<DozenDetailPage />} />
-        <Route path="frames" element={<FramesListPage />} />
-        <Route path="frames/:id" element={<FrameDetailPage />} />
-        {/* PHASE 2: single-slot quick swap drill (Palmer step 2) */}
-        <Route path="frames/:id/drill/single" element={<DrillPlaceholder mode="single" />} />
-        {/* PHASE 2: Chinese -> English translate drill (Palmer step 3) */}
-        <Route path="frames/:id/drill/translate" element={<DrillPlaceholder mode="translate" />} />
-        <Route path="analyze" element={<AnalyzePage />} />
-        <Route path="me" element={<MePage />} />
-        <Route path="*" element={<NotFoundPage />} />
+        <Route index element={today} />
+        <Route path="dozen" element={dozenList} />
+        <Route path="dozen/:id" element={dozenDetail} />
+        <Route path="frames" element={framesList} />
+        <Route path="frames/:id" element={frameDetail} />
+        {/* Palmer step 2: single-slot quick swap drill */}
+        <Route path="frames/:id/drill/single" element={singleDrill} />
+        {/* Palmer step 3: Chinese -> English translate drill */}
+        <Route path="frames/:id/drill/translate" element={translateDrill} />
+        <Route path="analyze" element={analyze} />
+        <Route path="me" element={me} />
+        <Route path="*" element={notFound} />
       </Route>
     </Routes>
   );
