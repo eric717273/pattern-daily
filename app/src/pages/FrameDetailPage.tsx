@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { FramePattern } from '../components/FramePattern';
+import { SoundTip } from '../components/chunk/SoundTip';
 import { FrameTable } from '../components/FrameTable';
 import { GrammarTags } from '../components/GrammarTag';
 import { ChevronRightIcon } from '../components/icons';
@@ -18,7 +19,7 @@ import {
 } from '../components/ui';
 import { DOZEN } from '../content';
 import { useAllFrames, useCard } from '../lib/hooks';
-import { FRAME_LEVEL_LABELS, SCENE_LABELS } from '../lib/labels';
+import { FRAME_LEVEL_LABELS, FREQ_LABELS, FUNCTION_CATEGORY_LABELS, SCENE_LABELS } from '../lib/labels';
 import { deleteUserFrame, ensureCards } from '../lib/repo';
 
 export function FrameDetailPage() {
@@ -40,11 +41,11 @@ export function FrameDetailPage() {
   if (!frame) {
     return (
       <>
-        <PageHeader title="母框" backTo="/frames" backLabel="全部母框" />
+        <PageHeader title="母框" backTo="/library" backLabel="语块库" />
         <EmptyState
           title="找不到这个母框"
           description="它可能已被删除。"
-          action={<ButtonLink to="/frames">返回母框列表</ButtonLink>}
+          action={<ButtonLink to="/library">返回语块库</ButtonLink>}
         />
       </>
     );
@@ -68,7 +69,7 @@ export function FrameDetailPage() {
     setBusy(true);
     try {
       await deleteUserFrame(frame.id);
-      void navigate('/frames', { replace: true });
+      void navigate('/library', { replace: true });
     } finally {
       setBusy(false);
       setConfirmDelete(false);
@@ -78,18 +79,19 @@ export function FrameDetailPage() {
   return (
     <>
       <PageHeader
-        backTo="/frames"
-        backLabel="全部母框"
+        backTo="/library"
+        backLabel="语块库"
         title={frame.title}
         subtitle={
           <span className="mt-1 flex flex-wrap items-center gap-1.5">
+            {frame.category && <Badge tone="indigo">{FUNCTION_CATEGORY_LABELS[frame.category]}</Badge>}
+            {frame.freq && <Badge tone={frame.freq === 1 ? 'indigo' : frame.freq === 2 ? 'sky' : 'slate'}>{FREQ_LABELS[frame.freq]}</Badge>}
             <Badge tone="slate">{SCENE_LABELS[frame.scene]}</Badge>
             <Badge tone={frame.level === 1 ? 'emerald' : frame.level === 2 ? 'amber' : 'rose'}>
               {FRAME_LEVEL_LABELS[frame.level]}
             </Badge>
             {frame.source === 'ai' && <Badge tone="violet">AI 生成</Badge>}
             {frame.source === 'user' && <Badge tone="violet">自建</Badge>}
-            <GrammarTags points={frame.grammar} className="contents" />
           </span>
         }
       />
@@ -104,6 +106,8 @@ export function FrameDetailPage() {
           </p>
         )}
       </Card>
+
+      {frame.soundZh && <SoundTip text={frame.soundZh} className="mb-5" />}
 
       <section className="mb-5">
         <SectionTitle>替换表</SectionTitle>
@@ -143,28 +147,39 @@ export function FrameDetailPage() {
         </Card>
       </section>
 
-      {related.length > 0 && (
-        <section className="mb-5">
-          <SectionTitle>对应的解构句</SectionTitle>
-          <ul className="flex flex-col gap-2">
-            {related.map((d) => (
-              <li key={d.id}>
-                <Link to={`/dozen/${d.id}`} className="block rounded-2xl">
-                  <Card interactive padded={false} className="flex items-center gap-3 px-4 py-3">
-                    <span className="flex size-8 shrink-0 items-center justify-center rounded-full bg-indigo-100 text-sm font-bold text-indigo-700 dark:bg-indigo-900/50 dark:text-indigo-200">
-                      {d.order}
-                    </span>
-                    <div className="min-w-0 flex-1">
-                      <p className="font-en truncate text-base font-medium text-slate-900 dark:text-slate-100">{d.en}</p>
-                      <p className="truncate text-sm text-slate-500 dark:text-slate-400">{d.zh}</p>
-                    </div>
-                    <ChevronRightIcon size={18} className="shrink-0 text-slate-300 dark:text-slate-600" />
-                  </Card>
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </section>
+      {(related.length > 0 || frame.grammar.length > 0) && (
+        <details className="group mb-5 rounded-2xl border border-slate-200 bg-white dark:border-slate-800 dark:bg-slate-900">
+          <summary className="flex min-h-12 cursor-pointer list-none items-center justify-between gap-3 px-4 py-2 text-[15px] font-medium text-slate-600 dark:text-slate-300 [&::-webkit-details-marker]:hidden">
+            看结构
+            <ChevronRightIcon size={18} className="shrink-0 text-slate-400 transition-transform group-open:rotate-90" />
+          </summary>
+          <div className="flex flex-col gap-3 border-t border-slate-100 px-4 py-3 dark:border-slate-800">
+            <p className="text-sm text-slate-500 dark:text-slate-400">
+              练习时不用管语法。想知道这个句型背后的结构时，再来这里看一眼。
+            </p>
+            <GrammarTags points={frame.grammar} />
+            {related.length > 0 && (
+              <ul className="flex flex-col gap-2">
+                {related.map((d) => (
+                  <li key={d.id}>
+                    <Link to={`/decode/dozen/${d.id}`} className="block rounded-2xl">
+                      <Card interactive padded={false} className="flex items-center gap-3 px-4 py-3">
+                        <span className="flex size-8 shrink-0 items-center justify-center rounded-full bg-indigo-100 text-sm font-bold text-indigo-700 dark:bg-indigo-900/50 dark:text-indigo-200">
+                          {d.order}
+                        </span>
+                        <div className="min-w-0 flex-1">
+                          <p className="font-en truncate text-base font-medium text-slate-900 dark:text-slate-100">{d.en}</p>
+                          <p className="truncate text-sm text-slate-500 dark:text-slate-400">{d.zh}</p>
+                        </div>
+                        <ChevronRightIcon size={18} className="shrink-0 text-slate-300 dark:text-slate-600" />
+                      </Card>
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
+        </details>
       )}
 
       <div className="mb-4 flex flex-wrap gap-3">

@@ -8,7 +8,7 @@ import type {
   TransformTask,
 } from '../types';
 import { averageGrade, hashString, seededRng, type Rng } from './drill';
-import { normalizeEn, randomCombo } from './frameEngine';
+import { compareAnswer, normalizeEn, randomCombo, type AnswerComparison } from './frameEngine';
 import { inferSlotRole } from './labels';
 
 // ---------- shared result type ----------
@@ -84,6 +84,34 @@ export function pickTransformTasks(dozen: DozenSentence, count: number, offset =
 /** Deterministic rotation offset for a dozen sentence on a given day. */
 export function dayOffset(dayKey: string, dozenId: string): number {
   return hashString(`${dayKey}|${dozenId}`);
+}
+
+/** Share of matching words from which a wrong answer counts as "差一点". */
+export const NEAR_MISS = 0.9;
+
+export type TransformOutcome = 'correct' | 'near' | 'wrong' | 'skipped';
+
+export interface TransformCheck {
+  outcome: TransformOutcome;
+  /** The accepted sentence (`to` or an `alt`) closest to what was typed. */
+  target: string;
+  comparison: AnswerComparison;
+}
+
+/**
+ * Check a typed answer against `to` and every `alt`. Correct = normalized exact match with any of them
+ * (case, punctuation and contractions are ignored); near = best similarity >= 0.9 but not exact.
+ */
+export function checkTransform(task: TransformTask, typed: string): TransformCheck {
+  const targets = [task.to, ...(task.alt ?? [])];
+  let best: { target: string; comparison: AnswerComparison } | null = null;
+  for (const target of targets) {
+    const comparison = compareAnswer(typed, target);
+    if (comparison.exact) return { outcome: 'correct', target, comparison };
+    if (!best || comparison.similarity > best.comparison.similarity) best = { target, comparison };
+  }
+  const found = best ?? { target: task.to, comparison: compareAnswer(typed, task.to) };
+  return { ...found, outcome: found.comparison.similarity >= NEAR_MISS ? 'near' : 'wrong' };
 }
 
 // ---------- label tasks ----------
@@ -254,6 +282,27 @@ export interface TenseHints {
   grammar?: readonly GrammarPoint[];
   /** The words of the sentence's verb slots (their first word is checked for a past form). */
   verbs?: readonly string[];
+  /** True when every verb the frame can produce is a bare / -s form (no -ed or irregular past): then "present" is safe. */
+  presentVerbs?: boolean;
+}
+
+function isPastForm(word: string): boolean {
+  const w = word.toLowerCase();
+  return new RegExp(`^(${IRREGULAR_PAST})$`).test(w) || /..ed$/.test(w);
+}
+
+/** Verbs whose past form equals the base form: never evidence for "present". */
+const AMBIGUOUS_FORMS = new Set(['read', 'put', 'cut', 'set', 'hit', 'let', 'hurt', 'shut', 'cost', 'quit', 'spread']);
+
+/** True when none of the verb phrases starts with a past form or an ambiguous form. */
+export function allPresentForms(verbPhrases: readonly string[]): boolean {
+  return (
+    verbPhrases.length > 0 &&
+    verbPhrases.every((v) => {
+      const w = v.trim().split(/\s+/)[0]?.toLowerCase() ?? '';
+      return w !== '' && !isPastForm(w) && !AMBIGUOUS_FORMS.has(w);
+    })
+  );
 }
 
 /**
@@ -278,32 +327,82 @@ export function detectTense(en: string, hints: TenseHints = {}): Tense | undefin
   const perfectEd = /\b(have|has)\s+(?:not\s+)?(?:(?:never|already|just|ever|finally|still|yet)\s+)?\w+ed\b/;
   if (perfect.test(n) || (hints.grammar?.includes('present-perfect') && perfectEd.test(n))) found.add('perfect');
 
-  // modals (lowercase "may" only, so the month May is not a modal)
+  // modals (lowercase "may" only, so the month May is not a modal); have / need to count as modal too
   if (/\b(must|can|cannot|could|should|would|might|shall)\b/.test(n)) found.add('modal');
+  if (/\b(have|has|need|needs)\s+to\b/.test(n)) found.add('modal');
   if (/\bmay\b/.test(raw) || /^May\s+(I|we|you|he|she|it|they)\b/.test(raw)) found.add('modal');
 
   // past
   const verbs = (hints.verbs ?? []).map((v) => v.trim().split(/\s+/)[0]?.toLowerCase() ?? '');
-  const pastRe = new RegExp(`^(${IRREGULAR_PAST})$`);
   const hasHaveOrBe = /\b(have|has|am|is|are|be|been|being)\b/.test(n);
   if (/\b(was|were|did)\b/.test(n)) found.add('past');
-  else if (verbs.some((v) => pastRe.test(v) || (/..ed$/.test(v) && !hasHaveOrBe))) found.add('past');
+  else if (verbs.some((v) => v !== '' && isPastForm(v) && !(/..ed$/.test(v) && hasHaveOrBe))) found.add('past');
 
   const marked = [...found];
   if (marked.length === 1) return marked[0];
   if (marked.length > 1) return undefined;
 
   // present: only with an explicit marker
-  if (/\b(am|is|are|do|does)\b/.test(n) || words.some((w) => PRESENT_VERBS.has(w))) return 'present';
+  if (/\b(am|is|are)\s+(not\s+)?\w+ing\b/.test(n)) return undefined; // present continuous is not 一般现在
+  if (/\b(am|is|are|do|does)\b/.test(n) || words.some((w) => PRESENT_VERBS.has(w)) || hints.presentVerbs) {
+    return 'present';
+  }
   return undefined;
 }
 
 // ----- frame combos -----
 
-/** A frame is labelable when every slot maps to a role other than 'other' (so the answer is unambiguous). */
+/**
+ * Slot keys whose role inferSlotRole gets right; frames with any other slot key (pronoun / person: object
+ * or indirect object?, degree / adverb: complement or adverbial?, openers like "主语+想要") are skipped.
+ */
+const TRUSTED_SLOT_KEYS = new Set([
+  'subject',
+  'who',
+  'verb',
+  'action',
+  'task',
+  'done',
+  'object',
+  'thing',
+  'item',
+  'topic',
+  'recipient',
+  'owner',
+  'time',
+  'place',
+  'duration',
+  'adjective',
+  'adj',
+  'status',
+  'state',
+  'modal',
+  'aux',
+]);
+
+/** Contractions or words that mean a slot option swallowed an auxiliary / verb of its own. */
+const VERBISH =
+  /\b(is|are|am|was|were|be|been|have|has|had|will|would|can|could|should|must|may|might|do|does|did|want|wants|need|needs|going|trying|planning|hoping|like|likes|make|makes)\b|['’](ll|m|re|ve|d)\b/i;
+
+/**
+ * A frame is labelable when every slot maps to a role other than 'other' AND the mapping is trustworthy:
+ * the slot key is one inferSlotRole is reliable for, and no subject / object / adverbial / complement
+ * option contains an auxiliary or verb of its own ("I want", "I'm going to", "Is the coffee").
+ */
 export function isLabelableFrame(frame: SubstitutionFrame): boolean {
-  return frame.slots.length > 0 && frame.slots.every((s) => inferSlotRole(s) !== 'other');
+  if (frame.slots.length === 0) return false;
+  return frame.slots.every((s) => {
+    const role = inferSlotRole(s);
+    if (role === 'other' || !TRUSTED_SLOT_KEYS.has(s.key)) return false;
+    if (role === 'verb') return true;
+    // an aux option must be the auxiliary alone, not "Can I" / "I have to"
+    if (role === 'aux') return s.options.every((o) => !/\b(i|we|you|he|she|they|it)\b/i.test(o.en));
+    return s.options.every((o) => !VERBISH.test(o.en));
+  });
 }
+
+const BE_WORDS = new Set(['am', 'is', 'are', 'was', 'were']);
+const MODAL_WORDS = new Set(['will', 'can', 'could', 'should', 'must', 'would', 'might', 'may', 'shall']);
 
 function cleanWord(w: string): string {
   return w.replace(/^[,.;:!?"“”]+|[,.;:!?"“”]+$/g, '');
@@ -329,13 +428,19 @@ export function labelTaskFromCombo(frame: SubstitutionFrame, combo: FrameCombo):
     } else {
       for (const w of part.split(/\s+/)) {
         const word = cleanWord(w);
-        if (word) tokens.push({ text: word, role: null });
+        if (!word) continue;
+        const lower = word.toLowerCase();
+        // fixed be-forms and modals are asked too ("is" = verb, "will" = aux); other fixed words stay muted
+        tokens.push({ text: word, role: BE_WORDS.has(lower) ? 'verb' : MODAL_WORDS.has(lower) ? 'aux' : null });
       }
     }
   }
   if (tokens.length === 0) return null;
   tokens[0] = { ...tokens[0], text: tokens[0].text.replace(/^([^A-Za-z]*)([a-z])/, (_m, lead: string, c: string) => lead + c.toUpperCase()) };
   const verbs = tokens.filter((t) => t.role === 'verb').map((t) => t.text);
+  const verbSlotOptions = frame.slots
+    .filter((s) => inferSlotRole(s) === 'verb')
+    .flatMap((s) => s.options.map((o) => o.en));
   const picks = frame.slots.map((s) => combo.picks[s.key] ?? 0).join('-');
   return {
     id: `frame:${frame.id}:${picks}`,
@@ -344,7 +449,11 @@ export function labelTaskFromCombo(frame: SubstitutionFrame, combo: FrameCombo):
     en: combo.en,
     zh: combo.zh,
     tokens,
-    tense: detectTense(combo.en, { grammar: frame.grammar, verbs }),
+    tense: detectTense(combo.en, {
+      grammar: frame.grammar,
+      verbs,
+      presentVerbs: allPresentForms(verbSlotOptions),
+    }),
   };
 }
 
@@ -408,4 +517,17 @@ export function scoreLabeling(
     if (tenseCorrect) correct += 1;
   }
   return { correct, total, tokenCorrect, tenseCorrect };
+}
+
+// ---------- practice ----------
+
+/** A random learned skeleton (card `dozen:<id>` exists); d01 when nothing is learned yet. */
+export function pickPracticeDozenId(
+  learnedCardIds: { has(id: string): boolean },
+  dozenIds: readonly string[],
+  rng: Rng = Math.random,
+): string {
+  const learned = dozenIds.filter((id) => learnedCardIds.has(`dozen:${id}`));
+  if (learned.length === 0) return dozenIds[0] ?? 'd01';
+  return learned[Math.min(learned.length - 1, Math.floor(rng() * learned.length))];
 }

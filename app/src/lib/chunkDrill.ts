@@ -14,9 +14,9 @@ export const SLOW_RATE = 0.7;
 
 // ---------- chunk text ----------
 
-/** The chunk without its open-ended tail: "I was wondering if …" -> "I was wondering if". */
+/** The chunk without its open slot: "I was wondering if …" -> "I was wondering if"; "What do you mean by …?" -> "What do you mean by". */
 export function chunkCore(en: string): string {
-  return en.replace(/\s*(?:…|\.{3})\s*$/u, '').trim();
+  return (en.split(/…|\.{3}/u)[0] ?? en).trim();
 }
 
 /** The part of a chunk that has to appear verbatim in a sentence: core minus trailing punctuation. */

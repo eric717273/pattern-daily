@@ -3,6 +3,9 @@ import type { FrameCombo, Grade } from '../types';
 export type SwapSpeed = 'slow' | 'medium' | 'fast';
 export type SwapFeel = 'hard' | 'ok' | 'easy';
 
+/** Grade of a self-graded 单槽快替 round. */
+export const FEEL_GRADE: Record<SwapFeel, Grade> = { hard: 1, ok: 2, easy: 3 };
+
 export interface SwapSpeedOption {
   value: SwapSpeed;
   label: string;

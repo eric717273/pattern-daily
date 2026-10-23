@@ -528,8 +528,8 @@ export const DOZEN_RAW: DozenSentence[] = [
       {
         en: 'Is',
         zh: '（吗）',
-        role: 'aux',
-        note: '把 is 提到句首就构成疑问句；中文在句末用“吗”，英语靠倒装',
+        role: 'verb',
+        note: '系动词 is 提到句首就构成疑问句（它仍是谓语动词，只是换了位置）；中文在句末用“吗”，英语靠倒装',
       },
       { en: 'the', zh: '—', role: 'determiner', note: '冠词，中文没有对应词' },
       { en: 'apple', zh: '苹果', role: 'subject' },

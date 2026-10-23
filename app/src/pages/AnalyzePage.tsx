@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { DeconstructionView } from '../components/analyze/DeconstructionView';
 import { AnalyzeIcon, SparklesIcon } from '../components/icons';
 import {
@@ -67,17 +68,18 @@ function saveHistory(items: HistoryItem[]): void {
 export function AnalyzePage() {
   const [settings] = useSettings();
   const configured = aiConfigured(settings);
-  const [text, setText] = useState('');
-  const [busy, setBusy] = useState(false);
+  const [params] = useSearchParams();
+  const prefill = (params.get('s') ?? '').trim();
+  // ?s=<sentence> (e.g. the chunk track's "看结构" button): prefill the box and analyse right away
+  const autoStart = configured && prefill !== '';
+  const autoRan = useRef(false);
+  const [text, setText] = useState(prefill);
+  const [busy, setBusy] = useState(autoStart);
   const [error, setError] = useState<string | null>(null);
   const [result, setResult] = useState<Deconstruction | null>(null);
   const [history, setHistory] = useState<HistoryItem[]>(loadHistory);
 
-  const run = async () => {
-    const en = text.trim();
-    if (!en || busy) return;
-    setBusy(true);
-    setError(null);
+  const execute = async (en: string) => {
     try {
       const r = await deconstruct(en);
       setResult(r);
@@ -91,12 +93,28 @@ export function AnalyzePage() {
     }
   };
 
-  const subtitle = '把任何一句英语拆成骨架：逐字对照、语法点、最接近的解构句，还能生成一个母框。';
+  const run = () => {
+    const en = text.trim();
+    if (!en || busy) return;
+    setBusy(true);
+    setError(null);
+    void execute(en);
+  };
+
+  useEffect(() => {
+    if (!autoStart || autoRan.current) return;
+    autoRan.current = true;
+    void execute(prefill);
+    // once per page visit, with the sentence the page was opened with
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const subtitle = '把任何一句英语拆成骨架：逐字对照、语法点和最接近的解构句。';
 
   if (!configured) {
     return (
       <>
-        <PageHeader title="解构" subtitle={subtitle} />
+        <PageHeader title="AI 解构" subtitle={subtitle} backTo="/decode" backLabel="解码" />
         <Card>
           <EmptyState
             icon={<AnalyzeIcon size={36} />}
@@ -105,6 +123,11 @@ export function AnalyzePage() {
               <>
                 解构由 DeepSeek 完成：贴一句你在工作或电影里遇到的长句，几秒钟就能看到它的骨架、逐字中英对照和对应的语法点。
                 填入你自己的 DeepSeek API Key 后即可使用（Key 只保存在本机）。
+                {prefill && (
+                  <span className="font-en mt-2 block rounded-lg bg-slate-100 px-3 py-2 text-left text-slate-700 dark:bg-slate-800 dark:text-slate-200">
+                    {prefill}
+                  </span>
+                )}
               </>
             }
             action={
@@ -120,14 +143,14 @@ export function AnalyzePage() {
 
   return (
     <>
-      <PageHeader title="解构" subtitle={subtitle} />
+      <PageHeader title="AI 解构" subtitle={subtitle} backTo="/decode" backLabel="解码" />
 
       <Card className="mb-5">
         <form
           className="flex flex-col gap-3"
           onSubmit={(e) => {
             e.preventDefault();
-            void run();
+            run();
           }}
         >
           <label htmlFor="analyze-input" className="text-sm font-medium text-slate-700 dark:text-slate-300">

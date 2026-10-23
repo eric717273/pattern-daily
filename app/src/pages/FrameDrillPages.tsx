@@ -8,9 +8,7 @@ import { GRADE_LABELS } from '../lib/drill';
 import { useAllFrames } from '../lib/hooks';
 import { SCENE_LABELS } from '../lib/labels';
 import { ensureCards, gradeCard } from '../lib/repo';
-import type { SwapFeel } from '../lib/swap';
-
-const FEEL_GRADE: Record<SwapFeel, Grade> = { hard: 1, ok: 2, easy: 3 };
+import { FEEL_GRADE } from '../lib/swap';
 
 function useRouteFrame(): { id: string; frame: SubstitutionFrame | undefined; loading: boolean } {
   const { id = '' } = useParams();
@@ -22,11 +20,11 @@ function useRouteFrame(): { id: string; frame: SubstitutionFrame | undefined; lo
 function NotFound({ id, title }: { id: string; title: string }) {
   return (
     <>
-      <PageHeader title={title} backTo="/frames" backLabel="全部母框" />
+      <PageHeader title={title} backTo="/library" backLabel="语块库" />
       <EmptyState
         title="找不到这个母框"
         description="它可能已被删除。"
-        action={<ButtonLink to={id ? `/frames/${id}` : '/frames'}>返回</ButtonLink>}
+        action={<ButtonLink to={id ? `/frames/${id}` : '/library'}>返回</ButtonLink>}
       />
     </>
   );

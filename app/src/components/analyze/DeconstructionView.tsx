@@ -95,7 +95,7 @@ export function DeconstructionView({ result }: { result: Deconstruction }) {
       {nearest && (
         <section>
           <SectionTitle>最接近的解构句</SectionTitle>
-          <Link to={`/dozen/${nearest.id}`} className="block rounded-2xl">
+          <Link to={`/decode/dozen/${nearest.id}`} className="block rounded-2xl">
             <Card interactive padded={false} className="flex items-center gap-3 px-4 py-3">
               <span className="flex size-8 shrink-0 items-center justify-center rounded-full bg-indigo-100 text-sm font-bold text-indigo-700 dark:bg-indigo-900/50 dark:text-indigo-200">
                 {nearest.order}
@@ -111,15 +111,15 @@ export function DeconstructionView({ result }: { result: Deconstruction }) {
       )}
 
       {frame && (
-        <section>
-          <SectionTitle aside={<Badge tone="violet">AI 生成的母框</Badge>}>{frame.title}</SectionTitle>
+        <section aria-label="AI 生成的母框">
+          <SectionTitle aside={<Badge tone="violet">语块线 · 母框</Badge>}>{frame.title}</SectionTitle>
           <Card className="mb-3">
             <FramePattern frame={frame} />
             <FramePattern frame={frame} lang="zh" className="mt-1" />
             {frame.tipZh && <p className="mt-2 text-sm text-slate-500 dark:text-slate-400">{frame.tipZh}</p>}
           </Card>
           <FrameTable frame={frame} picks={picks} onChange={setPicks} />
-          <div className="mt-4">
+          <div className="mt-4 flex flex-wrap items-center gap-3">
             {saveState === 'saved' ? (
               <p className="flex items-center gap-3 text-sm font-medium text-emerald-700 dark:text-emerald-400" role="status">
                 已保存到「母框」
@@ -128,12 +128,15 @@ export function DeconstructionView({ result }: { result: Deconstruction }) {
                 </Link>
               </p>
             ) : (
-              <Button variant="primary" size="lg" full disabled={saveState === 'saving'} onClick={() => void save()}>
-                保存为我的母框
-              </Button>
+              <>
+                <Button variant="secondary" disabled={saveState === 'saving'} onClick={() => void save()}>
+                  保存为我的母框
+                </Button>
+                <span className="text-xs text-slate-400 dark:text-slate-500">母框属于语块线，保存后在「语块库」里练习。</span>
+              </>
             )}
             {saveState === 'error' && (
-              <p role="alert" className="mt-2 text-sm text-rose-600 dark:text-rose-400">
+              <p role="alert" className="w-full text-sm text-rose-600 dark:text-rose-400">
                 保存失败，请重试。
               </p>
             )}

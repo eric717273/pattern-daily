@@ -50,9 +50,9 @@ const RESULT: Deconstruction = {
   },
 };
 
-function renderPage() {
+function renderPage(path = '/decode/analyze') {
   return render(
-    <MemoryRouter>
+    <MemoryRouter initialEntries={[path]}>
       <AnalyzePage />
     </MemoryRouter>,
   );
@@ -92,9 +92,47 @@ describe('AnalyzePage', () => {
     expect(deconstruct).toHaveBeenCalledWith('Could you send me the updated numbers before the meeting starts?');
     expect(screen.getAllByTestId('skeleton-pill').map((p) => p.textContent)).toEqual(['主语', '动作', '宾语', '宾语']);
     expect(screen.getByRole('list', { name: '中英逐字对照' })).toBeInTheDocument();
-    expect(screen.getByRole('link', { name: /I must give it to him\./ }).getAttribute('href')).toBe('/dozen/d09');
+    expect(screen.getByRole('link', { name: /I must give it to him\./ }).getAttribute('href')).toBe('/decode/dozen/d09');
     expect(screen.getByText('情态动词 must 后面接动词原形。')).toBeInTheDocument();
     expect(screen.getByText('必须做某事')).toBeInTheDocument();
+  });
+
+  it('links back to the decode hub', () => {
+    renderPage();
+    expect(screen.getByRole('link', { name: /解码/ })).toHaveAttribute('href', '/decode');
+  });
+
+  it('?s= prefills the box and analyses right away', async () => {
+    ai.configured = true;
+    renderPage('/decode/analyze?s=' + encodeURIComponent('I must give it to him.'));
+    expect(await screen.findByTestId('decon-zh')).toHaveTextContent('我必须把它给他。');
+    expect(deconstruct).toHaveBeenCalledTimes(1);
+    expect(deconstruct).toHaveBeenCalledWith('I must give it to him.');
+    expect(screen.getByRole('textbox', { name: '输入一句英语' })).toHaveValue('I must give it to him.');
+  });
+
+  it('?s= only prefills the sentence when AI is not configured (no request)', () => {
+    renderPage('/decode/analyze?s=' + encodeURIComponent('Hello there.'));
+    expect(screen.getByText('需要先设置 AI')).toBeInTheDocument();
+    expect(screen.getByText('Hello there.')).toBeInTheDocument();
+    expect(deconstruct).not.toHaveBeenCalled();
+  });
+
+  it('without ?s= nothing runs on its own', () => {
+    ai.configured = true;
+    renderPage();
+    expect(deconstruct).not.toHaveBeenCalled();
+    expect(screen.getByRole('textbox', { name: '输入一句英语' })).toHaveValue('');
+  });
+
+  it('keeps the frame save as a secondary action, below the analysis', async () => {
+    ai.configured = true;
+    renderPage('/decode/analyze?s=' + encodeURIComponent('I must give it to him.'));
+    const save = await screen.findByRole('button', { name: '保存为我的母框' });
+    const primary = screen.getByRole('button', { name: '解构' });
+    expect(primary.compareDocumentPosition(save) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
+    expect(save.className).not.toMatch(/bg-indigo-600/);
+    expect(screen.getByTestId('decon-zh').compareDocumentPosition(save) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
   });
 
   it('saves the generated frame as the user\'s frame', async () => {

@@ -1,43 +1,98 @@
 import { useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { AlignmentView } from '../components/AlignmentView';
 import { CardStatus } from '../components/CardStatus';
+import { TransformDrill } from '../components/decode/TransformDrill';
 import { GrammarTags } from '../components/GrammarTag';
 import { ChevronLeftIcon, ChevronRightIcon, EyeIcon, EyeOffIcon } from '../components/icons';
 import { SpeakButton } from '../components/SpeakButton';
+import { TrapList } from '../components/TrapList';
 import { Badge, Button, ButtonLink, Card, EmptyState, PageHeader, SectionTitle } from '../components/ui';
 import { DOZEN, getDozen } from '../content';
-import { useAllFrames, useCard } from '../lib/hooks';
-import { FRAME_LEVEL_LABELS, VARIANT_LEVEL_LABELS, VARIANT_LEVELS } from '../lib/labels';
-import { ensureCards } from '../lib/repo';
+import { gradeFromRatio, type DecodeResult } from '../lib/decode';
+import { GRADE_LABELS } from '../lib/drill';
+import { useCard } from '../lib/hooks';
+import { VARIANT_LEVEL_LABELS, VARIANT_LEVELS } from '../lib/labels';
+import { ensureCards, gradeCard } from '../lib/repo';
+import type { DozenSentence } from '../types';
 
-interface Trap {
-  wrong?: string;
-  right?: string;
-  note?: string;
-  raw: string;
-}
+/** 变形练习 of one sentence: runs all its transforms and grades the sentence's card. */
+function TransformSection({ sentence }: { sentence: DozenSentence }) {
+  const [phase, setPhase] = useState<'idle' | 'running' | 'done'>('idle');
+  const [round, setRound] = useState(0);
+  const [result, setResult] = useState<DecodeResult | null>(null);
+  const [saveError, setSaveError] = useState(false);
+  const tasks = sentence.transforms;
+  if (tasks.length === 0) return null;
 
-/** Parse "✗ wrong → ✓ right（note）" into parts; falls back to the raw string. */
-export function parseTrap(raw: string): Trap {
-  const m = /^\s*✗\s*(.+?)\s*(?:→|->)\s*✓\s*(.+?)\s*(?:（(.+)）)?\s*$/.exec(raw);
-  if (!m) return { raw };
-  return { wrong: m[1], right: m[2], note: m[3], raw };
+  const finish = async (r: DecodeResult) => {
+    setResult(r);
+    setPhase('done');
+    setSaveError(false);
+    try {
+      await ensureCards('dozen', [sentence.id]);
+      await gradeCard(`dozen:${sentence.id}`, gradeFromRatio(r.correct, r.total), 'transform', r.ms);
+    } catch {
+      setSaveError(true);
+    }
+  };
+
+  return (
+    <section className="mb-5" aria-label="变形练习">
+      <SectionTitle>变形练习</SectionTitle>
+      {phase === 'idle' && (
+        <Card>
+          <p className="text-[15px] leading-relaxed text-slate-700 dark:text-slate-300">
+            把这一句改成疑问、否定、过去式、换代词……亲手改一遍，才算真的看懂了骨架。共 {tasks.length} 题。
+          </p>
+          <Button variant="primary" size="lg" full className="mt-3" onClick={() => setPhase('running')}>
+            开始变形练习
+          </Button>
+        </Card>
+      )}
+      {phase === 'running' && (
+        <TransformDrill key={round} tasks={tasks} onDone={(r) => void finish(r)} />
+      )}
+      {phase === 'done' && result && (
+        <Card>
+          <p className="text-base font-semibold text-slate-900 dark:text-white" data-testid="transform-summary">
+            答对 {result.correct} / {result.total} 题 · {GRADE_LABELS[gradeFromRatio(result.correct, result.total)]}
+          </p>
+          <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">成绩已记入这一句的复习。</p>
+          {saveError && (
+            <p role="alert" className="mt-2 text-sm text-rose-600 dark:text-rose-400">
+              保存成绩失败，但不影响继续练习。
+            </p>
+          )}
+          <Button
+            className="mt-3"
+            full
+            onClick={() => {
+              setRound((n) => n + 1);
+              setPhase('running');
+            }}
+          >
+            再做一遍
+          </Button>
+        </Card>
+      )}
+    </section>
+  );
 }
 
 export function DozenDetailPage() {
   const { id = '' } = useParams();
   const sentence = getDozen(id);
-  const frames = useAllFrames();
   const { loading, card } = useCard('dozen', id);
   const [showZh, setShowZh] = useState(false);
+  const [showVariants, setShowVariants] = useState(false);
   const [saving, setSaving] = useState(false);
 
   if (!sentence) {
     return (
       <>
-        <PageHeader title="12 句解构" backTo="/dozen" backLabel="全部句子" />
-        <EmptyState title="没有这一句" description="请从列表中选择 1–13 句。" />
+        <PageHeader title="骨架句" backTo="/decode" backLabel="解码" />
+        <EmptyState title="没有这一句" description="请从解码页选择 1–13 句。" />
       </>
     );
   }
@@ -45,7 +100,6 @@ export function DozenDetailPage() {
   const idx = DOZEN.findIndex((d) => d.id === sentence.id);
   const prev = idx > 0 ? DOZEN[idx - 1] : undefined;
   const next = idx < DOZEN.length - 1 ? DOZEN[idx + 1] : undefined;
-  const related = (frames ?? []).filter((f) => sentence.frameIds.includes(f.id));
 
   const addToReview = async () => {
     setSaving(true);
@@ -59,8 +113,8 @@ export function DozenDetailPage() {
   return (
     <>
       <PageHeader
-        backTo="/dozen"
-        backLabel="全部句子"
+        backTo="/decode"
+        backLabel="解码"
         title={sentence.order === 13 ? '第 13 句 · 彩蛋' : `第 ${sentence.order} 句`}
         subtitle={<GrammarTags points={sentence.grammar} className="mt-1 flex flex-wrap gap-1.5" />}
       />
@@ -108,104 +162,74 @@ export function DozenDetailPage() {
       {sentence.trapsZh.length > 0 && (
         <section className="mb-5">
           <SectionTitle>文法陷阱</SectionTitle>
-          <Card as="ul" className="flex flex-col gap-4">
-            {sentence.trapsZh.map((raw, i) => {
-              const t = parseTrap(raw);
-              return (
-                <li key={i} className="text-[15px] leading-relaxed">
-                  {t.wrong && t.right ? (
-                    <>
-                      <p className="font-en flex items-baseline gap-2 text-rose-600 dark:text-rose-400">
-                        <span aria-label="错误" className="shrink-0 font-sans font-bold">✗</span>
-                        <span className="line-through decoration-rose-300 dark:decoration-rose-800">{t.wrong}</span>
-                      </p>
-                      <p className="font-en mt-0.5 flex items-baseline gap-2 font-medium text-emerald-700 dark:text-emerald-400">
-                        <span aria-label="正确" className="shrink-0 font-sans font-bold">✓</span>
-                        <span>{t.right}</span>
-                      </p>
-                      {t.note && <p className="mt-1 pl-6 text-sm text-slate-500 dark:text-slate-400">{t.note}</p>}
-                    </>
-                  ) : (
-                    <p className="text-slate-700 dark:text-slate-300">{t.raw}</p>
-                  )}
-                </li>
-              );
-            })}
+          <Card>
+            <TrapList traps={sentence.trapsZh} />
           </Card>
         </section>
       )}
 
-      <section className="mb-5">
+      <TransformSection key={sentence.id} sentence={sentence} />
+
+      <section className="mb-6">
         <SectionTitle
           aside={
-            <button
-              type="button"
-              aria-pressed={showZh}
-              onClick={() => setShowZh((v) => !v)}
-              className="-mr-2 inline-flex min-h-11 items-center gap-1.5 rounded-lg px-2 text-sm text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-slate-200"
-            >
-              {showZh ? <EyeIcon size={18} /> : <EyeOffIcon size={18} />}
-              {showZh ? '隐藏中文' : '显示中文'}
-            </button>
+            showVariants ? (
+              <button
+                type="button"
+                aria-pressed={showZh}
+                onClick={() => setShowZh((v) => !v)}
+                className="-mr-2 inline-flex min-h-11 items-center gap-1.5 rounded-lg px-2 text-sm text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-slate-200"
+              >
+                {showZh ? <EyeIcon size={18} /> : <EyeOffIcon size={18} />}
+                {showZh ? '隐藏中文' : '显示中文'}
+              </button>
+            ) : undefined
           }
         >
-          模组替换：同一骨架，换词
+          同骨架的更多例子
         </SectionTitle>
-        <div className="flex flex-col gap-3">
-          {VARIANT_LEVELS.map((level) => {
-            const items = sentence.variants.filter((v) => v.level === level);
-            if (items.length === 0) return null;
-            return (
-              <Card key={level} padded={false}>
-                <div className="flex items-center gap-2 border-b border-slate-100 px-4 py-2.5 dark:border-slate-800">
-                  <Badge tone={level === 'work' ? 'rose' : level === 'daily' ? 'emerald' : 'sky'}>
-                    {VARIANT_LEVEL_LABELS[level]}
-                  </Badge>
-                </div>
-                <ul className="divide-y divide-slate-100 dark:divide-slate-800">
-                  {items.map((v, i) => (
-                    <li key={i} className="flex items-center gap-3 px-4 py-2">
-                      <div className="min-w-0 flex-1">
-                        <p className="font-en text-[17px] leading-snug text-slate-900 dark:text-slate-100">{v.en}</p>
-                        {showZh && <p className="mt-0.5 text-sm text-slate-500 dark:text-slate-400">{v.zh}</p>}
-                      </div>
-                      <SpeakButton text={v.en} />
-                    </li>
-                  ))}
-                </ul>
-              </Card>
-            );
-          })}
-        </div>
+        <button
+          type="button"
+          aria-expanded={showVariants}
+          onClick={() => setShowVariants((v) => !v)}
+          className="flex min-h-12 w-full items-center justify-between gap-2 rounded-2xl border border-slate-200 bg-white px-4 text-left text-[15px] font-medium text-slate-700 hover:bg-slate-50 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-200 dark:hover:bg-slate-800/60"
+        >
+          <span>{showVariants ? '收起例子' : `展开 ${sentence.variants.length} 个例子（骨架不变，只换词）`}</span>
+          <ChevronRightIcon size={18} className={showVariants ? 'rotate-90 text-slate-400' : 'text-slate-400'} />
+        </button>
+        {showVariants && (
+          <div className="mt-3 flex flex-col gap-3">
+            {VARIANT_LEVELS.map((level) => {
+              const items = sentence.variants.filter((v) => v.level === level);
+              if (items.length === 0) return null;
+              return (
+                <Card key={level} padded={false}>
+                  <div className="flex items-center gap-2 border-b border-slate-100 px-4 py-2.5 dark:border-slate-800">
+                    <Badge tone={level === 'work' ? 'rose' : level === 'daily' ? 'emerald' : 'sky'}>
+                      {VARIANT_LEVEL_LABELS[level]}
+                    </Badge>
+                  </div>
+                  <ul className="divide-y divide-slate-100 dark:divide-slate-800">
+                    {items.map((v, i) => (
+                      <li key={i} className="flex items-center gap-3 px-4 py-2">
+                        <div className="min-w-0 flex-1">
+                          <p className="font-en text-[17px] leading-snug text-slate-900 dark:text-slate-100">{v.en}</p>
+                          {showZh && <p className="mt-0.5 text-sm text-slate-500 dark:text-slate-400">{v.zh}</p>}
+                        </div>
+                        <SpeakButton text={v.en} />
+                      </li>
+                    ))}
+                  </ul>
+                </Card>
+              );
+            })}
+          </div>
+        )}
       </section>
-
-      {related.length > 0 && (
-        <section className="mb-6">
-          <SectionTitle>用母框练这个句型</SectionTitle>
-          <ul className="flex flex-col gap-2">
-            {related.map((f) => (
-              <li key={f.id}>
-                <Link to={`/frames/${f.id}`} className="block rounded-2xl">
-                  <Card interactive padded={false} className="flex items-center gap-3 px-4 py-3">
-                    <div className="min-w-0 flex-1">
-                      <p className="text-[15px] font-medium text-slate-900 dark:text-slate-100">{f.title}</p>
-                      <p className="font-en mt-0.5 truncate text-sm text-slate-500 dark:text-slate-400">
-                        {f.examples[0]?.en}
-                      </p>
-                    </div>
-                    <Badge tone="slate">{FRAME_LEVEL_LABELS[f.level]}</Badge>
-                    <ChevronRightIcon size={18} className="shrink-0 text-slate-300 dark:text-slate-600" />
-                  </Card>
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </section>
-      )}
 
       <nav aria-label="上一句下一句" className="grid grid-cols-2 gap-3">
         {prev ? (
-          <ButtonLink to={`/dozen/${prev.id}`} className="justify-start! py-2! text-left" aria-label={`上一句：${prev.en}`}>
+          <ButtonLink to={`/decode/dozen/${prev.id}`} className="justify-start! py-2! text-left" aria-label={`上一句：${prev.en}`}>
             <ChevronLeftIcon size={18} className="shrink-0" />
             <span className="min-w-0">
               <span className="block text-xs text-slate-400">上一句</span>
@@ -216,7 +240,7 @@ export function DozenDetailPage() {
           <span />
         )}
         {next ? (
-          <ButtonLink to={`/dozen/${next.id}`} className="justify-end! py-2! text-right" aria-label={`下一句：${next.en}`}>
+          <ButtonLink to={`/decode/dozen/${next.id}`} className="justify-end! py-2! text-right" aria-label={`下一句：${next.en}`}>
             <span className="min-w-0">
               <span className="block text-xs text-slate-400">下一句</span>
               <span className="font-en block truncate text-sm">{next.en}</span>
