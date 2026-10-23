@@ -4,6 +4,8 @@
 - **Tim Ferriss 的「12 句解构法」**（Deconstruction Dozen）：用 apple / John 这样的"假人词"看清英语骨架，包括语序、代词、时态、疑问倒装、否定和情态动词。
 - **Harold Palmer 的「替换表」**（Substitution Tables，又叫母框、"乐高替换法"）：固定句子骨架，逐列替换词块，通过大量操练把句型变成脱口而出的反射。
 
+**在线使用：https://eric717273.github.io/pattern-daily/**
+
 方法分析见 [research/METHODS.md](research/METHODS.md)，架构说明见 [ARCHITECTURE.md](ARCHITECTURE.md)。
 
 ## 每日流程（第 N 课）
