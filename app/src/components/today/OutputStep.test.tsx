@@ -1,143 +1,189 @@
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
+import { MemoryRouter } from 'react-router-dom';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
+import type { AiFeedback, DayPlan } from '../../types';
 
-const ai = vi.hoisted(() => ({ configured: false, promptsError: null as unknown, gradeError: null as unknown }));
+const ai = vi.hoisted(() => ({
+  promptsFail: false,
+  gradeFail: false,
+  prompts: vi.fn(),
+  grade: vi.fn(),
+}));
 vi.mock('../../lib/ai', async (importOriginal) => {
   const actual = await importOriginal<typeof import('../../lib/ai')>();
   return {
     ...actual,
-    aiConfigured: () => ai.configured,
-    generateOutputPrompts: vi.fn(() =>
-      ai.promptsError
-        ? Promise.reject(ai.promptsError)
-        : Promise.resolve([
-            { promptZh: '告诉他苹果是红的。', hintEn: 'apple, red' },
-            { promptZh: '问她这是不是你的苹果。', hintEn: 'Is, your' },
-            { promptZh: '说你明天要把它给他。', hintEn: 'give, tomorrow' },
-          ]),
-    ),
-    gradeOutput: vi.fn(() =>
-      ai.gradeError
-        ? Promise.reject(ai.gradeError)
-        : Promise.resolve({
-            score: 88,
-            correct: true,
-            corrected: 'The apple is red.',
-            explanationZh: '很好，注意 be 动词。',
-            alternatives: ['That apple is red.'],
-          }),
-    ),
+    generateChunkPrompts: (input: { items: { kind: string; chunk?: { id: string }; frame?: { id: string } }[]; count: number }) => {
+      ai.prompts(input);
+      if (ai.promptsFail) return Promise.reject(new actual.AiError('network', '网络连接失败。'));
+      return Promise.resolve(
+        Array.from({ length: input.count }, (_, i) => {
+          const it = input.items[i % input.items.length];
+          return { promptZh: `情景 ${i + 1}：朋友问你想吃什么`, hintEn: 'up to', targetId: it.chunk?.id ?? it.frame?.id ?? '' };
+        }),
+      );
+    },
+    gradeOutput: (input: unknown) => {
+      ai.grade(input);
+      if (ai.gradeFail) return Promise.reject(new actual.AiError('rate', '请求太频繁，请稍后再试。'));
+      const fb: AiFeedback = {
+        score: 91,
+        correct: true,
+        corrected: 'It is up to you.',
+        explanationZh: '语块用得很自然。',
+        alternatives: ["It's your call."],
+      };
+      return Promise.resolve(fb);
+    },
   };
 });
+vi.mock('../../lib/speech', async (importOriginal) => ({
+  ...(await importOriginal<typeof import('../../lib/speech')>()),
+  speak: () => Promise.resolve(),
+  stopSpeaking: () => undefined,
+}));
 
-import { DOZEN, SEED_FRAMES } from '../../content';
-import { AiError, generateOutputPrompts, gradeOutput } from '../../lib/ai';
+import { CURRICULUM, getChunk } from '../../content';
 import { db } from '../../lib/db';
+import { introduceItems } from '../../lib/repo';
 import { OutputStep } from './OutputStep';
 
-const dozen = DOZEN[0];
-const frames = SEED_FRAMES.slice(0, 2);
+const plan: DayPlan = {
+  dayIndex: 1,
+  decode: { phase: 'foundation', dozenId: 'd01' },
+  newItems: CURRICULUM.slice(0, 4),
+  outputCount: 3,
+};
 
 function renderStep(onComplete = vi.fn()) {
-  render(<OutputStep dozen={dozen} frames={frames} scenes={['work']} dayKey="2026-10-22" count={3} onComplete={onComplete} />);
+  render(
+    <MemoryRouter>
+      <OutputStep plan={plan} scenes={['work', 'daily']} dayKey="2030-01-01" onComplete={onComplete} />
+    </MemoryRouter>,
+  );
   return onComplete;
 }
 
-async function write(text: string) {
-  fireEvent.change(await screen.findByRole('textbox', { name: '你造的英语句子' }), { target: { value: text } });
+function setKey(): void {
+  localStorage.setItem('pd.settings', JSON.stringify({ deepseekApiKey: 'sk-test' }));
 }
 
 beforeEach(async () => {
-  ai.configured = false;
-  ai.promptsError = null;
-  ai.gradeError = null;
-  vi.mocked(generateOutputPrompts).mockClear();
-  vi.mocked(gradeOutput).mockClear();
-  sessionStorage.clear();
+  ai.promptsFail = false;
+  ai.gradeFail = false;
+  ai.prompts.mockClear();
+  ai.grade.mockClear();
   await Promise.all(db.tables.map((t) => t.clear()));
-});
-
-describe('OutputStep offline', () => {
-  it('shows offline prompts with the skeleton, then the reference for self-check, and saves attempts', async () => {
-    const onComplete = renderStep();
-    expect(await screen.findByTestId('output-zh')).toBeInTheDocument();
-    expect(screen.getByText('用这个骨架')).toBeInTheDocument();
-    expect(screen.getByText('自查模式')).toBeInTheDocument();
-    expect(screen.queryByText('提示词汇')).not.toBeInTheDocument();
-    expect(generateOutputPrompts).not.toHaveBeenCalled();
-
-    for (let i = 0; i < 3; i++) {
-      await write(`my sentence ${i}`);
-      fireEvent.click(screen.getByRole('button', { name: '提交并自查' }));
-      expect(await screen.findByTestId('output-reference')).toBeInTheDocument();
-      expect(screen.getByRole('list', { name: '答案对比' })).toBeInTheDocument();
-      fireEvent.click(screen.getByRole('button', { name: i === 2 ? '完成今日练习' : '下一句' }));
-    }
-    await waitFor(() => expect(onComplete).toHaveBeenCalledTimes(1));
-    expect(onComplete.mock.calls[0][0]).toEqual(expect.any(Number));
-    const saved = await db.attempts.toArray();
-    expect(saved.map((a) => a.userEn).sort()).toEqual(['my sentence 0', 'my sentence 1', 'my sentence 2']);
-    expect(saved.every((a) => a.feedback === undefined && a.promptZh)).toBe(true);
-  });
+  try {
+    localStorage.clear();
+    sessionStorage.clear();
+  } catch {
+    // ignore
+  }
+  await introduceItems(plan.newItems);
 });
 
 describe('OutputStep with AI', () => {
-  it('fetches prompts once (cached for the day), grades with AI and stores the feedback', async () => {
-    ai.configured = true;
-    const first = render(<OutputStep dozen={dozen} frames={frames} scenes={['work']} dayKey="2026-10-22" count={3} onComplete={vi.fn()} />);
-    expect(screen.getByRole('status', { name: '正在生成今日题目' })).toBeInTheDocument();
-    expect(await screen.findByTestId('output-zh')).toHaveTextContent('告诉他苹果是红的。');
-    expect(screen.getByText('AI 批改', { selector: 'span' })).toBeInTheDocument();
-    // AI prompts carry a vocabulary hint, shown next to the day's skeleton
-    expect(screen.getByText('提示词汇')).toBeInTheDocument();
-    expect(screen.getByText(`骨架：${dozen.en}`)).toBeInTheDocument();
-    expect(screen.queryByText('用这个骨架')).not.toBeInTheDocument();
-    expect(generateOutputPrompts).toHaveBeenCalledTimes(1);
-    expect(generateOutputPrompts).toHaveBeenCalledWith({ dozen, frames, scenes: ['work'], count: 3 });
+  beforeEach(setKey);
 
-    await write('The apple red.');
+  it('asks for chunk prompts about today\'s items once, and grades with the target chunk', async () => {
+    const onComplete = renderStep();
+    expect(await screen.findByTestId('output-zh')).toHaveTextContent('情景 1：朋友问你想吃什么');
+    expect(ai.prompts).toHaveBeenCalledTimes(1);
+    const call = ai.prompts.mock.calls[0][0] as { items: unknown[]; scenes: string[]; count: number };
+    expect(call.count).toBe(3);
+    expect(call.scenes).toEqual(['work', 'daily']);
+    expect(call.items).toHaveLength(4);
+    expect(screen.getByTestId('output-hint')).toHaveTextContent('up to');
+
+    fireEvent.change(screen.getByRole('textbox', { name: '你造的英语句子' }), { target: { value: 'Its up to you' } });
     fireEvent.click(screen.getByRole('button', { name: 'AI 批改' }));
-    expect(await screen.findByText('得分 88')).toBeInTheDocument();
-    expect(screen.getByTestId('ai-corrected')).toHaveTextContent('The apple is red.');
-    expect(screen.getByText('很好，注意 be 动词。')).toBeInTheDocument();
-    expect(screen.getByText('That apple is red.')).toBeInTheDocument();
-    expect(gradeOutput).toHaveBeenCalledWith({
-      promptZh: '告诉他苹果是红的。',
-      skeletonEn: 'apple, red',
-      grammar: dozen.grammar,
-      userEn: 'The apple red.',
-    });
-    await waitFor(async () => expect(await db.attempts.count()).toBe(1));
-    const [attempt] = await db.attempts.toArray();
-    expect(attempt).toMatchObject({ refKind: 'dozen', refId: 'd01', userEn: 'The apple red.' });
-    expect(attempt.feedback?.score).toBe(88);
+    expect(await screen.findByText('得分 91')).toBeInTheDocument();
+    expect(screen.getByTestId('ai-corrected')).toHaveTextContent('It is up to you.');
+    expect(screen.getByText('语块用得很自然。')).toBeInTheDocument();
+    const graded = ai.grade.mock.calls[0][0] as { promptZh: string; userEn: string; targetChunk: string; grammar?: unknown };
+    expect(graded.userEn).toBe('Its up to you');
+    expect(graded.promptZh).toBe('情景 1：朋友问你想吃什么');
+    expect(graded.grammar).toBeUndefined();
+    const first = plan.newItems[0];
+    const targetChunk = first.kind === 'chunk' ? (getChunk(first.id)?.en ?? '') : '{';
+    expect(graded.targetChunk).toContain(targetChunk.slice(0, 3));
 
-    // re-render (e.g. reload): prompts come from the day cache
-    first.unmount();
-    render(<OutputStep dozen={dozen} frames={frames} scenes={['work']} dayKey="2026-10-22" count={3} onComplete={vi.fn()} />);
-    expect(await screen.findByTestId('output-zh')).toHaveTextContent('告诉他苹果是红的。');
-    expect(generateOutputPrompts).toHaveBeenCalledTimes(1);
+    const [attempt] = await db.attempts.toArray();
+    expect(attempt).toMatchObject({ refKind: first.kind, refId: first.id, userEn: 'Its up to you' });
+    expect(attempt.feedback?.score).toBe(91);
+
+    fireEvent.click(screen.getByRole('button', { name: '下一题' }));
+    expect(await screen.findByTestId('output-progress')).toHaveTextContent('第 2 / 3 题');
+    expect(onComplete).not.toHaveBeenCalled();
   });
 
-  it('falls back to offline prompts with a notice when the AI cannot produce prompts', async () => {
-    ai.configured = true;
-    ai.promptsError = new AiError('network', 'DeepSeek 服务暂时不可用（HTTP 503），请稍后重试。');
+  it('reuses the day\'s prompts after a remount instead of asking again', async () => {
+    renderStep();
+    await screen.findByTestId('output-zh');
+    expect(ai.prompts).toHaveBeenCalledTimes(1);
+    renderStep();
+    await waitFor(() => expect(screen.getAllByTestId('output-zh')).toHaveLength(2));
+    expect(ai.prompts).toHaveBeenCalledTimes(1);
+  });
+
+  it('falls back to offline questions with a notice when the AI cannot make prompts', async () => {
+    ai.promptsFail = true;
     renderStep();
     expect(await screen.findByRole('note')).toHaveTextContent('已改用离线题目');
-    expect(screen.getByRole('note')).toHaveTextContent('HTTP 503');
     expect(screen.getByTestId('output-zh')).toBeInTheDocument();
+    // offline questions are self-checked
+    fireEvent.change(screen.getByRole('textbox', { name: '你造的英语句子' }), { target: { value: 'anything' } });
+    fireEvent.click(screen.getByRole('button', { name: 'AI 批改' }));
+    expect(await screen.findByTestId('ai-feedback')).toBeInTheDocument();
   });
 
-  it('a grading error can be skipped: the sentence is still saved', async () => {
-    ai.configured = true;
-    ai.gradeError = new AiError('rate', '请求太频繁了，请稍等几秒再试。');
-    renderStep();
-    await write('I give him the apple.');
-    fireEvent.click(await screen.findByRole('button', { name: 'AI 批改' }));
-    expect(await screen.findByRole('alert')).toHaveTextContent('请求太频繁了');
+  it('a grading error keeps the answer and offers to save without grading', async () => {
+    ai.gradeFail = true;
+    const onComplete = renderStep();
+    await screen.findByTestId('output-zh');
+    fireEvent.change(screen.getByRole('textbox', { name: '你造的英语句子' }), { target: { value: 'my answer' } });
+    fireEvent.click(screen.getByRole('button', { name: 'AI 批改' }));
+    expect(await screen.findByRole('alert')).toHaveTextContent('请求太频繁');
+    expect(screen.getByRole('textbox', { name: '你造的英语句子' })).toHaveValue('my answer');
     fireEvent.click(screen.getByRole('button', { name: '跳过批改，直接保存' }));
-    expect(await screen.findByRole('button', { name: '下一句' })).toBeInTheDocument();
-    await waitFor(async () => expect(await db.attempts.count()).toBe(1));
-    expect((await db.attempts.toArray())[0].feedback).toBeUndefined();
+    expect(await screen.findByText('你写的：')).toBeInTheDocument();
+    const [attempt] = await db.attempts.toArray();
+    expect(attempt.userEn).toBe('my answer');
+    expect(attempt.feedback).toBeUndefined();
+    expect(onComplete).not.toHaveBeenCalled();
+  });
+
+  it('finishes with the active time after the last question', async () => {
+    const onComplete = renderStep();
+    for (let i = 1; i <= 3; i++) {
+      await screen.findByText(`第 ${i} / 3 题`);
+      fireEvent.change(screen.getByRole('textbox', { name: '你造的英语句子' }), { target: { value: `answer ${i}` } });
+      fireEvent.click(screen.getByRole('button', { name: 'AI 批改' }));
+      await screen.findByText('得分 91');
+      fireEvent.click(screen.getByRole('button', { name: i === 3 ? '完成今日练习' : '下一题' }));
+    }
+    await waitFor(() => expect(onComplete).toHaveBeenCalledTimes(1));
+    expect(onComplete.mock.calls[0][0]).toBeTypeOf('number');
+    expect(ai.grade).toHaveBeenCalledTimes(3);
+  });
+});
+
+describe('OutputStep offline', () => {
+  it('a chunk question: the example turn in Chinese with "用上：<chunk zh>", reveals the example', async () => {
+    renderStep();
+    const first = plan.newItems[0];
+    expect(await screen.findByTestId('output-zh')).toBeInTheDocument();
+    expect(ai.prompts).not.toHaveBeenCalled();
+    if (first.kind === 'chunk') {
+      expect(screen.getByTestId('output-hint')).toHaveTextContent(`用上：${getChunk(first.id)?.zh}`);
+    }
+    expect(screen.getByText('自查模式')).toBeInTheDocument();
+    fireEvent.change(screen.getByRole('textbox', { name: '你造的英语句子' }), { target: { value: 'my try' } });
+    fireEvent.click(screen.getByRole('button', { name: '提交并自查' }));
+    expect(await screen.findByTestId('output-reference')).toBeInTheDocument();
+    expect(ai.grade).not.toHaveBeenCalled();
+    const [attempt] = await db.attempts.toArray();
+    expect(attempt).toMatchObject({ refKind: first.kind, refId: first.id, userEn: 'my try' });
   });
 });

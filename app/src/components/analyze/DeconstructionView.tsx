@@ -122,7 +122,7 @@ export function DeconstructionView({ result }: { result: Deconstruction }) {
           <div className="mt-4 flex flex-wrap items-center gap-3">
             {saveState === 'saved' ? (
               <p className="flex items-center gap-3 text-sm font-medium text-emerald-700 dark:text-emerald-400" role="status">
-                已保存到「母框」
+                已保存到「语块库 · 我的母框」
                 <Link to={`/frames/${frame.id}`} className="text-indigo-600 underline dark:text-indigo-300">
                   去看看
                 </Link>

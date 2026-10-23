@@ -141,7 +141,7 @@ describe('AnalyzePage', () => {
     fireEvent.change(screen.getByRole('textbox', { name: '输入一句英语' }), { target: { value: 'I must give it to him.' } });
     fireEvent.click(screen.getByRole('button', { name: '解构' }));
     fireEvent.click(await screen.findByRole('button', { name: '保存为我的母框' }));
-    expect(await screen.findByText('已保存到「母框」')).toBeInTheDocument();
+    expect(await screen.findByText('已保存到「语块库 · 我的母框」')).toBeInTheDocument();
     const rows = await db.userFrames.toArray();
     expect(rows.map((r) => r.id)).toEqual(['u-test-1']);
   });

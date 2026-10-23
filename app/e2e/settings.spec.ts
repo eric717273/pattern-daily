@@ -16,8 +16,14 @@ test('settings persist across reloads', async ({ page }) => {
   await page.getByRole('button', { name: '直连', exact: true }).click();
   await expect(page.getByText('Key 只保存在这台设备上')).toBeVisible();
 
-  // plan: minutes + scenes
+  // plan: minutes + new items per day + scenes
   await page.getByRole('button', { name: '20 分钟' }).click();
+  await expect(page.getByTestId('new-per-day')).toHaveText('5 条');
+  await page.getByRole('button', { name: '增加每天新语块数量' }).click();
+  await page.getByRole('button', { name: '增加每天新语块数量' }).click();
+  await expect(page.getByTestId('new-per-day')).toHaveText('7 条');
+  await expect(page.getByText('从下一课开始生效')).toBeVisible();
+  await expect(page.getByTestId('plan-explain')).toContainText('每天 7 条新语块');
   await page.getByRole('button', { name: '旅行' }).click();
 
   // speech rate
@@ -29,12 +35,25 @@ test('settings persist across reloads', async ({ page }) => {
   await expect(page.getByLabel('模型', { exact: true })).toHaveValue('deepseek-reasoner');
   await expect(page.getByRole('button', { name: '直连', exact: true })).toHaveAttribute('aria-pressed', 'true');
   await expect(page.getByRole('button', { name: '20 分钟' })).toHaveAttribute('aria-pressed', 'true');
+  await expect(page.getByTestId('new-per-day')).toHaveText('7 条');
   await expect(page.getByRole('button', { name: '旅行' })).toHaveAttribute('aria-pressed', 'true');
   await expect(page.getByText('语速 1.20×')).toBeVisible();
 
   // without Supabase configured the sync section asks for the project URL and key
   await expect(page.getByRole('textbox', { name: 'Supabase 项目 URL' })).toBeVisible();
   await expect(page.getByText('docs/SETUP.md')).toBeVisible();
+});
+
+test('library progress section on 我的 starts empty and the two-track plan is explained', async ({ page }) => {
+  await page.goto('/#/me');
+  const section = page.getByRole('region', { name: '语块库进度' });
+  await expect(section).toBeVisible();
+  await expect(section).toContainText('总数');
+  await expect(section).toContainText('400');
+  await expect(section.getByText(/还没有学过语块/)).toBeVisible();
+  const explain = page.getByTestId('plan-explain');
+  await expect(explain).toContainText('前 13 课每天学一个骨架句');
+  await expect(explain).toContainText('约 400 条');
 });
 
 test('install instructions show in the browser but not when installed', async ({ page, browser }) => {

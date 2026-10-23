@@ -1,7 +1,8 @@
 import type { DayPlan, StepKey } from '../../types';
+import { getDozen } from '../../content';
 import { CheckIcon } from '../icons';
 import { Badge, Card, cx } from '../ui';
-import { PHASE_LABELS, remainingMinutes, STEPS } from './steps';
+import { decodeBadge, remainingMinutes, STEPS } from './steps';
 
 export interface DayHeaderProps {
   plan: DayPlan;
@@ -9,6 +10,8 @@ export interface DayHeaderProps {
   streak?: number;
   /** Profile.dailyMinutes, used to scale the time estimate. */
   dailyMinutes?: number;
+  /** Chunk-track progress: items met so far and the library size (undefined while loading). */
+  library?: { introduced: number; total: number };
   /** Currently shown view; 'done' = completion screen. */
   view: StepKey | 'done';
   onSelect: (step: StepKey) => void;
@@ -51,20 +54,24 @@ export function ProgressRing({ done, total, size = 60 }: { done: number; total: 
   );
 }
 
-/** "第 N 课" + phase, streak, progress ring, remaining minutes and the four step tabs. */
-export function DayHeader({ plan, stepsDone, streak, dailyMinutes, view, onSelect }: DayHeaderProps) {
+/** "第 N 课", the two track badges, streak, progress ring, remaining minutes and the four step tabs. */
+export function DayHeader({ plan, stepsDone, streak, dailyMinutes, library, view, onSelect }: DayHeaderProps) {
   const left = remainingMinutes(stepsDone, dailyMinutes);
+  const order = getDozen(plan.decode.dozenId)?.order ?? plan.dayIndex;
   return (
     <Card className="mb-5">
       <div className="flex items-center gap-4">
         <div className="min-w-0 flex-1">
-          <div className="flex flex-wrap items-center gap-2">
-            <h1 className="text-2xl font-bold tracking-tight text-slate-900 md:text-3xl dark:text-white">
-              第 {plan.dayIndex} 课
-            </h1>
-            <Badge tone="indigo">{PHASE_LABELS[plan.phase]}</Badge>
+          <h1 className="text-2xl font-bold tracking-tight text-slate-900 md:text-3xl dark:text-white">第 {plan.dayIndex} 课</h1>
+          <div className="mt-2 flex flex-wrap items-center gap-1.5" aria-label="两条学习线">
+            <Badge tone="sky" data-testid="decode-badge">
+              解码 {decodeBadge(plan.decode, order)}
+            </Badge>
+            <Badge tone="violet" data-testid="chunk-badge">
+              语块 已学 {library?.introduced ?? '–'} / {library?.total ?? 400}
+            </Badge>
           </div>
-          <p className="mt-1.5 flex flex-wrap items-center gap-x-3 gap-y-0.5 text-sm text-slate-500 dark:text-slate-400">
+          <p className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-0.5 text-sm text-slate-500 dark:text-slate-400">
             <span data-testid="streak">🔥 连续 {streak ?? 0} 天</span>
             <span>{left === 0 ? '今日已完成' : `预计还需约 ${left} 分钟`}</span>
           </p>
@@ -101,7 +108,7 @@ export function DayHeader({ plan, stepsDone, streak, dailyMinutes, view, onSelec
                 >
                   {done ? <CheckIcon size={13} /> : i + 1}
                 </span>
-                {s.short}
+                {s.label}
               </button>
             </li>
           );

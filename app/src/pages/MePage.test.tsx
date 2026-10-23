@@ -14,7 +14,7 @@ vi.mock('../lib/ai', async (importOriginal) => {
 });
 
 import { db } from '../lib/db';
-import { getOrCreateProfile, markStepDone, saveAttempt } from '../lib/repo';
+import { getOrCreateProfile, getOrCreateSession, gradeCard, introduceItems, markStepDone, saveAttempt, updateProfile } from '../lib/repo';
 import { getSettings } from '../lib/settings';
 import { todayStr } from '../lib/plan';
 import { MePage } from './MePage';
@@ -160,8 +160,8 @@ describe('MePage stats and attempts', () => {
 
   it('counts finished days, shows heatmap intensity with accessible titles and the last attempts with scores', async () => {
     const today = todayStr();
-    for (const step of ['warmup', 'deconstruct', 'frames', 'output'] as const) {
-      await markStepDone(today, step, step === 'warmup' ? 12 * 60_000 : 0);
+    for (const step of ['review', 'chunks', 'decode', 'output'] as const) {
+      await markStepDone(today, step, step === 'review' ? 12 * 60_000 : 0);
     }
     await saveAttempt({
       refKind: 'dozen',
@@ -182,5 +182,66 @@ describe('MePage stats and attempts', () => {
     expect(await screen.findByText('62 分')).toBeInTheDocument();
     expect(screen.getByText('The apple is red.')).toBeInTheDocument();
     expect(screen.getByText('未批改')).toBeInTheDocument();
+  });
+});
+
+describe('MePage two-track plan and library progress', () => {
+  it('shows the chunk library progress with the categories learned most', async () => {
+    renderMe();
+    expect(await screen.findByText(/还没有学过语块/)).toBeInTheDocument();
+    const section = screen.getByRole('region', { name: '语块库进度' });
+    expect(within(section).getByText('已学').nextElementSibling).toHaveTextContent('0');
+    expect(within(section).getByText('总数').nextElementSibling).toHaveTextContent('400');
+  });
+
+  it('counts learned and mastered items and lists categories', async () => {
+    await introduceItems([
+      { kind: 'chunk', id: 'c001' },
+      { kind: 'chunk', id: 'c002' },
+      { kind: 'frame', id: 'f001' },
+    ]);
+    // an easy second success pushes the interval to 5 days, the third to > 21 days
+    for (let i = 0; i < 4; i++) await gradeCard('chunk:c001', 3, 'recall', 1000);
+    renderMe();
+    const section = await screen.findByRole('region', { name: '语块库进度' });
+    await waitFor(() => expect(within(section).getByText('已学').nextElementSibling).toHaveTextContent('3'));
+    expect(within(section).getByText('已掌握').nextElementSibling).toHaveTextContent('1');
+    const list = within(section).getByRole('list', { name: '按类别的进度' });
+    expect(within(list).getAllByRole('listitem').length).toBeGreaterThan(0);
+    expect(within(list).getAllByRole('link')[0]).toHaveAttribute('href', expect.stringContaining('/library?cat='));
+  });
+
+  it('new items per day: default 5, stepper stays within 3-10 and saves to the profile', async () => {
+    await getOrCreateProfile();
+    renderMe();
+    expect(await screen.findByTestId('new-per-day')).toHaveTextContent('5 条');
+    expect(screen.getByText(/从下一课开始生效/)).toBeInTheDocument();
+    fireEvent.click(screen.getByRole('button', { name: '增加每天新语块数量' }));
+    fireEvent.click(screen.getByRole('button', { name: '增加每天新语块数量' }));
+    await waitFor(async () => expect((await db.profile.get('profile'))?.newPerDay).toBe(7));
+    expect(await screen.findByTestId('new-per-day')).toHaveTextContent('7 条');
+    for (let i = 0; i < 6; i++) fireEvent.click(screen.getByRole('button', { name: '增加每天新语块数量' }));
+    await waitFor(async () => expect((await db.profile.get('profile'))?.newPerDay).toBe(10));
+    expect(screen.getByRole('button', { name: '增加每天新语块数量' })).toBeDisabled();
+    for (let i = 0; i < 9; i++) fireEvent.click(screen.getByRole('button', { name: '减少每天新语块数量' }));
+    await waitFor(async () => expect((await db.profile.get('profile'))?.newPerDay).toBe(3));
+    expect(screen.getByRole('button', { name: '减少每天新语块数量' })).toBeDisabled();
+  });
+
+  it("does not change today's frozen plan when the number changes", async () => {
+    const before = await getOrCreateSession(todayStr());
+    expect(before.plan?.newItems).toHaveLength(5);
+    await updateProfile({ newPerDay: 8 });
+    const after = await getOrCreateSession(todayStr());
+    expect(after.plan?.newItems).toHaveLength(5);
+  });
+
+  it('explains the two tracks', async () => {
+    await getOrCreateProfile();
+    renderMe();
+    const box = await screen.findByTestId('plan-explain');
+    expect(box).toHaveTextContent('前 13 课每天学一个骨架句');
+    expect(box).toHaveTextContent('每天 5 条新语块');
+    expect(box).toHaveTextContent('约 400 条');
   });
 });
