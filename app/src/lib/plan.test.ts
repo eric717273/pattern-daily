@@ -1,21 +1,5 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import type { DozenSentence, GrammarPoint, Scene, SubstitutionFrame } from '../types';
-
-const GRAMMAR: GrammarPoint[] = [
-  'be-adj',
-  'possessive',
-  'double-object',
-  'object-pronoun',
-  'third-person-s',
-  'pronoun-order',
-  'question-inversion',
-  'plural',
-  'modal-must',
-  'want-to',
-  'going-to',
-  'negation-modal',
-  'present-perfect',
-];
+import type { DozenSentence, ItemRef } from '../types';
 
 // vi.mock is hoisted above the imports, so the synthetic content has to be built in vi.hoisted too.
 const mocked = vi.hoisted(() => ({ dozen: [] as DozenSentence[] }));
@@ -24,57 +8,39 @@ vi.mock('../content', () => ({
   get DOZEN() {
     return mocked.dozen;
   },
-  SEED_FRAMES: [],
-  getDozen: (id: string) => mocked.dozen.find((d) => d.id === id),
 }));
 
-import { dayIndexFor, getDayPlan, todayStr } from './plan';
+import { clampNewPerDay, dayIndexFor, getDayPlan, itemKey, todayStr } from './plan';
 
-const SCENES: Scene[] = ['daily', 'work', 'travel', 'social', 'study'];
-
-function makeDozen(frameIdsFor: (g: GrammarPoint) => string[] = () => []): DozenSentence[] {
-  return GRAMMAR.map((g, i) => ({
+function makeDozen(): DozenSentence[] {
+  return Array.from({ length: 13 }, (_, i) => ({
     id: `d${String(i + 1).padStart(2, '0')}`,
     order: i + 1,
     en: `Sentence ${i + 1}.`,
     zh: `句子 ${i + 1}`,
-    grammar: [g],
+    grammar: ['be-adj'],
     focusZh: '',
     alignment: [],
     trapsZh: [],
     variants: [],
-    frameIds: frameIdsFor(g),
+    frameIds: [],
+    transforms: [],
   }));
 }
 
-function frame(id: string, grammar: GrammarPoint[], level: 1 | 2 | 3, scene: Scene): SubstitutionFrame {
-  return {
-    id,
-    title: id,
-    pattern: '{x}.',
-    patternZh: '{x}。',
-    slots: [{ key: 'x', labelZh: 'x', options: [] }],
-    grammar,
-    scene,
-    level,
-    examples: [],
-    source: 'seed',
-  };
-}
-
-/** `per` frames for each grammar point at each level, scenes cycling. Ids are f<grammar>-<level>-<n>. */
-function bigFrameSet(per = 2): SubstitutionFrame[] {
-  const out: SubstitutionFrame[] = [];
-  let n = 0;
-  for (const g of GRAMMAR) {
-    for (const level of [1, 2, 3] as const) {
-      for (let k = 0; k < per; k++) {
-        out.push(frame(`f${String(++n).padStart(3, '0')}`, [g], level, SCENES[n % SCENES.length]));
-      }
-    }
+/** 30 items: c01..c18 and f01..f12 alternating roughly 3:2. */
+function curriculum(n = 30): ItemRef[] {
+  const out: ItemRef[] = [];
+  let c = 0;
+  let f = 0;
+  for (let i = 0; i < n; i++) {
+    const frame = i % 5 === 2 || i % 5 === 4;
+    out.push(frame ? { kind: 'frame', id: `f${String(++f).padStart(2, '0')}` } : { kind: 'chunk', id: `c${String(++c).padStart(2, '0')}` });
   }
   return out;
 }
+
+const none = new Set<string>();
 
 beforeEach(() => {
   mocked.dozen = makeDozen();
@@ -116,210 +82,104 @@ describe('dayIndexFor', () => {
   });
 });
 
-describe('getDayPlan: days 1-13', () => {
-  it('teaches sentence #dayIndex and picks 2 frames sharing its grammar', () => {
-    const frames = bigFrameSet();
-    const byId = new Map(frames.map((f) => [f.id, f]));
+describe('getDayPlan: decode track', () => {
+  it('days 1-13 learn skeleton #dayIndex', () => {
     for (let day = 1; day <= 13; day++) {
-      const plan = getDayPlan(day, frames);
-      const sentence = mocked.dozen[day - 1];
-      expect(plan.phase).toBe('deconstruct');
+      const plan = getDayPlan({ dayIndex: day, introduced: none, curriculum: curriculum(), newPerDay: 5 });
       expect(plan.dayIndex).toBe(day);
-      expect(plan.dozenId).toBe(sentence.id);
+      expect(plan.decode).toEqual({ phase: 'foundation', dozenId: `d${String(day).padStart(2, '0')}` });
       expect(plan.outputCount).toBe(3);
-      expect(plan.frameIds).toHaveLength(2);
-      expect(new Set(plan.frameIds).size).toBe(2);
-      for (const id of plan.frameIds) {
-        expect(byId.get(id)?.grammar.some((g) => sentence.grammar.includes(g))).toBe(true);
-      }
     }
   });
 
-  it('prefers frames listed in the dozen, then the lowest level', () => {
-    const frames: SubstitutionFrame[] = [
-      frame('a-low', ['be-adj'], 1, 'daily'),
-      frame('b-mid', ['be-adj'], 2, 'daily'),
-      frame('c-listed-high', ['be-adj'], 3, 'work'),
-      frame('d-listed-low', ['be-adj'], 2, 'work'),
-      frame('e-other', ['plural'], 1, 'daily'),
-    ];
-    mocked.dozen = makeDozen((g) => (g === 'be-adj' ? ['c-listed-high', 'd-listed-low'] : []));
-    const plan = getDayPlan(1, frames);
-    expect(plan.frameIds).toEqual(['c-listed-high', 'd-listed-low']);
+  it('day 14+ maintains, rotating d01..d13 and alternating transform / label', () => {
+    const decode = (day: number) => getDayPlan({ dayIndex: day, introduced: none, curriculum: [], newPerDay: 5 }).decode;
+    expect(decode(14)).toEqual({ phase: 'maintenance', dozenId: 'd01', mode: 'transform' });
+    expect(decode(15)).toEqual({ phase: 'maintenance', dozenId: 'd02', mode: 'label' });
+    expect(decode(16)).toEqual({ phase: 'maintenance', dozenId: 'd03', mode: 'transform' });
+    expect(decode(26)).toEqual({ phase: 'maintenance', dozenId: 'd13', mode: 'transform' });
+    expect(decode(27)).toEqual({ phase: 'maintenance', dozenId: 'd01', mode: 'label' });
+    // every skeleton is revisited, and both modes are used, over a long run
+    const days = Array.from({ length: 60 }, (_, k) => decode(14 + k));
+    expect(new Set(days.map((d) => d.dozenId)).size).toBe(13);
+    expect(new Set(days.map((d) => ('mode' in d ? d.mode : ''))).size).toBe(2);
   });
 
-  it('falls back to lowest level when nothing is listed', () => {
-    const frames = [
-      frame('hi', ['be-adj'], 3, 'daily'),
-      frame('lo', ['be-adj'], 1, 'daily'),
-      frame('mid', ['be-adj'], 2, 'daily'),
-    ];
-    expect(getDayPlan(1, frames).frameIds).toEqual(['lo', 'mid']);
+  it('is independent of the chunk track', () => {
+    const a = getDayPlan({ dayIndex: 20, introduced: none, curriculum: curriculum(), newPerDay: 3 });
+    const b = getDayPlan({ dayIndex: 20, introduced: new Set(['chunk:c01']), curriculum: [], newPerDay: 10 });
+    expect(a.decode).toEqual(b.decode);
   });
 
-  it('avoids frames already used on earlier days when alternatives exist', () => {
-    // 'shared' fits both sentence 1 and sentence 2; day 2 should take a fresh one first.
-    const frames = [
-      frame('shared', ['be-adj', 'possessive'], 1, 'daily'),
-      frame('only-be', ['be-adj'], 1, 'daily'),
-      frame('only-poss-1', ['possessive'], 2, 'daily'),
-      frame('only-poss-2', ['possessive'], 3, 'daily'),
-    ];
-    const d1 = getDayPlan(1, frames).frameIds;
-    const d2 = getDayPlan(2, frames).frameIds;
-    expect(d1).toEqual(['shared', 'only-be']);
-    expect(d2).toEqual(['only-poss-1', 'only-poss-2']);
+  it('sanitises the day index', () => {
+    expect(getDayPlan({ dayIndex: 0, introduced: none, curriculum: [], newPerDay: 5 }).dayIndex).toBe(1);
+    expect(getDayPlan({ dayIndex: -4, introduced: none, curriculum: [], newPerDay: 5 }).decode.phase).toBe('foundation');
+    expect(getDayPlan({ dayIndex: 3.9, introduced: none, curriculum: [], newPerDay: 5 }).dayIndex).toBe(3);
+    expect(getDayPlan({ dayIndex: Number.NaN, introduced: none, curriculum: [], newPerDay: 5 }).dayIndex).toBe(1);
   });
 
-  it('still returns frames if too few match the grammar', () => {
-    const frames = [frame('x', ['plural'], 1, 'daily'), frame('y', ['plural'], 1, 'daily')];
-    const plan = getDayPlan(1, frames);
-    expect(plan.frameIds).toHaveLength(2);
-  });
-
-  it('copes with an empty frame list', () => {
-    expect(getDayPlan(5, []).frameIds).toEqual([]);
-    expect(getDayPlan(20, []).frameIds).toEqual([]);
-    expect(getDayPlan(40, []).frameIds).toEqual([]);
+  it('falls back to canonical ids when the dozen content is unavailable', () => {
+    mocked.dozen = [];
+    expect(getDayPlan({ dayIndex: 4, introduced: none, curriculum: [], newPerDay: 5 }).decode).toMatchObject({ dozenId: 'd04' });
   });
 });
 
-describe('getDayPlan: days 14-30', () => {
-  it('gives 3 distinct frames and cycles the dozen for review', () => {
-    const frames = bigFrameSet();
-    const ids = new Set(mocked.dozen.map((d) => d.id));
-    const reviewed: string[] = [];
-    for (let day = 14; day <= 30; day++) {
-      const plan = getDayPlan(day, frames);
-      expect(plan.phase).toBe('frames');
-      expect(plan.frameIds).toHaveLength(3);
-      expect(new Set(plan.frameIds).size).toBe(3);
-      expect(ids.has(plan.dozenId)).toBe(true);
-      expect(plan.outputCount).toBe(3);
-      reviewed.push(plan.dozenId);
-    }
-    // 17 days over 13 sentences: every sentence reviewed at least once, consecutive days differ.
-    expect(new Set(reviewed).size).toBe(13);
-    for (let i = 1; i < reviewed.length; i++) expect(reviewed[i]).not.toBe(reviewed[i - 1]);
+describe('getDayPlan: chunk track', () => {
+  it('picks the first newPerDay curriculum items in order', () => {
+    const cur = curriculum();
+    const plan = getDayPlan({ dayIndex: 1, introduced: none, curriculum: cur, newPerDay: 5 });
+    expect(plan.newItems).toEqual(cur.slice(0, 5));
   });
 
-  it('excludes frames scheduled on days 1-13 when enough alternatives exist', () => {
-    const frames = bigFrameSet(2); // 78 frames, 26 used in phase 1, 51 needed in phase 2
-    const phase1 = new Set<string>();
-    for (let day = 1; day <= 13; day++) getDayPlan(day, frames).frameIds.forEach((id) => phase1.add(id));
-    const phase2: string[] = [];
-    for (let day = 14; day <= 30; day++) phase2.push(...getDayPlan(day, frames).frameIds);
-    expect(phase2.filter((id) => phase1.has(id))).toEqual([]);
-    expect(new Set(phase2).size).toBe(phase2.length);
+  it('skips introduced items (chunk and frame keys are distinct)', () => {
+    const cur = curriculum();
+    const introduced = new Set([itemKey(cur[0]), itemKey(cur[2]), 'frame:c01', 'chunk:f01']);
+    const plan = getDayPlan({ dayIndex: 2, introduced, curriculum: cur, newPerDay: 4 });
+    expect(plan.newItems).toEqual([cur[1], cur[3], cur[4], cur[5]]);
   });
 
-  it('advances through levels 1 -> 3', () => {
-    const frames = bigFrameSet(3);
-    const level = new Map(frames.map((f) => [f.id, f.level]));
-    const avg = (from: number, to: number): number => {
-      const ls: number[] = [];
-      for (let d = from; d <= to; d++) getDayPlan(d, frames).frameIds.forEach((id) => ls.push(level.get(id) ?? 0));
-      return ls.reduce((a, b) => a + b, 0) / ls.length;
-    };
-    const early = avg(14, 19);
-    const mid = avg(20, 25);
-    const late = avg(26, 30);
-    expect(early).toBeLessThan(mid);
-    expect(mid).toBeLessThan(late);
-    expect(late).toBeGreaterThanOrEqual(2.5);
+  it('a missed day is repeated, a finished day moves on', () => {
+    const cur = curriculum();
+    const day1 = getDayPlan({ dayIndex: 1, introduced: none, curriculum: cur, newPerDay: 5 });
+    const retry = getDayPlan({ dayIndex: 2, introduced: none, curriculum: cur, newPerDay: 5 });
+    expect(retry.newItems).toEqual(day1.newItems);
+    const next = getDayPlan({ dayIndex: 2, introduced: new Set(day1.newItems.map(itemKey)), curriculum: cur, newPerDay: 5 });
+    expect(next.newItems).toEqual(cur.slice(5, 10));
   });
 
-  it('rotates scenes', () => {
-    const frames = bigFrameSet(3);
-    const scene = new Map(frames.map((f) => [f.id, f.scene]));
-    const seen = new Set<Scene>();
-    for (let d = 14; d <= 18; d++) getDayPlan(d, frames).frameIds.forEach((id) => seen.add(scene.get(id) as Scene));
-    expect(seen.size).toBeGreaterThanOrEqual(4);
+  it('clamps newPerDay to 3-10', () => {
+    const cur = curriculum();
+    const n = (v: number): number => getDayPlan({ dayIndex: 1, introduced: none, curriculum: cur, newPerDay: v }).newItems.length;
+    expect(n(1)).toBe(3);
+    expect(n(0)).toBe(3);
+    expect(n(7)).toBe(7);
+    expect(n(99)).toBe(10);
+    expect(n(Number.NaN)).toBe(5);
+    expect(clampNewPerDay(undefined)).toBe(5);
+    expect(clampNewPerDay(6.6)).toBe(7);
   });
 
-  it('works with a small frame list (reuses frames, never duplicates within a day)', () => {
-    const frames = [
-      frame('a', ['be-adj'], 1, 'daily'),
-      frame('b', ['be-adj'], 2, 'work'),
-      frame('c', ['plural'], 3, 'travel'),
-      frame('d', ['plural'], 1, 'daily'),
-    ];
-    for (let day = 14; day <= 30; day++) {
-      const plan = getDayPlan(day, frames);
-      expect(plan.frameIds).toHaveLength(3);
-      expect(new Set(plan.frameIds).size).toBe(3);
-    }
+  it('returns fewer items when the library is nearly exhausted, none when it is', () => {
+    const cur = curriculum(12);
+    const introduced = new Set(cur.slice(0, 10).map(itemKey));
+    expect(getDayPlan({ dayIndex: 30, introduced, curriculum: cur, newPerDay: 5 }).newItems).toEqual(cur.slice(10));
+    const all = new Set(cur.map(itemKey));
+    const done = getDayPlan({ dayIndex: 31, introduced: all, curriculum: cur, newPerDay: 5 });
+    expect(done.newItems).toEqual([]);
+    expect(done.decode.phase).toBe('maintenance');
+    expect(getDayPlan({ dayIndex: 1, introduced: none, curriculum: [], newPerDay: 5 }).newItems).toEqual([]);
   });
 
-  it('includes user-created frames', () => {
-    const frames = bigFrameSet(1);
-    const user: SubstitutionFrame = { ...frame('u-1', ['be-adj'], 1, 'daily'), source: 'user' };
-    const withUser = [...frames, user];
-    const all = new Set<string>();
-    for (let d = 1; d <= 30; d++) getDayPlan(d, withUser).frameIds.forEach((id) => all.add(id));
-    expect(all.has('u-1')).toBe(true);
-  });
-});
-
-describe('getDayPlan: day 31+', () => {
-  it('is maintenance, 3 frames a day, rotating through all frames', () => {
-    const frames = bigFrameSet(1); // 39 frames
-    const seen = new Set<string>();
-    for (let day = 31; day < 31 + 13; day++) {
-      const plan = getDayPlan(day, frames);
-      expect(plan.phase).toBe('maintenance');
-      expect(plan.frameIds).toHaveLength(3);
-      expect(new Set(plan.frameIds).size).toBe(3);
-      plan.frameIds.forEach((id) => seen.add(id));
-    }
-    expect(seen.size).toBe(frames.length); // 13 days x 3 = 39 frames, each exactly once
-  });
-
-  it('cycles the dozen and wraps around after a full rotation', () => {
-    const frames = bigFrameSet(1);
-    const dozens = new Set<string>();
-    for (let day = 31; day < 44; day++) dozens.add(getDayPlan(day, frames).dozenId);
-    expect(dozens.size).toBe(13);
-    expect(getDayPlan(31, frames).frameIds).toEqual(getDayPlan(31 + 13, frames).frameIds);
-  });
-
-  it('continues the dozen cycle from day 30', () => {
-    const frames = bigFrameSet(1);
-    const d30 = mocked.dozen.findIndex((d) => d.id === getDayPlan(30, frames).dozenId);
-    const d31 = mocked.dozen.findIndex((d) => d.id === getDayPlan(31, frames).dozenId);
-    expect(d31).toBe((d30 + 1) % 13);
-  });
-
-  it('handles fewer than 3 frames', () => {
-    const plan = getDayPlan(35, [frame('only', ['be-adj'], 1, 'daily')]);
-    expect(plan.frameIds).toEqual(['only']);
-  });
-});
-
-describe('getDayPlan: general', () => {
-  it('is deterministic', () => {
-    const frames = bigFrameSet();
-    for (const day of [1, 7, 13, 14, 22, 30, 31, 100]) {
-      expect(getDayPlan(day, frames)).toEqual(getDayPlan(day, frames));
-      expect(getDayPlan(day, frames)).toEqual(getDayPlan(day, [...frames]));
-    }
-  });
-
-  it('clamps day indexes below 1', () => {
-    const frames = bigFrameSet();
-    expect(getDayPlan(0, frames)).toEqual(getDayPlan(1, frames));
-    expect(getDayPlan(-5, frames).dayIndex).toBe(1);
-  });
-
-  it('does not mutate the frame list', () => {
-    const frames = bigFrameSet();
-    const copy = JSON.stringify(frames);
-    getDayPlan(20, frames);
-    expect(JSON.stringify(frames)).toBe(copy);
-  });
-
-  it('uses the sentence that has order == dayIndex, not the array position', () => {
-    mocked.dozen = [...makeDozen()].reverse();
-    expect(getDayPlan(3, bigFrameSet()).dozenId).toBe('d03');
+  it('does not mutate its inputs and is deterministic', () => {
+    const cur = curriculum();
+    const copy = JSON.parse(JSON.stringify(cur)) as ItemRef[];
+    const introduced = new Set(['chunk:c01']);
+    const a = getDayPlan({ dayIndex: 9, introduced, curriculum: cur, newPerDay: 6 });
+    const b = getDayPlan({ dayIndex: 9, introduced, curriculum: cur, newPerDay: 6 });
+    expect(a).toEqual(b);
+    expect(cur).toEqual(copy);
+    expect([...introduced]).toEqual(['chunk:c01']);
+    a.newItems[0].id = 'changed';
+    expect(cur[1].id).not.toBe('changed'); // returned refs are copies
   });
 });

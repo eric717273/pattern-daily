@@ -1,4 +1,4 @@
-import type { GrammarPoint, Level, Scene, Slot, SlotRole } from '../types';
+import type { Freq, FunctionCategory, GrammarPoint, Level, Scene, Slot, SlotRole, TransformOp } from '../types';
 
 /** Chinese labels for every grammar point of the Deconstruction Dozen. */
 export const GRAMMAR_LABELS: Record<GrammarPoint, string> = {
@@ -28,6 +28,56 @@ export const SCENE_LABELS: Record<Scene, string> = {
 };
 
 export const SCENES = Object.keys(SCENE_LABELS) as Scene[];
+
+/** Chinese names of the communicative functions that organise the chunk library (order = display order). */
+export const FUNCTION_CATEGORY_LABELS: Record<FunctionCategory, string> = {
+  greeting: '寒暄开场与告别',
+  response: '回应与附和',
+  filler: '思考缓冲与争取时间',
+  connector: '连接转折与组织语言',
+  opinion: '表达观点',
+  agree: '同意与反对',
+  request: '请求与求助',
+  offer: '提议、邀请与回应',
+  thanks: '感谢、道歉与客套',
+  question: '询问信息',
+  clarify: '澄清、确认与听不懂时',
+  feeling: '情绪与感受',
+  plan: '计划与安排',
+  experience: '经历与讲述过去',
+  describe: '描述与评价',
+  advice: '建议、提醒与鼓励',
+  problem: '问题、抱怨与解决',
+  work: '职场沟通',
+  travel: '出行与生活服务',
+  social: '社交闲聊',
+};
+
+export const FUNCTION_CATEGORIES = Object.keys(FUNCTION_CATEGORY_LABELS) as FunctionCategory[];
+
+/** Chunk / frame frequency band (Chunk.freq, SubstitutionFrame.freq). */
+export const FREQ_LABELS: Record<Freq, string> = {
+  1: '最高频',
+  2: '常用',
+  3: '进阶',
+};
+
+export const FREQS: Freq[] = [1, 2, 3];
+
+/** Decode-track transformation exercises (TransformTask.op). */
+export const TRANSFORM_OP_LABELS: Record<TransformOp, string> = {
+  question: '疑问句',
+  negative: '否定句',
+  past: '一般过去时',
+  future: '将来时',
+  perfect: '现在完成时',
+  'third-person': '换成第三人称',
+  plural: '单复数转换',
+  pronoun: '换成代词',
+  modal: '加情态动词',
+};
+
+export const TRANSFORM_OPS = Object.keys(TRANSFORM_OP_LABELS) as TransformOp[];
 
 /** Frame difficulty (SubstitutionFrame.level). */
 export const FRAME_LEVEL_LABELS: Record<1 | 2 | 3, string> = {

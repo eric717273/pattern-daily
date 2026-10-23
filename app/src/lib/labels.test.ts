@@ -1,14 +1,20 @@
 import { describe, expect, it } from 'vitest';
 import { DOZEN, SEED_FRAMES } from '../content';
-import type { SlotRole } from '../types';
+import type { FunctionCategory, SlotRole, TransformOp } from '../types';
 import {
   FRAME_LEVEL_LABELS,
+  FREQ_LABELS,
+  FREQS,
+  FUNCTION_CATEGORIES,
+  FUNCTION_CATEGORY_LABELS,
   GRAMMAR_LABELS,
   GRAMMAR_POINTS,
   inferSlotRole,
   ROLE_STYLES,
   SCENE_LABELS,
   SLOT_ROLE_LABELS,
+  TRANSFORM_OP_LABELS,
+  TRANSFORM_OPS,
   VARIANT_LEVEL_LABELS,
 } from './labels';
 
@@ -59,5 +65,20 @@ describe('labels', () => {
 
   it('classifies every seed slot without throwing', () => {
     for (const f of SEED_FRAMES) for (const s of f.slots) expect(ALL_ROLES).toContain(inferSlotRole(s));
+  });
+
+  it('labels every function category (20), frequency band and transform op', () => {
+    const cats: FunctionCategory[] = [
+      'greeting', 'response', 'filler', 'connector', 'opinion', 'agree', 'request', 'offer', 'thanks', 'question',
+      'clarify', 'feeling', 'plan', 'experience', 'describe', 'advice', 'problem', 'work', 'travel', 'social',
+    ];
+    expect([...FUNCTION_CATEGORIES].sort()).toEqual([...cats].sort());
+    for (const c of cats) expect(FUNCTION_CATEGORY_LABELS[c], c).toBeTruthy();
+    expect(FUNCTION_CATEGORY_LABELS.greeting).toBe('寒暄开场与告别');
+    expect(FREQ_LABELS).toEqual({ 1: '最高频', 2: '常用', 3: '进阶' });
+    expect(FREQS).toEqual([1, 2, 3]);
+    const ops: TransformOp[] = ['question', 'negative', 'past', 'future', 'perfect', 'third-person', 'plural', 'pronoun', 'modal'];
+    expect([...TRANSFORM_OPS].sort()).toEqual([...ops].sort());
+    for (const o of ops) expect(TRANSFORM_OP_LABELS[o], o).toBeTruthy();
   });
 });
