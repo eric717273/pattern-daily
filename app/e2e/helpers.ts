@@ -1,8 +1,23 @@
 import { expect, type Page, type Route } from '@playwright/test';
 import { DOZEN } from '../src/content';
 
+/**
+ * Chromium has webkitSpeechRecognition but no speech service in tests, so voice verification would be
+ * on by default. The day flow tests the self-graded drills: switch the preference off before the page loads.
+ */
+export async function disableVoiceVerification(page: Page): Promise<void> {
+  await page.addInitScript(() => {
+    try {
+      localStorage.setItem('pd.swapVoice', '0');
+    } catch {
+      // storage unavailable
+    }
+  });
+}
+
 /** Open the Today page and wait for the header. */
 export async function openToday(page: Page): Promise<void> {
+  await disableVoiceVerification(page);
   await page.goto('/#/');
   await expect(page.getByRole('heading', { name: /^第 \d+ 课$/ })).toBeVisible();
 }

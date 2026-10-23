@@ -123,6 +123,13 @@ export function stopSpeaking(): void {
   current = null;
 }
 
+/** True while a `speak()` utterance is playing (used to ignore the microphone so TTS is not "heard"). */
+export function isSpeaking(): boolean {
+  if (current !== null) return true;
+  const s = synth();
+  return s ? s.speaking : false;
+}
+
 // ---------- recognition ----------
 
 interface RecognitionAlternative {
@@ -130,6 +137,7 @@ interface RecognitionAlternative {
 }
 interface RecognitionResult {
   readonly length: number;
+  readonly isFinal?: boolean;
   [index: number]: RecognitionAlternative;
 }
 interface RecognitionEvent {
@@ -146,6 +154,7 @@ interface RecognitionLike {
   onresult: ((e: RecognitionEvent) => void) | null;
   onerror: ((e: RecognitionErrorEvent) => void) | null;
   onend: (() => void) | null;
+  onstart: (() => void) | null;
   start(): void;
   stop(): void;
   abort(): void;
@@ -218,4 +227,189 @@ export function listenOnce(lang = 'en-US'): Promise<string> {
       fail('无法启动语音识别，请稍后重试。');
     }
   });
+}
+
+// ---------- streaming recognition ----------
+
+export interface SpeechError {
+  /** Raw SpeechRecognition error code ('not-allowed', 'network', ...) or 'unsupported' / 'start-failed'. */
+  code: string;
+  /** Chinese message for the user. */
+  message: string;
+  /** False for 'no-speech' / 'aborted': the session can simply be restarted. */
+  fatal: boolean;
+}
+
+const STREAM_ERRORS: Record<string, string> = {
+  'not-allowed': '麦克风权限被拒绝：请在浏览器/系统设置中允许本网站使用麦克风',
+  'service-not-allowed':
+    '语音识别不可用：在 Mac 上请到 系统设置 → 键盘 → 听写 打开“听写”（iPhone：设置 → 通用 → 键盘 → 启用听写）',
+  'audio-capture': '没有检测到麦克风',
+  network: '语音识别需要联网',
+  'no-speech': '没有听到声音',
+  'language-not-supported': '当前设备不支持英语语音识别',
+  aborted: '语音识别已取消',
+  unsupported: '当前浏览器不支持语音识别',
+  'start-failed': '无法启动语音识别，请稍后重试',
+};
+
+/** Map a SpeechRecognition error code to a user-facing Chinese error. */
+export function speechError(code: string): SpeechError {
+  return {
+    code,
+    message: STREAM_ERRORS[code] ?? '语音识别出错，请重试',
+    fatal: code !== 'no-speech' && code !== 'aborted',
+  };
+}
+
+export interface ListenOptions {
+  lang?: string;
+  /**
+   * Called on every interim / final update. `text` is the best transcript of everything heard since the
+   * session started (or since the last `mark()`); `alternatives` are the same text built from the 2nd / 3rd
+   * recognition hypotheses of each phrase (empty when the engine gives none).
+   */
+  onResult: (text: string, isFinal: boolean, alternatives: string[]) => void;
+  onError?: (err: SpeechError) => void;
+  /** The engine started capturing (after the permission prompt was accepted). */
+  onStart?: () => void;
+  /** The session ended: by stop() / abort(), by the browser (silence, time limit) or after an error. */
+  onEnd?: () => void;
+}
+
+export interface ListenHandle {
+  /** Stop listening; results already captured are still delivered, then onEnd fires. */
+  stop(): void;
+  /** Stop immediately and drop pending results. No further callbacks fire. */
+  abort(): void;
+  /** Forget everything heard so far: later onResult texts only contain speech from now on. */
+  mark(): void;
+}
+
+const MAX_ALTERNATIVES = 3;
+
+/**
+ * Continuous recognition with interim results. Must be called inside a user gesture the first time
+ * (Safari asks for microphone permission then). Safe when unsupported: reports an 'unsupported' error.
+ */
+export function startListening(opts: ListenOptions): ListenHandle {
+  const Ctor = recognitionCtor();
+  const noop: ListenHandle = { stop: () => undefined, abort: () => undefined, mark: () => undefined };
+  if (!Ctor) {
+    opts.onError?.(speechError('unsupported'));
+    opts.onEnd?.();
+    return noop;
+  }
+
+  const rec = new Ctor();
+  rec.lang = opts.lang ?? 'en-US';
+  rec.interimResults = true;
+  rec.continuous = true;
+  rec.maxAlternatives = MAX_ALTERNATIVES;
+
+  let closed = false;
+  let latest: ArrayLike<RecognitionResult> | null = null;
+  let base = 0;
+  /** Text of the interim phrase that was already under way at mark(): stripped from that phrase. */
+  let skipPrefix = '';
+
+  const text = (r: RecognitionResult, rank: number, index: number): string => {
+    if (r.length === 0) return '';
+    let t = r[Math.min(rank, r.length - 1)].transcript.trim();
+    if (index === base && skipPrefix) {
+      const stale = skipPrefix.toLowerCase();
+      if (t.toLowerCase().startsWith(stale)) t = t.slice(stale.length).trim();
+    }
+    return t;
+  };
+
+  const build = (results: ArrayLike<RecognitionResult>, rank: number): string => {
+    const parts: string[] = [];
+    for (let i = base; i < results.length; i++) {
+      const t = text(results[i], rank, i);
+      if (t) parts.push(t);
+    }
+    return parts.join(' ');
+  };
+
+  const emit = () => {
+    if (closed || !latest || latest.length <= base) return;
+    const results = latest;
+    let ranks = 1;
+    for (let i = base; i < results.length; i++) ranks = Math.max(ranks, Math.min(MAX_ALTERNATIVES, results[i].length));
+    const best = build(results, 0);
+    if (!best) return;
+    const alternatives: string[] = [];
+    for (let k = 1; k < ranks; k++) {
+      const alt = build(results, k);
+      if (alt && alt !== best && !alternatives.includes(alt)) alternatives.push(alt);
+    }
+    const last = results[results.length - 1];
+    opts.onResult(best, last.isFinal === true, alternatives);
+  };
+
+  rec.onstart = () => {
+    if (!closed) opts.onStart?.();
+  };
+  rec.onresult = (e) => {
+    latest = e.results;
+    emit();
+  };
+  rec.onerror = (e) => {
+    if (!closed) opts.onError?.(speechError(e.error));
+  };
+  rec.onend = () => {
+    if (closed) return;
+    closed = true;
+    opts.onEnd?.();
+  };
+
+  try {
+    rec.start();
+  } catch {
+    closed = true;
+    opts.onError?.(speechError('start-failed'));
+    opts.onEnd?.();
+    return noop;
+  }
+
+  return {
+    stop() {
+      if (closed) return;
+      try {
+        rec.stop();
+      } catch {
+        // already stopped
+      }
+    },
+    abort() {
+      if (closed) return;
+      closed = true;
+      rec.onresult = null;
+      rec.onerror = null;
+      rec.onend = null;
+      rec.onstart = null;
+      try {
+        rec.abort();
+      } catch {
+        // already stopped
+      }
+    },
+    mark() {
+      if (!latest || latest.length === 0) {
+        base = 0;
+        skipPrefix = '';
+        return;
+      }
+      const lastIndex = latest.length - 1;
+      const last = latest[lastIndex];
+      if (last.isFinal === true || last.length === 0) {
+        base = latest.length;
+        skipPrefix = '';
+      } else {
+        base = lastIndex;
+        skipPrefix = last[0].transcript.trim();
+      }
+    },
+  };
 }

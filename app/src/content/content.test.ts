@@ -136,8 +136,8 @@ describe('Deconstruction Dozen content', () => {
 });
 
 describe('Substitution frame content', () => {
-  it('has at least 50 seed frames with unique ids', () => {
-    expect(SEED_FRAMES.length, 'need at least 50 seed frames').toBeGreaterThanOrEqual(50);
+  it('has at least 100 seed frames with unique ids', () => {
+    expect(SEED_FRAMES.length, 'need at least 100 seed frames').toBeGreaterThanOrEqual(100);
     const seen = new Set<string>();
     const dupes: string[] = [];
     for (const f of SEED_FRAMES) {

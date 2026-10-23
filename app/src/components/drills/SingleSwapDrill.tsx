@@ -1,16 +1,36 @@
 import { useEffect, useMemo, useState } from 'react';
-import type { FrameCombo, SubstitutionFrame } from '../../types';
+import type { FrameCombo, Grade, SubstitutionFrame } from '../../types';
+import { primeAudio } from '../../lib/cue';
 import { singleSwapSequence } from '../../lib/frameEngine';
 import { speak } from '../../lib/speech';
 import { FrameTable } from '../FrameTable';
 import { SpeakButton } from '../SpeakButton';
 import { Button, Card, Segmented, cx } from '../ui';
-import { changedSlot, loadSpeed, saveSpeed, SWAP_SPEEDS, type SwapFeel, type SwapSpeed } from '../../lib/swap';
+import {
+  changedSlot,
+  loadSpeed,
+  saveSpeed,
+  speedAdvice,
+  speedOptions,
+  SWAP_SPEEDS,
+  voiceGrade,
+  type SwapFeel,
+  type SwapSpeed,
+} from '../../lib/swap';
 import { highlightText } from './highlight';
+import { useVoiceListener, useVoicePref } from './useVoice';
+import { VoiceToggle, VoiceUnsupportedNote } from './VoiceToggle';
+import { VoiceSwapPrompt, type VoiceItem } from './VoiceSwapPrompt';
+import { VoiceSwapSummary } from './VoiceSwapSummary';
 
 export interface SingleSwapResult {
   ms: number;
   feel: SwapFeel;
+  /** Voice-verified rounds only: the grade from the accuracy (callers prefer it over the one derived from `feel`). */
+  grade?: Grade;
+  /** Voice-verified rounds only: prompts said correctly within the time limit, out of `total`. */
+  correct?: number;
+  total?: number;
 }
 
 export interface SingleSwapDrillProps {
@@ -21,16 +41,37 @@ export interface SingleSwapDrillProps {
   doneLabel?: string;
 }
 
-/** Palmer step 2 (单槽快替): the Chinese prompt changes one slot at a time; say it before the countdown ends. */
+/**
+ * Palmer step 2 (单槽快替): the Chinese prompt changes one slot at a time; say it before the countdown ends.
+ * With speech recognition the microphone checks the spoken sentence (语音验证); without it the learner
+ * reveals the answer and rates the round themselves.
+ */
 export function SingleSwapDrill({ frame, length = 8, onDone, doneLabel = '完成单槽快替' }: SingleSwapDrillProps) {
   const [startedAt] = useState(() => Date.now());
   const seq = useMemo(() => singleSwapSequence(frame, length), [frame, length]);
-  const [speed, setSpeed] = useState<SwapSpeed>(loadSpeed);
-  const [index, setIndex] = useState(0);
+  const voicePref = useVoicePref();
   const [revealed, setRevealed] = useState(false);
   const [elapsed, setElapsed] = useState(0);
+  /** Bumped when the mode changes mid-prompt so the prompt starts over. */
+  const [promptKey, setPromptKey] = useState(0);
+  // A fatal recognition error drops the drill back to self-grading: start the current prompt afresh.
+  const listener = useVoiceListener(() => {
+    setRevealed(false);
+    setElapsed(0);
+    setPromptKey((k) => k + 1);
+  });
+  /** Voice verification is on and has not failed (permission denied, offline, ...). */
+  const voice = voicePref.enabled && !listener.error;
+  const [speeds, setSpeeds] = useState<{ plain: SwapSpeed; voice: SwapSpeed }>(() => ({
+    plain: loadSpeed(false),
+    voice: loadSpeed(true),
+  }));
+  const speed = voice ? speeds.voice : speeds.plain;
+  const [index, setIndex] = useState(0);
+  const [voiceItems, setVoiceItems] = useState<(VoiceItem | undefined)[]>([]);
   const [feel, setFeel] = useState<SwapFeel>('ok');
-  const speedMs = SWAP_SPEEDS.find((s) => s.value === speed)?.ms ?? 4000;
+  const speedOpts = speedOptions(voice);
+  const speedMs = speedOpts.find((s) => s.value === speed)?.ms ?? speedOpts[0].ms;
 
   const total = seq.length - 1; // swaps after the starting sentence
   const finished = index >= seq.length;
@@ -40,6 +81,11 @@ export function SingleSwapDrill({ frame, length = 8, onDone, doneLabel = '完成
   const slot = frame.slots.find((s) => s.key === slotKey);
   const option = slot && cur ? slot.options[cur.picks[slot.key]] : undefined;
 
+  const stopListening = listener.stop;
+  useEffect(() => {
+    if (finished) stopListening();
+  }, [finished, stopListening]);
+
   const reveal = (viaTap: boolean) => {
     setRevealed(true);
     if (viaTap && cur) void speak(cur.en);
@@ -48,7 +94,7 @@ export function SingleSwapDrill({ frame, length = 8, onDone, doneLabel = '完成
   // Countdown for swap prompts (index >= 1). Reveals automatically when it runs out.
   const curEn = cur?.en;
   useEffect(() => {
-    if (finished || index === 0 || revealed) return;
+    if (voice || finished || index === 0 || revealed) return;
     const t0 = Date.now();
     const timer = setInterval(() => {
       const e = Date.now() - t0;
@@ -60,7 +106,7 @@ export function SingleSwapDrill({ frame, length = 8, onDone, doneLabel = '完成
       }
     }, 100);
     return () => clearInterval(timer);
-  }, [index, revealed, finished, speedMs, curEn]);
+  }, [voice, index, revealed, finished, speedMs, curEn, promptKey]);
 
   const next = () => {
     setRevealed(false);
@@ -68,21 +114,78 @@ export function SingleSwapDrill({ frame, length = 8, onDone, doneLabel = '完成
     setIndex((i) => i + 1);
   };
 
+  const startDrill = () => {
+    if (voice) {
+      // first tap of the drill: Safari only allows the microphone / audio inside a user gesture
+      primeAudio();
+      listener.start();
+    }
+    next();
+  };
+
+  const toggleVoice = (on: boolean) => {
+    voicePref.setEnabled(on);
+    if (on) {
+      primeAudio();
+      if (index >= 1 && !finished) listener.start();
+    } else {
+      listener.stop();
+    }
+    if (index >= 1 && !finished) {
+      setRevealed(false);
+      setElapsed(0);
+      setPromptKey((k) => k + 1);
+    }
+  };
+
   const finish = () => {
     if (feel === 'easy') {
-      const i = SWAP_SPEEDS.findIndex((s) => s.value === speed);
+      const i = SWAP_SPEEDS.findIndex((s) => s.value === speeds.plain);
       if (i < SWAP_SPEEDS.length - 1) saveSpeed(SWAP_SPEEDS[i + 1].value);
     } else if (feel === 'hard') {
-      const i = SWAP_SPEEDS.findIndex((s) => s.value === speed);
+      const i = SWAP_SPEEDS.findIndex((s) => s.value === speeds.plain);
       if (i > 0) saveSpeed(SWAP_SPEEDS[i - 1].value);
     }
     onDone({ ms: Math.min(300_000, Date.now() - startedAt), feel });
   };
 
-  const changeSpeed = (v: SwapSpeed) => {
-    setSpeed(v);
-    saveSpeed(v);
+  const finishVoice = (nextSpeed: SwapSpeed) => {
+    saveSpeed(nextSpeed, true);
+    const correct = voiceItems.filter((i) => i?.ok).length;
+    const advice = speedAdvice(correct, total);
+    onDone({
+      ms: Math.min(300_000, Date.now() - startedAt),
+      feel: advice === 'faster' ? 'easy' : advice === 'slower' ? 'hard' : 'ok',
+      grade: voiceGrade(correct, total),
+      correct,
+      total,
+    });
   };
+
+  const changeSpeed = (v: SwapSpeed) => {
+    setSpeeds((s) => ({ ...s, [voice ? 'voice' : 'plain']: v }));
+    saveSpeed(v, voice);
+  };
+
+  const resolveVoice = (item: VoiceItem) => {
+    setVoiceItems((items) => {
+      const copy = [...items];
+      copy[index - 1] = item;
+      return copy;
+    });
+  };
+
+  if (finished && voice && voiceItems.some(Boolean)) {
+    return (
+      <VoiceSwapSummary
+        items={Array.from({ length: total }, (_, i) => voiceItems[i])}
+        total={total}
+        speed={speeds.voice}
+        doneLabel={doneLabel}
+        onFinish={finishVoice}
+      />
+    );
+  }
 
   if (finished) {
     return (
@@ -126,8 +229,21 @@ export function SingleSwapDrill({ frame, length = 8, onDone, doneLabel = '完成
           ariaLabel="替换速度"
           value={speed}
           onChange={changeSpeed}
-          options={SWAP_SPEEDS.map((s) => ({ value: s.value, label: s.label }))}
+          options={speedOpts.map((s) => ({ value: s.value, label: s.label }))}
         />
+      </div>
+
+      <div className="flex flex-col items-start gap-1.5">
+        {voicePref.supported ? (
+          <VoiceToggle enabled={voice} onChange={toggleVoice} />
+        ) : (
+          <VoiceUnsupportedNote />
+        )}
+        {listener.error && voicePref.enabled && (
+          <p role="alert" className="text-sm text-rose-600 dark:text-rose-400">
+            {listener.error.message}。已改为自评模式。
+          </p>
+        )}
       </div>
 
       <FrameTable
@@ -148,11 +264,29 @@ export function SingleSwapDrill({ frame, length = 8, onDone, doneLabel = '完成
           <p className="text-[15px] text-slate-500 dark:text-slate-400">{cur.zh}</p>
           <div className="flex items-center gap-3">
             <SpeakButton text={cur.en} />
-            <Button variant="primary" size="lg" className="flex-1" onClick={next}>
+            <Button variant="primary" size="lg" className="flex-1" onClick={startDrill}>
               开始快替
             </Button>
           </div>
+          {voice && (
+            <p className="text-xs text-slate-500 dark:text-slate-400">
+              语音验证已开启：点「开始快替」后浏览器会请求麦克风权限；每句限时 {speedMs / 1000} 秒，对着麦克风说出整句英语。
+            </p>
+          )}
         </Card>
+      ) : voice ? (
+        <VoiceSwapPrompt
+          key={`${index}-${promptKey}`}
+          combo={cur}
+          slot={slot}
+          option={option}
+          limitMs={speedMs}
+          listener={listener}
+          isLast={index >= total}
+          onReveal={() => setRevealed(true)}
+          onResolved={resolveVoice}
+          onNext={next}
+        />
       ) : (
         <Card className="flex flex-col gap-3">
           <div>

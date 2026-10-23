@@ -117,7 +117,7 @@ export function FrameSingleDrillPage() {
           key={round}
           frame={frame}
           onDone={(r) => {
-            const grade = FEEL_GRADE[r.feel];
+            const grade = r.grade ?? FEEL_GRADE[r.feel];
             void recordGrade(frame.id, grade, 'single-swap', r.ms).then((saved) => setResult({ grade, saved }));
           }}
         />
