@@ -1,6 +1,6 @@
 import { useEffect, type ComponentType } from 'react';
 import { NavLink, Outlet, useLocation } from 'react-router-dom';
-import { AnalyzeIcon, DozenIcon, FramesIcon, MeIcon, TodayIcon } from './icons';
+import { AnalyzeIcon, FramesIcon, MeIcon, TodayIcon } from './icons';
 import { cx } from './ui';
 
 interface NavItem {
@@ -12,9 +12,8 @@ interface NavItem {
 
 const NAV_ITEMS: NavItem[] = [
   { to: '/', label: '今日', end: true, Icon: TodayIcon },
-  { to: '/dozen', label: '12句', Icon: DozenIcon },
-  { to: '/frames', label: '母框', Icon: FramesIcon },
-  { to: '/analyze', label: '解构', Icon: AnalyzeIcon },
+  { to: '/library', label: '语块库', Icon: FramesIcon },
+  { to: '/decode', label: '解码', Icon: AnalyzeIcon },
   { to: '/me', label: '我的', Icon: MeIcon },
 ];
 

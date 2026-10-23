@@ -1,5 +1,5 @@
 import { lazy, Suspense, type ComponentType, type ReactElement } from 'react';
-import { Route, Routes } from 'react-router-dom';
+import { Navigate, Route, Routes } from 'react-router-dom';
 import { Layout } from './components/Layout';
 import { PageLoading } from './components/ui';
 
@@ -14,9 +14,11 @@ function page<K extends string>(load: () => Promise<Record<K, ComponentType>>, n
 }
 
 const today = page(() => import('./pages/TodayPage'), 'TodayPage');
-const dozenList = page(() => import('./pages/DozenListPage'), 'DozenListPage');
 const dozenDetail = page(() => import('./pages/DozenDetailPage'), 'DozenDetailPage');
-const framesList = page(() => import('./pages/FramesListPage'), 'FramesListPage');
+const library = page(() => import('./pages/library/LibraryPage'), 'LibraryPage');
+const chunkDetail = page(() => import('./pages/library/ChunkDetailPage'), 'ChunkDetailPage');
+const decode = page(() => import('./pages/decode/DecodePage'), 'DecodePage');
+const decodePractice = page(() => import('./pages/decode/DecodePracticePage'), 'DecodePracticePage');
 const frameDetail = page(() => import('./pages/FrameDetailPage'), 'FrameDetailPage');
 const singleDrill = page(() => import('./pages/FrameDrillPages'), 'FrameSingleDrillPage');
 const translateDrill = page(() => import('./pages/FrameDrillPages'), 'FrameTranslateDrillPage');
@@ -30,15 +32,22 @@ export function AppRoutes() {
     <Routes>
       <Route element={<Layout />}>
         <Route index element={today} />
-        <Route path="dozen" element={dozenList} />
-        <Route path="dozen/:id" element={dozenDetail} />
-        <Route path="frames" element={framesList} />
+        {/* Chunk track (Palmer + lexical chunks): automatic recall and recognition */}
+        <Route path="library" element={library} />
+        <Route path="library/chunk/:id" element={chunkDetail} />
         <Route path="frames/:id" element={frameDetail} />
-        {/* Palmer step 2: single-slot quick swap drill */}
         <Route path="frames/:id/drill/single" element={singleDrill} />
-        {/* Palmer step 3: Chinese -> English translate drill */}
         <Route path="frames/:id/drill/translate" element={translateDrill} />
-        <Route path="analyze" element={analyze} />
+        {/* Decode track (Ferriss): understanding sentence skeletons */}
+        <Route path="decode" element={decode} />
+        <Route path="decode/dozen/:id" element={dozenDetail} />
+        <Route path="decode/practice" element={decodePractice} />
+        <Route path="decode/analyze" element={analyze} />
+        {/* v1 paths */}
+        <Route path="frames" element={<Navigate to="/library" replace />} />
+        <Route path="dozen" element={<Navigate to="/decode" replace />} />
+        <Route path="dozen/:id" element={dozenDetail} />
+        <Route path="analyze" element={<Navigate to="/decode/analyze" replace />} />
         <Route path="me" element={me} />
         <Route path="*" element={notFound} />
       </Route>

@@ -1,5 +1,5 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
-import type { DozenSentence } from '../../types';
+import type { Chunk, DozenSentence, SubstitutionFrame } from '../../types';
 
 vi.mock('../../content', () => ({
   DOZEN: Array.from({ length: 13 }, (_, i) => ({
@@ -30,6 +30,7 @@ import {
   AiError,
   aiConfigured,
   deconstruct,
+  generateChunkPrompts,
   generateFrame,
   generateOutputPrompts,
   gradeOutput,
@@ -342,7 +343,7 @@ describe('generateFrame', () => {
 });
 
 describe('generateOutputPrompts', () => {
-  const dozen = { id: 'd09', order: 9, en: 'I must give it to him.', zh: '我必须把它给他。', focusZh: '情态', grammar: ['modal-must'], alignment: [], trapsZh: [], variants: [], frameIds: [] } as DozenSentence;
+  const dozen = { id: 'd09', order: 9, en: 'I must give it to him.', zh: '我必须把它给他。', focusZh: '情态', grammar: ['modal-must'], alignment: [], trapsZh: [], variants: [], frameIds: [], transforms: [] } as DozenSentence;
 
   it('returns exactly count prompts', async () => {
     fetchMock.mockResolvedValueOnce(
@@ -356,5 +357,126 @@ describe('generateOutputPrompts', () => {
   it('rejects too few prompts', async () => {
     fetchMock.mockImplementation(() => Promise.resolve(completion({ prompts: [{ promptZh: 'a', hintEn: 'b' }] })));
     expect(await code(generateOutputPrompts({ dozen, frames: [], scenes: [], count: 3 }))).toBe('bad-response');
+  });
+});
+
+describe('chunk track', () => {
+  const chunk: Chunk = {
+    id: 'c012',
+    en: "It's up to you.",
+    zh: '你来决定。',
+    category: 'agree',
+    freq: 1,
+    register: 'neutral',
+    examples: [],
+    noteZh: '把决定权交给对方。',
+  };
+  const frame = {
+    id: 'f007',
+    title: '表达打算',
+    pattern: '{subject} {aux} {verb} the {object}.',
+    patternZh: '{subject}{aux}{verb}{object}。',
+    slots: frameJson.slots,
+    grammar: [],
+    scene: 'daily',
+    level: 1,
+    examples: [],
+    source: 'seed',
+  } as SubstitutionFrame;
+  const items = [
+    { kind: 'chunk' as const, chunk },
+    { kind: 'frame' as const, frame },
+  ];
+  const userPrompt = (call = 0): string =>
+    (JSON.parse((fetchMock.mock.calls[call][1] as RequestInit).body as string).messages as { role: string; content: string }[])[1].content;
+
+  describe('generateChunkPrompts', () => {
+    it('returns count prompts with valid targetIds', async () => {
+      fetchMock.mockResolvedValueOnce(
+        completion({
+          prompts: [
+            { promptZh: '朋友问你去哪吃饭，你都行。', hintEn: 'up to', targetId: 'c012' },
+            { promptZh: '告诉同事你明天要交报告。', hintEn: 'report', targetId: 'f007' },
+            { promptZh: '室友问看什么电影。', hintEn: ' up to ', targetId: ' c012 ' },
+            { promptZh: '多余的一条', hintEn: '', targetId: 'c012' },
+          ],
+        }),
+      );
+      const r = await generateChunkPrompts({ items, scenes: ['daily'], count: 3 });
+      expect(r).toEqual([
+        { promptZh: '朋友问你去哪吃饭，你都行。', hintEn: 'up to', targetId: 'c012' },
+        { promptZh: '告诉同事你明天要交报告。', hintEn: 'report', targetId: 'f007' },
+        { promptZh: '室友问看什么电影。', hintEn: 'up to', targetId: 'c012' },
+      ]);
+      const p = userPrompt();
+      expect(p).toContain("It's up to you.");
+      expect(p).toContain('id=f007');
+      expect(p).toContain('第 3 题 → c012'); // rotation across targets
+      expect(p).toContain('正好是 3');
+      expect(p).toContain('不要要求学习者分析语法');
+      expect(sentBody(0).temperature).toBe(0.8);
+    });
+
+    it('rejects a targetId that is not among the items (after one retry)', async () => {
+      fetchMock.mockImplementation(() =>
+        Promise.resolve(completion({ prompts: [{ promptZh: '题', hintEn: 'x', targetId: 'c999' }] })),
+      );
+      expect(await code(generateChunkPrompts({ items, scenes: [], count: 1 }))).toBe('bad-response');
+      expect(fetchMock).toHaveBeenCalledTimes(2);
+    });
+
+    it.each([
+      ['too few prompts', { prompts: [{ promptZh: '题', hintEn: 'x', targetId: 'c012' }] }],
+      ['missing targetId', { prompts: [{ promptZh: '题', hintEn: 'x' }, { promptZh: '题2', hintEn: 'x' }] }],
+      ['empty promptZh', { prompts: [{ promptZh: ' ', hintEn: 'x', targetId: 'c012' }, { promptZh: 'b', hintEn: 'x', targetId: 'c012' }] }],
+      ['not an array', { prompts: 'nope' }],
+    ])('rejects %s', async (_n, payload) => {
+      fetchMock.mockImplementation(() => Promise.resolve(completion(payload)));
+      expect(await code(generateChunkPrompts({ items, scenes: [], count: 2 }))).toBe('bad-response');
+    });
+
+    it('recovers when the retry returns a valid answer', async () => {
+      fetchMock
+        .mockResolvedValueOnce(completion({ prompts: [{ promptZh: '题', hintEn: '', targetId: 'zzz' }] }))
+        .mockResolvedValueOnce(completion({ prompts: [{ promptZh: '题', hintEn: '', targetId: 'f007' }] }));
+      const r = await generateChunkPrompts({ items, scenes: ['work'], count: 1 });
+      expect(r[0].targetId).toBe('f007');
+    });
+
+    it('fails fast without items and without calling the API', async () => {
+      expect(await code(generateChunkPrompts({ items: [], scenes: [], count: 3 }))).toBe('bad-response');
+      expect(fetchMock).not.toHaveBeenCalled();
+    });
+  });
+
+  describe('gradeOutput with targetChunk', () => {
+    it('judges natural use of the chunk and never asks for grammar analysis', async () => {
+      fetchMock.mockResolvedValueOnce(completion(feedback));
+      const r = await gradeOutput({ promptZh: '朋友问你去哪吃饭。', targetChunk: "It's up to you.", userEn: "It's up to you." });
+      expect(r).toEqual(feedback);
+      const p = userPrompt();
+      expect(p).toContain("要求自然用上的语块/句型：It's up to you.");
+      expect(p).toContain('是否自然地用上了目标语块');
+      expect(p).toContain('不要做语法分析');
+      expect(p).not.toContain('语法是否正确');
+      expect(p).not.toContain('要求练习的语法点');
+      const sys = (JSON.parse((fetchMock.mock.calls[0][1] as RequestInit).body as string).messages[0] as { content: string }).content;
+      expect(sys).toContain('绝不做语法分析');
+    });
+
+    it('stays backward compatible: no targetChunk means the original grammar rubric', async () => {
+      fetchMock.mockResolvedValueOnce(completion(feedback));
+      await gradeOutput({ promptZh: '我必须走了', grammar: ['modal-must'], userEn: 'I must go' });
+      const p = userPrompt();
+      expect(p).toContain('语法是否正确');
+      expect(p).toContain('要求练习的语法点：modal-must');
+      expect(p).not.toContain('要求自然用上的语块');
+    });
+
+    it('grammar may be omitted', async () => {
+      fetchMock.mockResolvedValueOnce(completion(feedback));
+      await gradeOutput({ userEn: 'I must go' });
+      expect(userPrompt()).not.toContain('要求练习的语法点');
+    });
   });
 });
