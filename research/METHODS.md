@@ -82,24 +82,36 @@
 
 ---
 
-## 三、两种方法如何结合（本工具的设计依据）
+## 三、两条独立的学习线（v2 设计依据）
 
-| 维度 | 12 句解构 | 帕默替换表 | 结合方式 |
-|---|---|---|---|
-| 目标 | 看清语法骨架（理解） | 骨架自动化（反射） | 先解构，再替换操练 |
-| 单位 | 13 个最小语法句 | 100 个高频母框 | 每个母框标注它用到的解构句语法点 |
-| 词汇 | 假人词（apple/John） | 真实高频词块 | 从假人词到职场词汇逐级替换 |
-| 练习 | 中英对照、逐层拆解 | 速度操练、中译英 | 每日 15 分钟：解构 → 替换 → 输出 → 复习 |
+> v1 把母框按「当天解构句的语法点」来挑选，等于把替换练习当成解构的附属品，这是错的。
+> 两种方法训练的是两种不同的能力，v2 把它们拆成两条线。
 
-**每日 15 分钟流程：**
-1. **热身（2 分钟）**：复习到期卡片（间隔重复）。
-2. **解构（4 分钟）**：当天的 1 个解构句，逐字中英对照，并标出文法陷阱。
-3. **母框替换（6 分钟）**：当天的母框，依次做锚定、单槽快替、多槽中译英三步。
-4. **模组替换输出（3 分钟）**：用当天的骨架自己造 3 句（视频的"每天 3 句模组替换"），交给 AI 批改。
+| | 解码线（Tim Ferriss） | 语块线（Palmer + 现代语块研究） |
+|---|---|---|
+| 训练什么 | **理解**：看清句子的骨架（语序、代词、时态、倒装、否定、情态） | **自动化**：常用句式和语块脱口而出、听到就懂 |
+| 知识类型 | 陈述性知识（知道规则） | 程序性知识（不假思索地用） |
+| 练习方式 | 拆解、对照、变形（改成疑问/否定/过去式/换代词） | 大量重复：听辨、跟读、限时替换说出、间隔复习 |
+| 学习单位 | 13 个最小骨架句 | 约 400 条：150 个可替换母框 + 250 条固定表达 |
+| 时间分配 | 前 13 天打地基，之后每天约 3 分钟维护 | 长期主线，每天约 10 分钟 |
+| 练习中讲语法吗 | 讲，这条线就是讲结构 | **不讲**：只讲意思、用法和发音 |
 
-**30 天计划：**
-- 第 1–13 天：逐句攻克 12 句加彩蛋，每天配 2–3 个对应语法点的母框。
-- 第 14–30 天：以母框为主，加入职场和生活场景，混合复习前面的解构句。
+### 理论依据
+- **技能习得理论**（DeKeyser）：先有陈述性知识，再经过大量练习转为程序性知识，最终自动化。解码线负责前者，语块线负责后两步。
+- **Palmer 的习惯论**：语言能力是一套习惯，替换表的作用是让句型变成"ergonic"（构句）习惯，而不是记规则。
+- **语块 / 词汇法**（Pawley & Syder 1983；Nattinger & DeCarrico 1992；Lewis 1993）：母语者的流利度很大程度上来自调用整块的预制语言（formulaic sequences），而不是逐词组句。
+- **语块的处理优势**（Conklin & Schmitt 等）：高频固定表达被整体存储，阅读和听力中的处理速度快于普通词组合。所以语块练熟以后，听力里也能整块捕捉，不用再解码。
+- 现代高频多词表达清单（如 Martinez & Schmitt 2012 的 PHRASE List）说明：最常用的几百条多词表达覆盖了日常语言中相当大的比例，值得优先自动化。
+
+### 两条线唯一的结合点
+- **按需解码**：练语块时如果卡住了（听不懂，或不明白为什么这么说），可以点「看结构」临时用解码视角看一眼，但这不是练习的一部分。
+- **解码线的练习素材**：取自你已经练熟的语块和母框句子，在熟悉的材料上练分析能力，不引入新的认知负担。
+
+### 每日流程（约 15 分钟）
+1. **复习**（约 4 分钟）：到期语块的间隔复习。听音频认出语块，再看中文或情景说出语块。
+2. **新语块**（约 6 分钟）：每天 5 条，可调整。每条依次做听辨（正常语速）、跟读（语音验证）、替换或说出（母框做限时单槽快替，固定表达做情景回忆）。
+3. **解码**（约 3 分钟）：第 1–13 天学 1 个骨架句，包括逐字对照、文法陷阱和变形练习；之后每天做 1 组变形练习或成分标注。
+4. **输出**（约 2 分钟）：AI 根据今天的新语块出 3 道情景题，你用语块说或写出来，由 AI 批改。
 
 ## 参考来源
 - Tim Ferriss, *How to Learn (But Not Master) Any Language in 1 Hour* (2007): https://tim.blog/2007/11/07/how-to-learn-but-not-master-any-language-in-1-hour-plus-a-favor/
@@ -109,3 +121,9 @@
 - Scott Thornbury, *S is for Substitution table*: https://scottthornbury.wordpress.com/2017/11/12/s-is-for-substitution-table/
 - Palmer, *The Principles of Language-Study* (Project Gutenberg #46961)
 - M.L. Tickoo, *Harold Palmer*, Language and Language Teaching (2014)
+- R. DeKeyser, Skill Acquisition Theory（技能习得理论）
+- A. Pawley & F. Syder (1983), Two puzzles for linguistic theory: nativelike selection and nativelike fluency
+- J. Nattinger & J. DeCarrico (1992), *Lexical Phrases and Language Teaching*
+- M. Lewis (1993), *The Lexical Approach*
+- K. Conklin & N. Schmitt (2008), Formulaic sequences: Are they processed more quickly than nonformulaic language by native and nonnative speakers?
+- R. Martinez & N. Schmitt (2012), A Phrasal Expressions List (PHRASE List)

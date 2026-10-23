@@ -51,7 +51,77 @@ export interface DozenSentence {
   trapsZh: string[]; // typical mistakes Chinese speakers make, with wrong→right examples
   /** 模组替换: same skeleton, progressively richer vocabulary. At least 2 per level. */
   variants: { en: string; zh: string; level: Level }[];
-  frameIds: string[]; // Palmer frames that drill this grammar point
+  frameIds: string[]; // legacy link to frames sharing this grammar point (display only, never used for scheduling)
+  /** 变形练习: Tim-style transformations of the base sentence (decode track). 5-7 per sentence. */
+  transforms: TransformTask[];
+}
+
+export type TransformOp =
+  | 'question' // → yes/no question
+  | 'negative' // → negative
+  | 'past' // → simple past
+  | 'future' // → be going to / will
+  | 'perfect' // → present perfect
+  | 'third-person' // change subject to he/she (verb agreement)
+  | 'plural' // singular ↔ plural
+  | 'pronoun' // replace nouns with pronouns (word-order change!)
+  | 'modal'; // add must / can / want to
+
+export interface TransformTask {
+  op: TransformOp;
+  instructionZh: string; // "改成疑问句"
+  from: string; // source sentence (the base sentence or a variant)
+  to: string; // the single best answer
+  alt?: string[]; // other fully-correct answers (contractions etc. are already normalized)
+  noteZh?: string; // what changed in the skeleton, 1 sentence
+}
+
+// ---------- Chunk track (Palmer + lexical approach): automatic recall & recognition ----------
+
+/** Communicative function — the organising axis of the chunk library (NOT grammar). */
+export type FunctionCategory =
+  | 'greeting' //    寒暄开场与告别
+  | 'response' //    回应与附和
+  | 'filler' //      思考缓冲与争取时间
+  | 'connector' //   连接转折与组织语言
+  | 'opinion' //     表达观点
+  | 'agree' //       同意与反对
+  | 'request' //     请求与求助
+  | 'offer' //       提议、邀请与回应
+  | 'thanks' //      感谢、道歉与客套
+  | 'question' //    询问信息
+  | 'clarify' //     澄清、确认与听不懂时
+  | 'feeling' //     情绪与感受
+  | 'plan' //        计划与安排
+  | 'experience' //  经历与讲述过去
+  | 'describe' //    描述与评价
+  | 'advice' //      建议、提醒与鼓励
+  | 'problem' //     问题、抱怨与解决
+  | 'work' //        职场沟通
+  | 'travel' //      出行与生活服务
+  | 'social'; //     社交闲聊
+
+/** 1 = 最高频（每天都会听到/用到）, 2 = 常用, 3 = 进阶 */
+export type Freq = 1 | 2 | 3;
+
+/** A fixed or semi-fixed expression learned and recalled as ONE unit (no slots). */
+export interface Chunk {
+  id: string; // 'c001'..'c250'
+  en: string; // "It's up to you." / "I was wondering if …" (… marks an open continuation)
+  zh: string;
+  category: FunctionCategory;
+  freq: Freq;
+  register: 'casual' | 'neutral' | 'formal';
+  /** 2 natural lines (mini dialogue or real-life sentence) containing `en` VERBATIM (case-insensitive, minus trailing punctuation/…). */
+  examples: SlotOption[];
+  noteZh?: string; // when/how to use it, nuance, common misuse
+  soundZh?: string; // listening tip: linking/reduction, e.g. "what do you → whaddya"
+}
+
+export type ItemKind = 'frame' | 'chunk';
+export interface ItemRef {
+  kind: ItemKind;
+  id: string;
 }
 
 export type Scene = 'daily' | 'work' | 'travel' | 'social' | 'study';
@@ -83,6 +153,9 @@ export interface SubstitutionFrame {
   examples: SlotOption[]; // 2-3 complete model sentences (en/zh)
   tipZh?: string; // usage note
   source: 'seed' | 'ai' | 'user';
+  category?: FunctionCategory; // required for seed frames
+  freq?: Freq; // required for seed frames
+  soundZh?: string; // optional listening tip for the fixed part of the frame
 }
 
 /** A concrete sentence generated from a frame by picking one option index per slot. */
@@ -102,7 +175,7 @@ export interface SyncedRecord {
   _dirty?: 0 | 1; // 1 = changed locally, not yet pushed. Never sent to the server.
 }
 
-export type CardKind = 'dozen' | 'frame';
+export type CardKind = 'dozen' | 'frame' | 'chunk';
 
 /** Spaced-repetition state (SM-2). id = `${kind}:${refId}` */
 export interface CardState extends SyncedRecord {
@@ -126,7 +199,12 @@ export type DrillMode =
   | 'anchor' // Palmer step 1: listen & repeat the frame
   | 'single-swap' // Palmer step 2: swap one slot at speed
   | 'multi-swap' // Palmer step 3: zh prompt -> produce en with the frame
-  | 'output'; // free 模组替换 output, graded by AI
+  | 'output' // free output using today's chunks, graded by AI
+  | 'listen' // chunk track: hear it at natural speed, recognise the chunk
+  | 'shadow' // chunk track: repeat after audio, voice-verified
+  | 'recall' // chunk track: zh/situation → say the chunk
+  | 'transform' // decode track: transform a sentence (question/negative/past…)
+  | 'label'; // decode track: mark subject/verb/object/time in a sentence
 
 export interface ReviewLog extends SyncedRecord {
   cardId: string;
@@ -154,13 +232,16 @@ export interface Attempt extends SyncedRecord {
   createdAt: number;
 }
 
-export type StepKey = 'warmup' | 'deconstruct' | 'frames' | 'output';
+/** v2 daily flow. Old sessions may still contain legacy keys ('warmup'|'deconstruct'|'frames'); ignore them. */
+export type StepKey = 'review' | 'chunks' | 'decode' | 'output';
 
 /** One record per calendar day. id = 'YYYY-MM-DD' (local time) */
 export interface DailySession extends SyncedRecord {
   date: string;
-  dayIndex: number; // 1-based day in the 30-day plan (wraps into maintenance after 30)
+  dayIndex: number; // 1-based lesson number = completed lessons before this day + 1
   stepsDone: StepKey[];
+  /** Today's plan, frozen when the session is created so it never reshuffles mid-day or across devices. */
+  plan?: DayPlan;
   activeMs: number;
   completedAt?: number;
 }
@@ -175,6 +256,7 @@ export interface Profile extends SyncedRecord {
   startDate: string; // 'YYYY-MM-DD', day 1 of the plan
   dailyMinutes: number; // default 15
   scenes: Scene[]; // preferred scenes for frames/AI prompts
+  newPerDay?: number; // new chunk-track items per day, default 5 (range 3-10)
 }
 
 export type SyncedTable = 'cards' | 'reviews' | 'attempts' | 'sessions' | 'userFrames' | 'profile';
@@ -193,10 +275,18 @@ export interface Settings {
 
 // ---------- Daily plan ----------
 
+/**
+ * Two independent tracks:
+ * - decode (Tim): days 1-13 learn one skeleton per day ('foundation'); afterwards a ~3-minute
+ *   'maintenance' exercise per day (transform or label), rotating through the 13 skeletons.
+ * - chunks (Palmer + lexical approach): `newItems` = the next N not-yet-introduced library items
+ *   in curriculum order (by frequency, interleaving categories and frames/chunks). Reviews come from SRS.
+ */
 export interface DayPlan {
   dayIndex: number;
-  phase: 'deconstruct' | 'frames' | 'maintenance'; // days 1-13 / 14-30 / 31+
-  dozenId: string; // the day's deconstruction sentence (new on days 1-13, review afterwards)
-  frameIds: string[]; // 2-3 frames for the day
-  outputCount: number; // number of 模组替换 sentences to produce (3)
+  decode:
+    | { phase: 'foundation'; dozenId: string }
+    | { phase: 'maintenance'; dozenId: string; mode: 'transform' | 'label' };
+  newItems: ItemRef[];
+  outputCount: number; // AI/offline output prompts using today's chunks (3)
 }
