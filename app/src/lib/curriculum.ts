@@ -3,8 +3,10 @@ import { FUNCTION_CATEGORIES } from './labels';
 
 /** Per repeating block of 5 items: 3 chunks then 2 frames. */
 const KIND_PATTERN: ('chunk' | 'frame')[] = ['chunk', 'chunk', 'frame', 'chunk', 'frame'];
-/** How far down a queue we look for an item whose category differs from the previous item. */
-const LOOKAHEAD = 4;
+/** How far down a queue we look for an item whose category differs from the recently placed ones. */
+const LOOKAHEAD = 6;
+/** ...and from how many of the most recently placed items. */
+const AVOID_RECENT = 3;
 const DEFAULT_FREQ: Freq = 2;
 
 function freqOf(f: Freq | undefined): Freq {
@@ -46,19 +48,22 @@ function interleave(entries: Entry[]): Entry[] {
   return out;
 }
 
-/** Pops the next entry from a queue, preferring one (within LOOKAHEAD) whose category differs from `prev`. */
-function take(queue: Entry[], prev: Entry | undefined): Entry {
-  let at = 0;
-  if (prev && prev.category !== '') {
-    const limit = Math.min(queue.length, LOOKAHEAD);
-    for (let i = 0; i < limit; i++) {
-      if (queue[i].category !== prev.category) {
-        at = i;
-        break;
-      }
-    }
+/**
+ * Pops the next entry from a queue. Prefers one (within LOOKAHEAD) whose category differs from the last
+ * AVOID_RECENT items already placed, then one that merely differs from the previous item, then the head.
+ */
+function take(queue: Entry[], placed: Entry[]): Entry {
+  const recent = placed.slice(-AVOID_RECENT).map((e) => e.category);
+  const prev = recent[recent.length - 1];
+  const limit = Math.min(queue.length, LOOKAHEAD);
+  let at = -1;
+  for (let i = 0; i < limit && at < 0; i++) {
+    if (queue[i].category === '' || !recent.includes(queue[i].category)) at = i;
   }
-  return queue.splice(at, 1)[0];
+  for (let i = 0; i < limit && at < 0; i++) {
+    if (queue[i].category === '' || queue[i].category !== prev) at = i;
+  }
+  return queue.splice(at < 0 ? 0 : at, 1)[0];
 }
 
 /** Merge the chunk and frame queues of one frequency band in a 3:2 chunk:frame rhythm. */
@@ -70,7 +75,7 @@ function mergeBand(chunks: Entry[], frames: Entry[]): Entry[] {
     step++;
     if (kind === 'chunk' && chunks.length === 0) kind = 'frame';
     else if (kind === 'frame' && frames.length === 0) kind = 'chunk';
-    out.push(take(kind === 'chunk' ? chunks : frames, out[out.length - 1]));
+    out.push(take(kind === 'chunk' ? chunks : frames, out));
   }
   return out;
 }

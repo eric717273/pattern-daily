@@ -309,6 +309,149 @@ describe('sessions', () => {
   });
 });
 
+describe('frozen plan', () => {
+  it('a new session freezes the plan from the curriculum, the introduced cards and newPerDay', async () => {
+    const s = await getOrCreateSession('2026-08-01');
+    expect(s.plan).toBeDefined();
+    expect(s.plan?.dayIndex).toBe(1);
+    expect(s.plan?.decode).toEqual({ phase: 'foundation', dozenId: 'd01' });
+    expect(s.plan?.outputCount).toBe(3);
+    // default newPerDay 5, nothing introduced yet: the first five curriculum items
+    expect(s.plan?.newItems.map((r) => `${r.kind}:${r.id}`)).toEqual([
+      'chunk:c001',
+      'chunk:c002',
+      'frame:f001',
+      'chunk:c003',
+      'frame:f002',
+    ]);
+    expect((await db.sessions.get('2026-08-01'))?.plan).toEqual(s.plan);
+  });
+
+  it('skips introduced items and honours profile.newPerDay (clamped)', async () => {
+    await updateProfile({ newPerDay: 3 });
+    await introduceItems([
+      { kind: 'chunk', id: 'c001' },
+      { kind: 'frame', id: 'f001' },
+    ]);
+    // dozen cards and deleted cards do not count as introduced
+    await ensureCards('dozen', ['d01']);
+    await ensureCards('chunk', ['c002']);
+    await db.cards.update('chunk:c002', { deleted: true });
+    const s = await getOrCreateSession('2026-08-02');
+    expect(s.plan?.newItems.map((r) => r.id)).toEqual(['c002', 'c003', 'f002']);
+  });
+
+  it('is frozen: later progress or profile changes do not reshuffle the day', async () => {
+    const first = await getOrCreateSession('2026-08-03');
+    await introduceItems(first.plan?.newItems ?? []);
+    await updateProfile({ newPerDay: 10 });
+    const again = await getOrCreateSession('2026-08-03');
+    expect(again.plan).toEqual(first.plan);
+    const tomorrow = await getOrCreateSession('2026-08-04');
+    expect(tomorrow.plan?.newItems.map((r) => r.id)).toEqual(['c004', 'c005', 'c006', 'c007']);
+  });
+
+  it('markStepDone creating a session also freezes a plan', async () => {
+    const s = await markStepDone('2026-08-05', 'review', 1);
+    expect(s.plan?.newItems).toHaveLength(5);
+  });
+
+  it('a v1 session without a plan gets one on first read, marked dirty', async () => {
+    await getOrCreateProfile();
+    await db.sessions.put({
+      id: '2026-01-10',
+      date: '2026-01-10',
+      dayIndex: 15,
+      stepsDone: [],
+      activeMs: 0,
+      updatedAt: 5,
+      _dirty: 0,
+    });
+    changes = 0;
+    const s = await getOrCreateSession('2026-01-10');
+    expect(s.plan?.dayIndex).toBe(15);
+    expect(s.plan?.decode).toMatchObject({ phase: 'maintenance', dozenId: 'd02', mode: 'label' });
+    expect(s._dirty).toBe(1);
+    expect(s.updatedAt).toBeGreaterThan(5);
+    expect(changes).toBe(1);
+    const stored = await db.sessions.get('2026-01-10');
+    expect(stored?.plan).toEqual(s.plan);
+    changes = 0;
+    await getOrCreateSession('2026-01-10');
+    expect(changes).toBe(0);
+  });
+
+  it('ignores legacy step keys: they never complete a day', async () => {
+    const legacy = ['warmup', 'deconstruct', 'frames', 'output'] as unknown as StepKey[];
+    let s = await getOrCreateSession('2026-08-06');
+    for (const k of legacy) s = await markStepDone('2026-08-06', k, 10);
+    expect(s.stepsDone).toEqual(['output']);
+    expect(s.completedAt).toBeUndefined();
+    expect(s.activeMs).toBe(40);
+    for (const k of ['review', 'chunks', 'decode'] as StepKey[]) s = await markStepDone('2026-08-06', k, 0);
+    expect(s.completedAt).toBeGreaterThan(0);
+  });
+});
+
+describe('introduceItems', () => {
+  it('creates chunk and frame cards, once', async () => {
+    await introduceItems([
+      { kind: 'chunk', id: 'c001' },
+      { kind: 'frame', id: 'f001' },
+      { kind: 'chunk', id: 'c001' },
+    ]);
+    expect((await db.cards.get('chunk:c001'))?.kind).toBe('chunk');
+    expect((await db.cards.get('frame:f001'))?.kind).toBe('frame');
+    await db.cards.update('chunk:c001', { reps: 2 });
+    await introduceItems([{ kind: 'chunk', id: 'c001' }]);
+    expect((await db.cards.get('chunk:c001'))?.reps).toBe(2);
+    expect(await db.cards.count()).toBe(2);
+    await expect(introduceItems([])).resolves.toBeUndefined();
+  });
+});
+
+describe('getDueCards kinds filter', () => {
+  it('restricts to the requested kinds', async () => {
+    const now = 1_000_000_000_000;
+    await ensureCards('chunk', ['c001']);
+    await ensureCards('frame', ['f001']);
+    await ensureCards('dozen', ['d01']);
+    for (const id of ['chunk:c001', 'frame:f001', 'dozen:d01']) await db.cards.update(id, { due: now - 1 });
+    expect((await getDueCards(now, 10)).map((c) => c.kind).sort()).toEqual(['chunk', 'dozen', 'frame']);
+    expect((await getDueCards(now, 10, ['chunk', 'frame'])).map((c) => c.kind).sort()).toEqual(['chunk', 'frame']);
+    expect((await getDueCards(now, 10, ['dozen'])).map((c) => c.id)).toEqual(['dozen:d01']);
+    expect(await getDueCards(now, 10, [])).toEqual([]);
+    expect(await getDueCards(now, 1, ['chunk', 'frame'])).toHaveLength(1);
+  });
+});
+
+describe('getLibraryProgress', () => {
+  it('counts totals over seed frames + chunks, introduced cards and mastered (interval >= 21)', async () => {
+    let p = await getLibraryProgress();
+    expect(p).toMatchObject({ total: 9, introduced: 0, mastered: 0 });
+    expect(p.byCategory.work).toEqual({ total: 3, introduced: 0, mastered: 0 }); // f001 + c003 + c004
+    expect(p.byCategory.greeting.total).toBe(2);
+    expect(p.byCategory.advice).toEqual({ total: 0, introduced: 0, mastered: 0 });
+
+    await introduceItems([
+      { kind: 'chunk', id: 'c001' },
+      { kind: 'chunk', id: 'c003' },
+      { kind: 'frame', id: 'f001' },
+      { kind: 'chunk', id: 'c005' },
+    ]);
+    await db.cards.update('chunk:c003', { interval: 21 });
+    await db.cards.update('frame:f001', { interval: 20 });
+    await db.cards.update('chunk:c005', { interval: 60, deleted: true }); // deleted cards do not count
+    await ensureCards('dozen', ['d01']); // other kinds do not count
+    await ensureCards('frame', ['u-user']); // cards for non-library items do not count
+    p = await getLibraryProgress();
+    expect(p).toMatchObject({ total: 9, introduced: 3, mastered: 1 });
+    expect(p.byCategory.work).toEqual({ total: 3, introduced: 2, mastered: 1 });
+    expect(p.byCategory.greeting).toEqual({ total: 2, introduced: 1, mastered: 0 });
+    expect(p.byCategory.travel).toEqual({ total: 3, introduced: 0, mastered: 0 });
+  });
+});
+
 describe('attempts', () => {
   it('saves and lists newest first, filtered by refId, with limit', async () => {
     // Only fake Date: fake-indexeddb relies on real timers.

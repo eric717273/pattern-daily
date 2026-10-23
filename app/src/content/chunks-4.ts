@@ -373,16 +373,17 @@ export const CHUNKS_4: Chunk[] = [
   },
   {
     id: 'c177',
-    en: 'Long story short, …',
-    zh: '长话短说，……',
+    en: 'It was the first time I …',
+    zh: '那是我第一次……',
     category: 'experience',
     freq: 2,
     register: 'neutral',
     examples: [
-      { en: 'Long story short, I missed my flight and had to sleep at the airport.', zh: '长话短说，我错过了航班，只好在机场过夜。' },
-      { en: 'Long story short, we bought the house.', zh: '长话短说，我们把房子买下来了。' },
+      { en: 'It was the first time I had ever seen snow.', zh: '那是我第一次见到雪。' },
+      { en: 'A: How was the flight? B: Honestly, it was the first time I flew alone, so I was nervous.', zh: 'A：飞行怎么样？B：说实话，那是我第一次一个人坐飞机，有点紧张。' },
     ],
-    noteZh: '把冗长的经过压缩成结论。放在句首，后面直接说结果；常和 "to make a long story short" 互换。',
+    noteZh: '讲述某件事的"第一次"，常带感慨。说现在的第一次用 "This is the first time I …"。',
+    soundZh: 'first time → firs-time，t 吞掉；time I → time-mai 连读',
   },
   {
     id: 'c178',
@@ -521,7 +522,7 @@ export const CHUNKS_4: Chunk[] = [
       { en: 'It all started when my boss asked me to cover for him.', zh: '一切是从老板让我替他顶班开始的。' },
       { en: 'It all started when I missed the bus.', zh: '这一切都是从我错过那班公交车开始的。' },
     ],
-    noteZh: '讲一段经过的起点，后面的故事通常有点戏剧性。常和 "Long story short" 搭配着讲。',
+    noteZh: '讲一段经过的起点，后面的故事通常有点戏剧性。',
   },
 
   // ---------- plan 计划与安排 (c188–c200) ----------

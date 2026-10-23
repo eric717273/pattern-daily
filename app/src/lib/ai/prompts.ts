@@ -1,10 +1,11 @@
-import type { DozenSentence, GrammarPoint, Scene, SubstitutionFrame } from '../../types';
+import type { Chunk, DozenSentence, GrammarPoint, Scene, SubstitutionFrame } from '../../types';
 import type { ChatMessage } from './deepseek';
 import { GRAMMAR_POINTS, SCENES, SLOT_ROLES } from './validate';
 
 export const SYSTEM_PROMPT = `你是一位面向中文母语者的英语教练，教学法来自两位大师：
 1. Tim Ferriss 的「12 句解构法」：用最简单的词汇暴露英语的底层骨架（语序、代词、时态、倒装、否定、情态动词），再用中英逐字对照看清中英文差异。
 2. Harold Palmer 的「替换表（母框）」：固定句子骨架，把词块换成同一语法家族的其他成员，通过大量替换把句型变成脱口而出的习惯。
+3. 语块线（Palmer + 词汇法）：训练的是自动化，不是语法分析。语块和母框只讲意思、场合、语气和用法，**绝不做语法分析或讲语法术语**。
 规则：
 - 所有解释一律使用简体中文，简洁、具体、不说空话；英文例句必须地道自然。
 - 你必须只输出一个合法的 JSON 对象（JSON only），不要输出 Markdown 代码块、前言或任何多余文字。

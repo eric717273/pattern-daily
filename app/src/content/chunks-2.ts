@@ -443,17 +443,17 @@ export const CHUNKS_2: Chunk[] = [
   },
   {
     id: 'c082',
-    en: 'What I mean is, …',
-    zh: '我的意思是，……',
+    en: 'Does that make sense?',
+    zh: '你听明白了吗？；这样说得通吗？',
     category: 'clarify',
     freq: 2,
     register: 'neutral',
     examples: [
-      { en: 'What I mean is, I\'m not against it. I just need more time.', zh: '我的意思是，我并不反对，只是需要更多时间。' },
-      { en: 'A: So you don\'t like it? B: No, what I mean is, it needs work.', zh: 'A：所以你不喜欢？B：不是，我的意思是它还需要改进。' },
+      { en: 'We split the cost evenly. Does that make sense?', zh: '我们平摊费用。这样说得通吗？' },
+      { en: 'A: So you start on Monday and finish on Friday. Does that make sense? B: Yes, that\'s clear.', zh: 'A：所以你周一开始、周五完成。你听明白了吗？B：明白，很清楚。' },
     ],
-    noteZh: '发现对方误解了你，或者自己没表达清楚时用来重新解释。也可以说 What I\'m saying is, …。',
-    soundZh: 'What I mean is → "whadda-mean-iz"，What I 连读成 "whadda"',
+    noteZh: '讲完一段解释后确认对方是否跟上，比 Do you understand? 友好，不会显得在质疑对方。别人说 Does that make sense? 时，回答 Yeah, that makes sense 即可。',
+    soundZh: 'Does that → "duzzat"；make sense → "may-ksense"，两词连读紧凑',
   },
   {
     id: 'c083',

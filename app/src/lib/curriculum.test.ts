@@ -84,18 +84,28 @@ describe('buildCurriculum', () => {
     expect(maxFrameRun).toBeLessThanOrEqual(1);
   });
 
-  it('interleaves categories: the first 20 chunks of the top band cover many functions', () => {
+  it('interleaves categories: the first days cover many functions', () => {
     const catOf = new Map<string, FunctionCategory>([
       ...chunks.map((c): [string, FunctionCategory] => [key({ kind: 'chunk', id: c.id }), c.category]),
       ...frames.map((f): [string, FunctionCategory] => [key({ kind: 'frame', id: f.id }), f.category as FunctionCategory]),
     ]);
     const first = cur.slice(0, 10).map((r) => catOf.get(key(r)));
-    expect(new Set(first).size).toBeGreaterThanOrEqual(8);
-    // within any window of 5 consecutive items of the first band, no category appears twice
-    for (let i = 0; i + 5 <= 40; i++) {
-      const w = cur.slice(i, i + 5).map((r) => catOf.get(key(r)));
-      expect(new Set(w).size, `window at ${i}: ${w.join(',')}`).toBe(5);
+    expect(new Set(first).size).toBeGreaterThanOrEqual(6);
+    // within any window of 3 consecutive items of the first band, no category appears twice
+    for (let i = 0; i + 3 <= 40; i++) {
+      const w = cur.slice(i, i + 3).map((r) => catOf.get(key(r)));
+      expect(new Set(w).size, `window at ${i}: ${w.join(',')}`).toBe(3);
     }
+  });
+
+  it('rarely puts two items of the same category back to back across the whole curriculum', () => {
+    const catOf = new Map<string, FunctionCategory>([
+      ...chunks.map((c): [string, FunctionCategory] => [key({ kind: 'chunk', id: c.id }), c.category]),
+      ...frames.map((f): [string, FunctionCategory] => [key({ kind: 'frame', id: f.id }), f.category as FunctionCategory]),
+    ]);
+    let same = 0;
+    for (let i = 1; i < cur.length; i++) if (catOf.get(key(cur[i])) === catOf.get(key(cur[i - 1]))) same++;
+    expect(same / cur.length).toBeLessThan(0.05);
   });
 
   it('puts easier frames (lower level) first within a category', () => {

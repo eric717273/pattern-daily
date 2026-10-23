@@ -244,3 +244,27 @@ export function validateOutputPrompts(
     };
   });
 }
+
+// ---------- Chunk-track output prompts ----------
+
+export interface ChunkPrompt {
+  promptZh: string;
+  hintEn: string;
+  /** id of the chunk ('c001') or frame ('f001') this situation is meant to elicit. */
+  targetId: string;
+}
+
+/** Validates situation prompts for the chunk track: each must name a target that is one of today's items. */
+export function validateChunkPrompts(u: unknown, count: number, targetIds: readonly string[]): ChunkPrompt[] {
+  const o = obj(u, 'prompts');
+  const items = arr(o.prompts, 'prompts');
+  if (items.length < count) fail('prompts', `需要 ${count} 条，实际 ${items.length}`);
+  return items.slice(0, count).map((it, i) => {
+    const p = obj(it, `prompts[${i}]`);
+    return {
+      promptZh: nonEmptyStr(p.promptZh, `prompts[${i}].promptZh`),
+      hintEn: typeof p.hintEn === 'string' ? p.hintEn.trim() : '',
+      targetId: oneOf(typeof p.targetId === 'string' ? p.targetId.trim() : p.targetId, targetIds, `prompts[${i}].targetId`),
+    };
+  });
+}
