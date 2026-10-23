@@ -679,7 +679,7 @@ export const FRAMES_CORE: SubstitutionFrame[] = [
       {
         key: 'adverb',
         labelZh: '副词',
-        options: [o('still', '还'), o('really', '真的'), o('always', '总是')],
+        options: [o('still', '还'), o('really', '真的'), o('actually', '到底')],
       },
       {
         key: 'adjective',
@@ -693,9 +693,9 @@ export const FRAMES_CORE: SubstitutionFrame[] = [
     examples: [
       o('Is the soup still hot?', '汤还热吗？'),
       o('Are the eggs really fresh?', '鸡蛋真的新鲜吗？'),
-      o('Is your tea always cold?', '你的茶总是凉吗？'),
+      o('Is your tea actually cold?', '你的茶到底凉吗？'),
     ],
-    tipZh: '一般疑问句把 is / are 提到句首：Is the soup hot? 副词 still / really / always 放在主语之后、形容词之前。',
+    tipZh: '一般疑问句把 is / are 提到句首：Is the soup hot? 副词 still / really / actually 放在主语之后、形容词之前。',
     source: 'seed',
     category: 'question',
     freq: 2,
@@ -1256,7 +1256,7 @@ export const FRAMES_CORE: SubstitutionFrame[] = [
         options: [
           o('this week', '本周'),
           o('until Friday', '周五之前'),
-          o('on such short notice', '在这么仓促的情况下'),
+          o('for now', '暂时'),
           o('at this stage', '现阶段'),
         ],
       },
@@ -1266,7 +1266,7 @@ export const FRAMES_CORE: SubstitutionFrame[] = [
     level: 2,
     examples: [
       o("We can't accept the offer until Friday.", '我们周五之前不能接受报价。'),
-      o("I won't be able to approve the budget on such short notice.", '我在这么仓促的情况下无法批准预算。'),
+      o("I won't be able to approve the budget for now.", '我暂时无法批准预算。'),
       o("You don't need to share the files at this stage.", '你现阶段不需要分享文件。'),
     ],
     tipZh: "拒绝时用 I won't be able to ... 比 I can't ... 更委婉；don't need to 表示“不必”，和 mustn't 不同。",

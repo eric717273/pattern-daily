@@ -1673,7 +1673,7 @@ export const FRAMES_MORE: SubstitutionFrame[] = [
         labelZh: '目的地',
         options: [
           o('the airport', '机场'),
-          o('the city centre', '市中心'),
+          o('downtown', '市中心'),
           o('the beach', '海滩'),
           o('the train station', '火车站'),
           o('the old town', '老城区'),
@@ -1728,10 +1728,10 @@ export const FRAMES_MORE: SubstitutionFrame[] = [
         key: 'ticket',
         labelZh: '票种',
         options: [
-          o('one single ticket', '一张单程票'),
-          o('two single tickets', '两张单程票'),
-          o('one return ticket', '一张往返票'),
-          o('two return tickets', '两张往返票'),
+          o('a one-way ticket', '一张单程票'),
+          o('two one-way tickets', '两张单程票'),
+          o('a round-trip ticket', '一张往返票'),
+          o('two round-trip tickets', '两张往返票'),
           o('two adult tickets', '两张成人票'),
         ],
       },
@@ -1739,11 +1739,11 @@ export const FRAMES_MORE: SubstitutionFrame[] = [
         key: 'place',
         labelZh: '目的地',
         options: [
-          o('Oxford', '牛津'),
+          o('Boston', '波士顿'),
           o('Paris', '巴黎'),
           o('the airport', '机场'),
           o('Central Station', '中央车站'),
-          o('Edinburgh', '爱丁堡'),
+          o('Chicago', '芝加哥'),
         ],
       },
       {
@@ -1761,12 +1761,12 @@ export const FRAMES_MORE: SubstitutionFrame[] = [
     scene: 'travel',
     level: 2,
     examples: [
-      o("Hi, I'd like one single ticket to Oxford for Friday, please.", '你好，我想买周五去牛津的一张单程票，麻烦了。'),
-      o("Excuse me, I'd like two return tickets to Paris for tomorrow morning, please.", '打扰一下，我想买明天早上去巴黎的两张往返票，麻烦了。'),
+      o("Hi, I'd like a one-way ticket to Boston for Friday, please.", '你好，我想买周五去波士顿的一张单程票，麻烦了。'),
+      o("Excuse me, I'd like two round-trip tickets to Paris for tomorrow morning, please.", '打扰一下，我想买明天早上去巴黎的两张往返票，麻烦了。'),
       o("Good morning, I'd like two adult tickets to Central Station for the next departure, please.", '早上好，我想买下一班去中央车站的两张成人票，麻烦了。'),
     ],
     tipZh:
-      "I'd like + 名词 是买票、点东西的礼貌说法。single = 单程（美式说 one-way），return = 往返（美式说 round-trip）。票数和 ticket 的单复数要一致。",
+      "I'd like + 名词 是买票、点东西的礼貌说法。one-way = 单程（英式说 single），round-trip = 往返（英式说 return）。票数和 ticket 的单复数要一致。",
     source: 'seed',
     category: 'travel',
     freq: 2,
@@ -2307,7 +2307,7 @@ export const FRAMES_MORE: SubstitutionFrame[] = [
         labelZh: '开场白',
         options: [
           o('Honestly,', '说实话，'),
-          o('Sometimes', '有时候'),
+          o('Sometimes,', '有时候，'),
           o('To be honest,', '老实说，'),
           o('Frankly,', '坦白说，'),
         ],
@@ -2328,7 +2328,7 @@ export const FRAMES_MORE: SubstitutionFrame[] = [
         options: [
           o("I'm too shy", '我太害羞了'),
           o('I get nervous easily', '我很容易紧张'),
-          o("I don't have enough time to practise", '我没有足够的时间练习'),
+          o("I don't have enough time to practice", '我没有足够的时间练习'),
           o('my vocabulary is too small', '我的词汇量太小了'),
         ],
       },
@@ -2338,7 +2338,7 @@ export const FRAMES_MORE: SubstitutionFrame[] = [
     level: 3,
     examples: [
       o("Honestly, I wish I could speak English more fluently, but I'm too shy.", '说实话，我真希望自己能把英语说得更流利，但我太害羞了。'),
-      o('Sometimes I wish I could give presentations in English, but I get nervous easily.', '有时候我真希望自己能用英语做演讲，但我很容易紧张。'),
+      o('Sometimes, I wish I could give presentations in English, but I get nervous easily.', '有时候，我真希望自己能用英语做演讲，但我很容易紧张。'),
       o('Frankly, I wish I could chat with foreigners without panicking, but my vocabulary is too small.', '坦白说，我真希望自己能跟外国人聊天时不慌张，但我的词汇量太小了。'),
     ],
     tipZh:

@@ -160,10 +160,10 @@ export const FRAMES_SCENES: SubstitutionFrame[] = [
         labelZh: '不明白的内容',
         options: [
           o('the last part', '最后一部分'),
-          o('the deadline', '截止日期'),
+          o('the deadline you mentioned', '你提到的截止日期'),
           o('what you just said', '你刚才说的内容'),
           o('the next step', '下一步'),
-          o('the budget', '预算'),
+          o('what you said about the budget', '你说的关于预算的部分'),
         ],
       },
     ],
@@ -173,7 +173,7 @@ export const FRAMES_SCENES: SubstitutionFrame[] = [
     examples: [
       o("Sorry, I didn't catch the next step.", '不好意思，我没听清下一步。'),
       o("Excuse me, I'm not clear on what you just said.", '打扰一下，我不太清楚你刚才说的内容。'),
-      o("Sorry to interrupt, but I'm not sure about the deadline.", '不好意思打断一下，不过我不太确定截止日期。'),
+      o("Sorry to interrupt, but I'm not sure about the deadline you mentioned.", '不好意思打断一下，不过我不太确定你提到的截止日期。'),
     ],
     tipZh:
       '没听懂时先说 Sorry 再坦白，比沉默或只说 "What?" 礼貌得多。didn\'t catch 指"没听清"，don\'t understand 指"没理解"，别混用。',
@@ -1579,7 +1579,7 @@ export const FRAMES_SCENES: SubstitutionFrame[] = [
         labelZh: '补充',
         options: [
           o('before', '以前'),
-          o('in your life', '这辈子'),
+          o('yourself', '自己'),
           o('by any chance', '碰巧'),
         ],
       },
@@ -1589,7 +1589,7 @@ export const FRAMES_SCENES: SubstitutionFrame[] = [
     level: 1,
     examples: [
       o('By the way, have you ever been to Japan before?', '对了，你以前去过日本吗？'),
-      o('Hey, have you ever met a famous person in your life?', '嘿，你这辈子见过名人吗？'),
+      o('Hey, have you ever met a famous person yourself?', '嘿，你自己见过名人吗？'),
       o('Out of curiosity, have you ever seen the northern lights by any chance?', '我有点好奇，你碰巧看过北极光吗？'),
     ],
     tipZh:
@@ -1887,8 +1887,9 @@ export const FRAMES_SCENES: SubstitutionFrame[] = [
         options: [
           o('this word', '这个词'),
           o('that word', '那个词'),
-          o('this phrase', '这个短语'),
-          o('this expression', '这个表达'),
+          o('this new word', '这个新词'),
+          o('this long word', '这个长单词'),
+          o('this name', '这个名字'),
         ],
       },
     ],
@@ -1898,7 +1899,7 @@ export const FRAMES_SCENES: SubstitutionFrame[] = [
     examples: [
       o('Excuse me, how do you say this word in English?', '打扰一下，这个词用英语怎么说？'),
       o('Teacher, how do you spell that word in English?', '老师，那个词用英语怎么拼？'),
-      o('Quick question, how do you pronounce this phrase in English?', '问一下，这个短语用英语怎么读？'),
+      o('Quick question, how do you pronounce this new word in English?', '问一下，这个新词用英语怎么读？'),
     ],
     tipZh:
       'How do you say X in English? 是学英语最有用的一句，无论词汇多少都能靠它继续对话。how 后面用 do you 倒装，动词用原形。',
