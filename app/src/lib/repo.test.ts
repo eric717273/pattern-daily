@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import type { StepKey, SubstitutionFrame } from '../types';
+import type { Chunk, ItemRef, StepKey, SubstitutionFrame } from '../types';
 
 vi.mock('../content', () => {
   const frame = (id: string): SubstitutionFrame => ({
@@ -14,9 +14,41 @@ vi.mock('../content', () => {
     examples: [],
     source: 'seed',
   });
+  const chunk = (id: string, category: Chunk['category']): Chunk => ({
+    id,
+    en: id,
+    zh: id,
+    category,
+    freq: 1,
+    register: 'neutral',
+    examples: [],
+  });
   return {
     DOZEN: [],
-    SEED_FRAMES: [frame('f001'), frame('f002')],
+    SEED_FRAMES: [
+      { ...frame('f001'), category: 'work', freq: 1 },
+      { ...frame('f002'), category: 'travel', freq: 2 },
+    ],
+    CHUNKS: [
+      chunk('c001', 'greeting'),
+      chunk('c002', 'greeting'),
+      chunk('c003', 'work'),
+      chunk('c004', 'work'),
+      chunk('c005', 'travel'),
+      chunk('c006', 'travel'),
+      chunk('c007', 'social'),
+    ],
+    CURRICULUM: [
+      { kind: 'chunk', id: 'c001' },
+      { kind: 'chunk', id: 'c002' },
+      { kind: 'frame', id: 'f001' },
+      { kind: 'chunk', id: 'c003' },
+      { kind: 'frame', id: 'f002' },
+      { kind: 'chunk', id: 'c004' },
+      { kind: 'chunk', id: 'c005' },
+      { kind: 'chunk', id: 'c006' },
+      { kind: 'chunk', id: 'c007' },
+    ] satisfies ItemRef[],
     getDozen: () => undefined,
   };
 });
@@ -28,12 +60,14 @@ import {
   exportData,
   getAllFrames,
   getDueCards,
+  getLibraryProgress,
   getOrCreateProfile,
   getOrCreateSession,
   getStats,
   getTodayDayIndex,
   gradeCard,
   importData,
+  introduceItems,
   listAttempts,
   listUserFrames,
   localChanges,
@@ -44,7 +78,7 @@ import {
 } from './repo';
 
 const DAY = 24 * 60 * 60 * 1000;
-const ALL_STEPS: StepKey[] = ['warmup', 'deconstruct', 'frames', 'output'];
+const ALL_STEPS: StepKey[] = ['review', 'chunks', 'decode', 'output'];
 
 function userFrame(id: string): SubstitutionFrame {
   return {
@@ -90,6 +124,7 @@ describe('profile', () => {
     expect(p.id).toBe('profile');
     expect(p.dailyMinutes).toBe(15);
     expect(p.scenes).toEqual(['work', 'daily']);
+    expect(p.newPerDay).toBe(5);
     expect(p.startDate).toMatch(/^\d{4}-\d{2}-\d{2}$/);
     expect(p._dirty).toBe(1);
     expect(p.updatedAt).toBeGreaterThan(0);
@@ -208,18 +243,18 @@ describe('sessions', () => {
 
   it('markStepDone accumulates steps and time, and completes after all four', async () => {
     await updateProfile({ startDate: '2026-03-01' });
-    let s = await markStepDone('2026-03-02', 'warmup', 60_000);
-    expect(s.stepsDone).toEqual(['warmup']);
+    let s = await markStepDone('2026-03-02', 'review', 60_000);
+    expect(s.stepsDone).toEqual(['review']);
     expect(s.activeMs).toBe(60_000);
     expect(s.completedAt).toBeUndefined();
     expect(s.dayIndex).toBe(1);
 
-    s = await markStepDone('2026-03-02', 'warmup', 10_000); // same step again: not duplicated
-    expect(s.stepsDone).toEqual(['warmup']);
+    s = await markStepDone('2026-03-02', 'review', 10_000); // same step again: not duplicated
+    expect(s.stepsDone).toEqual(['review']);
     expect(s.activeMs).toBe(70_000);
 
-    await markStepDone('2026-03-02', 'deconstruct', 100);
-    await markStepDone('2026-03-02', 'frames', 100);
+    await markStepDone('2026-03-02', 'chunks', 100);
+    await markStepDone('2026-03-02', 'decode', 100);
     s = await markStepDone('2026-03-02', 'output', 100);
     expect(s.stepsDone).toHaveLength(4);
     expect(s.completedAt).toBeGreaterThan(0);
@@ -256,20 +291,20 @@ describe('sessions', () => {
   it('only completed sessions before the date count; deleted and later ones do not', async () => {
     await completeDay('2026-06-01');
     await completeDay('2026-06-05'); // later than the queried date
-    await markStepDone('2026-06-02', 'warmup', 1); // started, not finished
+    await markStepDone('2026-06-02', 'review', 1); // started, not finished
     await db.sessions.update('2026-06-01', { deleted: true });
     expect(await getTodayDayIndex('2026-06-04')).toBe(1);
   });
 
   it('markStepDone on a new session uses the completed-lessons rule', async () => {
     await completeDay('2026-07-01');
-    const s = await markStepDone('2026-07-09', 'warmup', 10);
+    const s = await markStepDone('2026-07-09', 'review', 10);
     expect(s.dayIndex).toBe(2);
   });
 
   it('markStepDone creates the session when missing', async () => {
-    const s = await markStepDone('2026-04-01', 'frames', 500);
-    expect(s.stepsDone).toEqual(['frames']);
+    const s = await markStepDone('2026-04-01', 'decode', 500);
+    expect(s.stepsDone).toEqual(['decode']);
     expect(await db.sessions.get('2026-04-01')).toEqual(s);
   });
 });
@@ -415,7 +450,7 @@ describe('getStats', () => {
 
   it('ignores sessions that were started but not completed', async () => {
     await completeDay(day(-1));
-    await markStepDone(day(0), 'warmup', 1000);
+    await markStepDone(day(0), 'review', 1000);
     const s = await getStats(NOW);
     expect(s.streak).toBe(1);
     expect(s.totalDays).toBe(1);
@@ -464,7 +499,7 @@ describe('export / import', () => {
     await ensureCards('dozen', ['d01']);
     await gradeCard('dozen:d01', 2, 'review', 5);
     await saveAttempt({ refKind: 'dozen', refId: 'd01', userEn: 'hi' });
-    await markStepDone('2026-03-01', 'warmup', 5);
+    await markStepDone('2026-03-01', 'review', 5);
     await saveUserFrame(userFrame('u-1'));
 
     const data = JSON.parse(await exportData()) as Record<string, unknown>;

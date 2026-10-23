@@ -12,9 +12,9 @@ export const CHUNKS_3: Chunk[] = [
     register: 'neutral',
     examples: [
       { en: 'A: Could you do me a favor? B: Sure, what do you need?', zh: 'A：能帮我个忙吗？B：当然，要我做什么？' },
-      { en: 'Could you do me a favor and grab my coat? It\'s by the door.', zh: '能帮我拿一下外套吗？就在门边。' },
+      { en: "Could you do me a favor and grab my coat? It's by the door.", zh: '能帮我拿一下外套吗？就在门边。' },
     ],
-    noteZh: '开口求人前的铺垫，先问对方愿不愿意，等对方回 Sure, what\'s up? 后再说具体的事。语气客气，不显得强求。',
+    noteZh: "开口求人前的铺垫，先问对方愿不愿意，等对方回 Sure, what's up? 后再说具体的事。语气客气，不显得强求。",
     soundZh: 'Could you → Couldja；do me a → doomeə，整句连成一串。',
   },
   {
@@ -26,7 +26,7 @@ export const CHUNKS_3: Chunk[] = [
     register: 'neutral',
     examples: [
       { en: 'A: Can you give me a hand with this box? B: Sure, where do you want it?', zh: 'A：你能帮我搬一下这个箱子吗？B：当然，你想放哪儿？' },
-      { en: 'Can you give me a hand with the slides? I\'m running out of time.', zh: '你能帮我弄一下幻灯片吗？我快没时间了。' },
+      { en: "Can you give me a hand with the slides? I'm running out of time.", zh: '你能帮我弄一下幻灯片吗？我快没时间了。' },
     ],
     noteZh: '请别人搭把手，体力活、小任务都可以用。后面常接 with + 具体的事。比 Help me! 随和得多。',
     soundZh: 'Can you → Canya；give me a → givmeə。',
@@ -40,9 +40,9 @@ export const CHUNKS_3: Chunk[] = [
     register: 'neutral',
     examples: [
       { en: 'A: Do you mind if I sit here? B: Not at all.', zh: 'A：我坐这儿可以吗？B：当然可以。' },
-      { en: 'Do you mind if I open the window? It\'s pretty stuffy in here.', zh: '我开一下窗可以吗？这里有点闷。' },
+      { en: "Do you mind if I open the window? It's pretty stuffy in here.", zh: '我开一下窗可以吗？这里有点闷。' },
     ],
-    noteZh: '征求许可的礼貌说法。对方回 Not at all / No, go ahead 才是同意；只说 Sure 有时让人拿不准，要注意听语气。',
+    noteZh: '礼貌地征求许可。对方回 Not at all / No, go ahead 才是同意；回 Sure 时要听语气。',
     soundZh: 'Do you → Dyou；mind if I → mindifai，三个词连成一团。',
   },
   {
@@ -68,7 +68,7 @@ export const CHUNKS_3: Chunk[] = [
     register: 'casual',
     examples: [
       { en: 'Can I borrow your pen for a second?', zh: '你的笔借我用一下行吗？' },
-      { en: 'Can I borrow your car this weekend? Mine\'s in the shop.', zh: '这个周末我能借你的车吗？我的车在修。' },
+      { en: "Can I borrow your car this weekend? Mine's in the shop.", zh: '这个周末我能借你的车吗？我的车在修。' },
     ],
     noteZh: '向朋友、同事借东西，用完要还的才说 borrow。说话人是借进的一方，千万别说成 Can I borrow you my pen。',
     soundZh: 'Can I → Kenai；borrow your → borrowyer。',
@@ -82,7 +82,7 @@ export const CHUNKS_3: Chunk[] = [
     register: 'neutral',
     examples: [
       { en: 'A: Hey, do you have a minute? B: Sure, come on in.', zh: 'A：嘿，你有空吗？B：有，进来吧。' },
-      { en: 'Do you have a minute? I\'d like to run something by you.', zh: '你有空吗？我想跟你说件事，听听你的意见。' },
+      { en: "Do you have a minute? I'd like to run something by you.", zh: '你有空吗？我想跟你说件事，听听你的意见。' },
     ],
     noteZh: '想占用对方几分钟谈事情时用，职场和朋友之间都很常见。字面是“一分钟”，实际可能聊更久，对方多半不会计较。',
     soundZh: 'Do you have a → Dyahvə / Djuhavə，have 与 a 连读。',
@@ -98,7 +98,7 @@ export const CHUNKS_3: Chunk[] = [
       { en: 'I was wondering if you could take a look at my résumé.', zh: '不知道你能不能帮我看看简历。' },
       { en: 'Hi, I was wondering if you have any rooms available this weekend.', zh: '你好，想问一下这个周末还有空房吗？' },
     ],
-    noteZh: '比 Can you … 委婉很多，适合打电话、写邮件、向不太熟的人开口。后面常接 you could / I could / you have。',
+    noteZh: '比 Can you … 委婉，适合打电话、写邮件、向不太熟的人开口。后面常接 you could / I could。',
     soundZh: 'was wondering if → wəz wunderin-if，wondering 常读成 wunderin。',
   },
   {
@@ -152,7 +152,7 @@ export const CHUNKS_3: Chunk[] = [
     register: 'neutral',
     examples: [
       { en: 'Would you be able to send me the report by Friday?', zh: '你能在周五前把报告发给我吗？' },
-      { en: 'Would you be able to pick up the kids today? I\'m stuck at work.', zh: '你今天能去接一下孩子吗？我被工作困住了。' },
+      { en: "Would you be able to pick up the kids today? I'm stuck at work.", zh: '你今天能去接一下孩子吗？我被工作困住了。' },
     ],
     noteZh: '带有“你的时间和能力允不允许”的意思，职场请求很常用，比 Can you 正式一点，又不像 Would you mind 那么拘谨。',
     soundZh: 'Would you → Wouldja；able to → abletə，to 弱读成 tə。',
@@ -166,7 +166,7 @@ export const CHUNKS_3: Chunk[] = [
     register: 'neutral',
     examples: [
       { en: 'Could you keep an eye on my bag while I grab a coffee?', zh: '我去买杯咖啡，你能帮我看着包吗？' },
-      { en: 'Could you keep an eye on the soup? I\'ll be right back.', zh: '你能帮我看着汤吗？我马上回来。' },
+      { en: "Could you keep an eye on the soup? I'll be right back.", zh: '你能帮我看着汤吗？我马上回来。' },
     ],
     noteZh: '请别人暂时照看东西、小孩、宠物或炉子，说的是“留意一下”，不是一直盯着。后面接要照看的人或物。',
     soundZh: 'keep an eye → keepənai，an 与 eye 连成一个音。',
@@ -195,8 +195,8 @@ export const CHUNKS_3: Chunk[] = [
     freq: 1,
     register: 'neutral',
     examples: [
-      { en: 'I\'ll be at my desk all day. Let me know if you need anything.', zh: '我一整天都在座位上。需要什么就告诉我。' },
-      { en: 'Let me know if you need anything, okay? I\'m just down the hall.', zh: '需要什么跟我说，好吗？我就在走廊那头。' },
+      { en: "I'll be at my desk all day. Let me know if you need anything.", zh: '我一整天都在座位上。需要什么就告诉我。' },
+      { en: "Let me know if you need anything, okay? I'm just down the hall.", zh: '需要什么跟我说，好吗？我就在走廊那头。' },
     ],
     noteZh: '主人对客人、同事对新人最常说的客套话，表示“我愿意帮忙”。对方多半回 Thanks, I will。',
     soundZh: 'Let me → Lemme；know if you → know-if-ya；need anything → needenything。',
@@ -226,7 +226,7 @@ export const CHUNKS_3: Chunk[] = [
       { en: 'Do you want me to drive?', zh: '要我来开车吗？' },
       { en: 'Do you want me to call her for you?', zh: '要我替你打给她吗？' },
     ],
-    noteZh: '主动提出帮忙，并把决定权留给对方。比直接说 I\'ll do it 更体贴。对方说 That would be great 就是接受。',
+    noteZh: "主动提出帮忙，并把决定权留给对方。比直接说 I'll do it 更体贴。对方说 That would be great 就是接受。",
     soundZh: 'Do you want me to → Dya-wanmi-ta，想象成 “遮万咪它” 一口气读完。',
   },
   {
@@ -254,7 +254,7 @@ export const CHUNKS_3: Chunk[] = [
       { en: "I'd love to, but I have to work late tonight.", zh: '我很想去，可是今晚得加班。' },
       { en: "A: Are you coming on Saturday? B: I'd love to, but I'm out of town.", zh: 'A：周六你来吗？B：我很想去，但我不在本地。' },
     ],
-    noteZh: '婉拒邀请的标准说法：先表达好意再说原因，比直接说 No 柔和。接受邀请时只说 I\'d love to! 即可。',
+    noteZh: "婉拒邀请的标准说法：先表达好意再说原因，比直接说 No 柔和。接受邀请时只说 I'd love to! 即可。",
     soundZh: "I'd love to → Idlove-ta；but I → budai，but 的 t 几乎不发。",
   },
   {
@@ -296,7 +296,7 @@ export const CHUNKS_3: Chunk[] = [
       { en: "Put your wallet away. It's on me.", zh: '把钱包收起来，我请。' },
       { en: "A: Let me get my half. B: No, it's on me.", zh: 'A：我来付我那一半。B：不用，我请。' },
     ],
-    noteZh: '抢着买单时的标准说法，饭、酒、咖啡都能用。也可以说 My treat。听到别人说，客气地回 Thanks, I\'ll get the next one 最得体。',
+    noteZh: "抢着买单的标准说法，饭、酒、咖啡都能用，也可说 My treat。对方这么说，可回 Thanks, next one's mine。",
     soundZh: "It's on me → Itson-me，on 与 me 连读。",
   },
   {
@@ -324,7 +324,7 @@ export const CHUNKS_3: Chunk[] = [
       { en: "Rain check? I'm totally wiped tonight.", zh: '改天行吗？我今晚累透了。' },
       { en: 'A: Can you make it for dinner? B: Can I take a rain check?', zh: 'A：你能来吃晚饭吗？B：我能改天再约吗？' },
     ],
-    noteZh: '这次去不了，但表示以后还想去，所以比直接拒绝友好。也可以说 Can I take a rain check? 或 I\'ll take a rain check.',
+    noteZh: "这次去不了，但表示以后还想去，比直接拒绝友好。完整说法是 Can I take a rain check?",
     soundZh: 'rain check → raincheck，两个词都重读，像一个词。',
   },
   {
@@ -396,7 +396,7 @@ export const CHUNKS_3: Chunk[] = [
       { en: 'A: You stepped on my foot! B: Oh, my bad!', zh: 'A：你踩到我脚了！B：哎，怪我！' },
       { en: 'My bad, I thought the meeting was at three.', zh: '我的错，我还以为会议是三点。' },
     ],
-    noteZh: '随口认错，很口语，只用在朋友同事之间的小失误上。严重的过错或正式场合要说 I\'m so sorry。',
+    noteZh: "随口认错，很口语，只用在朋友同事之间的小失误上。严重的过错或正式场合要说 I'm so sorry。",
   },
   {
     id: 'c129',
@@ -409,7 +409,7 @@ export const CHUNKS_3: Chunk[] = [
       { en: "A: Sorry I'm late. B: No worries.", zh: 'A：抱歉我迟到了。B：没事。' },
       { en: "No worries, I'll send it again.", zh: '没事，我再发一次。' },
     ],
-    noteZh: '回应道歉或感谢，表示“小事一桩”。比 It\'s okay 更轻松随意，在美英澳都很常用。',
+    noteZh: "回应道歉或感谢，表示“小事一桩”。比 It's okay 更轻松随意，在美英澳都很常用。",
   },
   {
     id: 'c130',
@@ -434,7 +434,7 @@ export const CHUNKS_3: Chunk[] = [
     register: 'casual',
     examples: [
       { en: 'Thanks for covering for me. I owe you one.', zh: '谢谢你替我顶班，我欠你个人情。' },
-      { en: 'A: I\'ll drive you to the airport. B: Seriously? I owe you one.', zh: 'A：我送你去机场。B：真的？我欠你一次。' },
+      { en: "A: I'll drive you to the airport. B: Seriously? I owe you one.", zh: 'A：我送你去机场。B：真的？我欠你一次。' },
     ],
     noteZh: '别人帮了个不大不小的忙之后，表示以后会还这个人情。朋友同事之间很常用，也可以说 I owe you big time。',
     soundZh: 'owe you → oweya，you 弱读成 ya。',
@@ -492,7 +492,7 @@ export const CHUNKS_3: Chunk[] = [
       { en: 'A: Thanks for your help! B: Happy to help.', zh: 'A：谢谢你的帮助！B：乐意效劳。' },
       { en: 'Happy to help. Just give me a call anytime.', zh: '很乐意帮忙，随时给我打电话。' },
     ],
-    noteZh: '回应感谢，同时传递“我是真心愿意”的意思。职场和服务场合都很合适，比 You\'re welcome 更暖。',
+    noteZh: "回应感谢，同时传递“我是真心愿意”的意思。职场和服务场合都很合适，比 You're welcome 更暖。",
     soundZh: 'Happy to → Happy-ta，to 弱读。',
   },
   {
@@ -506,7 +506,7 @@ export const CHUNKS_3: Chunk[] = [
       { en: "A: You didn't have to bring dinner. B: It's the least I could do after all your help.", zh: 'A：你不用带晚饭来的。B：你帮了我那么多，这是我应该做的。' },
       { en: "It's the least I could do. You've been so good to us.", zh: '这是我应该做的，你对我们太好了。' },
     ],
-    noteZh: '别人感谢你的回报或心意时，谦虚地表示“还不够表达我的谢意”。语气真诚，偏温暖。',
+    noteZh: '别人为你的好意道谢时，谦虚地回一句“这是我至少该做的”，表示这点心意不算什么。语气真诚温暖。',
     soundZh: "It's the least I could do → Itsthe-leastai-coulddo，least I 连成 leastai。",
   },
   {
@@ -536,7 +536,7 @@ export const CHUNKS_3: Chunk[] = [
       { en: 'You might want to double-check the date.', zh: '你最好再核对一下日期。' },
       { en: 'You might want to bring a jacket. It gets cold at night.', zh: '你最好带件外套，晚上会冷。' },
     ],
-    noteZh: '婉转的建议，实际语气比 You should 轻，常用于指出对方可能漏掉或没想到的事。注意不是真的在问你“想不想”。',
+    noteZh: '婉转的建议，实际语气比 You should 轻，常用于指出对方可能漏掉或没想到的事。字面有 want，但并不是在问对方想不想。',
     soundZh: 'might want to → mightwanna，want to 合成 wanna。',
   },
   {
@@ -578,7 +578,7 @@ export const CHUNKS_3: Chunk[] = [
       { en: 'Take an umbrella. Better safe than sorry.', zh: '带把伞吧，宁可有备无患。' },
       { en: "It's probably nothing, but better safe than sorry. Let's get it checked.", zh: '大概没事，不过宁可稳妥些，去检查一下吧。' },
     ],
-    noteZh: '劝人多做一步预防，哪怕可能没必要。口语里常省略开头的 It\'s，直接说这五个词，像句谚语一样整体记。',
+    noteZh: "劝人多做一步预防，哪怕可能没必要。口语里常省略开头的 It's，直接说这五个词，像句谚语一样整体记。",
   },
   {
     id: 'c142',
@@ -591,7 +591,7 @@ export const CHUNKS_3: Chunk[] = [
       { en: 'Make sure you lock the door when you leave.', zh: '你走的时候一定要锁门。' },
       { en: 'Make sure you back up your files before updating.', zh: '更新之前一定要备份文件。' },
     ],
-    noteZh: '提醒对方不要漏掉重要的事，语气比 Don\'t forget to 更强调“务必”。日常叮嘱和工作说明里都常用。',
+    noteZh: "提醒对方不要漏掉重要的事，语气比 Don't forget to 更强调“务必”。日常叮嘱和工作说明里都常用。",
     soundZh: 'Make sure you → Make-shure-ya，sure you 读成 shure-ya。',
   },
   {
@@ -672,7 +672,7 @@ export const CHUNKS_3: Chunk[] = [
     freq: 2,
     register: 'casual',
     examples: [
-      { en: 'Deep breath. You\'ve got this.', zh: '深呼吸，你可以的。' },
+      { en: "Deep breath. You've got this.", zh: '深呼吸，你可以的。' },
       { en: "Don't be nervous about the presentation. You've got this!", zh: '别为演讲紧张，你行的！' },
     ],
     noteZh: '在对方紧张、没底气时给他信心，近年美国口语里很常用。朋友之间、运动场、考试前都合适。',
@@ -689,7 +689,7 @@ export const CHUNKS_3: Chunk[] = [
       { en: "You did your best. Don't be too hard on yourself.", zh: '你已经尽力了，别太苛责自己。' },
       { en: "Everyone makes mistakes. Don't be too hard on yourself.", zh: '谁都会犯错，别对自己太狠。' },
     ],
-    noteZh: '安慰那些因为失误而自责的人。是一句温和的安慰，说的时候放缓语气，会让人感到被理解。',
+    noteZh: '安慰因为失误或表现不佳而自责的人，语气温和，放慢语速说，会让对方觉得被理解。',
     soundZh: "hard on yourself → hardon-yerself，hard 与 on 连读。",
   },
   {

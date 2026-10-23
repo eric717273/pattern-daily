@@ -72,7 +72,7 @@ export const CHUNKS_1: Chunk[] = [
       { en: "A: Nice to meet you. I'm Tom. B: Nice to meet you, too. I'm Lisa.", zh: 'A：很高兴认识你，我是 Tom。B：我也很高兴认识你，我是 Lisa。' },
       { en: "Nice to meet you. I've heard a lot about you.", zh: '很高兴认识你，久仰大名。' },
     ],
-    noteZh: '第一次见面的标准问候，任何场合都能用。对方说完，你回 “Nice to meet you, too.” 或 “You too.”。再见时则说 “Nice meeting you.”。',
+    noteZh: '第一次见面的标准问候，任何场合都能用。对方说完，回 “You too.” 即可。道别时改说 “Nice meeting you.”。',
     soundZh: 'Nice to → 连成 “Nice-tuh”，to 弱读成 /tə/；meet you → 常连成 “meechu”。',
   },
   {
@@ -86,7 +86,7 @@ export const CHUNKS_1: Chunk[] = [
       { en: "A: Good to see you! B: You too! Come on in.", zh: 'A：见到你真高兴！B：我也是！快进来。' },
       { en: "Hey, good to see you. How was your flight?", zh: '嘿，见到你真高兴。航班还顺利吗？' },
     ],
-    noteZh: '和认识的人见面时用，比 “Nice to meet you” 多一份熟络，所以不能用在第一次见面。完整说法是 “It’s good to see you.”，口语常省略 It’s。',
+    noteZh: '和认识的人见面时用，比 “Nice to meet you” 更熟络，不能用于初次见面。口语常省略 It’s。',
     soundZh: "Good to → 常读成 “goodta”；see you → 常连成 “seeya”。",
   },
   {
@@ -114,7 +114,7 @@ export const CHUNKS_1: Chunk[] = [
       { en: "It's getting late. I'd better get going.", zh: '时间不早了，我该走了。' },
       { en: "A: Already? B: Yeah, I'd better get going. I have an early meeting tomorrow.", zh: 'A：这就走了？B：嗯，我该走了，明天一早有个会。' },
     ],
-    noteZh: '委婉地结束聊天、起身告辞，比直接说 “I want to leave” 礼貌得多。口语里常说成 “I should get going.”。',
+    noteZh: '委婉地结束聊天、起身告辞，比 “I want to leave” 礼貌得多。也可说 “I should get going.”。',
     soundZh: "I'd better → 缩成 “I'd bedder”，better 的 t 浊化成 d；get going → 连成 “geddgoing”。",
   },
   {
@@ -128,7 +128,7 @@ export const CHUNKS_1: Chunk[] = [
       { en: "A: I've got to run. B: OK, catch you later!", zh: 'A：我得先走了。B：好，回头见！' },
       { en: "Alright, catch you later. Text me when you get home.", zh: '好了，回头见。到家给我发个消息。' },
     ],
-    noteZh: '朋友之间轻松的告别，不一定真有约定再见。正式场合或对上级请用 “See you later.” 或 “Goodbye.”。',
+    noteZh: '朋友间轻松的告别，不一定真有约定。对上级或正式场合请改用 “See you later.”。',
     soundZh: 'Catch you → 连成 “catcha”；整句听起来像 “catcha later”。',
   },
   {
@@ -183,7 +183,7 @@ export const CHUNKS_1: Chunk[] = [
       { en: 'Give my best to your parents.', zh: '代我向你父母问好。' },
       { en: "It was great to catch up. Please give my best to Sarah and the kids.", zh: '很高兴能叙叙旧。请代我向 Sarah 和孩子们问好。' },
     ],
-    noteZh: '告别时请对方转达问候，比 “Say hi to …” 稍正式一点。后面接人，如 your family、your wife。',
+    noteZh: '告别时请对方转达问候，比 “Say hi to …” 稍正式。后面接人，如 your family。',
     soundZh: "Give my → 连成 “givmy”；best to → best 的 t 和 to 的 t 连成一个，听起来像 “besto”。",
   },
 
@@ -282,7 +282,7 @@ export const CHUNKS_1: Chunk[] = [
       { en: "A: I'm getting married next month. B: You're kidding! To whom?", zh: 'A：我下个月结婚。B：你开玩笑吧！跟谁？' },
       { en: "A: He quit without telling anyone. B: You're kidding! He just started.", zh: 'A：他谁都没说就辞职了。B：你开玩笑吧！他才刚入职。' },
     ],
-    noteZh: '表示惊讶、难以置信，和 “No way!” 相近，语气稍温和。注意是 kidding 而不是 joking，后者不这么用。',
+    noteZh: '表示惊讶、难以置信，和 “No way!” 相近，语气稍温和。要说 kidding，不能说成 joking。',
     soundZh: "You're 弱读成 “yer”，所以整句听起来像 “yer kidding”。",
   },
   {
@@ -296,7 +296,7 @@ export const CHUNKS_1: Chunk[] = [
       { en: "A: Let's meet at six in front of the theater. B: Sounds good.", zh: 'A：我们六点在剧院门口见。B：好的。' },
       { en: "A: I can send you the file by noon. B: Sounds good. Thanks!", zh: 'A：我中午前把文件发给你。B：好的，谢谢！' },
     ],
-    noteZh: '对提议或安排表示同意的万能回应，职场、朋友间都通用。省略了主语 That，说完整的 “That sounds good.” 也行。',
+    noteZh: '对提议或安排表示同意的万能回应，职场、朋友间都通用。完整说法是 “That sounds good.”。',
     soundZh: 'Sounds good → 两个音连成 “soundzgood”，s 与 g 之间没有停顿。',
   },
   {
@@ -493,7 +493,7 @@ export const CHUNKS_1: Chunk[] = [
       { en: "If I remember right, the meeting starts at ten.", zh: '要是我没记错，会议十点开始。' },
       { en: "If I remember right, she moved here in 2015.", zh: '要是我没记错，她是 2015 年搬来的。' },
     ],
-    noteZh: '提到自己不太确定的细节时先打个预防针，既留余地又显得谦虚。也常说 “If I remember correctly, …”，更正式一点。',
+    noteZh: '提到自己不太确定的细节时先打个预防针，既留余地又谦虚。说 “If I remember correctly, …” 更正式。',
     soundZh: 'If I → 连成 “ifai”；remember 中间的 e 弱读，像 “rmember”。',
   },
   {
@@ -655,7 +655,7 @@ export const CHUNKS_1: Chunk[] = [
   {
     id: 'c047',
     en: 'Speaking of …',
-    zh: '说到……，',
+    zh: '说到……',
     category: 'connector',
     freq: 2,
     register: 'neutral',

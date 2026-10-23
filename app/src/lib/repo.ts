@@ -3,8 +3,11 @@ import type {
   CardKind,
   CardState,
   DailySession,
+  DayPlan,
   DrillMode,
+  FunctionCategory,
   Grade,
+  ItemRef,
   Profile,
   ReviewLog,
   StepKey,
@@ -13,16 +16,19 @@ import type {
   SyncedTable,
   UserFrame,
 } from '../types';
-import { SEED_FRAMES } from '../content';
+import { CHUNKS, CURRICULUM, SEED_FRAMES } from '../content';
 import { db, SYNCED_TABLES } from './db';
-import { todayStr } from './plan';
+import { DEFAULT_NEW_PER_DAY, getDayPlan, itemKey, todayStr } from './plan';
+import { FUNCTION_CATEGORIES } from './labels';
 import { newCard, schedule } from './srs';
 
 /** Dispatches a 'change' event after every local write (sync debounces on it). */
 export const localChanges: EventTarget = new EventTarget();
 
 const PROFILE_ID = 'profile';
-const ALL_STEPS: StepKey[] = ['warmup', 'deconstruct', 'frames', 'output'];
+const ALL_STEPS: StepKey[] = ['review', 'chunks', 'decode', 'output'];
+/** A card is 'mastered' once its review interval reaches this many days. */
+const MASTERED_INTERVAL_DAYS = 21;
 const EXPORT_VERSION = 1;
 const HEATMAP_DAYS = 84;
 
@@ -51,6 +57,7 @@ export async function getOrCreateProfile(): Promise<Profile> {
       startDate: todayStr(),
       dailyMinutes: 15,
       scenes: ['work', 'daily'],
+      newPerDay: DEFAULT_NEW_PER_DAY,
       updatedAt: 0,
     });
     await db.profile.put(fresh);
@@ -91,14 +98,26 @@ export async function ensureCards(kind: CardKind, refIds: string[]): Promise<voi
   if (created > 0) notify();
 }
 
-export async function getDueCards(now: number, limit: number): Promise<CardState[]> {
+/**
+ * Cards due at `now`, oldest due first. `kinds` restricts the card kinds (the review step asks for
+ * ['chunk', 'frame']; decode maintenance may ask for ['dozen']); omitted = every kind.
+ */
+export async function getDueCards(now: number, limit: number, kinds?: CardKind[]): Promise<CardState[]> {
   if (limit <= 0) return [];
   return db.cards
     .where('due')
     .belowOrEqual(now)
-    .filter((c) => !c.deleted)
+    .filter((c) => !c.deleted && (kinds === undefined || kinds.includes(c.kind)))
     .limit(limit)
     .toArray();
+}
+
+/** Marks library items as met (creates their SRS cards, due immediately). Called when the learner finishes an item. */
+export async function introduceItems(refs: ItemRef[]): Promise<void> {
+  for (const kind of ['chunk', 'frame'] as const) {
+    const ids = refs.filter((r) => r.kind === kind).map((r) => r.id);
+    if (ids.length > 0) await ensureCards(kind, ids);
+  }
 }
 
 export async function gradeCard(
@@ -149,36 +168,71 @@ export async function getTodayDayIndex(today: string): Promise<number> {
   return computeDayIndex(today);
 }
 
+/**
+ * Freezes today's plan: the introduced set is every live chunk/frame card, the curriculum is the seed
+ * curriculum, newPerDay comes from the profile. Reads cards and profile, so callers' transactions must include them.
+ */
+async function computePlan(dayIndex: number): Promise<DayPlan> {
+  const [cards, profile] = await Promise.all([
+    db.cards.filter((c) => !c.deleted && (c.kind === 'chunk' || c.kind === 'frame')).toArray(),
+    db.profile.get(PROFILE_ID),
+  ]);
+  return getDayPlan({
+    dayIndex,
+    introduced: new Set(cards.map((c) => itemKey({ kind: c.kind as ItemRef['kind'], id: c.refId }))),
+    curriculum: CURRICULUM,
+    newPerDay: profile?.newPerDay ?? DEFAULT_NEW_PER_DAY,
+  });
+}
+
+/**
+ * The session of `date`. A new session freezes its plan (see computePlan) so the plan never reshuffles
+ * mid-day or across devices; an older session without a plan gets one on first read.
+ */
 export async function getOrCreateSession(date: string): Promise<DailySession> {
   await getOrCreateProfile();
-  const { session, created } = await db.transaction('rw', db.sessions, async () => {
+  const { session, changed } = await db.transaction('rw', db.sessions, db.cards, db.profile, async () => {
     const existing = await db.sessions.get(date);
-    if (existing && !existing.deleted) return { session: existing, created: false };
+    if (existing && !existing.deleted) {
+      if (existing.plan) return { session: existing, changed: false };
+      const upgraded = touch<DailySession>({ ...existing, plan: await computePlan(existing.dayIndex) });
+      await db.sessions.put(upgraded);
+      return { session: upgraded, changed: true };
+    }
+    const dayIndex = await computeDayIndex(date);
     const fresh = touch<DailySession>({
       id: date,
       date,
-      dayIndex: await computeDayIndex(date),
+      dayIndex,
       stepsDone: [],
+      plan: await computePlan(dayIndex),
       activeMs: 0,
       updatedAt: 0,
     });
     await db.sessions.put(fresh);
-    return { session: fresh, created: true };
+    return { session: fresh, changed: true };
   });
-  if (created) notify();
+  if (changed) notify();
   return session;
 }
 
-/** Records a finished step. The day counts as completed (completedAt set) once all four steps are done. */
+/**
+ * Records a finished step ('review' | 'chunks' | 'decode' | 'output'; anything else, e.g. a legacy v1 key, is
+ * ignored but its time still counts). The day counts as completed (completedAt set) once all four are done.
+ */
 export async function markStepDone(date: string, step: StepKey, activeMs: number): Promise<DailySession> {
   await getOrCreateProfile();
-  const next = await db.transaction('rw', db.sessions, async () => {
+  const next = await db.transaction('rw', db.sessions, db.cards, db.profile, async () => {
     const existing = await db.sessions.get(date);
-    const base: DailySession =
-      existing && !existing.deleted
-        ? existing
-        : { id: date, date, dayIndex: await computeDayIndex(date), stepsDone: [], activeMs: 0, updatedAt: 0 };
-    const stepsDone = base.stepsDone.includes(step) ? base.stepsDone : [...base.stepsDone, step];
+    let base: DailySession;
+    if (existing && !existing.deleted) {
+      base = existing;
+    } else {
+      const dayIndex = await computeDayIndex(date);
+      base = { id: date, date, dayIndex, stepsDone: [], plan: await computePlan(dayIndex), activeMs: 0, updatedAt: 0 };
+    }
+    const known = ALL_STEPS.includes(step);
+    const stepsDone = !known || base.stepsDone.includes(step) ? base.stepsDone : [...base.stepsDone, step];
     const complete = ALL_STEPS.every((s) => stepsDone.includes(s));
     const updated = touch<DailySession>({
       ...base,
@@ -239,6 +293,47 @@ export async function deleteUserFrame(id: string): Promise<void> {
 
 export async function getAllFrames(): Promise<SubstitutionFrame[]> {
   return [...SEED_FRAMES, ...(await listUserFrames())];
+}
+
+// ---------- library progress ----------
+
+export interface CategoryProgress {
+  total: number;
+  introduced: number;
+  mastered: number;
+}
+
+export interface LibraryProgress extends CategoryProgress {
+  byCategory: Record<FunctionCategory, CategoryProgress>;
+}
+
+/**
+ * How much of the seed library (seed frames + chunks) the learner has met. introduced = has a live card;
+ * mastered = card interval >= 21 days. Frames without a category count in the totals only.
+ */
+export async function getLibraryProgress(): Promise<LibraryProgress> {
+  const cards = await db.cards.filter((c) => !c.deleted && (c.kind === 'chunk' || c.kind === 'frame')).toArray();
+  const byKey = new Map(cards.map((c) => [c.id, c]));
+
+  const byCategory = Object.fromEntries(
+    FUNCTION_CATEGORIES.map((c): [FunctionCategory, CategoryProgress] => [c, { total: 0, introduced: 0, mastered: 0 }]),
+  ) as Record<FunctionCategory, CategoryProgress>;
+  const out: LibraryProgress = { total: 0, introduced: 0, mastered: 0, byCategory };
+
+  const count = (ref: ItemRef, category: FunctionCategory | undefined): void => {
+    const card = byKey.get(itemKey(ref));
+    const buckets = [out, ...(category && byCategory[category] ? [byCategory[category]] : [])];
+    for (const b of buckets) {
+      b.total++;
+      if (card) {
+        b.introduced++;
+        if (card.interval >= MASTERED_INTERVAL_DAYS) b.mastered++;
+      }
+    }
+  };
+  for (const f of SEED_FRAMES) count({ kind: 'frame', id: f.id }, f.category);
+  for (const c of CHUNKS) count({ kind: 'chunk', id: c.id }, c.category);
+  return out;
 }
 
 // ---------- stats ----------

@@ -102,6 +102,7 @@ export const CHUNKS_5: Chunk[] = [
       { en: "My phone's so annoying. It keeps shutting down.", zh: '我的手机太烦人了，老是自动关机。' },
     ],
     noteZh: '抱怨同一个问题反复出现，后面接动词的 -ing 形式。It 可换成 he、she、they 或具体名词。',
+    soundZh: "keeps → 'keeps'，结尾 ps 很短；It keeps 常连成 'Itkeeps'。",
   },
   {
     id: 'c208',
@@ -142,7 +143,7 @@ export const CHUNKS_5: Chunk[] = [
       { en: "I'm having trouble logging into my account.", zh: '我登录不了自己的账号。' },
       { en: "I'm having trouble hearing you. Could you speak up?", zh: '我听不太清你说话，能大点声吗？' },
     ],
-    noteZh: '向别人求助时的常用开头，后面接 -ing 形式。也可以说 "I\'m having trouble with + 名词"，语气比 can\'t 更委婉。',
+    noteZh: '求助时的常用开头，后面接 -ing，或接 with 加名词。语气比 can\'t 更委婉。',
     soundZh: "having → 'havin'，-ing 常弱化成 'in'。",
   },
   {
@@ -181,8 +182,8 @@ export const CHUNKS_5: Chunk[] = [
     freq: 3,
     register: 'neutral',
     examples: [
-      { en: "Sorry, the elevator's out of order. Please use the stairs.", zh: '抱歉，电梯坏了，请走楼梯。' },
-      { en: "The vending machine on this floor is out of order.", zh: '这层楼的自动售货机坏了。' },
+      { en: "Sorry, the elevator? It's out of order. Please use the stairs.", zh: '抱歉，电梯坏了，请走楼梯。' },
+      { en: "Don't bother with the vending machine. It's out of order.", zh: '这层楼的自动售货机坏了。' },
     ],
     noteZh: '专指公共设施（电梯、公厕、售货机、ATM）暂停使用，常见于告示牌。私人物品坏了一般说 broken 或 not working。',
     soundZh: "out of order → 'outta order'，of 弱读并和前面连在一起。",
@@ -214,7 +215,7 @@ export const CHUNKS_5: Chunk[] = [
       { en: 'Just to follow up on my email from Monday, did you get a chance to look at it?', zh: '跟进一下我周一发的邮件，你有机会看一下吗？' },
       { en: 'Hi Sam, just to follow up on our call yesterday.', zh: '嗨 Sam，跟进一下我们昨天通话的事。' },
     ],
-    noteZh: '邮件和电话里温和地催问进度或补充信息，开头用 just 让语气不显得强硬。后面接 our call、my email、the proposal 等。',
+    noteZh: '邮件和电话里温和地催问进度，用 just 让语气不强硬。后面接 our call、my email 等。',
     soundZh: "follow up on → 'follow-up-on'，三词连读，on 轻读。",
   },
   {
@@ -284,7 +285,7 @@ export const CHUNKS_5: Chunk[] = [
       { en: "How about Tuesday at ten? Does that work for you?", zh: '周二十点怎么样？你方便吗？' },
       { en: "I'll send the draft by five. Does that work for you?", zh: '我五点前发草稿，你看行吗？' },
     ],
-    noteZh: '定时间、定方案后问对方是否可行。回答用 "Works for me." 或 "That works."；也可简化为 "Does that work?"',
+    noteZh: '定了时间或方案后问对方是否可行。回答 "Works for me." 或 "That works." 即可。',
     soundZh: "Does that → 'Duzzat'；work for you → 'work-fer-ya'。",
   },
   {
@@ -298,7 +299,7 @@ export const CHUNKS_5: Chunk[] = [
       { en: 'Any updates on the Johnson contract?', zh: 'Johnson 的合同有什么进展吗？' },
       { en: "Any updates on the bug we found last week?", zh: '我们上周发现的那个 bug 有进展吗？' },
     ],
-    noteZh: '开会或发消息时询问进度，比 "How is it going?" 更专业。也常单独说 "Any updates?"，无需加 the 或 some。',
+    noteZh: '开会或发消息时询问进度，比 "How is it going?" 更专业。也常单独说 "Any updates?"',
     soundZh: "updates on → 'updates-on'，连读成 'updatesson'。",
   },
   {
@@ -354,7 +355,7 @@ export const CHUNKS_5: Chunk[] = [
       { en: 'Just a heads-up that the system will be down tonight.', zh: '先提醒一下，今晚系统会停机。' },
       { en: "Just a heads-up that the client moved the deadline up.", zh: '提前说一声，客户把截止日期提前了。' },
     ],
-    noteZh: '提前打个招呼，让对方有心理准备，多用于坏消息或变动。也可以说 "Heads-up, …" 或 "Just a quick heads-up."',
+    noteZh: '提前打个招呼让对方有心理准备，多用于变动或坏消息。也可说 "Just a quick heads-up."',
     soundZh: "heads-up 读成 'heds-up'；that 在句中弱读成 'thət'。",
   },
 
@@ -370,7 +371,7 @@ export const CHUNKS_5: Chunk[] = [
       { en: "Excuse me, can I get the check, please?", zh: '打扰一下，请给我结账。' },
       { en: "We're in a bit of a hurry. Can I get the check, please?", zh: '我们有点赶时间，麻烦结账。' },
     ],
-    noteZh: '美式餐厅结账说 check，英式说 bill（"Could we have the bill, please?"）。服务员不会主动催你，需要自己开口。',
+    noteZh: '美式餐厅说 check，英式说 bill。服务员不会主动催你结账，需要自己开口。',
     soundZh: "Can I → 'Kinai'；get the → 'geh-the'，t 变成轻音。",
   },
   {
@@ -538,7 +539,7 @@ export const CHUNKS_5: Chunk[] = [
       { en: "There are six of us. Can we split the bill?", zh: '我们有六个人，可以分开付吗？' },
       { en: "A: Is it one check? B: Can we split the bill, please?", zh: 'A：一起结吗？B：麻烦分开结账。' },
     ],
-    noteZh: '朋友聚餐时对服务员说。想平均分摊说 split evenly，各付各的说 "separate checks"。美式口语里 bill 与 check 都通用。',
+    noteZh: '朋友聚餐时对服务员说。各付各的也可说 "separate checks"；美式里 bill 与 check 都通用。',
     soundZh: "Can we → 'Cn we'；split the → 'split-the'，两个词连读。",
   },
 
