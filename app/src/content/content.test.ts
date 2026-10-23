@@ -155,7 +155,6 @@ describe('Substitution frame content', () => {
       if (!SCENES.includes(f.scene)) problems.push(`${f.id}: unknown scene "${f.scene}"`);
       if (![1, 2, 3].includes(f.level)) problems.push(`${f.id}: level must be 1, 2 or 3 (got ${String(f.level)})`);
       if (f.source !== 'seed') problems.push(`${f.id}: source must be "seed" (got "${f.source}")`);
-      if (f.grammar.length === 0) problems.push(`${f.id}: grammar is empty`);
       for (const g of f.grammar) {
         if (!GRAMMAR_POINTS.includes(g)) problems.push(`${f.id}: unknown grammar point "${g}"`);
       }

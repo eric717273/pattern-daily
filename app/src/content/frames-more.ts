@@ -40,7 +40,7 @@ export const FRAMES_MORE: SubstitutionFrame[] = [
         labelZh: '程度词',
         options: [
           o('so', '特别'),
-          o('really', '真的'),
+          o('really', '真的很'),
           o('a bit', '有点'),
           o('pretty', '挺'),
         ],
@@ -670,7 +670,7 @@ export const FRAMES_MORE: SubstitutionFrame[] = [
         ],
       },
     ],
-    grammar: ['want-to'],
+    grammar: [],
     scene: 'daily',
     level: 3,
     examples: [
@@ -722,7 +722,7 @@ export const FRAMES_MORE: SubstitutionFrame[] = [
         ],
       },
     ],
-    grammar: ['going-to'],
+    grammar: ['modal-must'],
     scene: 'daily',
     level: 3,
     examples: [
@@ -881,7 +881,7 @@ export const FRAMES_MORE: SubstitutionFrame[] = [
         ],
       },
     ],
-    grammar: ['want-to'],
+    grammar: [],
     scene: 'work',
     level: 2,
     examples: [
@@ -1089,10 +1089,10 @@ export const FRAMES_MORE: SubstitutionFrame[] = [
         key: 'counter',
         labelZh: '再反对',
         options: [
-          o("I'm not sure that will work", '我不确定那行得通'),
+          o("that won't work", '那行不通'),
           o("we shouldn't rush into it", '我们不应该操之过急'),
           o("we can't afford it", '我们承担不起'),
-          o("we don't have enough time", '我们没有足够的时间'),
+          o("we can't commit to that", '我们没法答应下来'),
         ],
       },
       {
@@ -1109,9 +1109,9 @@ export const FRAMES_MORE: SubstitutionFrame[] = [
     scene: 'work',
     level: 3,
     examples: [
-      o("I see what you mean, but I'm not sure that will work for now.", '我明白你的意思，但目前我不确定那行得通。'),
+      o("I see what you mean, but that won't work for now.", '我明白你的意思，但目前那行不通。'),
       o("I understand your concern, but we shouldn't rush into it at this stage.", '我理解你的顾虑，但现阶段我们不应该操之过急。'),
-      o("You may be right, but we don't have enough time right now.", '你可能是对的，但现在我们没有足够的时间。'),
+      o("You may be right, but we can't commit to that right now.", '你可能是对的，但现在我们没法答应下来。'),
     ],
     tipZh:
       '先认同、再用 but 提出不同意见，是职场里最不伤人的说法。for now / right now / at this stage 把反对限定在“现在”，给对方留面子。',
@@ -1323,7 +1323,7 @@ export const FRAMES_MORE: SubstitutionFrame[] = [
         ],
       },
     ],
-    grammar: ['going-to'],
+    grammar: ['modal-must'],
     scene: 'work',
     level: 3,
     examples: [
@@ -1478,9 +1478,9 @@ export const FRAMES_MORE: SubstitutionFrame[] = [
         key: 'verb',
         labelZh: '动词',
         options: [
-          o('leave', '离开'),
+          o('leave', '出发'),
           o('arrive', '到达'),
-          o('depart', '出发'),
+          o('get here', '到这儿'),
         ],
       },
       {
@@ -1499,9 +1499,9 @@ export const FRAMES_MORE: SubstitutionFrame[] = [
     scene: 'travel',
     level: 1,
     examples: [
-      o('Excuse me, what time does the last train leave tomorrow?', '打扰一下，明天末班火车几点离开？'),
+      o('Excuse me, what time does the last train leave tomorrow?', '打扰一下，明天末班火车几点出发？'),
       o('Sorry, what time does the first bus arrive on Sundays?', '不好意思，周日首班公交几点到达？'),
-      o('Quick question, what time does the airport shuttle depart on weekdays?', '问一下，工作日机场大巴几点出发？'),
+      o('Quick question, what time does the airport shuttle get here on weekdays?', '问一下，工作日机场大巴几点到这儿？'),
     ],
     tipZh:
       'What time does + 主语 + 动词原形？助动词 does 已经带了第三人称 -s，所以后面是 leave，不是 leaves。arrive / leave / depart 是班次时间最常用的三个动词。',
@@ -1513,7 +1513,7 @@ export const FRAMES_MORE: SubstitutionFrame[] = [
     id: 'f088',
     title: '请人推荐',
     pattern: '{opener} {verb} {thing} {tail}?',
-    patternZh: '{opener}{verb}{tail}{thing}吗？',
+    patternZh: '{opener}{tail}{verb}{thing}吗？',
     slots: [
       {
         key: 'opener',
@@ -1550,10 +1550,10 @@ export const FRAMES_MORE: SubstitutionFrame[] = [
         key: 'tail',
         labelZh: '范围',
         options: [
-          o('near here', '这附近的'),
-          o('nearby', '附近的'),
-          o('around here', '这一带的'),
-          o('in this area', '这个区域的'),
+          o('near here', '这附近'),
+          o('nearby', '附近'),
+          o('around here', '这一带'),
+          o('in this area', '这个区域'),
         ],
       },
     ],
@@ -1561,9 +1561,9 @@ export const FRAMES_MORE: SubstitutionFrame[] = [
     scene: 'travel',
     level: 2,
     examples: [
-      o('Excuse me, can you recommend a good restaurant near here?', '打扰一下，你能推荐这附近的一家不错的餐厅吗？'),
-      o('Hi, could you recommend a good dentist around here?', '你好，你可以推荐这一带的一位不错的牙医吗？'),
-      o('By the way, would you recommend a good bookstore in this area?', '对了，你会推荐这个区域的一家不错的书店吗？'),
+      o('Excuse me, can you recommend a good restaurant near here?', '打扰一下，这附近你能推荐一家不错的餐厅吗？'),
+      o('Hi, could you recommend a good dentist around here?', '你好，这一带你可以推荐一位不错的牙医吗？'),
+      o('By the way, would you recommend a good bookstore in this area?', '对了，这个区域你会推荐一家不错的书店吗？'),
     ],
     tipZh:
       'recommend 后面直接跟名词：recommend a good restaurant，不用 to。Do you happen to know … 语气更随意，像是“碰巧你知道的话”。',
@@ -1673,7 +1673,7 @@ export const FRAMES_MORE: SubstitutionFrame[] = [
         ],
       },
     ],
-    grammar: ['want-to'],
+    grammar: [],
     scene: 'travel',
     level: 2,
     examples: [
@@ -1735,7 +1735,7 @@ export const FRAMES_MORE: SubstitutionFrame[] = [
         ],
       },
     ],
-    grammar: ['present-perfect'],
+    grammar: ['present-perfect', 'question-inversion'],
     scene: 'travel',
     level: 3,
     examples: [
@@ -1809,16 +1809,16 @@ export const FRAMES_MORE: SubstitutionFrame[] = [
     id: 'f093',
     title: '感谢并说明原因',
     pattern: '{thanks} for {reason} {tail}.',
-    patternZh: '{tail}{reason}，{thanks}。',
+    patternZh: '{thanks}{tail}{reason}。',
     slots: [
       {
         key: 'thanks',
         labelZh: '感谢语',
         options: [
-          o('Thanks so much', '非常感谢'),
-          o('Thank you so much', '万分感谢'),
-          o('Many thanks', '多谢了'),
-          o('Thanks a lot', '太谢谢你了'),
+          o('Thanks so much', '非常感谢你'),
+          o('Thank you so much', '真的很感谢你'),
+          o('Many thanks', '多谢你'),
+          o('Thanks a lot', '谢谢你'),
         ],
       },
       {
@@ -1847,9 +1847,9 @@ export const FRAMES_MORE: SubstitutionFrame[] = [
     scene: 'social',
     level: 1,
     examples: [
-      o('Thanks so much for helping me move last night.', '昨晚帮我搬家，非常感谢。'),
-      o('Thank you so much for lending me your charger yesterday.', '昨天借我充电器，万分感谢。'),
-      o('Thanks a lot for waiting for me today.', '今天等我，太谢谢你了。'),
+      o('Thanks so much for helping me move last night.', '非常感谢你昨晚帮我搬家。'),
+      o('Thank you so much for lending me your charger yesterday.', '真的很感谢你昨天借我充电器。'),
+      o('Thanks a lot for waiting for me today.', '谢谢你今天等我。'),
     ],
     tipZh:
       '感谢的原因放在 for 后面，动词要用 -ing 形式：Thanks for helping me，不是 Thanks for help me。me 是宾语，不能说 helping I。',
@@ -1879,8 +1879,8 @@ export const FRAMES_MORE: SubstitutionFrame[] = [
         options: [
           o('I really like', '我真的很喜欢'),
           o('I absolutely love', '我超级喜欢'),
-          o("I'm crazy about", '我太喜欢'),
-          o('I just love', '我就是喜欢'),
+          o("I'm crazy about", '我特别喜欢'),
+          o('I just love', '我特别爱'),
         ],
       },
       {
@@ -1895,13 +1895,13 @@ export const FRAMES_MORE: SubstitutionFrame[] = [
         ],
       },
     ],
-    grammar: ['possessive'],
+    grammar: [],
     scene: 'social',
     level: 1,
     examples: [
       o('Wow, I really like your jacket.', '哇，我真的很喜欢你的外套。'),
       o('By the way, I absolutely love your handwriting.', '对了，我超级喜欢你的字。'),
-      o("Honestly, I'm crazy about your cooking.", '说实话，我太喜欢你做的菜。'),
+      o("Honestly, I'm crazy about your cooking.", '说实话，我特别喜欢你做的菜。'),
     ],
     tipZh:
       '夸别人用 I really like / I love + your + 名词，对方的东西前要有 your。夸奖后常常接一个问题，比如 Where did you get it?，聊天就能继续下去。',
@@ -2007,7 +2007,7 @@ export const FRAMES_MORE: SubstitutionFrame[] = [
         ],
       },
     ],
-    grammar: ['negation-modal'],
+    grammar: [],
     scene: 'social',
     level: 2,
     examples: [
@@ -2199,7 +2199,7 @@ export const FRAMES_MORE: SubstitutionFrame[] = [
           o('Honestly,', '说实话，'),
           o('Sometimes', '有时候'),
           o('To be honest,', '老实说，'),
-          o('Lately,', '最近，'),
+          o('Frankly,', '坦白说，'),
         ],
       },
       {
@@ -2223,13 +2223,13 @@ export const FRAMES_MORE: SubstitutionFrame[] = [
         ],
       },
     ],
-    grammar: ['negation-modal'],
+    grammar: ['modal-must'],
     scene: 'study',
     level: 3,
     examples: [
       o("Honestly, I wish I could speak English more fluently, but I'm too shy.", '说实话，我真希望自己能把英语说得更流利，但我太害羞了。'),
       o('Sometimes I wish I could give presentations in English, but I get nervous easily.', '有时候我真希望自己能用英语做演讲，但我很容易紧张。'),
-      o('Lately, I wish I could chat with foreigners without panicking, but my vocabulary is too small.', '最近，我真希望自己能跟外国人聊天时不慌张，但我的词汇量太小了。'),
+      o('Frankly, I wish I could chat with foreigners without panicking, but my vocabulary is too small.', '坦白说，我真希望自己能跟外国人聊天时不慌张，但我的词汇量太小了。'),
     ],
     tipZh:
       'I wish I could + 动词原形 表达“要是我能……就好了”（现实中做不到）。wish 后面的 could 是对现在的遗憾，不要用 can。后面的 but 说明原因。',
