@@ -1,5 +1,16 @@
-import { afterEach, describe, expect, it, vi } from 'vitest';
-import { listenOnce, listVoices, pickVoice, recognitionSupported, speak, speechError, startListening } from './speech';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+import {
+  choosePair,
+  listenOnce,
+  listVoices,
+  pairPitches,
+  pickVoice,
+  recognitionSupported,
+  speak,
+  speakSequence,
+  speechError,
+  startListening,
+} from './speech';
 
 function voice(name: string, lang: string, uri = name): SpeechSynthesisVoice {
   return { name, lang, voiceURI: uri, localService: true, default: false } as SpeechSynthesisVoice;
@@ -177,5 +188,132 @@ describe('startListening', () => {
     const onError = vi.fn();
     startListening({ onResult: () => undefined, onError });
     expect(onError).toHaveBeenCalledWith(expect.objectContaining({ code: 'start-failed' }));
+  });
+});
+
+describe('pickVoicePair / choosePair', () => {
+  it('prefers a female + male Apple pair', () => {
+    const [a, b] = choosePair([
+      voice('Alex', 'en-US'),
+      voice('Samantha', 'en-US'),
+      voice('Daniel', 'en-GB'),
+      voice('Anna', 'de-DE'),
+    ]);
+    expect(a?.name).toBe('Samantha');
+    expect(b?.name).toBe('Alex');
+  });
+
+  it('falls back to two different voices, then to the same voice with different pitch', () => {
+    const [a, b] = choosePair([voice('Voice One', 'en-US'), voice('Voice Two', 'en-GB')]);
+    expect(a?.name).not.toBe(b?.name);
+    const same = choosePair([voice('Only', 'en-US')]);
+    expect(same[0]).toBe(same[1]);
+    const [pa, pb] = pairPitches(same);
+    expect(pa).toBeGreaterThan(pb);
+    expect(pairPitches([a, b])).toEqual([1, 1]);
+    expect(choosePair([voice('Anna', 'de-DE')])).toEqual([null, null]);
+  });
+});
+
+describe('speakSequence', () => {
+  interface FakeUtterance {
+    text: string;
+    voice: SpeechSynthesisVoice | null;
+    pitch: number;
+    rate: number;
+    lang: string;
+    onend: (() => void) | null;
+    onerror: ((e: { error: string }) => void) | null;
+  }
+  const queue: FakeUtterance[] = [];
+  const cancel = vi.fn(() => {
+    const pending = queue.splice(0);
+    for (const u of pending) u.onerror?.({ error: 'canceled' });
+  });
+
+  beforeEach(() => {
+    queue.length = 0;
+    cancel.mockClear();
+    class FakeU {
+      text: string;
+      voice: SpeechSynthesisVoice | null = null;
+      pitch = 1;
+      rate = 1;
+      lang = '';
+      onend: (() => void) | null = null;
+      onerror: ((e: { error: string }) => void) | null = null;
+      constructor(t: string) {
+        this.text = t;
+      }
+    }
+    vi.stubGlobal('SpeechSynthesisUtterance', FakeU);
+    vi.stubGlobal('speechSynthesis', {
+      getVoices: () => [],
+      addEventListener: () => undefined,
+      removeEventListener: () => undefined,
+      speak: (u: FakeUtterance) => queue.push(u),
+      cancel,
+      speaking: false,
+    });
+    vi.useFakeTimers();
+  });
+  afterEach(() => {
+    vi.useRealTimers();
+    vi.unstubAllGlobals();
+  });
+
+  const finishNext = () => {
+    const u = queue.shift();
+    u?.onend?.();
+    return u;
+  };
+
+  it('plays lines in order with voice, pitch and rate, reporting each line', async () => {
+    const v1 = voice('Samantha', 'en-US');
+    const seen: number[] = [];
+    const h = speakSequence(
+      [
+        { text: 'Hi there.', voice: v1, pitch: 1.2 },
+        { text: 'Hello!', pitch: 0.8 },
+      ],
+      { rate: 0.9, gapMs: 100, onLine: (i) => seen.push(i) },
+    );
+    expect(queue).toHaveLength(1);
+    expect(seen).toEqual([0]);
+    const first = finishNext();
+    expect(first?.voice).toBe(v1);
+    expect(first?.pitch).toBe(1.2);
+    expect(first?.rate).toBe(0.9);
+    expect(queue).toHaveLength(0); // waits for the gap
+    await vi.advanceTimersByTimeAsync(100);
+    expect(seen).toEqual([0, 1]);
+    expect(queue[0].text).toBe('Hello!');
+    finishNext();
+    await vi.advanceTimersByTimeAsync(0);
+    await expect(h.done).resolves.toBeUndefined();
+  });
+
+  it('stop() cancels the current line, skips the rest and resolves done', async () => {
+    const h = speakSequence([{ text: 'One' }, { text: 'Two' }], { rate: 1 });
+    expect(queue).toHaveLength(1);
+    h.stop();
+    await vi.advanceTimersByTimeAsync(500);
+    await expect(h.done).resolves.toBeUndefined();
+    expect(queue).toHaveLength(0);
+    expect(cancel).toHaveBeenCalled();
+  });
+
+  it('ends when another speak() pre-empts it, and survives a missing end event via the watchdog', async () => {
+    const h = speakSequence([{ text: 'One' }, { text: 'Two' }], { rate: 1, gapMs: 0 });
+    void speak('Interrupt'); // cancels our utterance -> 'canceled'
+    await vi.advanceTimersByTimeAsync(10);
+    await expect(h.done).resolves.toBeUndefined();
+    expect(queue.map((u) => u.text)).toEqual(['Interrupt']);
+
+    queue.length = 0;
+    const h2 = speakSequence([{ text: 'Stuck' }, { text: 'Next' }], { rate: 1, gapMs: 0 });
+    await vi.advanceTimersByTimeAsync(5000); // no 'end' ever fires
+    expect(queue.map((u) => u.text)).toEqual(['Stuck', 'Next']);
+    h2.stop();
   });
 });

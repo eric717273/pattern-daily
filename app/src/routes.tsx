@@ -23,6 +23,10 @@ const frameDetail = page(() => import('./pages/FrameDetailPage'), 'FrameDetailPa
 const singleDrill = page(() => import('./pages/FrameDrillPages'), 'FrameSingleDrillPage');
 const translateDrill = page(() => import('./pages/FrameDrillPages'), 'FrameTranslateDrillPage');
 const analyze = page(() => import('./pages/AnalyzePage'), 'AnalyzePage');
+const listeningHub = page(() => import('./pages/listening/ListeningHubPage'), 'ListeningHubPage');
+const listeningDialogue = page(() => import('./pages/listening/ListeningPracticePages'), 'ListeningDialoguePage');
+const listeningSound = page(() => import('./pages/listening/ListeningPracticePages'), 'ListeningSoundPage');
+const listeningNumbers = page(() => import('./pages/listening/ListeningPracticePages'), 'ListeningNumbersPage');
 const me = page(() => import('./pages/MePage'), 'MePage');
 const notFound = page(() => import('./pages/NotFoundPage'), 'NotFoundPage');
 
@@ -43,6 +47,11 @@ export function AppRoutes() {
         <Route path="decode/dozen/:id" element={dozenDetail} />
         <Route path="decode/practice" element={decodePractice} />
         <Route path="decode/analyze" element={analyze} />
+        {/* Listening track: dialogues, connected speech, numbers */}
+        <Route path="listening" element={listeningHub} />
+        <Route path="listening/dialogue/:id" element={listeningDialogue} />
+        <Route path="listening/sound/:id" element={listeningSound} />
+        <Route path="listening/numbers" element={listeningNumbers} />
         {/* v1 paths */}
         <Route path="frames" element={<Navigate to="/library" replace />} />
         <Route path="dozen" element={<Navigate to="/decode" replace />} />

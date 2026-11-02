@@ -30,6 +30,20 @@ export function newCard(kind: CardKind, refId: string, now: number): CardState {
 }
 
 /**
+ * A card for something the learner already knows (placement fast track): one successful review is recorded and
+ * the first real review is `intervalDays` away (default 7), so it skips the new-learning flow.
+ */
+export function knownCard(kind: CardKind, refId: string, now: number, intervalDays = 7): CardState {
+  return {
+    ...newCard(kind, refId, now),
+    reps: 1,
+    interval: intervalDays,
+    due: now + intervalDays * DAY_MS,
+    lastReviewed: now,
+  };
+}
+
+/**
  * SM-2 variant. Grades: 0 forgot, 1 hard, 2 good, 3 easy.
  *
  * - 0: lapses+1, reps=0, interval=0, due in 10 minutes, ease -0.2

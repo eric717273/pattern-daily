@@ -254,7 +254,7 @@ function parseYear(text: string): number | null {
 export function checkNumberAnswer(input: string, item: NumberItem): boolean {
   const text = input.trim();
   if (text === '') return false;
-  const squash = (s: string): string => s.toLowerCase().replace(/\s+/g, '');
+  const squash = (s: string): string => s.toLowerCase().replace(/\s+/g, item.kind === 'phone' ? '' : ' ').trim();
   if (item.accept.some((a) => squash(a) === squash(text))) return true;
   switch (item.kind) {
     case 'price': {

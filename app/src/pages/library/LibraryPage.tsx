@@ -5,9 +5,9 @@ import { CHUNKS, SEED_FRAMES } from '../../content';
 import type { Freq, FunctionCategory } from '../../types';
 import { FramePattern } from '../../components/FramePattern';
 import { GenerateFrameSheet } from '../../components/GenerateFrameSheet';
-import { ChevronRightIcon, SearchIcon, SparklesIcon } from '../../components/icons';
+import { ChevronRightIcon, SearchIcon, SparklesIcon, SpeakerIcon } from '../../components/icons';
 import { SpeakButton } from '../../components/SpeakButton';
-import { Badge, Button, Card, EmptyState, PageHeader, Segmented, cx, inputClass, type Tone } from '../../components/ui';
+import { Badge, Button, ButtonLink, Card, EmptyState, PageHeader, Segmented, cx, inputClass, type Tone } from '../../components/ui';
 import { useAllFrames, useCardMap } from '../../lib/hooks';
 import { FREQ_LABELS, FREQS, FUNCTION_CATEGORIES, FUNCTION_CATEGORY_LABELS } from '../../lib/labels';
 import {
@@ -138,10 +138,16 @@ export function LibraryPage() {
         title="语块库"
         subtitle="按交际功能整理的高频表达：练到听见就懂、张口就来。"
         actions={
-          <Button variant="primary" size="sm" onClick={() => setAiOpen(true)}>
-            <SparklesIcon size={18} />
-            AI 生成母框
-          </Button>
+          <>
+            <ButtonLink to="/listening" variant="secondary" size="sm">
+              <SpeakerIcon size={18} />
+              听力
+            </ButtonLink>
+            <Button variant="primary" size="sm" onClick={() => setAiOpen(true)}>
+              <SparklesIcon size={18} />
+              AI 生成母框
+            </Button>
+          </>
         }
       />
 

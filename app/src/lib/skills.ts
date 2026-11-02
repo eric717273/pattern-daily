@@ -13,6 +13,7 @@ const SOUND_WINDOW = 120;
 const WEAK_CATEGORY_MIN_N = 4;
 const WEAK_CATEGORY_MAX_ACC = 0.88;
 const WEAK_CATEGORY_COUNT = 3;
+const MISSED_PER_CATEGORY = 3;
 
 export interface LevelStat {
   n: number;
@@ -34,6 +35,8 @@ export interface SkillStat {
 
 export interface CategoryStat extends LevelStat {
   category: FunctionCategory;
+  /** Card ids ('chunk:c001') answered wrongly in this category, most recent first, at most 3 distinct. */
+  missedCardIds: string[];
 }
 
 export interface SoundErrorStat {
@@ -156,18 +159,24 @@ export function computeSkillStats(
     bySkill[skill] = skillStat(rows.filter((r) => r.skill === skill));
   }
 
-  const perCategory = new Map<FunctionCategory, { n: number; ok: number }>();
+  const perCategory = new Map<FunctionCategory, { n: number; ok: number; missed: string[] }>();
   const chunkRows = rows.filter((r) => r.cardId.startsWith('chunk:') || r.cardId.startsWith('frame:')).slice(-CATEGORY_WINDOW);
   for (const r of chunkRows) {
     const category = lookup.categoryOf(r.cardId);
     if (!category) continue;
-    const e = perCategory.get(category) ?? { n: 0, ok: 0 };
+    const e = perCategory.get(category) ?? { n: 0, ok: 0, missed: [] };
     e.n++;
     if (r.correct) e.ok++;
+    else e.missed.unshift(r.cardId); // rows are oldest first, so unshift keeps the newest first
     perCategory.set(category, e);
   }
   const categories: CategoryStat[] = [...perCategory.entries()]
-    .map(([category, e]) => ({ category, n: e.n, acc: e.ok / e.n }))
+    .map(([category, e]) => ({
+      category,
+      n: e.n,
+      acc: e.ok / e.n,
+      missedCardIds: [...new Set(e.missed)].slice(0, MISSED_PER_CATEGORY),
+    }))
     .sort((a, b) => b.acc - a.acc || b.n - a.n || (a.category < b.category ? -1 : 1));
   const weakestCategories = categories
     .filter((c) => c.n >= WEAK_CATEGORY_MIN_N && c.acc < WEAK_CATEGORY_MAX_ACC)

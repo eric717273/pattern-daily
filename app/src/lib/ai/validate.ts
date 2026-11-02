@@ -268,3 +268,47 @@ export function validateChunkPrompts(u: unknown, count: number, targetIds: reado
     };
   });
 }
+
+// ---------- Coach report ----------
+
+export interface CoachFields {
+  summaryZh: string;
+  strengthsZh: string[];
+  weaknessesZh: string[];
+  nextWeekFocusZh: string[];
+  tipsZh: string[];
+  suggestedNewPerDay?: number;
+}
+
+const CJK = /[㐀-鿿]/;
+const COACH_LIST_MAX = { strengthsZh: 5, weaknessesZh: 5, nextWeekFocusZh: 4, tipsZh: 6 } as const;
+
+function chineseList(v: unknown, path: string, max: number, required: boolean): string[] {
+  if (v === undefined || v === null) {
+    if (required) fail(path, '缺少该字段');
+    return [];
+  }
+  const items = arr(v, path)
+    .filter((x): x is string => typeof x === 'string' && CJK.test(x))
+    .map((x) => x.trim())
+    .slice(0, max);
+  if (required && items.length === 0) fail(path, '至少需要一条中文内容');
+  return items;
+}
+
+/** Validates an AI weekly report: Chinese text, bounded lists, tips required, suggestedNewPerDay clamped to 3-12. */
+export function validateCoachReport(u: unknown): CoachFields {
+  const o = obj(u, 'report');
+  const summaryZh = nonEmptyStr(o.summaryZh, 'summaryZh');
+  if (!CJK.test(summaryZh)) fail('summaryZh', '应为中文');
+  const out: CoachFields = {
+    summaryZh,
+    strengthsZh: chineseList(o.strengthsZh, 'strengthsZh', COACH_LIST_MAX.strengthsZh, false),
+    weaknessesZh: chineseList(o.weaknessesZh, 'weaknessesZh', COACH_LIST_MAX.weaknessesZh, false),
+    nextWeekFocusZh: chineseList(o.nextWeekFocusZh, 'nextWeekFocusZh', COACH_LIST_MAX.nextWeekFocusZh, true),
+    tipsZh: chineseList(o.tipsZh, 'tipsZh', COACH_LIST_MAX.tipsZh, true),
+  };
+  const n = o.suggestedNewPerDay;
+  if (typeof n === 'number' && Number.isFinite(n)) out.suggestedNewPerDay = Math.min(12, Math.max(3, Math.round(n)));
+  return out;
+}

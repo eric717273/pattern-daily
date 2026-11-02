@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import type { DozenSentence, ItemRef } from '../types';
+import type { Dialogue, DozenSentence, ItemRef, SoundPattern } from '../types';
 
 // vi.mock is hoisted above the imports, so the synthetic content has to be built in vi.hoisted too.
 const mocked = vi.hoisted(() => ({ dozen: [] as DozenSentence[] }));
@@ -10,7 +10,19 @@ vi.mock('../content', () => ({
   },
 }));
 
-import { clampNewPerDay, dayIndexFor, getDayPlan, itemKey, todayStr } from './plan';
+import {
+  clampNewPerDay,
+  dayIndexFor,
+  getDayPlan,
+  getDayPlanV3,
+  itemKey,
+  pickDialogues,
+  pickSound,
+  requiredSteps,
+  splitBudget,
+  todayStr,
+  type PlanV3Input,
+} from './plan';
 
 function makeDozen(): DozenSentence[] {
   return Array.from({ length: 13 }, (_, i) => ({
@@ -181,5 +193,169 @@ describe('getDayPlan: chunk track', () => {
     expect([...introduced]).toEqual(['chunk:c01']);
     a.newItems[0].id = 'changed';
     expect(cur[1].id).not.toBe('changed'); // returned refs are copies
+  });
+});
+
+// ---------- v3 plan ----------
+
+function dlg(id: string, tier: 1 | 2 | 3, scene: Dialogue['scene'] = 'daily'): Dialogue {
+  return {
+    id,
+    title: id,
+    scene,
+    category: 'greeting',
+    tier,
+    turns: [],
+    chunkIds: [],
+    gist: { questionZh: '?', optionsZh: ['a', 'b', 'c'], answer: 0 },
+    blanks: [],
+  };
+}
+function snd(id: string, level: 1 | 2 | 3): SoundPattern {
+  return { id, name: id, kind: 'linking', level, explanationZh: 'x', examples: [] };
+}
+
+describe('splitBudget', () => {
+  it('splits 25/25/25/10/15 percent and always sums to the daily minutes', () => {
+    expect(splitBudget(20)).toEqual({ review: 5, chunks: 5, listening: 5, decode: 2, output: 3 });
+    for (let m = 15; m <= 30; m++) {
+      const b = splitBudget(m);
+      expect(Object.values(b).reduce((a, c) => a + c, 0)).toBe(m);
+      expect(Math.abs(b.review - m * 0.25)).toBeLessThan(1);
+      expect(Math.abs(b.decode - m * 0.1)).toBeLessThan(1);
+      expect(Math.abs(b.output - m * 0.15)).toBeLessThan(1);
+    }
+  });
+  it('largest remainders get the spare minutes (15 and 25 min)', () => {
+    expect(splitBudget(15)).toEqual({ review: 4, chunks: 4, listening: 4, decode: 1, output: 2 });
+    expect(splitBudget(25)).toEqual({ review: 6, chunks: 6, listening: 6, decode: 3, output: 4 });
+    expect(splitBudget(30)).toEqual({ review: 8, chunks: 8, listening: 7, decode: 3, output: 4 });
+  });
+  it('is safe for zero / fractional input', () => {
+    expect(Object.values(splitBudget(0)).every((v) => v === 0)).toBe(true);
+    expect(Object.values(splitBudget(17.6)).reduce((a, c) => a + c, 0)).toBe(18);
+  });
+});
+
+describe('pickDialogues', () => {
+  const dialogues = [dlg('dl001', 1, 'travel'), dlg('dl002', 1, 'work'), dlg('dl003', 1, 'daily'), dlg('dl004', 1, 'work'), dlg('dl050', 2, 'work')];
+  const base = { dialogues, tier: 1 as const, count: 2, scenes: ['work', 'daily'] as const, heardAt: new Map<string, number>() };
+
+  it('prefers unheard dialogues of the tier, preferred scenes first, then id order', () => {
+    expect(pickDialogues(base)).toEqual(['dl002', 'dl003']);
+    expect(pickDialogues({ ...base, count: 1 })).toEqual(['dl002']);
+    expect(pickDialogues({ ...base, scenes: [] })).toEqual(['dl001', 'dl002']);
+  });
+  it('skips dialogues already heard', () => {
+    expect(pickDialogues({ ...base, heardAt: new Map([['dl002', 5], ['dl003', 6]]) })).toEqual(['dl004', 'dl001']);
+  });
+  it('recycles the least recently heard when too few are left', () => {
+    const heard = new Map([['dl001', 300], ['dl002', 100], ['dl003', 200]]);
+    expect(pickDialogues({ ...base, heardAt: heard })).toEqual(['dl004', 'dl002']); // one fresh + oldest recycled
+    const all = new Map([['dl001', 300], ['dl002', 100], ['dl003', 200], ['dl004', 400]]);
+    expect(pickDialogues({ ...base, heardAt: all })).toEqual(['dl002', 'dl003']);
+  });
+  it('only uses the requested tier and tolerates an empty tier', () => {
+    expect(pickDialogues({ ...base, tier: 2 })).toEqual(['dl050']);
+    expect(pickDialogues({ ...base, tier: 3 })).toEqual([]);
+  });
+});
+
+describe('pickSound', () => {
+  const sounds = [snd('s02', 1), snd('s01', 1), snd('s10', 2), snd('s03', 3)];
+  it('takes the next unintroduced pattern by level then id', () => {
+    expect(pickSound(sounds, new Set(), [])).toBe('s01');
+    expect(pickSound(sounds, new Set(['s01']), [])).toBe('s02');
+    expect(pickSound(sounds, new Set(['s01', 's02']), [])).toBe('s10');
+    expect(pickSound(sounds, new Set(['s01', 's02', 's10']), [])).toBe('s03');
+  });
+  it('falls back to the longest-due sound card, then nothing', () => {
+    const all = new Set(['s01', 's02', 's03', 's10']);
+    expect(pickSound(sounds, all, ['s10', 's01'])).toBe('s10');
+    expect(pickSound(sounds, all, [])).toBeUndefined();
+    expect(pickSound([], new Set(), [])).toBeUndefined();
+  });
+});
+
+describe('requiredSteps', () => {
+  it('v3 plans need 5 steps, v2 plans 4', () => {
+    expect(requiredSteps(undefined)).toEqual(['review', 'chunks', 'decode', 'output']);
+    expect(requiredSteps({ dayIndex: 1, decode: { phase: 'foundation', dozenId: 'd01' }, newItems: [], outputCount: 3 })).toHaveLength(4);
+    expect(
+      requiredSteps({ dayIndex: 1, decode: { phase: 'foundation', dozenId: 'd01' }, newItems: [], outputCount: 3, listening: { dialogueIds: [], numbers: 3 } }),
+    ).toEqual(['review', 'chunks', 'listening', 'decode', 'output']);
+  });
+});
+
+describe('getDayPlanV3', () => {
+  function input(over: Partial<PlanV3Input> = {}): PlanV3Input {
+    return {
+      dayIndex: 3,
+      introduced: none,
+      curriculum: curriculum(),
+      ladder: { listen: 3, speak: 2, newPerDay: 7 },
+      dailyMinutes: 20,
+      dialogues: [dlg('dl001', 1), dlg('dl002', 1), dlg('dl050', 2), dlg('dl051', 2), dlg('dl100', 3)],
+      heardAt: new Map(),
+      scenes: ['daily'],
+      sounds: [snd('s01', 1), snd('s02', 1)],
+      introducedSounds: new Set(),
+      dueSoundIds: [],
+      edge: [],
+      checkpointDue: false,
+      ...over,
+    };
+  }
+
+  it('adds the v3 fields on top of the decode track', () => {
+    const p = getDayPlanV3(input());
+    expect(p.dayIndex).toBe(3);
+    expect(p.decode).toEqual({ phase: 'foundation', dozenId: 'd03' });
+    expect(p.outputCount).toBe(3);
+    expect(p.ladder).toEqual({ listen: 3, speak: 2, newPerDay: 7 });
+    expect(p.budgetMin).toEqual({ review: 5, chunks: 5, listening: 5, decode: 2, output: 3 });
+    expect(p.checkpointDue).toBe(false);
+    expect(p.edge).toEqual([]);
+  });
+
+  it('newPerDay comes from the ladder, up to 12 (v2 stops at 10)', () => {
+    expect(getDayPlanV3(input({ ladder: { listen: 1, speak: 1, newPerDay: 12 } })).newItems).toHaveLength(12);
+    expect(getDayPlanV3(input({ ladder: { listen: 1, speak: 1, newPerDay: 3 } })).newItems).toHaveLength(3);
+    expect(getDayPlanV3(input({ ladder: { listen: 1, speak: 1, newPerDay: 99 } })).ladder?.newPerDay).toBe(12);
+    expect(getDayPlanV3(input({ ladder: { listen: 1, speak: 1, newPerDay: 0 } })).ladder?.newPerDay).toBe(3);
+  });
+
+  it('new items skip introduced ones (fast-tracked chunks count as introduced)', () => {
+    const intro = new Set(['chunk:c01', 'chunk:c02']);
+    const p = getDayPlanV3(input({ introduced: intro, ladder: { listen: 1, speak: 1, newPerDay: 3 } }));
+    expect(p.newItems.map(itemKey)).toEqual(curriculum().filter((r) => !intro.has(itemKey(r))).slice(0, 3).map(itemKey));
+  });
+
+  it('listening: dialogues at the ladder tier, one sound, 3 numbers', () => {
+    const p = getDayPlanV3(input()); // L3 -> tier 2; listening block 5 min -> 1 dialogue
+    expect(p.listening).toEqual({ dialogueIds: ['dl050'], soundId: 's01', numbers: 3 });
+    const long = getDayPlanV3(input({ dailyMinutes: 25 })); // listening block 6 min -> 2 dialogues
+    expect(long.listening?.dialogueIds).toEqual(['dl050', 'dl051']);
+    expect(getDayPlanV3(input({ ladder: { listen: 7, speak: 1, newPerDay: 5 } })).listening?.dialogueIds).toEqual(['dl100']);
+  });
+
+  it('omits soundId when every pattern is introduced and none is due', () => {
+    const p = getDayPlanV3(input({ introducedSounds: new Set(['s01', 's02']) }));
+    expect(p.listening).toEqual({ dialogueIds: ['dl050'], numbers: 3 });
+    expect('soundId' in (p.listening ?? {})).toBe(false);
+  });
+
+  it('caps edge items at 5 and copies them', () => {
+    const edge: ItemRef[] = Array.from({ length: 8 }, (_, i) => ({ kind: 'chunk', id: `c${i}` }));
+    const p = getDayPlanV3(input({ edge, checkpointDue: true }));
+    expect(p.edge).toHaveLength(5);
+    expect(p.edge?.[0]).not.toBe(edge[0]);
+    expect(p.checkpointDue).toBe(true);
+  });
+
+  it('is deterministic and survives JSON (it is stored in the session)', () => {
+    const p = getDayPlanV3(input());
+    expect(getDayPlanV3(input())).toEqual(p);
+    expect(JSON.parse(JSON.stringify(p))).toEqual(p);
   });
 });

@@ -30,6 +30,7 @@ import {
 } from './validate';
 
 export { AiError } from './deepseek';
+export { buildCoachMessages, generateCoachReport, rulesCoachReport } from './coach';
 export type { AiErrorCode } from './deepseek';
 
 export interface Deconstruction {

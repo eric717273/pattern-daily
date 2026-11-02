@@ -88,6 +88,8 @@ void loadVoices();
 
 /** Keep a reference: Safari can garbage-collect an utterance mid-speech and never fire 'end'. */
 let current: SpeechSynthesisUtterance | null = null;
+/** Bumped by every speak() / stopSpeaking() so a running speakSequence() notices it was pre-empted. */
+let epoch = 0;
 
 /** Speak English text. Cancels any previous utterance. Resolves when finished (also on error / cancel). */
 export function speak(text: string, opts: { rate?: number } = {}): Promise<void> {
@@ -99,6 +101,7 @@ export function speak(text: string, opts: { rate?: number } = {}): Promise<void>
   // Must run synchronously inside the tap handler on iOS, so only use the voices already loaded.
   const voice = pickVoice(s.getVoices(), settings.ttsVoiceURI);
 
+  epoch++;
   return new Promise<void>((resolve) => {
     const u = new SpeechSynthesisUtterance(clean);
     u.lang = voice?.lang || 'en-US';
@@ -118,6 +121,7 @@ export function speak(text: string, opts: { rate?: number } = {}): Promise<void>
 }
 
 export function stopSpeaking(): void {
+  epoch++;
   const s = synth();
   if (s) s.cancel();
   current = null;
@@ -128,6 +132,130 @@ export function isSpeaking(): boolean {
   if (current !== null) return true;
   const s = synth();
   return s ? s.speaking : false;
+}
+
+// ---------- two-voice dialogue ----------
+
+const FEMALE_NAMES = /samantha|ava\b|allison|susan|victoria|karen|serena|kate|moira|tessa|fiona|zira|jenny|aria|nicky|joanna|salli|female/i;
+const MALE_NAMES = /\balex\b|daniel|\btom\b|evan|aaron|oliver|arthur|david|mark|guy|gordon|male|rishi/i;
+
+function isEnglishUsGb(v: SpeechSynthesisVoice): boolean {
+  const lang = v.lang.replace('_', '-').toLowerCase();
+  return (lang === 'en-us' || lang === 'en-gb') && !AVOID_NAMES.test(v.name);
+}
+
+/** Pure choice of two clearly different voices from `voices`: female + male when known, else two different voices. */
+export function choosePair(voices: SpeechSynthesisVoice[]): [SpeechSynthesisVoice | null, SpeechSynthesisVoice | null] {
+  const ranked = voices
+    .filter(isEnglishUsGb)
+    .sort((a, b) => voiceScore(b) - voiceScore(a) || a.name.localeCompare(b.name));
+  if (ranked.length === 0) return [null, null];
+  const female = ranked.find((v) => FEMALE_NAMES.test(v.name) && !MALE_NAMES.test(v.name));
+  const male = ranked.find((v) => MALE_NAMES.test(v.name));
+  if (female && male) return [female, male];
+  const first = female ?? male ?? ranked[0];
+  const other = ranked.find((v) => v.voiceURI !== first.voiceURI && v.name !== first.name);
+  // Same voice twice: speakSequence callers separate the speakers with pitch (see pairPitches).
+  return [first, other ?? first];
+}
+
+/** Two clearly different en-US / en-GB voices for speakers A and B (null = browser default). */
+export async function pickVoicePair(): Promise<[SpeechSynthesisVoice | null, SpeechSynthesisVoice | null]> {
+  return choosePair(await loadVoices());
+}
+
+/** Pitches (A, B) that keep two speakers apart: neutral when the voices differ, 1.2 / 0.8 when they are the same. */
+export function pairPitches(pair: readonly [SpeechSynthesisVoice | null, SpeechSynthesisVoice | null]): [number, number] {
+  const same = pair[0] === pair[1] || (pair[0] !== null && pair[1] !== null && pair[0].voiceURI === pair[1].voiceURI);
+  return same ? [1.2, 0.8] : [1, 1];
+}
+
+export interface SequenceLine {
+  text: string;
+  voice?: SpeechSynthesisVoice | null;
+  pitch?: number;
+}
+
+export interface SequenceOptions {
+  rate: number;
+  /** Silence between turns, default 350 ms. */
+  gapMs?: number;
+  /** Fired just before line `i` starts. */
+  onLine?: (i: number) => void;
+}
+
+/**
+ * Play lines one after another, each with its own voice / pitch. Cancel-safe: `stop()` (or any other speak() /
+ * stopSpeaking() call) ends the sequence and resolves `done`. Every line has a watchdog because Safari sometimes
+ * never fires `end`, and utterances are kept referenced so Safari cannot garbage-collect them mid-speech.
+ */
+export function speakSequence(lines: SequenceLine[], opts: SequenceOptions): { done: Promise<void>; stop(): void } {
+  const s = synth();
+  const gap = opts.gapMs ?? 350;
+  const rate = Math.min(1.5, Math.max(0.5, opts.rate));
+  epoch++;
+  const myEpoch = epoch;
+  let stopped = false;
+  let wake: (() => void) | null = null;
+
+  const stop = () => {
+    if (stopped) return;
+    stopped = true;
+    if (s && epoch === myEpoch) {
+      epoch++;
+      s.cancel();
+    }
+    current = null;
+    wake?.();
+  };
+  const alive = () => !stopped && epoch === myEpoch;
+
+  /** Resolves on `fire()`, after `ms`, or when stop() is called. */
+  const wait = (ms: number, register: (fire: () => void) => void = () => undefined) =>
+    new Promise<void>((resolve) => {
+      const timer = setTimeout(fire, ms);
+      function fire() {
+        clearTimeout(timer);
+        if (wake === fire) wake = null;
+        resolve();
+      }
+      wake = fire;
+      register(fire);
+    });
+
+  const run = async (): Promise<void> => {
+    if (!s || typeof SpeechSynthesisUtterance === 'undefined') return;
+    s.cancel();
+    for (let i = 0; i < lines.length && alive(); i++) {
+      const line = lines[i];
+      const text = line.text.trim();
+      if (text === '') continue;
+      opts.onLine?.(i);
+      const u = new SpeechSynthesisUtterance(text);
+      u.lang = line.voice?.lang || 'en-US';
+      if (line.voice) u.voice = line.voice;
+      u.rate = rate;
+      if (line.pitch !== undefined) u.pitch = Math.min(2, Math.max(0, line.pitch));
+      current = u;
+      const budget = (text.length * 90) / rate + 4000;
+      let cancelled = false;
+      await wait(budget, (fire) => {
+        u.onend = fire;
+        u.onerror = (e) => {
+          if (e.error === 'canceled' || e.error === 'interrupted') cancelled = true;
+          fire();
+        };
+        s.speak(u);
+      });
+      if (current === u) current = null;
+      if (cancelled) stopped = true;
+      if (!alive()) break;
+      if (i < lines.length - 1 && gap > 0) await wait(gap);
+    }
+  };
+
+  const done = run().catch(() => undefined);
+  return { done, stop };
 }
 
 // ---------- recognition ----------

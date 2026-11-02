@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import type { Chunk, ItemRef, StepKey, SubstitutionFrame } from '../types';
+import type { Assessment, Chunk, CoachReport, Dialogue, Goal, ItemRef, ReviewLog, SoundPattern, StepKey, SubstitutionFrame } from '../types';
 
 vi.mock('../content', () => {
   const frame = (id: string): SubstitutionFrame => ({
@@ -23,21 +23,38 @@ vi.mock('../content', () => {
     register: 'neutral',
     examples: [],
   });
+  const chunkList = [
+    chunk('c001', 'greeting'),
+    chunk('c002', 'greeting'),
+    chunk('c003', 'work'),
+    chunk('c004', 'work'),
+    chunk('c005', 'travel'),
+    chunk('c006', 'travel'),
+    chunk('c007', 'social'),
+  ];
+  const seedFrames = [
+    { ...frame('f001'), category: 'work' as const, freq: 1 as const },
+    { ...frame('f002'), category: 'travel' as const, freq: 2 as const },
+  ];
+  const dialogue = (id: string, tier: 1 | 2 | 3, scene: 'daily' | 'work'): Dialogue => ({
+    id,
+    title: id,
+    scene,
+    category: 'greeting',
+    tier,
+    turns: [],
+    chunkIds: [],
+    gist: { questionZh: '?', optionsZh: ['a', 'b', 'c'], answer: 0 },
+    blanks: [],
+  });
+  const sound = (id: string, level: 1 | 2 | 3): SoundPattern => ({ id, name: id, kind: 'linking', level, explanationZh: 'x', examples: [] });
   return {
     DOZEN: [],
     SEED_FRAMES: [
       { ...frame('f001'), category: 'work', freq: 1 },
       { ...frame('f002'), category: 'travel', freq: 2 },
     ],
-    CHUNKS: [
-      chunk('c001', 'greeting'),
-      chunk('c002', 'greeting'),
-      chunk('c003', 'work'),
-      chunk('c004', 'work'),
-      chunk('c005', 'travel'),
-      chunk('c006', 'travel'),
-      chunk('c007', 'social'),
-    ],
+    CHUNKS: chunkList,
     CURRICULUM: [
       { kind: 'chunk', id: 'c001' },
       { kind: 'chunk', id: 'c002' },
@@ -50,6 +67,17 @@ vi.mock('../content', () => {
       { kind: 'chunk', id: 'c007' },
     ] satisfies ItemRef[],
     getDozen: () => undefined,
+    DIALOGUES: [
+      dialogue('dl001', 1, 'daily'),
+      dialogue('dl002', 1, 'work'),
+      dialogue('dl003', 1, 'work'),
+      dialogue('dl050', 2, 'work'),
+    ],
+    SOUNDS: [sound('s01', 1), sound('s02', 1), sound('s03', 2)],
+    getChunk: (id: string) => chunkList.find((c) => c.id === id),
+    getSeedFrame: (id: string) => seedFrames.find((f) => f.id === id),
+    getSound: (id: string) => [sound('s01', 1), sound('s02', 1), sound('s03', 2)].find((x) => x.id === id),
+    getDialogue: () => undefined,
   };
 });
 
@@ -63,17 +91,29 @@ import {
   getLibraryProgress,
   getOrCreateProfile,
   getOrCreateSession,
+  getCoachInput,
+  getDaySummaryV3,
+  getEdgeItems,
+  getGoalProgress,
+  getSkillStats,
   getStats,
   getTodayDayIndex,
   gradeCard,
   importData,
   introduceItems,
+  introduceKnown,
+  introduceSound,
   listAttempts,
   listUserFrames,
   localChanges,
+  logMeasurement,
   markStepDone,
+  runAdaptation,
+  saveAssessment,
   saveAttempt,
+  saveCoachReport,
   saveUserFrame,
+  setGoal,
   updateProfile,
 } from './repo';
 
@@ -722,5 +762,517 @@ describe('export / import', () => {
       }),
     );
     expect((await db.cards.get('dozen:d09'))?._dirty).toBe(1);
+  });
+});
+
+// ---------- v3: deliberate practice ----------
+
+function makeGoal(over: Partial<Goal> = {}): Goal {
+  return { focus: 'speaking-listening', horizonDays: 30, dailyMinutes: 20, startDate: ymd(new Date()), startLesson: 1, ...over };
+}
+
+function placementOf(over: Partial<Assessment> = {}): Assessment {
+  return {
+    id: 'placement-1',
+    date: '2026-05-01',
+    kind: 'placement',
+    listenLevel: 4,
+    listenAcc: 0.8,
+    speakLevel: 3,
+    speakAcc: 0.8,
+    bandAcc: { 1: 1 },
+    levelZh: '进阶',
+    ...over,
+  };
+}
+
+async function measured(n: number, over: Partial<Parameters<typeof logMeasurement>[0]> = {}, correct = true): Promise<void> {
+  for (let i = 0; i < n; i++) {
+    await logMeasurement({ cardId: 'dialogue:dl001', skill: 'listen', correct, mode: 'dialogue', durationMs: 1000, ...over });
+  }
+}
+
+describe('gradeCard measurement', () => {
+  it('stores optional measurement fields on the ReviewLog', async () => {
+    await ensureCards('chunk', ['c001']);
+    await gradeCard('chunk:c001', 2, 'recall', 3000, { skill: 'speak', correct: true, latencyMs: 2100, level: 3 });
+    const log = (await db.reviews.toArray())[0];
+    expect(log).toMatchObject({ cardId: 'chunk:c001', grade: 2, mode: 'recall', skill: 'speak', correct: true, latencyMs: 2100, level: 3 });
+  });
+
+  it('is backward compatible: without measurement the log has no measurement keys', async () => {
+    await ensureCards('chunk', ['c001']);
+    await gradeCard('chunk:c001', 2, 'review', 3000);
+    const log = (await db.reviews.toArray())[0];
+    for (const k of ['skill', 'correct', 'latencyMs', 'level']) expect(k in log).toBe(false);
+  });
+
+  it('skips undefined measurement fields', async () => {
+    await ensureCards('chunk', ['c001']);
+    await gradeCard('chunk:c001', 0, 'review', 1000, { skill: 'listen', correct: false, latencyMs: undefined });
+    const log = (await db.reviews.toArray())[0];
+    expect(log.skill).toBe('listen');
+    expect('latencyMs' in log).toBe(false);
+  });
+});
+
+describe('logMeasurement', () => {
+  it('writes a dirty log with default grade 2 / 0 and never touches SRS state', async () => {
+    const a = await logMeasurement({ cardId: 'numbers:price', skill: 'listen', correct: true, mode: 'numbers', durationMs: 4000, latencyMs: 1500, level: 3 });
+    const b = await logMeasurement({ cardId: 'dialogue:dl001', skill: 'listen', correct: false, mode: 'dialogue', durationMs: 5000 });
+    expect(a).toMatchObject({ cardId: 'numbers:price', grade: 2, skill: 'listen', correct: true, latencyMs: 1500, level: 3, mode: 'numbers', _dirty: 1 });
+    expect(b.grade).toBe(0);
+    expect('latencyMs' in b).toBe(false);
+    expect(await db.cards.count()).toBe(0);
+    expect(await db.reviews.count()).toBe(2);
+  });
+
+  it('an explicit grade wins and a real card keeps its schedule', async () => {
+    await ensureCards('chunk', ['c001']);
+    const before = await db.cards.get('chunk:c001');
+    const log = await logMeasurement({ cardId: 'chunk:c001', skill: 'speak', correct: true, mode: 'recall', durationMs: 900, grade: 3 });
+    expect(log.grade).toBe(3);
+    expect(await db.cards.get('chunk:c001')).toEqual(before);
+  });
+
+  it('notifies listeners', async () => {
+    await logMeasurement({ cardId: 'numbers:time', skill: 'listen', correct: true, mode: 'numbers', durationMs: 1 });
+    expect(changes).toBeGreaterThan(0);
+  });
+});
+
+describe('introduceSound / introduceKnown', () => {
+  it('introduceSound creates a due sound card once', async () => {
+    await introduceSound('s01');
+    await introduceSound('s01');
+    const c = await db.cards.get('sound:s01');
+    expect(c).toMatchObject({ kind: 'sound', refId: 's01', reps: 0 });
+    expect(await db.cards.count()).toBe(1);
+  });
+
+  it('introduceKnown makes already-known cards with a 7-day first interval, leaving existing cards alone', async () => {
+    await ensureCards('chunk', ['c002']);
+    await db.cards.update('chunk:c002', { reps: 5, interval: 20 });
+    const before = Date.now();
+    await introduceKnown([{ kind: 'chunk', id: 'c001' }, { kind: 'chunk', id: 'c002' }, { kind: 'chunk', id: 'c001' }]);
+    const c1 = await db.cards.get('chunk:c001');
+    expect(c1).toMatchObject({ reps: 1, interval: 7, _dirty: 1 });
+    expect(c1?.due).toBeGreaterThanOrEqual(before + 7 * DAY);
+    expect(c1?.due).toBeLessThan(Date.now() + 7 * DAY + 1000);
+    expect(await db.cards.get('chunk:c002')).toMatchObject({ reps: 5, interval: 20 });
+    expect((await getDueCards(Date.now() + DAY, 10)).map((c) => c.id)).toEqual(['chunk:c002']); // c001 is not due until day 7
+  });
+});
+
+describe('v2 plan without a goal is unchanged', () => {
+  it('has 4 steps and no v3 fields', async () => {
+    const date = '2026-03-01';
+    const s = await getOrCreateSession(date);
+    expect(s.plan?.listening).toBeUndefined();
+    expect(s.plan?.ladder).toBeUndefined();
+    expect(s.plan?.budgetMin).toBeUndefined();
+    expect(s.plan?.edge).toBeUndefined();
+    expect(s.plan?.newItems).toHaveLength(5);
+    for (const step of ALL_STEPS.slice(0, 3)) expect((await markStepDone(date, step, 0)).completedAt).toBeUndefined();
+    expect((await markStepDone(date, 'output', 0)).completedAt).toBeDefined();
+  });
+});
+
+describe('v3 session plan', () => {
+  it('builds the v3 plan when the profile has a goal', async () => {
+    await setGoal(makeGoal({ dailyMinutes: 20 }));
+    const s = await getOrCreateSession('2026-03-02');
+    const plan = s.plan;
+    expect(plan?.ladder).toEqual({ listen: 1, speak: 1, newPerDay: 5 });
+    expect(plan?.budgetMin).toEqual({ review: 5, chunks: 5, listening: 5, decode: 2, output: 3 });
+    expect(plan?.newItems).toHaveLength(5);
+    // L1 -> tier 1 dialogues; 5 listening minutes -> 1 dialogue; default scenes work+daily
+    expect(plan?.listening).toEqual({ dialogueIds: ['dl001'], soundId: 's01', numbers: 3 });
+    expect(plan?.edge).toEqual([]);
+    expect(plan?.checkpointDue).toBe(false);
+  });
+
+  it('a 25-minute day gets two dialogues', async () => {
+    await setGoal(makeGoal({ dailyMinutes: 25 }));
+    const s = await getOrCreateSession('2026-03-02');
+    expect(s.plan?.listening?.dialogueIds).toEqual(['dl001', 'dl002']);
+  });
+
+  it('prefers the scenes in the profile', async () => {
+    await updateProfile({ scenes: ['work'] });
+    await setGoal(makeGoal());
+    expect((await getOrCreateSession('2026-03-02')).plan?.listening?.dialogueIds).toEqual(['dl002']);
+  });
+
+  it('uses the ladder of profile.adaptive: tier from the listening level, newPerDay from the ladder', async () => {
+    await setGoal(makeGoal());
+    await updateProfile({ adaptive: { ladder: { listen: 4, speak: 3, newPerDay: 8 }, lastChange: {}, history: [] } });
+    const plan = (await getOrCreateSession('2026-03-02')).plan;
+    expect(plan?.ladder).toEqual({ listen: 4, speak: 3, newPerDay: 8 });
+    expect(plan?.newItems).toHaveLength(8);
+    expect(plan?.listening?.dialogueIds).toEqual(['dl050']);
+  });
+
+  it('the plan is frozen, and the day needs all 5 steps', async () => {
+    await setGoal(makeGoal());
+    const date = '2026-03-02';
+    const first = await getOrCreateSession(date);
+    for (const step of ['review', 'chunks', 'decode', 'output'] as const) {
+      const s = await markStepDone(date, step, 1000);
+      expect(s.completedAt).toBeUndefined();
+    }
+    const done = await markStepDone(date, 'listening', 1000);
+    expect(done.completedAt).toBeDefined();
+    expect(done.plan).toEqual(first.plan);
+    expect(done.stepsDone).toHaveLength(5);
+  });
+
+  it('listening alone does not complete a v3 day, and a v2 day ignores nothing', async () => {
+    await setGoal(makeGoal());
+    const date = '2026-03-03';
+    await getOrCreateSession(date);
+    for (const step of ['review', 'chunks', 'decode', 'output'] as const) await markStepDone(date, step, 0);
+    expect((await db.sessions.get(date))?.completedAt).toBeUndefined();
+    expect((await markStepDone(date, 'listening', 0)).completedAt).toBeDefined();
+  });
+
+  it('prefers dialogues not yet heard, recycles the least recently heard when a tier is exhausted', async () => {
+    await setGoal(makeGoal({ dailyMinutes: 25 }));
+    await logMeasurement({ cardId: 'dialogue:dl002', skill: 'listen', correct: true, mode: 'dialogue', durationMs: 1 });
+    expect((await getOrCreateSession('2026-03-04')).plan?.listening?.dialogueIds).toEqual(['dl001', 'dl003']);
+    await db.reviews.clear();
+    const t = Date.now();
+    await db.reviews.bulkAdd([
+      { id: 'a', cardId: 'dialogue:dl001', grade: 2, mode: 'dialogue', reviewedAt: t - 3000, durationMs: 1, updatedAt: 0 },
+      { id: 'b', cardId: 'dialogue:dl002', grade: 2, mode: 'dialogue', reviewedAt: t - 9000, durationMs: 1, updatedAt: 0 },
+      { id: 'c', cardId: 'dialogue:dl003', grade: 2, mode: 'dialogue', reviewedAt: t - 5000, durationMs: 1, updatedAt: 0 },
+    ]);
+    expect((await getOrCreateSession('2026-03-05')).plan?.listening?.dialogueIds).toEqual(['dl002', 'dl003']);
+  });
+
+  it('sound pattern: next unintroduced by level order, then a due sound card', async () => {
+    await setGoal(makeGoal());
+    expect((await getOrCreateSession('2026-03-06')).plan?.listening?.soundId).toBe('s01');
+    await introduceSound('s01');
+    expect((await getOrCreateSession('2026-03-07')).plan?.listening?.soundId).toBe('s02');
+    await introduceSound('s02');
+    await introduceSound('s03');
+    await db.cards.update('sound:s02', { due: Date.now() - 5000 });
+    await db.cards.update('sound:s01', { due: Date.now() + 5 * DAY });
+    await db.cards.update('sound:s03', { due: Date.now() + 5 * DAY });
+    expect((await getOrCreateSession('2026-03-08')).plan?.listening?.soundId).toBe('s02');
+    await db.cards.update('sound:s02', { due: Date.now() + 5 * DAY });
+    const last = (await getOrCreateSession('2026-03-09')).plan?.listening;
+    expect(last && 'soundId' in last).toBe(false);
+  });
+
+  it('edge items from recent lapses are put in the plan (max 5)', async () => {
+    await setGoal(makeGoal());
+    await ensureCards('chunk', ['c001', 'c002', 'c003']);
+    await gradeCard('chunk:c002', 0, 'review', 1000);
+    await gradeCard('chunk:c003', 2, 'review', 1000);
+    const plan = (await getOrCreateSession('2026-03-10')).plan;
+    expect(plan?.edge).toEqual([{ kind: 'chunk', id: 'c002' }]);
+  });
+
+  it('introduced cards are not offered as new items again', async () => {
+    await setGoal(makeGoal());
+    await introduceKnown([{ kind: 'chunk', id: 'c001' }, { kind: 'chunk', id: 'c002' }]);
+    const plan = (await getOrCreateSession('2026-03-11')).plan;
+    expect(plan?.newItems.map((r) => r.id)).not.toContain('c001');
+    expect(plan?.newItems.map((r) => r.id)).not.toContain('c002');
+    expect(plan?.newItems[0]).toEqual({ kind: 'frame', id: 'f001' });
+  });
+
+  it('checkpointDue after 7 completed lessons since the last assessment', async () => {
+    await setGoal(makeGoal());
+    await saveAssessment(placementOf({ date: '2026-01-01' }));
+    const dates = Array.from({ length: 7 }, (_, i) => `2026-01-${String(i + 2).padStart(2, '0')}`);
+    for (const d of dates.slice(0, 6)) await db.sessions.put({ id: d, date: d, dayIndex: 1, stepsDone: [], activeMs: 0, updatedAt: 1, completedAt: 1 });
+    expect((await getOrCreateSession('2026-02-01')).plan?.checkpointDue).toBe(false);
+    await db.sessions.put({ id: dates[6], date: dates[6], dayIndex: 1, stepsDone: [], activeMs: 0, updatedAt: 1, completedAt: 1 });
+    expect((await getOrCreateSession('2026-02-02')).plan?.checkpointDue).toBe(true);
+  });
+
+  it('a session created before the goal gets a v3 plan once it is rebuilt (setGoal drops an unstarted plan)', async () => {
+    const today = ymd(new Date());
+    const before = await getOrCreateSession(today);
+    expect(before.plan?.listening).toBeUndefined();
+    await setGoal(makeGoal());
+    expect((await db.sessions.get(today))?.plan).toBeUndefined();
+    expect((await getOrCreateSession(today)).plan?.listening).toBeDefined();
+  });
+
+  it('setGoal keeps the plan of a day that has already started', async () => {
+    const today = ymd(new Date());
+    await getOrCreateSession(today);
+    await markStepDone(today, 'review', 1000);
+    await setGoal(makeGoal());
+    expect((await db.sessions.get(today))?.plan).toBeDefined();
+  });
+});
+
+describe('setGoal', () => {
+  it('stores the goal, syncs dailyMinutes and creates the controller state', async () => {
+    const p = await setGoal(makeGoal({ dailyMinutes: 25, horizonDays: 60 }));
+    expect(p.goal?.horizonDays).toBe(60);
+    expect(p.dailyMinutes).toBe(25);
+    expect(p.adaptive).toEqual({ ladder: { listen: 1, speak: 1, newPerDay: 5 }, lastChange: {}, history: [] });
+    expect(p._dirty).toBe(1);
+  });
+
+  it('seeds the ladder newPerDay from the profile and keeps an existing controller state', async () => {
+    await updateProfile({ newPerDay: 8 });
+    expect((await setGoal(makeGoal())).adaptive?.ladder.newPerDay).toBe(8);
+    const state = { ladder: { listen: 5, speak: 4, newPerDay: 9 }, lastChange: { listen: '2026-01-01' }, history: [] };
+    await updateProfile({ adaptive: state });
+    expect((await setGoal(makeGoal({ dailyMinutes: 30 }))).adaptive).toEqual(state);
+  });
+});
+
+describe('getSkillStats / getEdgeItems', () => {
+  it('computes rolling statistics from the logs', async () => {
+    await measured(10, {}, true);
+    await measured(10, { skill: 'speak', cardId: 'chunk:c003', mode: 'recall', latencyMs: 2500 }, true);
+    await measured(5, { skill: 'speak', cardId: 'chunk:c003', mode: 'recall' }, false);
+    await logMeasurement({ cardId: 'sound:s01', skill: 'listen', correct: false, mode: 'sound', durationMs: 1 });
+    const s = await getSkillStats();
+    expect(s.bySkill.listen).toMatchObject({ n: 11 });
+    expect(s.bySkill.speak).toMatchObject({ n: 15, medianLatencyMs: 2500 });
+    expect(s.bySkill.speak.acc).toBeCloseTo(10 / 15);
+    expect(s.categories.find((c) => c.category === 'work')).toMatchObject({ n: 15 });
+    expect(s.soundErrors).toEqual([{ soundId: 's01', name: 's01', kind: 'linking', attempts: 1, errors: 1 }]);
+  });
+
+  it('getEdgeItems finds lapsed items', async () => {
+    await ensureCards('chunk', ['c001', 'c002']);
+    await gradeCard('chunk:c001', 0, 'review', 1000);
+    await gradeCard('chunk:c002', 2, 'review', 1000);
+    expect(await getEdgeItems()).toEqual([{ kind: 'chunk', id: 'c001' }]);
+    expect(await getEdgeItems(Date.now(), 0)).toEqual([]);
+  });
+});
+
+describe('runAdaptation', () => {
+  it('does nothing without a goal', async () => {
+    await measured(30, {}, true);
+    expect(await runAdaptation('2026-03-01')).toEqual([]);
+    expect((await db.profile.get('profile'))?.adaptive).toBeUndefined();
+  });
+
+  it('raises the listening level on high accuracy, saves state + history and syncs profile.newPerDay', async () => {
+    await setGoal(makeGoal({ dailyMinutes: 30 }));
+    await measured(20, { level: 1 }, true);
+    const changes = await runAdaptation('2026-03-01');
+    const listen = changes.find((c) => c.dimension === 'listen');
+    expect(listen).toMatchObject({ from: 1, to: 2, date: '2026-03-01' });
+    expect(listen?.reasonZh).toContain('听力正确率 100% > 88%');
+    const profile = await db.profile.get('profile');
+    expect(profile?.adaptive?.ladder.listen).toBe(2);
+    expect(profile?.adaptive?.lastChange.listen).toBe('2026-03-01');
+    expect(profile?.adaptive?.history.map((c) => c.dimension)).toContain('listen');
+    expect(profile?.newPerDay).toBe(profile?.adaptive?.ladder.newPerDay);
+  });
+
+  it('is idempotent for the same day and respects the 2-day rule', async () => {
+    await setGoal(makeGoal());
+    await measured(20, {}, true);
+    const first = await runAdaptation('2026-03-01');
+    expect(first.length).toBeGreaterThan(0);
+    expect(await runAdaptation('2026-03-01')).toEqual([]);
+    expect(await runAdaptation('2026-03-02')).toEqual([]);
+    expect((await runAdaptation('2026-03-03')).find((c) => c.dimension === 'listen')).toMatchObject({ from: 2, to: 3 });
+  });
+
+  it('lowers newPerDay from the time budget using the dues and the averages from the logs', async () => {
+    await setGoal(makeGoal({ dailyMinutes: 15 }));
+    await updateProfile({ adaptive: { ladder: { listen: 1, speak: 1, newPerDay: 8 }, lastChange: {}, history: [] } });
+    const changes = await runAdaptation('2026-03-01');
+    const n = changes.find((c) => c.dimension === 'newPerDay');
+    // 15 min: blocks 4/4/4/1/2 -> fixed 7 min -> 480 s spare, nothing due -> 480 / 90 = 5
+    expect(n).toMatchObject({ from: 8, to: 5 });
+  });
+
+  it('counts cards due by tomorrow as the review load', async () => {
+    await setGoal(makeGoal({ dailyMinutes: 30 }));
+    await updateProfile({ adaptive: { ladder: { listen: 1, speak: 1, newPerDay: 10 }, lastChange: {}, history: [] } });
+    await ensureCards('chunk', ['c001', 'c002', 'c003', 'c004', 'c005', 'c006', 'c007']);
+    await ensureCards('frame', ['f001', 'f002']);
+    await ensureCards('sound', ['s01']); // not a review-step card
+    const changes = await runAdaptation('2026-03-01');
+    // 30 min: blocks 8/8/7/3/4 -> fixed 14 min -> 960 s; 9 due x 25 s = 225 -> 735 / 90 = 8
+    expect(changes.find((c) => c.dimension === 'newPerDay')).toMatchObject({ from: 10, to: 8 });
+    expect(changes.find((c) => c.dimension === 'newPerDay')?.reasonZh).toContain('到期复习 9 条');
+  });
+});
+
+describe('saveAssessment', () => {
+  it('a placement sets the ladder and introduces fast-tracked chunks as known', async () => {
+    await setGoal(makeGoal());
+    await saveAssessment(placementOf({ fastTracked: ['c001', 'c002'] }));
+    const p = await db.profile.get('profile');
+    expect(p?.assessments).toHaveLength(1);
+    expect(p?.adaptive?.ladder).toEqual({ listen: 4, speak: 3, newPerDay: 5 });
+    expect(p?.adaptive?.lastChange).toMatchObject({ listen: '2026-05-01', speak: '2026-05-01' });
+    expect(await db.cards.get('chunk:c001')).toMatchObject({ interval: 7, reps: 1 });
+    expect(await db.cards.get('chunk:c002')).toBeDefined();
+    expect(await db.cards.count()).toBe(2);
+  });
+
+  it('works without a goal and without fast-tracked chunks', async () => {
+    const p = await saveAssessment(placementOf());
+    expect(p.adaptive?.ladder.listen).toBe(4);
+    expect(await db.cards.count()).toBe(0);
+  });
+
+  it('a checkpoint is appended without touching the ladder', async () => {
+    await setGoal(makeGoal());
+    await saveAssessment(placementOf());
+    await saveAssessment(placementOf({ id: 'cp-1', kind: 'checkpoint', listenLevel: 7, speakLevel: 5, date: '2026-05-08' }));
+    const p = await db.profile.get('profile');
+    expect(p?.assessments?.map((a) => a.id)).toEqual(['placement-1', 'cp-1']);
+    expect(p?.adaptive?.ladder).toMatchObject({ listen: 4, speak: 3 });
+  });
+
+  it('keeps the newest 30, replaces an assessment with the same id', async () => {
+    for (let i = 0; i < 33; i++) await saveAssessment(placementOf({ id: `a${i}`, kind: 'checkpoint' }));
+    const ids = (await db.profile.get('profile'))?.assessments?.map((a) => a.id) ?? [];
+    expect(ids).toHaveLength(30);
+    expect(ids[0]).toBe('a3');
+    expect(ids[29]).toBe('a32');
+    await saveAssessment(placementOf({ id: 'a32', kind: 'checkpoint', listenLevel: 8 }));
+    const after = (await db.profile.get('profile'))?.assessments ?? [];
+    expect(after).toHaveLength(30);
+    expect(after[29].listenLevel).toBe(8);
+  });
+
+  it('a placement rebuilds an unstarted plan (new ladder, fast-tracked items skipped)', async () => {
+    await setGoal(makeGoal());
+    const today = ymd(new Date());
+    await getOrCreateSession(today);
+    await saveAssessment(placementOf({ fastTracked: ['c001'], listenLevel: 4 }));
+    const plan = (await getOrCreateSession(today)).plan;
+    expect(plan?.ladder?.listen).toBe(4);
+    expect(plan?.listening?.dialogueIds).toEqual(['dl050']);
+    expect(plan?.newItems.map((r) => r.id)).not.toContain('c001');
+  });
+});
+
+describe('saveCoachReport', () => {
+  const report = (i: number): CoachReport => ({
+    id: `r${i}`,
+    createdAt: i,
+    lesson: i,
+    source: 'rules',
+    summaryZh: '总结',
+    strengthsZh: [],
+    weaknessesZh: [],
+    nextWeekFocusZh: ['x'],
+    tipsZh: ['y'],
+  });
+
+  it('appends newest last and keeps 12', async () => {
+    for (let i = 1; i <= 14; i++) await saveCoachReport(report(i));
+    const reports = (await db.profile.get('profile'))?.coachReports ?? [];
+    expect(reports.map((r) => r.id)).toEqual(Array.from({ length: 12 }, (_, i) => `r${i + 3}`));
+  });
+});
+
+describe('getDaySummaryV3', () => {
+  it('summarises today: accuracy vs band, latency, mistakes, adjustments', async () => {
+    await setGoal(makeGoal());
+    const today = ymd(new Date());
+    await measured(8, { cardId: 'dialogue:dl001' }, true);
+    await measured(2, { cardId: 'dialogue:dl001' }, false);
+    await measured(3, { skill: 'speak', cardId: 'chunk:c001', mode: 'recall', latencyMs: 3000 }, true);
+    await measured(3, { skill: 'speak', cardId: 'chunk:c002', mode: 'recall', latencyMs: 5000 }, true);
+    await measured(2, { skill: 'speak', cardId: 'chunk:c002', mode: 'recall' }, false);
+    await logMeasurement({ cardId: 'numbers:price', skill: 'listen', correct: false, mode: 'numbers', durationMs: 1 });
+    await ensureCards('chunk', ['c003']);
+    await gradeCard('chunk:c003', 0, 'review', 1000); // unmeasured lapse
+    await db.reviews.add({ id: 'old', cardId: 'chunk:c009', grade: 0, mode: 'review', reviewedAt: Date.now() - 3 * DAY, durationMs: 1, updatedAt: 0 });
+    const summary = await getDaySummaryV3(today);
+
+    expect(summary.band).toEqual({ low: 0.7, high: 0.88 });
+    expect(summary.skills.listen).toMatchObject({ n: 11, correct: 8, band: 'in' });
+    expect(summary.skills.listen.acc).toBeCloseTo(8 / 11);
+    expect(summary.skills.speak).toMatchObject({ n: 8, correct: 6, medianLatencyMs: 4000, band: 'in' });
+    expect(summary.skills.decode).toEqual({ n: 0, correct: 0, acc: 0, band: 'none' });
+    expect(summary.mistakes).toEqual([
+      { cardId: 'chunk:c002', kind: 'chunk', ref: { kind: 'chunk', id: 'c002' }, count: 2 },
+      { cardId: 'dialogue:dl001', kind: 'dialogue', count: 2 },
+      { cardId: 'chunk:c003', kind: 'chunk', ref: { kind: 'chunk', id: 'c003' }, count: 1 },
+      { cardId: 'numbers:price', kind: 'numbers', count: 1 },
+    ]);
+    expect(summary.adjustments).toEqual([]);
+    expect(summary.ladder).toEqual({ listen: 1, speak: 1, newPerDay: 5 });
+  });
+
+  it('bands: above 88% and below 70%', async () => {
+    await measured(10, {}, true);
+    await measured(10, { skill: 'speak', cardId: 'chunk:c001', mode: 'recall' }, false);
+    const s = await getDaySummaryV3(ymd(new Date()));
+    expect(s.skills.listen.band).toBe('above');
+    expect(s.skills.speak.band).toBe('below');
+  });
+
+  it('includes the adjustments made on that day, and an empty day is quiet', async () => {
+    await setGoal(makeGoal());
+    await measured(20, {}, true);
+    const today = ymd(new Date());
+    const made = await runAdaptation(today);
+    const summary = await getDaySummaryV3(today);
+    expect(summary.adjustments).toEqual(made);
+    const quiet = await getDaySummaryV3('2000-01-01');
+    expect(quiet.mistakes).toEqual([]);
+    expect(quiet.skills.listen.band).toBe('none');
+    expect(quiet.adjustments).toEqual([]);
+  });
+});
+
+describe('getGoalProgress / getCoachInput', () => {
+  it('is undefined without a goal', async () => {
+    expect(await getGoalProgress()).toBeUndefined();
+  });
+
+  it('builds the phase plan from the placement and reports progress', async () => {
+    await setGoal(makeGoal({ horizonDays: 30, dailyMinutes: 20 }));
+    await saveAssessment(placementOf({ listenLevel: 2, speakLevel: 1, fastTracked: ['c001'] }));
+    const g = await getGoalProgress();
+    expect(g?.plan.phases).toHaveLength(3);
+    expect(g?.plan.baseline).toEqual({ itemsLearned: 1, listenLevel: 2, speakLevel: 1 });
+    expect(g?.itemsLearned).toBe(1);
+    expect(g?.progress.status).toBe('on-track');
+  });
+
+  it('the baseline counts items studied before the goal started', async () => {
+    await ensureCards('chunk', ['c001', 'c002']);
+    await db.reviews.add({ id: 'x1', cardId: 'chunk:c001', grade: 2, mode: 'review', reviewedAt: Date.now() - 10 * DAY, durationMs: 1, updatedAt: 0 });
+    await db.reviews.add({ id: 'x2', cardId: 'chunk:c001', grade: 2, mode: 'review', reviewedAt: Date.now() - 9 * DAY, durationMs: 1, updatedAt: 0 });
+    await setGoal(makeGoal());
+    const g = await getGoalProgress();
+    expect(g?.plan.baseline.itemsLearned).toBe(1);
+    expect(g?.itemsLearned).toBe(2);
+  });
+
+  it('getCoachInput gathers aggregated data only', async () => {
+    await setGoal(makeGoal());
+    await measured(20, { skill: 'speak', cardId: 'chunk:c003', mode: 'recall', latencyMs: 2000 }, false);
+    await ensureCards('chunk', ['c003']);
+    await gradeCard('chunk:c003', 0, 'review', 1000);
+    const input = await getCoachInput();
+    expect(input.skills.speak).toMatchObject({ n: 20, acc: 0 });
+    expect(input.ladder).toEqual({ listen: 1, speak: 1, newPerDay: 5 });
+    expect(input.weakCategories[0]).toMatchObject({ category: 'work', examples: ['c003'] });
+    expect(input.edgeTexts).toEqual(['c003']);
+    expect(input.goal?.horizonDays).toBe(30);
+    expect(JSON.stringify(input)).not.toContain('userEn');
+  });
+});
+
+describe('review logs stay plain', () => {
+  it('ReviewLog type accepts the measurement fields', () => {
+    const l: ReviewLog = { id: 'x', cardId: 'chunk:c001', grade: 2, mode: 'review', reviewedAt: 1, durationMs: 1, updatedAt: 1, skill: 'listen', correct: true };
+    expect(l.skill).toBe('listen');
   });
 });
