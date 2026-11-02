@@ -1,7 +1,35 @@
 import { describe, expect, it } from 'vitest';
-import type { Chunk, Freq, FunctionCategory, GrammarPoint, ItemRef, Level, Scene, SubstitutionFrame } from '../types';
+import type {
+  Chunk,
+  Dialogue,
+  DialogueTier,
+  Freq,
+  FunctionCategory,
+  GrammarPoint,
+  ItemRef,
+  Level,
+  Scene,
+  SoundKind,
+  SubstitutionFrame,
+} from '../types';
 import { FUNCTION_CATEGORIES, TRANSFORM_OPS } from '../lib/labels';
-import { CHUNKS, CURRICULUM, DOZEN, SEED_FRAMES, getChunk, getDozen, getItem, getSeedFrame } from './index';
+import {
+  CHUNKS,
+  CURRICULUM,
+  DIALOGUES,
+  DOZEN,
+  SEED_FRAMES,
+  SOUNDS,
+  getChunk,
+  getDialogue,
+  getDozen,
+  getItem,
+  getSeedFrame,
+  getSound,
+} from './index';
+import { DIALOGUES_1 } from './dialogues-1';
+import { DIALOGUES_2 } from './dialogues-2';
+import { DIALOGUES_3 } from './dialogues-3';
 
 const GRAMMAR_POINTS: GrammarPoint[] = [
   'be-adj',
@@ -22,7 +50,10 @@ const LEVELS: Level[] = ['dummy', 'daily', 'work'];
 const SCENES: Scene[] = ['daily', 'work', 'travel', 'social', 'study'];
 const FREQS: Freq[] = [1, 2, 3];
 const REGISTERS: Chunk['register'][] = ['casual', 'neutral', 'formal'];
-const CHUNK_COUNT = 250;
+const CHUNK_COUNT = 350;
+const DIALOGUE_COUNT = 120;
+const SOUND_COUNT = 40;
+const LIBRARY_SIZE = 500; // 150 frames + 350 chunks
 const MIN_FRAMES = 150;
 const MIN_PER_CATEGORY = 8;
 
@@ -270,7 +301,7 @@ function sentenceKey(en: string): string {
 }
 
 describe('Chunk content', () => {
-  it(`has exactly ${CHUNK_COUNT} chunks with contiguous unique ids c001..c250`, () => {
+  it(`has exactly ${CHUNK_COUNT} chunks with contiguous unique ids c001..c350`, () => {
     expect(CHUNKS, `CHUNKS has ${CHUNKS.length} entries, expected ${CHUNK_COUNT}`).toHaveLength(CHUNK_COUNT);
     const expected = Array.from({ length: CHUNK_COUNT }, (_, i) => `c${String(i + 1).padStart(3, '0')}`);
     const have = new Set(CHUNKS.map((c) => c.id));
@@ -326,6 +357,20 @@ describe('Chunk content', () => {
       const first = owner.get(k);
       if (first !== undefined) problems.push(`${c.id} duplicates ${first}: "${c.en}"`);
       else owner.set(k, c.id);
+    }
+    expectNoProblems(problems);
+  });
+
+  it('c251-c300 are tagged phrasal, c301-c350 collocation, and c001-c250 carry no tag', () => {
+    const problems: string[] = [];
+    for (const c of CHUNKS) {
+      const n = Number(c.id.slice(1));
+      const expected = n <= 250 ? undefined : n <= 300 ? 'phrasal' : 'collocation';
+      if (expected === undefined) {
+        if (c.tags !== undefined && c.tags.length > 0) problems.push(`${c.id}: core chunks must not carry tags (got ${c.tags.join(',')})`);
+      } else if (c.tags === undefined || !c.tags.includes(expected)) {
+        problems.push(`${c.id}: expected tag "${expected}" (got ${JSON.stringify(c.tags)})`);
+      }
     }
     expectNoProblems(problems);
   });
@@ -436,9 +481,177 @@ describe('CURRICULUM', () => {
     for (const k of seen.keys()) if (!known.has(k)) problems.push(`CURRICULUM has unknown item ${k}`);
     expectNoProblems(problems);
     expect(CURRICULUM).toHaveLength(CHUNKS.length + SEED_FRAMES.length);
+    expect(CURRICULUM, `library should have ${LIBRARY_SIZE} items`).toHaveLength(LIBRARY_SIZE);
   });
 
   it('every curriculum item resolves via getItem', () => {
     expectNoProblems(CURRICULUM.filter((r) => getItem(r) === undefined).map((r) => `${r.kind}:${r.id} does not resolve`));
+  });
+});
+
+// ---------- v3 listening dialogues ----------
+
+const TURN_RANGE: Record<DialogueTier, [number, number]> = { 1: [2, 3], 2: [4, 5], 3: [6, 8] };
+const TIER_COUNTS_PER_FILE: Record<DialogueTier, number> = { 1: 14, 2: 14, 3: 12 };
+const SOUND_KINDS: SoundKind[] = ['reduction', 'linking', 'elision', 'flap', 'assimilation', 'weak-form'];
+
+/** Lowercase with straight quotes, for "contains verbatim" checks that ignore case and typographic quotes. */
+function foldQuotes(s: string): string {
+  return s.replace(/[‘’]/g, "'").replace(/[“”]/g, '"').toLowerCase();
+}
+
+describe('Dialogue content', () => {
+  const pad = (n: number): string => `dl${String(n).padStart(3, '0')}`;
+
+  it(`has exactly ${DIALOGUE_COUNT} dialogues with contiguous unique ids dl001..dl120, sorted`, () => {
+    expect(DIALOGUES).toHaveLength(DIALOGUE_COUNT);
+    expect(DIALOGUES.map((d) => d.id)).toEqual(Array.from({ length: DIALOGUE_COUNT }, (_, i) => pad(i + 1)));
+  });
+
+  it('each content file has 14 tier-1, 14 tier-2 and 12 tier-3 dialogues', () => {
+    const problems: string[] = [];
+    for (const [name, list] of [
+      ['dialogues-1', DIALOGUES_1],
+      ['dialogues-2', DIALOGUES_2],
+      ['dialogues-3', DIALOGUES_3],
+    ] as const) {
+      for (const tier of [1, 2, 3] as const) {
+        const n = list.filter((d) => d.tier === tier).length;
+        if (n !== TIER_COUNTS_PER_FILE[tier]) problems.push(`${name}: ${n} tier-${tier} dialogues, expected ${TIER_COUNTS_PER_FILE[tier]}`);
+      }
+      if (list.length !== 40) problems.push(`${name}: ${list.length} dialogues, expected 40`);
+    }
+    expectNoProblems(problems);
+  });
+
+  it('has valid metadata and the right number of turns per tier', () => {
+    const problems: string[] = [];
+    for (const d of DIALOGUES) {
+      if (blank(d.title)) problems.push(`${d.id}: title is empty`);
+      if (!SCENES.includes(d.scene)) problems.push(`${d.id}: unknown scene "${String(d.scene)}"`);
+      if (!FUNCTION_CATEGORIES.includes(d.category)) problems.push(`${d.id}: unknown category "${String(d.category)}"`);
+      const range = TURN_RANGE[d.tier];
+      if (!range) {
+        problems.push(`${d.id}: tier must be 1, 2 or 3 (got ${String(d.tier)})`);
+        continue;
+      }
+      if (d.turns.length < range[0] || d.turns.length > range[1]) {
+        problems.push(`${d.id}: tier ${d.tier} has ${d.turns.length} turns, need ${range[0]}-${range[1]}`);
+      }
+      d.turns.forEach((t, i) => {
+        if (blank(t.en)) problems.push(`${d.id}.turns[${i}]: en is empty`);
+        if (blank(t.zh)) problems.push(`${d.id}.turns[${i}]: zh is empty`);
+      });
+    }
+    expectNoProblems(problems);
+  });
+
+  it('speakers alternate A, B, A, B ...', () => {
+    const problems: string[] = [];
+    for (const d of DIALOGUES) {
+      d.turns.forEach((t, i) => {
+        const want = i % 2 === 0 ? 'A' : 'B';
+        if (t.speaker !== want) problems.push(`${d.id}.turns[${i}]: speaker ${String(t.speaker)}, expected ${want}`);
+      });
+    }
+    expectNoProblems(problems);
+  });
+
+  it('chunkIds (>= 2, unique) exist and each chunk appears verbatim in some turn', () => {
+    const problems: string[] = [];
+    for (const d of DIALOGUES) {
+      if (d.chunkIds.length < 2) problems.push(`${d.id}: only ${d.chunkIds.length} chunkIds, need at least 2`);
+      if (new Set(d.chunkIds).size !== d.chunkIds.length) problems.push(`${d.id}: chunkIds contains duplicates`);
+      const text = foldQuotes(d.turns.map((t) => t.en).join(' \n '));
+      for (const id of d.chunkIds) {
+        const chunk = getChunk(id);
+        if (!chunk) {
+          problems.push(`${d.id}: chunkId "${id}" is not in the library`);
+          continue;
+        }
+        const core = foldQuotes(chunkCore(chunk.en));
+        if (core !== '' && !text.includes(core)) problems.push(`${d.id}: chunk ${id} "${chunk.en}" does not appear verbatim in the turns`);
+      }
+    }
+    expectNoProblems(problems);
+  });
+
+  it('has 2-3 dictation blanks whose text appears verbatim in the given turn', () => {
+    const problems: string[] = [];
+    for (const d of DIALOGUES) {
+      if (d.blanks.length < 2 || d.blanks.length > 3) problems.push(`${d.id}: ${d.blanks.length} blanks, need 2-3`);
+      d.blanks.forEach((b, i) => {
+        const turn = d.turns[b.turn];
+        if (!turn) problems.push(`${d.id}.blanks[${i}]: turn ${b.turn} does not exist`);
+        else if (blank(b.text)) problems.push(`${d.id}.blanks[${i}]: text is empty`);
+        else if (!foldQuotes(turn.en).includes(foldQuotes(b.text))) {
+          problems.push(`${d.id}.blanks[${i}]: "${b.text}" is not in turn ${b.turn} "${turn.en}"`);
+        }
+      });
+    }
+    expectNoProblems(problems);
+  });
+
+  it('has a valid gist question', () => {
+    const problems: string[] = [];
+    for (const d of DIALOGUES) {
+      const g = d.gist;
+      if (blank(g.questionZh)) problems.push(`${d.id}: gist.questionZh is empty`);
+      if (g.optionsZh.length < 3 || g.optionsZh.length > 4) problems.push(`${d.id}: gist has ${g.optionsZh.length} options, need 3-4`);
+      g.optionsZh.forEach((o, i) => {
+        if (blank(o)) problems.push(`${d.id}: gist.optionsZh[${i}] is empty`);
+      });
+      if (new Set(g.optionsZh).size !== g.optionsZh.length) problems.push(`${d.id}: gist options are not distinct`);
+      if (!Number.isInteger(g.answer) || g.answer < 0 || g.answer >= g.optionsZh.length) {
+        problems.push(`${d.id}: gist.answer ${String(g.answer)} is not a valid option index`);
+      }
+    }
+    expectNoProblems(problems);
+  });
+
+  it('getDialogue resolves every dialogue and returns undefined otherwise', () => {
+    for (const d of DIALOGUES) expect(getDialogue(d.id), d.id).toBe(d);
+    expect(getDialogue('nope')).toBeUndefined();
+    const all: Dialogue[] = [...DIALOGUES_1, ...DIALOGUES_2, ...DIALOGUES_3];
+    expect(all).toHaveLength(DIALOGUE_COUNT);
+  });
+});
+
+// ---------- v3 connected-speech patterns ----------
+
+describe('Sound pattern content', () => {
+  it(`has exactly ${SOUND_COUNT} patterns with contiguous unique ids s01..s40, sorted`, () => {
+    expect(SOUNDS).toHaveLength(SOUND_COUNT);
+    expect(SOUNDS.map((s) => s.id)).toEqual(Array.from({ length: SOUND_COUNT }, (_, i) => `s${String(i + 1).padStart(2, '0')}`));
+  });
+
+  it('has valid metadata and exactly 3 complete examples whose target is verbatim in en', () => {
+    const problems: string[] = [];
+    for (const s of SOUNDS) {
+      if (blank(s.name)) problems.push(`${s.id}: name is empty`);
+      if (!SOUND_KINDS.includes(s.kind)) problems.push(`${s.id}: unknown kind "${String(s.kind)}"`);
+      if (![1, 2, 3].includes(s.level)) problems.push(`${s.id}: level must be 1, 2 or 3 (got ${String(s.level)})`);
+      if (blank(s.explanationZh)) problems.push(`${s.id}: explanationZh is empty`);
+      if (s.examples.length !== 3) problems.push(`${s.id}: ${s.examples.length} examples, need exactly 3`);
+      s.examples.forEach((e, i) => {
+        const at = `${s.id}.examples[${i}]`;
+        if (blank(e.en)) problems.push(`${at}: en is empty`);
+        if (blank(e.zh)) problems.push(`${at}: zh is empty`);
+        if (blank(e.heard)) problems.push(`${at}: heard is empty`);
+        if (blank(e.target)) problems.push(`${at}: target is empty`);
+        else if (!foldQuotes(e.en).includes(foldQuotes(e.target))) problems.push(`${at}: target "${e.target}" is not in en "${e.en}"`);
+      });
+    }
+    expectNoProblems(problems);
+  });
+
+  it('getSound resolves every pattern and returns undefined otherwise', () => {
+    for (const s of SOUNDS) expect(getSound(s.id), s.id).toBe(s);
+    expect(getSound('nope')).toBeUndefined();
+  });
+
+  it('covers every kind of connected-speech phenomenon and all three levels', () => {
+    expect(new Set(SOUNDS.map((s) => s.kind)).size, 'all sound kinds should be used').toBe(SOUND_KINDS.length);
+    expect(new Set(SOUNDS.map((s) => s.level))).toEqual(new Set([1, 2, 3]));
   });
 });
