@@ -31,11 +31,14 @@ import {
   aiConfigured,
   deconstruct,
   generateChunkPrompts,
+  generateCoachReport,
   generateFrame,
   generateOutputPrompts,
   gradeOutput,
+  rulesCoachReport,
   testConnection,
 } from './index';
+import type { CoachInput } from '../coachInput';
 
 const fetchMock = vi.fn();
 
@@ -478,5 +481,166 @@ describe('chunk track', () => {
       await gradeOutput({ userEn: 'I must go' });
       expect(userPrompt()).not.toContain('要求练习的语法点');
     });
+  });
+});
+
+// ---------- coach ----------
+
+function coachInput(over: Partial<CoachInput> = {}): CoachInput {
+  return {
+    lesson: 14,
+    skills: {
+      listen: { n: 40, acc: 0.92, medianLatencyMs: 2100, trend: 0.1 },
+      speak: { n: 30, acc: 0.62, medianLatencyMs: 4300, trend: -0.08 },
+      decode: { n: 6, acc: 0.8 },
+    },
+    ladder: { listen: 4, speak: 3, newPerDay: 6 },
+    ladderHistory: [{ date: '2026-05-01', dimension: 'listen', from: 3, to: 4, reasonZh: '听力正确率 92% > 88%，语速 0.95 → 1.05' }],
+    weakCategories: [{ category: 'request', acc: 0.5, n: 8, examples: ["Could you give me a hand?"] }],
+    edgeTexts: ['It slipped my mind.', 'Let me get back to you.'],
+    soundErrors: [{ name: 'want to → wanna', kind: 'reduction', errors: 4, attempts: 6 }],
+    goal: { horizonDays: 30, dailyMinutes: 20, day: 14, phaseNameZh: '扩展', status: 'behind', adviceZh: '把每天时长加到 25 分钟。', itemsLearned: 40, expectedItems: 70 },
+    assessments: [{ date: '2026-05-01', kind: 'placement', listenLevel: 2, speakLevel: 1, listenAcc: 0.7, speakAcc: 0.6, levelZh: '基础' }],
+    ...over,
+  };
+}
+
+const coachJson = {
+  summaryZh: '本周听力很稳（92%），口语偏难（62%）。',
+  strengthsZh: ['听力正确率 92%，已升到 L4。'],
+  weaknessesZh: ['口语正确率 62%，低于 70%。'],
+  nextWeekFocusZh: ['稳住口语'],
+  tipsZh: ['每天把 "It slipped my mind." 大声说 3 遍并计时。'],
+  suggestedNewPerDay: 5,
+};
+
+describe('generateCoachReport', () => {
+  it('sends only aggregated data and returns a validated CoachReport', async () => {
+    fetchMock.mockResolvedValueOnce(completion(coachJson));
+    const r = await generateCoachReport(coachInput(), 1_700_000_000_000);
+    expect(r).toEqual({ id: 'coach-1700000000000', createdAt: 1_700_000_000_000, lesson: 14, source: 'ai', ...coachJson });
+    const [, init] = fetchMock.mock.calls[0] as [string, RequestInit];
+    const body = JSON.parse(init.body as string);
+    const text = JSON.stringify(body.messages);
+    expect(body.messages[1].content).toContain('"lesson":14');
+    expect(text).toContain('It slipped my mind.');
+    expect(text).toContain('want to → wanna');
+    expect(body.messages[0].content).toContain('不会看到学习者写的原句');
+    expect(body.response_format).toEqual({ type: 'json_object' });
+  });
+
+  it('clamps suggestedNewPerDay to 3-12 and drops it when not a number', async () => {
+    fetchMock.mockResolvedValueOnce(completion({ ...coachJson, suggestedNewPerDay: 40 }));
+    expect((await generateCoachReport(coachInput())).suggestedNewPerDay).toBe(12);
+    fetchMock.mockResolvedValueOnce(completion({ ...coachJson, suggestedNewPerDay: 1 }));
+    expect((await generateCoachReport(coachInput())).suggestedNewPerDay).toBe(3);
+    fetchMock.mockResolvedValueOnce(completion({ ...coachJson, suggestedNewPerDay: 'many' }));
+    expect((await generateCoachReport(coachInput())).suggestedNewPerDay).toBeUndefined();
+    const { suggestedNewPerDay: _drop, ...without } = coachJson;
+    fetchMock.mockResolvedValueOnce(completion(without));
+    expect('suggestedNewPerDay' in (await generateCoachReport(coachInput()))).toBe(false);
+  });
+
+  it('drops non-Chinese list items and caps list lengths', async () => {
+    fetchMock.mockResolvedValueOnce(
+      completion({
+        ...coachJson,
+        strengthsZh: ['Great job', ...Array.from({ length: 9 }, (_, i) => `优点 ${i}`)],
+        tipsZh: ['English only tip', '把 wanna 听写 3 遍。'],
+      }),
+    );
+    const r = await generateCoachReport(coachInput());
+    expect(r.strengthsZh).toHaveLength(5);
+    expect(r.strengthsZh[0]).toBe('优点 0');
+    expect(r.tipsZh).toEqual(['把 wanna 听写 3 遍。']);
+  });
+
+  it('retries once on an invalid report, then gives bad-response', async () => {
+    fetchMock.mockResolvedValueOnce(completion({ summaryZh: 'English summary', nextWeekFocusZh: ['x'], tipsZh: ['y'] })).mockResolvedValueOnce(completion(coachJson));
+    expect((await generateCoachReport(coachInput())).summaryZh).toBe(coachJson.summaryZh);
+    expect(fetchMock).toHaveBeenCalledTimes(2);
+
+    fetchMock.mockReset();
+    fetchMock.mockResolvedValue(completion({ summaryZh: '总结', nextWeekFocusZh: [], tipsZh: [] }));
+    expect(await code(generateCoachReport(coachInput()))).toBe('bad-response');
+  });
+
+  it('requires tips and a focus', async () => {
+    fetchMock.mockResolvedValue(completion({ ...coachJson, tipsZh: [] }));
+    expect(await code(generateCoachReport(coachInput()))).toBe('bad-response');
+  });
+
+  it('no key -> no-key; auth and rate errors pass through', async () => {
+    saveSettings({ deepseekApiKey: '' });
+    expect(await code(generateCoachReport(coachInput()))).toBe('no-key');
+    saveSettings({ deepseekApiKey: 'sk-test' });
+    fetchMock.mockResolvedValueOnce(status(401));
+    expect(await code(generateCoachReport(coachInput()))).toBe('auth');
+    fetchMock.mockResolvedValueOnce(status(429));
+    expect(await code(generateCoachReport(coachInput()))).toBe('rate');
+  });
+});
+
+describe('rulesCoachReport', () => {
+  it('writes a Chinese report from thresholds, with the numbers', () => {
+    const r = rulesCoachReport(coachInput(), 5);
+    expect(r).toMatchObject({ id: 'coach-5', createdAt: 5, lesson: 14, source: 'rules' });
+    expect(r.summaryZh).toContain('第 14 课');
+    expect(r.summaryZh).toContain('听力正确率 92%');
+    expect(r.summaryZh).toContain('口语正确率 62%');
+    expect(r.strengthsZh.join('\n')).toContain('高于舒适区上限 88%');
+    expect(r.strengthsZh.join('\n')).toContain('提高了 10 个百分点');
+    expect(r.weaknessesZh.join('\n')).toContain('口语正确率 62%，低于 70%');
+    expect(r.weaknessesZh.join('\n')).toContain('下降了 8 个百分点');
+    expect(r.weaknessesZh.join('\n')).toContain('接近 5 秒的限时'); // 4.3 s median vs the S3 limit of 5 s = 86%
+    expect(r.weaknessesZh.join('\n')).toContain('请求与求助');
+    expect(r.weaknessesZh.join('\n')).toContain('want to → wanna');
+    expect(r.tipsZh.join('\n')).toContain('把每天时长加到 25 分钟。'); // the plan is behind: its advice is passed on
+    expect(r.tipsZh.join('\n')).toContain('It slipped my mind.');
+    expect(r.tipsZh.join('\n')).toContain('Could you give me a hand?');
+    expect(r.tipsZh.length).toBeLessThanOrEqual(6);
+    expect(r.nextWeekFocusZh.length).toBeGreaterThan(0);
+    for (const line of [r.summaryZh, ...r.strengthsZh, ...r.weaknessesZh, ...r.nextWeekFocusZh, ...r.tipsZh]) expect(line).toMatch(/[\u4e00-\u9fff]/);
+  });
+
+  it('suggests fewer new chunks when a skill is below 65%', () => {
+    const r = rulesCoachReport(coachInput({ skills: { speak: { n: 30, acc: 0.6 } } }));
+    expect(r.suggestedNewPerDay).toBe(4);
+    expect(r.summaryZh).toContain('低于 65%');
+    expect(rulesCoachReport(coachInput({ skills: { speak: { n: 30, acc: 0.6 } }, ladder: { listen: 1, speak: 1, newPerDay: 3 } })).suggestedNewPerDay).toBeUndefined();
+  });
+
+  it('suggests one more when accuracy is comfortable and the plan is ahead', () => {
+    const r = rulesCoachReport(
+      coachInput({
+        skills: { listen: { n: 30, acc: 0.95 }, speak: { n: 30, acc: 0.9 } },
+        goal: { horizonDays: 30, dailyMinutes: 20, day: 10, phaseNameZh: '扩展', status: 'ahead', adviceZh: '', itemsLearned: 90, expectedItems: 60 },
+        weakCategories: [],
+        soundErrors: [],
+        edgeTexts: [],
+      }),
+    );
+    expect(r.suggestedNewPerDay).toBe(7);
+    expect(r.strengthsZh.join('\n')).toContain('超前');
+    expect(r.weaknessesZh).toEqual([]);
+  });
+
+  it('says samples are too few instead of judging (n < 15)', () => {
+    const r = rulesCoachReport(coachInput({ skills: { listen: { n: 9, acc: 0.1 } }, weakCategories: [], soundErrors: [], edgeTexts: [], goal: undefined }));
+    expect(r.summaryZh).toContain('样本还少');
+    expect(r.weaknessesZh.join('')).toContain('练习次数还不够');
+    expect(r.suggestedNewPerDay).toBeUndefined();
+  });
+
+  it('always has at least one tip and one focus, even with no data', () => {
+    const r = rulesCoachReport({ lesson: 1, skills: {}, ladder: { listen: 1, speak: 1, newPerDay: 5 }, ladderHistory: [], weakCategories: [], edgeTexts: [], soundErrors: [], assessments: [] });
+    expect(r.tipsZh.length).toBeGreaterThan(0);
+    expect(r.nextWeekFocusZh.length).toBeGreaterThan(0);
+    expect(r.source).toBe('rules');
+  });
+
+  it('is in-band praise when accuracy sits in 70-88%', () => {
+    const r = rulesCoachReport(coachInput({ skills: { listen: { n: 30, acc: 0.8 } }, weakCategories: [], soundErrors: [], edgeTexts: [], goal: undefined }));
+    expect(r.strengthsZh[0]).toContain('难度合适');
   });
 });

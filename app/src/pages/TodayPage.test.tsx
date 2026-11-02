@@ -91,7 +91,7 @@ describe('TodayPage v2: header and plan', () => {
     renderToday();
     expect(await screen.findByRole('heading', { name: '第 1 课' })).toBeInTheDocument();
     expect(screen.getByTestId('decode-badge')).toHaveTextContent('解码 骨架 1/13');
-    await waitFor(() => expect(screen.getByTestId('chunk-badge')).toHaveTextContent('语块 已学 0 / 400'));
+    await waitFor(() => expect(screen.getByTestId('chunk-badge')).toHaveTextContent('语块 已学 0 / 500'));
     const tabs = within(screen.getByRole('list', { name: '今日四步' })).getAllByRole('button');
     expect(tabs.map((t) => t.getAttribute('aria-label'))).toEqual(['第 1 步 复习', '第 2 步 新语块', '第 3 步 解码', '第 4 步 输出']);
     expect(screen.getByRole('progressbar', { name: '今日进度' })).toHaveAttribute('aria-valuenow', '0');
@@ -215,7 +215,7 @@ describe('TodayPage v2: step 2 新语块', () => {
     fireEvent.click(screen.getByRole('button', { name: '继续：解码' }));
     expect(await screen.findByTestId('lesson')).toHaveTextContent('The apple is red.');
     expect((await db.sessions.get(todayStr()))?.stepsDone).toEqual(['review', 'chunks']);
-    await waitFor(() => expect(screen.getByTestId('chunk-badge')).toHaveTextContent('已学 5 / 400'));
+    await waitFor(() => expect(screen.getByTestId('chunk-badge')).toHaveTextContent('已学 5 / 500'));
   });
 
   it('剩下的明天再学 ends the step; the unlearned items return in tomorrow\'s plan', async () => {

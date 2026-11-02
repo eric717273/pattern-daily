@@ -191,7 +191,7 @@ describe('MePage two-track plan and library progress', () => {
     expect(await screen.findByText(/还没有学过语块/)).toBeInTheDocument();
     const section = screen.getByRole('region', { name: '语块库进度' });
     expect(within(section).getByText('已学').nextElementSibling).toHaveTextContent('0');
-    expect(within(section).getByText('总数').nextElementSibling).toHaveTextContent('400');
+    expect(within(section).getByText('总数').nextElementSibling).toHaveTextContent('500');
   });
 
   it('counts learned and mastered items and lists categories', async () => {

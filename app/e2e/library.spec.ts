@@ -11,8 +11,8 @@ const frameTotal = SEED_FRAMES.filter(inCategory).length;
 test('library: totals, category filter, kind filter and search', async ({ page }) => {
   await page.goto('/#/library');
   await expect(page.getByRole('heading', { name: '语块库' })).toBeVisible();
-  await expect(page.getByLabel('学习进度')).toContainText('已学 0 / 400');
-  await expect(page.getByTestId('library-count')).toHaveText('共 400 条');
+  await expect(page.getByLabel('学习进度')).toContainText('已学 0 / 500');
+  await expect(page.getByTestId('library-count')).toHaveText('共 500 条');
 
   // category filter
   await page.getByRole('button', { name: new RegExp(`^${FUNCTION_CATEGORY_LABELS[CATEGORY]}`) }).click();
@@ -28,7 +28,7 @@ test('library: totals, category filter, kind filter and search', async ({ page }
   // back to everything, then search for one chunk
   await page.getByRole('button', { name: '显示全部' }).click();
   await page.getByRole('group', { name: '类型' }).getByRole('button', { name: '全部', exact: true }).click();
-  await expect(page.getByTestId('library-count')).toHaveText('共 400 条');
+  await expect(page.getByTestId('library-count')).toHaveText('共 500 条');
   const target = CHUNKS[41];
   await page.getByRole('searchbox', { name: '搜索语块' }).fill(target.en);
   await expect(page.getByRole('link', { name: new RegExp(target.zh) }).first()).toBeVisible();
@@ -40,7 +40,7 @@ test('library: totals, category filter, kind filter and search', async ({ page }
   await page.getByRole('searchbox', { name: '搜索语块' }).fill('zzzzqqq');
   await expect(page.getByText('没有符合条件的内容')).toBeVisible();
   await page.getByRole('button', { name: '清除筛选' }).click();
-  await expect(page.getByTestId('library-count')).toHaveText('共 400 条');
+  await expect(page.getByTestId('library-count')).toHaveText('共 500 条');
 });
 
 test('chunk detail: content, 开始练这条 runs the drills and adds it to review', async ({ page }) => {
@@ -72,5 +72,5 @@ test('chunk detail: content, 开始练这条 runs the drills and adds it to revi
 
   // the library counts it
   await page.getByRole('link', { name: '语块库' }).first().click();
-  await expect(page.getByLabel('学习进度')).toContainText('已学 1 / 400');
+  await expect(page.getByLabel('学习进度')).toContainText('已学 1 / 500');
 });

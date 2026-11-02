@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import type { Assessment, Chunk, CoachReport, Dialogue, Goal, ItemRef, ReviewLog, SoundPattern, StepKey, SubstitutionFrame } from '../types';
+import type { Assessment, Chunk, CoachReport, Dialogue, Goal, ItemRef, SoundPattern, StepKey, SubstitutionFrame } from '../types';
 
 vi.mock('../content', () => {
   const frame = (id: string): SubstitutionFrame => ({
@@ -1267,12 +1267,5 @@ describe('getGoalProgress / getCoachInput', () => {
     expect(input.edgeTexts).toEqual(['c003']);
     expect(input.goal?.horizonDays).toBe(30);
     expect(JSON.stringify(input)).not.toContain('userEn');
-  });
-});
-
-describe('review logs stay plain', () => {
-  it('ReviewLog type accepts the measurement fields', () => {
-    const l: ReviewLog = { id: 'x', cardId: 'chunk:c001', grade: 2, mode: 'review', reviewedAt: 1, durationMs: 1, updatedAt: 1, skill: 'listen', correct: true };
-    expect(l.skill).toBe('listen');
   });
 });

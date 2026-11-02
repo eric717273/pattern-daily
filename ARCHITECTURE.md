@@ -18,7 +18,7 @@
 app/
   src/types.ts            共享类型（契约，由负责人维护）
   src/lib/db.ts           Dexie schema（契约，由负责人维护）
-  src/content/            静态题库：dozen.ts（13 句 + 变形题）, frames-*.ts（150 个母框）, chunks-1..5.ts（250 条语块）, index.ts
+  src/content/            静态题库：dozen.ts（13 句 + 变形题）, frames-*.ts（150 个母框）, chunks-1..7.ts（350 条语块）, dialogues-1..3.ts（120 段对话）, sounds.ts（40 种音变）, index.ts
   src/lib/srs.ts          SM-2 间隔重复
   src/lib/frameEngine.ts  替换表组合引擎 + 答案比对
   src/lib/plan.ts         每日计划（解码线 + 语块线，纯函数）
@@ -178,6 +178,38 @@ export function stopSpeaking(): void;
 export function recognitionSupported(): boolean;
 export function listenOnce(lang?: string): Promise<string>;  // webkitSpeechRecognition
 ```
+
+## v3 刻意练习（设计依据见 `research/DELIBERATE-PRACTICE.md`）
+
+在 v2 两条线之上增加「测量 → 控制器 → 冻结计划」的闭环。没有设置目标（`profile.goal`）时，一切保持 v2 行为（4 个步骤、无 v3 字段）。
+
+**内容**：`CHUNKS` 扩到 350 条（c251–c300 打 `phrasal`，c301–c350 打 `collocation`），资料库共 500 条（150 母框 + 350 语块）；`DIALOGUES`（dl001–dl120，3 档）、`SOUNDS`（s01–s40）、`getDialogue`、`getSound`。
+
+**纯逻辑模块（`src/lib/`，均有单测）**
+| 模块 | 职责 |
+|---|---|
+| `ladder.ts` | 难度阶梯表：`LISTEN_LEVELS`（L0–L8：tier + 语速）、`SPEAK_LIMITS_MS`（S0–S5：10/8/6/5/4/3 秒）；`listenRate`、`dialogueTier`、`speakLimitMs`、`defaultLadder`（L1 / S1 / 每天 5 条） |
+| `skills.ts` | `computeSkillStats(logs, now)`：每项技能取最近 40 条带 `skill`+`correct` 的 ReviewLog，算正确率、答对反应时间中位数、趋势（最近 20 对前 20）、各等级分布；另有各功能类别正确率、最弱类别、音变错误次数 |
+| `adaptive.ts` | 控制器 `adjust(state, stats, today, ctx)`：滚动正确率 > 0.88 升一级、< 0.70 降一级；样本 < 15 不动；同一维度两次调整间隔 ≥ 2 天；新语块数按时间预算估算（限 3–12），任一技能 < 0.65 再减 2；每次调整都带中文原因。`findEdgeItems` 找边缘语块（14 天内遗忘 / 最近 3 次对错混杂 / 答对但用时 ≥ 时限 80%） |
+| `assessment.ts` | 诊断与周复测的**选题与评分**：`buildPlacement`、`nextListenLevel`、`scorePlacement`、`buildCheckpoint`、`scoreCheckpoint`（界面只负责展示和收集结果） |
+| `goalPlan.ts` | `buildGoalPlan`：打基础 / 扩展 / 提速三阶段（30% / 70% / 100%）及里程碑；`progressStatus`：超前 / 按计划 / 落后 + 中文建议 |
+| `numbers.ts` | 数字听写：`makeNumberItem(kind, rng)` 生成价格、时间、日期、电话、数量、年份（`spoken` 给 TTS，`answer`/`accept` 为书写答案）；`checkNumberAnswer` 宽松比对 |
+| `plan.ts`（v3 部分） | `getDayPlanV3`：在 v2 计划上加阶梯快照、`budgetMin`（25/25/25/10/15%，合计等于每日分钟）、`listening`（对话 / 音变 / 数字）、`edge`（≤ 5）、`checkpointDue`；`requiredSteps`：v3 计划 5 步，v2 计划 4 步 |
+| `coachInput.ts` | `buildCoachInput`：把统计、阶梯、边缘语块文本、进度整理成 AI 教练的聚合输入（不含用户原句） |
+| `ai/coach.ts` | `generateCoachReport(input)`（DeepSeek，校验后返回 `CoachReport`）和离线兜底 `rulesCoachReport(input)` |
+
+**数据流**
+```
+练习作答 ──gradeCard(…, measurement) / logMeasurement──▶ ReviewLog（skill, correct, latencyMs, level；伪 id 如 dialogue:dl001、numbers:price）
+        ──▶ computeSkillStats ──▶ adaptive.adjust ──▶ profile.adaptive（阶梯 + lastChange + history）
+        ──▶ 次日 getOrCreateSession 冻结 DayPlan（ladder 快照、budgetMin、listening、edge、checkpointDue）
+诊断 / 周复测 ──scorePlacement / scoreCheckpoint──▶ saveAssessment ──▶ profile.assessments（诊断同时设定起始阶梯，快速通道语块以 7 天首次间隔入库）
+每 7 课 / 手动 ──getCoachInput──▶ generateCoachReport | rulesCoachReport ──saveCoachReport──▶ profile.coachReports（保留 12 份）
+```
+- 写 ReviewLog 的可选字段，不新增同步表，服务端无需迁移。`logMeasurement` 只写日志，不动 SRS；`gradeCard` 的第 5 个可选参数同时调度并记录测量。
+- `runAdaptation(today)` 在一天完成后调用（幂等），返回当天的调整（"明天的调整"）；`getDaySummaryV3(date)` 返回今日反馈（各技能正确率与 70–88% 区间、反应时间、错题、当天调整）。
+- `getGoalProgress()` 返回阶段计划与进度状态；`setGoal` 与诊断保存后，若今天还没开始，会丢弃旧的冻结计划以便按新目标重建。
+- 控制器和水平描述是启发式方法，不是经过验证的测评工具（详见规范第九节）。
 
 ## 质量要求
 - 使用 TypeScript strict 模式，禁用 `any`（外部 JSON 用 `unknown` 加校验）。

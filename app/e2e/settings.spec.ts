@@ -49,7 +49,7 @@ test('library progress section on 我的 starts empty and the two-track plan is 
   const section = page.getByRole('region', { name: '语块库进度' });
   await expect(section).toBeVisible();
   await expect(section).toContainText('总数');
-  await expect(section).toContainText('400');
+  await expect(section).toContainText('500');
   await expect(section.getByText(/还没有学过语块/)).toBeVisible();
   const explain = page.getByTestId('plan-explain');
   await expect(explain).toContainText('前 13 课每天学一个骨架句');

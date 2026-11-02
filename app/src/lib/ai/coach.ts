@@ -126,7 +126,7 @@ export function rulesCoachReport(input: CoachInput, now: number = Date.now()): C
     const limit = speakLimitMs(input.ladder.speak);
     if (speak.medianLatencyMs >= limit * 0.8) {
       weaknesses.push(`口语答对时中位用时 ${SECONDS(speak.medianLatencyMs)}，接近 ${limit / 1000} 秒的限时。`);
-      tips.push(`把边缘语块每天大声说 3 遍并计时，目标是中位用时降到 ${SECONDS(limit * 0.7)} 以内。`);
+      tips.push(`把边缘语块每天大声说 3 遍并计时，目标是中位用时降到 ${SECONDS(limit * 0.7)}以内。`);
     } else {
       strengths.push(`口语答对时中位用时 ${SECONDS(speak.medianLatencyMs)}，离 ${limit / 1000} 秒的限时有余量。`);
     }
@@ -138,7 +138,8 @@ export function rulesCoachReport(input: CoachInput, now: number = Date.now()): C
     const ex = c.examples.length > 0 ? `，如 ${c.examples.map((e) => `"${e}"`).join('、')}` : '';
     weaknesses.push(`「${label}」类语块正确率 ${pct(c.acc)}（${c.n} 次）${ex}。`);
     focus.push(`多练「${label}」类语块。`);
-    tips.push(`每天挑 2 条「${label}」类语块，先听再说，说完用一句自己的话造句。`);
+    const first = c.examples[0] ? `（先从 "${c.examples[0]}" 开始）` : '';
+    tips.push(`每天挑 2 条「${label}」类语块${first}，先听再说，说完用一句自己的话造句。`);
   }
 
   // sound errors

@@ -25,7 +25,7 @@ test('complete a full day offline without AI, and it persists', async ({ page })
   await openToday(page);
   await expect(page.getByRole('heading', { name: '第 1 课' })).toBeVisible();
   await expect(page.getByTestId('decode-badge')).toHaveText('解码 骨架 1/13');
-  await expect(page.getByTestId('chunk-badge')).toHaveText('语块 已学 0 / 400');
+  await expect(page.getByTestId('chunk-badge')).toHaveText('语块 已学 0 / 500');
   // four step tabs
   for (const label of ['复习', '新语块', '解码', '输出']) {
     await expect(page.getByRole('button', { name: new RegExp(`^第 \\d 步 ${label}`) })).toBeVisible();
@@ -37,7 +37,7 @@ test('complete a full day offline without AI, and it persists', async ({ page })
   // 2. five new items through the real drills
   const items = firstItems(5);
   await doNewItems(page, items);
-  await expect(page.getByTestId('chunk-badge')).toHaveText('语块 已学 5 / 400');
+  await expect(page.getByTestId('chunk-badge')).toHaveText('语块 已学 5 / 500');
 
   // 3. decode: skeleton d01
   await doDecodeLesson(page, 'd01');
@@ -60,11 +60,11 @@ test('complete a full day offline without AI, and it persists', async ({ page })
   await page.reload();
   await expect(page.getByRole('heading', { name: '今天的练习完成了！' })).toBeVisible();
   await expect(page.getByRole('heading', { name: '第 1 课' })).toBeVisible();
-  await expect(page.getByTestId('chunk-badge')).toHaveText('语块 已学 5 / 400');
+  await expect(page.getByTestId('chunk-badge')).toHaveText('语块 已学 5 / 500');
 
   // 语块库: five items learned
   await page.getByRole('link', { name: '去语块库' }).click();
-  await expect(page.getByLabel('学习进度')).toContainText('已学 5 / 400');
+  await expect(page.getByLabel('学习进度')).toContainText('已学 5 / 500');
 
   // 解码: d01 is learned
   await page.goto('/#/decode');
@@ -96,7 +96,7 @@ test('a half-finished day resumes where it stopped; 剩下的明天再学 ends t
   await page.getByRole('button', { name: '剩下的明天再学' }).click();
   await expect(page.getByTestId('decode-note')).toBeVisible();
   await expect(page.getByRole('button', { name: '第 2 步 新语块，已完成' })).toBeVisible();
-  await expect(page.getByTestId('chunk-badge')).toHaveText('语块 已学 2 / 400');
+  await expect(page.getByTestId('chunk-badge')).toHaveText('语块 已学 2 / 500');
 
   // reload again: resumes at the decode step; finished steps can be redone
   await page.reload();
@@ -120,7 +120,7 @@ test('the next lesson reviews yesterday\'s items first, then teaches the next on
   await page.reload();
   await expect(page.getByRole('heading', { name: '第 2 课' })).toBeVisible();
   await expect(page.getByTestId('decode-badge')).toHaveText('解码 骨架 2/13');
-  await expect(page.getByTestId('chunk-badge')).toHaveText('语块 已学 5 / 400');
+  await expect(page.getByTestId('chunk-badge')).toHaveText('语块 已学 5 / 500');
 
   await reviewAll(page, 5);
   await page.getByRole('button', { name: '继续：新语块' }).click();
