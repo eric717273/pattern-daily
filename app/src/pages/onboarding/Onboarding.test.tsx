@@ -8,7 +8,7 @@ import { getOrCreateProfile, setGoal } from '../../lib/repo';
 
 vi.setConfig({ testTimeout: 30_000 });
 
-const seen = vi.hoisted(() => ({ listenRates: [] as (number | undefined)[], recallLimits: [] as (number | undefined)[], dialogueGistOnly: [] as (boolean | undefined)[] }));
+const seen = vi.hoisted(() => ({ listenRates: [] as (number | undefined)[], recallLimits: [] as (number | undefined)[], dialogueGistOnly: [] as (boolean | undefined)[], verified: true }));
 
 // One-click stubs for the drills: ListenDrill answers right, RecallDrill says it in 2 s, dialogues are gist-only.
 vi.mock('../../components/chunk/ListenDrill', () => ({
@@ -22,10 +22,10 @@ vi.mock('../../components/chunk/ListenDrill', () => ({
   },
 }));
 vi.mock('../../components/chunk/RecallDrill', () => ({
-  RecallDrill: (p: { timeLimitMs?: number; onDone: (r: { correct: boolean; ms: number }) => void }) => {
+  RecallDrill: (p: { timeLimitMs?: number; onDone: (r: { correct: boolean; ms: number; verified: boolean }) => void }) => {
     seen.recallLimits.push(p.timeLimitMs);
     return (
-      <button type="button" onClick={() => p.onDone({ correct: true, ms: 2000 })}>
+      <button type="button" onClick={() => p.onDone({ correct: true, ms: 2000, verified: seen.verified })}>
         说对了
       </button>
     );
@@ -48,6 +48,7 @@ beforeEach(async () => {
   seen.listenRates.length = 0;
   seen.recallLimits.length = 0;
   seen.dialogueGistOnly.length = 0;
+  seen.verified = true;
   try {
     localStorage.clear();
   } catch {
@@ -114,6 +115,7 @@ describe('onboarding', () => {
 
     expect(await screen.findByTestId('result-level')).toHaveTextContent(/^(入门|基础|进阶|熟练)$/);
     expect(screen.getByText(/不是标准化考试/)).toBeInTheDocument();
+    expect(screen.queryByTestId('result-self-estimate')).not.toBeInTheDocument();
     expect(screen.getByText('直接记为已学').parentElement).toHaveTextContent('4 条');
     expect(screen.getByLabelText('阶段时间线')).toBeInTheDocument();
 
@@ -129,6 +131,23 @@ describe('onboarding', () => {
     expect(profile.adaptive?.ladder.listen).toBe(profile.assessments?.[0].listenLevel);
     expect(profile.goal).toMatchObject({ horizonDays: 100, dailyMinutes: 20, startDate: todayStr() });
     expect(await db.cards.count()).toBe(4); // the fast-tracked chunks became known cards
+  });
+
+  it('self-check placement: no fast-track, conservative speaking level and the self-estimate note', async () => {
+    seen.verified = false;
+    renderAt();
+    fireEvent.click(await screen.findByRole('button', { name: '下一步：诊断测试' }));
+    fireEvent.click(screen.getByRole('button', { name: '开始诊断' }));
+    for (let i = 0; i < 12; i++) fireEvent.click(await screen.findByRole('button', { name: '听对了' }));
+    for (let i = 0; i < 2; i++) fireEvent.click(await screen.findByRole('button', { name: '主旨对了' }));
+    for (let i = 0; i < 8; i++) fireEvent.click(await screen.findByRole('button', { name: '说对了' }));
+
+    expect(await screen.findByTestId('result-self-estimate')).toHaveTextContent('口语等级按自评估算；开启语音验证后会更准');
+    expect(screen.getByText('直接记为已学').parentElement).toHaveTextContent('0 条');
+    const a = (await getOrCreateProfile()).assessments?.[0];
+    expect(a).toMatchObject({ speakLevel: 2, speakAcc: 1 });
+    expect(a?.fastTracked).toBeUndefined();
+    expect(await db.cards.count()).toBe(0);
   });
 
   it('edit mode keeps the start of the goal; 只保存目标 updates it and goes to /plan', async () => {

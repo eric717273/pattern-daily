@@ -147,10 +147,11 @@ describe('ReviewItem', () => {
     fireEvent.click(screen.getByRole('button', { name: '下一步：说出来' }));
     fireEvent.click(screen.getByRole('button', { name: '显示答案' }));
     fireEvent.click(screen.getByRole('button', { name: '说对了' }));
-    const info = onDone.mock.calls[0][2] as { parts: { listen: { correct: boolean }; recall: { correct: boolean }[] } };
+    const info = onDone.mock.calls[0][2] as { parts: { listen: { correct: boolean }; recall: { correct: boolean; verified: boolean }[] } };
     expect(info.parts.listen.correct).toBe(true);
     expect(info.parts.recall).toHaveLength(1);
     expect(info.parts.recall[0].correct).toBe(true);
+    expect(info.parts.recall[0].verified).toBe(false); // self-check: its time is not a speaking latency
   });
 
   it('a card whose content is gone can be skipped', () => {

@@ -44,7 +44,7 @@ describe('DecodePracticePage', () => {
     await waitFor(async () => {
       const logs = await db.reviews.toArray();
       expect(logs).toHaveLength(1);
-      expect(logs[0]).toMatchObject({ cardId: 'dozen:d02', mode: 'transform', grade: 0 });
+      expect(logs[0]).toMatchObject({ cardId: 'dozen:d02', mode: 'transform', grade: 0, skill: 'decode', correct: false });
     });
     fireEvent.click(screen.getByRole('button', { name: '再来一组' }));
     expect(await screen.findByTestId('transform-progress')).toHaveTextContent('第 1 / 3 题');

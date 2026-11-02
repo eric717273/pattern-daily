@@ -31,7 +31,7 @@ export function DecodeStep({ decode, dayKey, onComplete }: DecodeStepProps) {
     finishing.current = true;
     try {
       await ensureCards('dozen', [dozen.id]);
-      await gradeCard(`dozen:${dozen.id}`, grade, mode, ms);
+      await gradeCard(`dozen:${dozen.id}`, grade, mode, ms, { skill: 'decode', correct: grade >= 2 });
     } catch {
       setError('这一课的成绩没有保存成功，但不影响继续。');
     }

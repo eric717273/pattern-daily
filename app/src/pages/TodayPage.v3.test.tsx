@@ -4,7 +4,7 @@ import { beforeEach, describe, expect, it, vi } from 'vitest';
 import type { Goal, Grade, ItemRef } from '../types';
 import type { ItemParts } from '../lib/today';
 
-const PARTS: ItemParts = { listen: { correct: true, ms: 900 }, recall: [{ correct: true, ms: 2000 }] };
+const PARTS: ItemParts = { listen: { correct: true, ms: 900 }, recall: [{ correct: true, ms: 2000, verified: true }] };
 
 vi.mock('../components/chunk', () => ({
   NewItemFlow: ({
@@ -89,7 +89,7 @@ vi.mock('../lib/speech', async (importOriginal) => ({
 
 import { db } from '../lib/db';
 import { todayStr } from '../lib/plan';
-import { getOrCreateSession, logMeasurement, markStepDone, setGoal } from '../lib/repo';
+import { getDaySummaryV3, getOrCreateSession, getSkillStats, logMeasurement, markStepDone, setGoal } from '../lib/repo';
 import { TodayPage } from './TodayPage';
 
 function renderToday() {
@@ -199,6 +199,24 @@ describe('TodayPage v3: review and new chunks record measurements', () => {
     expect(logs.find((l) => l.skill === 'speak')).toMatchObject({ correct: true, level: 1, latencyMs: 2000, mode: 'recall', grade: 2 });
   });
 
+  it('review: an edge card that is not due yet is not rescheduled, only measured', async () => {
+    const date = todayStr();
+    const s = await getOrCreateSession(date);
+    await db.sessions.update(date, { plan: { ...s.plan!, edge: [{ kind: 'chunk', id: 'c004' }] } });
+    const future = Date.now() + 5 * 24 * 3600 * 1000;
+    const before = { id: 'chunk:c004', kind: 'chunk' as const, refId: 'c004', due: future, interval: 5, ease: 2.5, reps: 2, lapses: 0, updatedAt: 1 };
+    await db.cards.put(before);
+    renderToday();
+    expect(await screen.findByTestId('review-progress')).toHaveTextContent('复习 1 / 1');
+    expect(screen.getByTestId('edge-badge')).toBeInTheDocument();
+    fireEvent.click(screen.getByRole('button', { name: '复习完 c004' }));
+    await waitFor(async () => expect((await db.reviews.toArray()).some((l) => l.skill === 'speak')).toBe(true));
+    expect(await db.cards.get('chunk:c004')).toEqual(before); // schedule untouched
+    const logs = await db.reviews.toArray();
+    expect(logs.find((l) => l.skill === 'speak')).toMatchObject({ cardId: 'chunk:c004', correct: true, latencyMs: 2000 });
+    expect(logs.find((l) => l.skill === 'listen')).toMatchObject({ cardId: 'chunk:c004', correct: true });
+  });
+
   it('new chunks: the speak limit is passed and listen/speak measurements are logged', async () => {
     const date = todayStr();
     await markStepDone(date, 'review', 1000);
@@ -256,6 +274,26 @@ describe('TodayPage v3: step 3 听力', () => {
     fireEvent.click(screen.getByRole('button', { name: '今天先到这' }));
     expect(await screen.findByRole('button', { name: '完成课程' })).toBeInTheDocument();
     expect((await db.sessions.get(todayStr()))?.stepsDone).toContain('listening');
+  });
+});
+
+describe('TodayPage v3: step 4 解码 measurement', () => {
+  beforeEach(async () => {
+    await setGoal(goal());
+    for (const step of ['review', 'chunks', 'listening'] as const) await markStepDone(todayStr(), step, 1000);
+  });
+
+  it('records the decode skill, which the 解码 gauge and 今日反馈 pick up', async () => {
+    renderToday();
+    fireEvent.click(await screen.findByRole('button', { name: '完成课程' }));
+    await waitFor(async () => expect((await db.reviews.toArray()).some((l) => l.skill === 'decode')).toBe(true));
+    const log = (await db.reviews.toArray()).find((l) => l.skill === 'decode');
+    expect(log).toMatchObject({ correct: true, grade: 2 });
+    expect(log?.cardId.startsWith('dozen:')).toBe(true);
+    const stats = await getSkillStats();
+    expect(stats.bySkill.decode).toMatchObject({ n: 1, acc: 1 });
+    const day = await getDaySummaryV3(todayStr());
+    expect(day.skills.decode).toMatchObject({ n: 1, correct: 1, acc: 1 });
   });
 });
 

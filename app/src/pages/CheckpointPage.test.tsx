@@ -8,7 +8,7 @@ import { getOrCreateProfile, introduceKnown, saveAssessment, setGoal } from '../
 
 vi.setConfig({ testTimeout: 30_000 });
 
-const seen = vi.hoisted(() => ({ rates: [] as (number | undefined)[], limits: [] as (number | undefined)[], ids: [] as string[], wrongAt: new Set<number>() }));
+const seen = vi.hoisted(() => ({ rates: [] as (number | undefined)[], limits: [] as (number | undefined)[], ids: [] as string[], wrongAt: new Set<number>(), verified: true }));
 
 vi.mock('../components/chunk/ListenDrill', () => ({
   ListenDrill: (p: { rate?: number; item: { kind: string; chunk?: { id: string } }; onDone: (r: { correct: boolean; replays: number; ms: number }) => void }) => {
@@ -23,10 +23,10 @@ vi.mock('../components/chunk/ListenDrill', () => ({
   },
 }));
 vi.mock('../components/chunk/RecallDrill', () => ({
-  RecallDrill: (p: { timeLimitMs?: number; onDone: (r: { correct: boolean; ms: number }) => void }) => {
+  RecallDrill: (p: { timeLimitMs?: number; onDone: (r: { correct: boolean; ms: number; verified: boolean }) => void }) => {
     seen.limits.push(p.timeLimitMs);
     return (
-      <button type="button" onClick={() => p.onDone({ correct: true, ms: 3500 })}>
+      <button type="button" onClick={() => p.onDone({ correct: true, ms: 3500, verified: seen.verified })}>
         说
       </button>
     );
@@ -40,6 +40,7 @@ beforeEach(async () => {
   seen.limits.length = 0;
   seen.ids.length = 0;
   seen.wrongAt.clear();
+  seen.verified = true;
   try {
     localStorage.clear();
   } catch {
@@ -97,6 +98,20 @@ describe('CheckpointPage', () => {
     expect(profile.assessments?.[1]).toMatchObject({ kind: 'checkpoint', listenLevel: 2, speakLevel: 4 });
     // a checkpoint never moves the ladder
     expect(profile.adaptive?.ladder).toMatchObject({ listen: 1, speak: 1 });
+  });
+
+  it('self-check speaking: accuracy-based level (not latency) and the self-estimate note', async () => {
+    seen.verified = false;
+    await setGoal({ focus: 'speaking-listening', horizonDays: 100, dailyMinutes: 20, startDate: todayStr(), startLesson: 1 });
+    renderPage();
+    fireEvent.click(await screen.findByRole('button', { name: '开始复测' }));
+    for (let i = 0; i < 6; i++) fireEvent.click(await screen.findByRole('button', { name: '听' }));
+    for (let i = 0; i < 4; i++) fireEvent.click(await screen.findByRole('button', { name: '说' }));
+    expect(await screen.findByTestId('checkpoint-level')).toBeInTheDocument();
+    expect(screen.getByTestId('checkpoint-speak')).toHaveTextContent('S2 · 正确率 100%'); // 3.5 s would have been S4
+    expect(screen.getByTestId('result-self-estimate')).toHaveTextContent('口语等级按自评估算');
+    const a = (await getOrCreateProfile()).assessments?.[0];
+    expect(a?.speakMedianMs).toBeUndefined();
   });
 
   it('lower-than-before results show a drop (one level below the current when neither level passes)', async () => {

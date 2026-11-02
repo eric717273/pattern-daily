@@ -150,12 +150,13 @@ describe('MePage stats and attempts', () => {
   it('shows zeros and an empty heatmap on a fresh install', async () => {
     renderMe();
     expect(await screen.findByText('已完成 0 课，下一课是第 1 课', { exact: false })).toBeInTheDocument();
-    const heat = screen.getByRole('group', { name: '近 12 周学习热力图' });
-    const cells = within(heat).getAllByRole('img');
+    // the stats, heatmap and attempts sections load independently: wait for each instead of assuming the order
+    const heat = await screen.findByRole('group', { name: '近 12 周学习热力图' });
+    const cells = await within(heat).findAllByRole('img');
     expect(cells.length).toBeGreaterThan(70);
     expect(cells.length).toBeLessThanOrEqual(84);
     expect(cells.every((c) => c.getAttribute('data-level') === '0')).toBe(true);
-    expect(screen.getByText(/还没有造句记录/)).toBeInTheDocument();
+    expect(await screen.findByText(/还没有造句记录/)).toBeInTheDocument();
   });
 
   it('counts finished days, shows heatmap intensity with accessible titles and the last attempts with scores', async () => {
@@ -174,8 +175,8 @@ describe('MePage stats and attempts', () => {
 
     renderMe();
     expect(await screen.findByText('已完成 1 课，下一课是第 2 课', { exact: false })).toBeInTheDocument();
-    const heat = screen.getByRole('group', { name: '近 12 周学习热力图' });
-    const todayCell = within(heat).getByRole('img', { name: `${today}，学习 12 分钟` });
+    const heat = await screen.findByRole('group', { name: '近 12 周学习热力图' });
+    const todayCell = await within(heat).findByRole('img', { name: `${today}，学习 12 分钟` });
     expect(todayCell).toHaveAttribute('data-level', '3');
     expect(todayCell).toHaveAttribute('title', `${today} · 12 分钟`);
 

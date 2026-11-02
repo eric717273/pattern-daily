@@ -103,7 +103,7 @@ function ReviewChunk({ chunk, onDone, limitMs }: { chunk: Chunk; onDone: Done; l
               ms: Math.min(600_000, Date.now() - startedAt),
               parts: {
                 ...(l ? { listen: { correct: l.correct, ms: l.ms } } : {}),
-                recall: [{ correct: r.correct, ms: r.ms }],
+                recall: [{ correct: r.correct, ms: r.ms, verified: r.verified }],
               },
             });
           }}
@@ -136,7 +136,7 @@ function ReviewFrame({ frame, onDone, limitMs }: { frame: SubstitutionFrame; onD
             else
               onDone(frameReviewGrade(results.current, limitMs), 'multi-swap', {
                 ms: Math.min(600_000, Date.now() - startedAt),
-                parts: { recall: results.current.map((x) => ({ correct: x.correct, ms: x.ms })) },
+                parts: { recall: results.current.map((x) => ({ correct: x.correct, ms: x.ms, verified: x.verified })) },
               });
           }}
         />

@@ -85,7 +85,7 @@ describe('RecallDrill (voice mode)', () => {
     await tick(10_000); // the clock no longer fails the prompt
     expect(screen.getByTestId('recall-result')).toHaveTextContent('✓');
     fireEvent.click(screen.getByRole('button', { name: '继续' }));
-    expect(onDone).toHaveBeenCalledWith({ correct: true, ms: 1800, heard: 'Long time no see' });
+    expect(onDone).toHaveBeenCalledWith({ correct: true, ms: 1800, heard: 'Long time no see', verified: true });
   });
 
   it('an open chunk ("… ") is accepted inside a longer utterance', () => {
@@ -109,7 +109,7 @@ describe('RecallDrill (voice mode)', () => {
     expect(within(diff).getByText('hello').closest('li')).toHaveAttribute('data-status', 'extra');
     expect(spoken).toContain('Long time no see.');
     fireEvent.click(screen.getByRole('button', { name: '继续' }));
-    expect(onDone).toHaveBeenCalledWith({ correct: false, ms: 6000, heard: 'long time no hello' });
+    expect(onDone).toHaveBeenCalledWith({ correct: false, ms: 6000, heard: 'long time no hello', verified: true });
   });
 
   it('honours timeLimitMs and only starts counting once the microphone is capturing', async () => {
@@ -155,7 +155,7 @@ describe('RecallDrill (voice mode)', () => {
     expect(screen.queryByTestId('recall-en')).not.toBeInTheDocument();
     fireEvent.click(screen.getByRole('button', { name: '显示答案' }));
     fireEvent.click(screen.getByRole('button', { name: '说对了' }));
-    expect(onDone).toHaveBeenCalledWith({ correct: true, ms: expect.any(Number) });
+    expect(onDone).toHaveBeenCalledWith({ correct: true, ms: expect.any(Number), verified: false });
   });
 
   it('stops the recognizer on unmount', () => {
@@ -179,7 +179,7 @@ describe('RecallDrill (no speech recognition)', () => {
     fireEvent.click(screen.getByRole('button', { name: '显示答案' }));
     expect(screen.getByTestId('recall-en')).toHaveTextContent('Long time no see.');
     fireEvent.click(screen.getByRole('button', { name: '没说出来' }));
-    expect(onDone).toHaveBeenCalledWith({ correct: false, ms: expect.any(Number) });
+    expect(onDone).toHaveBeenCalledWith({ correct: false, ms: expect.any(Number), verified: false });
   });
 });
 

@@ -69,7 +69,7 @@ export function PlanSection() {
             options={minuteChoices.map((m) => ({ value: m, label: `${m} 分钟` }))}
           />
         </Field>
-        <Field label="每天新语块数量" hint="从下一课开始生效（今天的内容已经定好，不会中途改变）。">
+        <Field label="每天新语块数量" hint={goal ? '从下一课开始生效（今天的内容已经定好，不会中途改变）。设定目标后，系统还会按你的时间预算和正确率每天自动微调这个数量。' : '从下一课开始生效（今天的内容已经定好，不会中途改变）。'}>
           <div className="flex items-center gap-3" role="group" aria-label="每天新语块数量">
             <Button
               size="sm"
@@ -105,7 +105,7 @@ export function PlanSection() {
           </div>
         </Field>
         <div className="flex flex-col gap-2.5 rounded-xl bg-slate-100 px-3.5 py-3 text-sm leading-relaxed text-slate-600 dark:bg-slate-800/70 dark:text-slate-300" data-testid="plan-explain">
-          <p className="font-medium text-slate-800 dark:text-slate-100">两条互相独立的学习线</p>
+          <p className="font-medium text-slate-800 dark:text-slate-100">{goal ? '解码线与语块线互相独立，另有听力与输出' : '两条互相独立的学习线'}</p>
           <p>
             <span className="font-medium text-slate-800 dark:text-slate-100">解码</span>
             ：前 13 课每天学一个骨架句（逐字对照、陷阱、变形练习），之后每天约 3 分钟维护。练的是看懂结构。
@@ -114,6 +114,12 @@ export function PlanSection() {
             <span className="font-medium text-slate-800 dark:text-slate-100">语块</span>
             ：每天 {newPerDay} 条新语块 + 间隔复习，约 500 条（150 个母框 + 350 条固定表达，含短语动词与常用搭配）。练的是脱口而出，不讲语法。
           </p>
+          {goal && (
+            <p>
+              <span className="font-medium text-slate-800 dark:text-slate-100">听力与输出</span>
+              ：对话、连读弱读和数字听写练听力，情景说或写练输出。难度按“难度阶梯”自动调整，把正确率维持在 70%–88%。
+            </p>
+          )}
           <p>「第 N 课」按你完成的课数推进，不是按日期：漏练一天不会跳过内容，所以不需要“重新开始计划”。</p>
         </div>
       </Card>

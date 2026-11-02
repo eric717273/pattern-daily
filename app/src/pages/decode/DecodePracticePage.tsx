@@ -75,7 +75,7 @@ function PracticeBody({ cards }: { cards: ReadonlyMap<string, CardState> }) {
     setFinished({ grade, result });
     try {
       await ensureCards('dozen', [dozen.id]);
-      await gradeCard(`dozen:${dozen.id}`, grade, mode, result.ms);
+      await gradeCard(`dozen:${dozen.id}`, grade, mode, result.ms, { skill: 'decode', correct: grade >= 2 });
     } catch {
       setSaveError(true);
     }

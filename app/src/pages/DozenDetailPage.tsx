@@ -31,7 +31,8 @@ function TransformSection({ sentence }: { sentence: DozenSentence }) {
     setSaveError(false);
     try {
       await ensureCards('dozen', [sentence.id]);
-      await gradeCard(`dozen:${sentence.id}`, gradeFromRatio(r.correct, r.total), 'transform', r.ms);
+      const grade = gradeFromRatio(r.correct, r.total);
+      await gradeCard(`dozen:${sentence.id}`, grade, 'transform', r.ms, { skill: 'decode', correct: grade >= 2 });
     } catch {
       setSaveError(true);
     }

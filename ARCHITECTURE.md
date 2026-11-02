@@ -5,7 +5,7 @@
 
 **v2 的核心：两条互相独立的学习线。**
 - **解码线**（Tim Ferriss）：13 个骨架句，前 13 天每天学 1 个（逐字对照、陷阱、变形练习），之后每天约 3 分钟维护（变形或成分标注），轮流复习 d01–d13。练的是理解，讲语法。
-- **语块线**（Palmer + 语块研究）：150 个母框（f001–f150）+ 250 条固定表达（c001–c250），按交际功能（`FunctionCategory`）组织，不按语法。每天按课程表学 N 条新的（默认 5），其余靠 SRS 复习。练的是自动化，**不讲语法**。
+- **语块线**（Palmer + 语块研究）：150 个母框（f001–f150）+ 350 条固定表达（c001–c350，其中 c251–c350 为短语动词与常用搭配），按交际功能（`FunctionCategory`）组织，不按语法。每天按课程表学 N 条新的（默认 5），其余靠 SRS 复习。练的是自动化，**不讲语法**。
 
 ## 平台
 - **PWA**（Vite + React 19 + TypeScript + Tailwind v4 + vite-plugin-pwa）：iPhone 用 Safari 添加到主屏幕，Mac 用 Safari 添加到程序坞，体验接近原生 App。
@@ -40,7 +40,7 @@ supabase/
 ```ts
 export const DOZEN: DozenSentence[];               // 13 条，按 order 排序（每条 ≥5 个 transforms）
 export const SEED_FRAMES: SubstitutionFrame[];     // frames-core + scenes + more + extra，共 150 个，都有 category/freq
-export const CHUNKS: Chunk[];                      // CHUNKS_1..5 合并，按 id 排序，共 250 条
+export const CHUNKS: Chunk[];                      // CHUNKS_1..5 合并，按 id 排序，共 350 条（c001–c350）
 export const CURRICULUM: ItemRef[];                // buildCurriculum(SEED_FRAMES, CHUNKS)，语块线的学习顺序
 export function getDozen(id: string): DozenSentence | undefined;
 export function getChunk(id: string): Chunk | undefined;
@@ -48,7 +48,7 @@ export function getSeedFrame(id: string): SubstitutionFrame | undefined;
 export function getItem(ref: ItemRef, userFrames?: readonly SubstitutionFrame[]):
   { kind: 'chunk'; chunk: Chunk } | { kind: 'frame'; frame: SubstitutionFrame } | undefined; // 母框先查内置，再查传入的用户母框
 ```
-`content.test.ts` 校验：250 条语块（id 连续、例句原样包含语块、无重复）、≥150 母框、20 个功能类别各 ≥8 项、变形题字段与 `from` 来源、CURRICULUM 覆盖全部内容各一次。
+`content.test.ts` 校验：350 条语块（id 连续、例句原样包含语块、无重复）、≥150 母框、20 个功能类别各 ≥8 项、变形题字段与 `from` 来源、CURRICULUM 覆盖全部内容各一次。
 
 ### curriculum.ts
 ```ts
@@ -207,6 +207,9 @@ export function listenOnce(lang?: string): Promise<string>;  // webkitSpeechReco
 每 7 课 / 手动 ──getCoachInput──▶ generateCoachReport | rulesCoachReport ──saveCoachReport──▶ profile.coachReports（保留 12 份）
 ```
 - 写 ReviewLog 的可选字段，不新增同步表，服务端无需迁移。`logMeasurement` 只写日志，不动 SRS；`gradeCard` 的第 5 个可选参数同时调度并记录测量。
+- **自评不是口语测量**：`RecallDrill` 的结果带 `verified`（仅语音识别判定时为 true）。自评模式的 `ms` 只是点“显示答案”的时间。测量日志（`lib/today.ts` 的 `speakMeasurement`）和诊断 / 复测（`lib/assessment.ts`）只使用 `verified` 答案的反应时间：没有已验证的答对时，口语等级只按正确率估算（≥ 0.75 → S2，≥ 0.5 → S1，否则 S0），不进入快速通道；结果页提示“口语等级按自评估算”。因此 `skills.ts` 的中位反应时间只含已验证的数据。
+- **未到期的边缘语块**在复习步骤里只写测量日志（`saveReview` → `logMeasurement`），不调度；到期的卡才 `gradeCard`。解码（今日解码块、解码练习、骨架句变形）通过 `gradeCard` 的测量参数写入 `skill: 'decode'`（`correct = grade >= 2`）。
+- **时间预算的平均用时**（`repo.timeAverages`，30 天窗口）只统计真正的 SRS 日志：卡片 id 为 `chunk:` / `frame:`，且 `durationMs` 在 (0, 120 s]。mode 为 `listen` / `dialogue` / `sound` / `numbers` / `diagnostic` 的日志（分项测量日志）和零时长的测量日志一律排除（测量日志只写 `logMeasurement` 的 `durationMs` 或 0，不是整次复习）。每张卡最早的一条（mode ≠ `review`）算“新学”用时，其余算“复习”用时；这样同一次新学里的听辨分项日志不会被重复累计。
 - `runAdaptation(today)` 在一天完成后调用（幂等），返回当天的调整（"明天的调整"）；`getDaySummaryV3(date)` 返回今日反馈（各技能正确率与 70–88% 区间、反应时间、错题、当天调整）。
 - `getGoalProgress()` 返回阶段计划与进度状态；`setGoal` 与诊断保存后，若今天还没开始，会丢弃旧的冻结计划以便按新目标重建。
 - 控制器和水平描述是启发式方法，不是经过验证的测评工具（详见规范第九节）。

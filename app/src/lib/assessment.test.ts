@@ -196,6 +196,26 @@ describe('speakLevelFromResults', () => {
   });
 });
 
+describe('speakLevelFromResults: self-check (unverified) answers', () => {
+  const self = (correct: boolean, latencyMs?: number): SpeakResult => ({ chunkId: 'c', freq: 1, correct, verified: false, latencyMs });
+  const ver = (ms: number): SpeakResult => ({ chunkId: 'c', freq: 1, correct: true, verified: true, latencyMs: ms });
+  const mix = (ok: number, n: number): SpeakResult[] => Array.from({ length: n }, (_, i) => self(i < ok, i < ok ? 1000 : undefined));
+
+  it('ignores latency of unverified answers: the level is accuracy-based (>= 0.75 S2, >= 0.5 S1, else S0)', () => {
+    expect(speakLevelFromResults(mix(8, 8))).toEqual({ level: 2, acc: 1 }); // 1 s "latency" would have been S5
+    expect(speakLevelFromResults(mix(6, 8)).level).toBe(2); // exactly 0.75
+    expect(speakLevelFromResults(mix(5, 8)).level).toBe(1);
+    expect(speakLevelFromResults(mix(4, 8)).level).toBe(1); // exactly 0.5
+    expect(speakLevelFromResults(mix(3, 8)).level).toBe(0);
+    expect(speakLevelFromResults(mix(8, 8)).medianMs).toBeUndefined();
+  });
+
+  it('uses only the verified latencies when verified and unverified answers are mixed', () => {
+    const rs = [ver(5800), ver(6000), self(true, 500), self(true, 500), self(true, 500)];
+    expect(speakLevelFromResults(rs)).toMatchObject({ level: 2, medianMs: 5900 });
+  });
+});
+
 describe('levelZhFor', () => {
   it('maps the composite 0.6 x listen/8 + 0.4 x speak/5 to the four labels', () => {
     expect(levelZhFor(0, 0)).toBe('入门');
@@ -274,6 +294,23 @@ describe('scorePlacement', () => {
       { date: 'd' },
     );
     expect(boundary.fastTracked).toEqual(['c001']);
+  });
+
+  it('self-check placement: no latency-based level and nothing is fast-tracked', () => {
+    const speak = Array.from({ length: 8 }, (_, i): SpeakResult => ({ chunkId: `c00${i + 1}`, freq: i < 4 ? 1 : 2, correct: true, verified: false, latencyMs: 800 }));
+    const a = scorePlacement(results({ speak }), { date: 'd' });
+    expect(a.fastTracked).toBeUndefined();
+    expect(a.speakLevel).toBe(2);
+    expect(a.speakMedianMs).toBeUndefined();
+    expect(a.speakAcc).toBe(1);
+  });
+
+  it('verified fast answers are still fast-tracked', () => {
+    const speak: SpeakResult[] = [
+      { chunkId: 'c001', freq: 1, correct: true, verified: true, latencyMs: 2000 },
+      { chunkId: 'c002', freq: 1, correct: true, verified: false, latencyMs: 2000 },
+    ];
+    expect(scorePlacement(results({ speak }), { date: 'd' }).fastTracked).toEqual(['c001']);
   });
 
   it('omits fastTracked when nothing qualifies', () => {
@@ -406,5 +443,14 @@ describe('scoreCheckpoint', () => {
     const a = scoreCheckpoint(ladder, { listen: [l(3, true, 1), l(3, false, 2)], speak: [sp(true, 3000, 1)] }, { date: 'd' });
     expect(a.bandAcc).toEqual({ 1: 1, 2: 0 });
     expect(['入门', '基础', '进阶', '熟练']).toContain(a.levelZh);
+  });
+});
+
+describe('scoreCheckpoint: self-check speaking', () => {
+  it('uses the accuracy-based level and records no median', () => {
+    const speak: SpeakResult[] = [1, 2, 3, 4].map((i) => ({ chunkId: `c00${i}`, freq: 1 as Freq, correct: i < 4, verified: false, latencyMs: 900 }));
+    const a = scoreCheckpoint({ listen: 2, speak: 2, newPerDay: 5 }, { listen: [], speak }, { date: 'd' });
+    expect(a.speakLevel).toBe(2); // 3/4 = 0.75
+    expect(a.speakMedianMs).toBeUndefined();
   });
 });

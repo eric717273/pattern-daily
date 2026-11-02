@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import type { Assessment, Chunk, CoachReport, Dialogue, Goal, ItemRef, SoundPattern, StepKey, SubstitutionFrame } from '../types';
+import type { Assessment, ReviewLog, Chunk, CoachReport, Dialogue, Goal, ItemRef, SoundPattern, StepKey, SubstitutionFrame } from '../types';
 
 vi.mock('../content', () => {
   const frame = (id: string): SubstitutionFrame => ({
@@ -83,6 +83,7 @@ vi.mock('../content', () => {
 
 import { db } from './db';
 import {
+  timeAverages,
   deleteUserFrame,
   ensureCards,
   exportData,
@@ -1267,5 +1268,51 @@ describe('getGoalProgress / getCoachInput', () => {
     expect(input.edgeTexts).toEqual(['c003']);
     expect(input.goal?.horizonDays).toBe(30);
     expect(JSON.stringify(input)).not.toContain('userEn');
+  });
+});
+
+describe('timeAverages (newPerDay time budget)', () => {
+  const NOW = 100 * 86_400_000;
+  let n = 0;
+  const log = (cardId: string, mode: ReviewLog['mode'], durationMs: number, ago = 1000): ReviewLog => ({
+    id: `l${n++}`,
+    cardId,
+    grade: 2,
+    mode,
+    reviewedAt: NOW - ago - n,
+    durationMs,
+    updatedAt: 1,
+  });
+
+  it('measurement-only logs (listen / dialogue / sound / numbers / diagnostic, zero-duration speak) never skew the averages', () => {
+    const genuine: ReviewLog[] = [];
+    // three new-item flows of 60 s each, then five 20 s reviews of other cards
+    for (const id of ['c001', 'c002', 'c003']) genuine.push(log(`chunk:${id}`, 'recall', 60_000, 5 * 86_400_000));
+    for (let i = 0; i < 5; i++) genuine.push(log(`chunk:c10${i}`, 'recall', 20_000, 3 * 86_400_000), log(`chunk:c10${i}`, 'recall', 20_000, 2 * 86_400_000));
+    const base = timeAverages(genuine, NOW);
+    expect(base.avgNewSec).toBeCloseTo(((60 * 3 + 20 * 5) / 8), 5); // first log of every card is its new-item flow
+    const noise: ReviewLog[] = [
+      ...['c001', 'c002', 'c003'].map((id) => log(`chunk:${id}`, 'listen', 1_500, 5 * 86_400_000 - 10)), // per-part listening logs
+      ...['c001', 'c002', 'c003'].map((id) => log(`chunk:${id}`, 'recall', 0, 5 * 86_400_000 - 20)), // measurement-only speak
+      log('dialogue:dl001', 'dialogue', 90_000),
+      log('sound:s01', 'sound', 90_000),
+      log('numbers:price', 'numbers', 90_000),
+      log('chunk:c001', 'diagnostic', 90_000),
+    ];
+    expect(timeAverages([...genuine, ...noise], NOW)).toEqual(base);
+  });
+
+  it('listen-part logs of new items do not inflate avgNewSec', () => {
+    const logs: ReviewLog[] = [];
+    for (const id of ['c001', 'c002', 'c003']) {
+      logs.push(log(`chunk:${id}`, 'listen', 30_000, 86_400_000 + 5), log(`chunk:${id}`, 'recall', 40_000, 86_400_000));
+    }
+    expect(timeAverages(logs, NOW).avgNewSec).toBe(40);
+  });
+
+  it('v2 flashcard reviews (mode review) count as reviews even when they are a card\'s first log; old and slow logs are ignored', () => {
+    const logs = Array.from({ length: 5 }, (_, i) => log(`chunk:c00${i}`, 'review', 10_000));
+    logs.push(log('chunk:c050', 'review', 500_000), log('chunk:c051', 'review', 10_000, 40 * 86_400_000));
+    expect(timeAverages(logs, NOW)).toEqual({ avgReviewSec: 10 });
   });
 });

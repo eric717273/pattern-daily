@@ -140,6 +140,11 @@ export function CheckpointPage() {
                 </div>
               </div>
             </div>
+            {result.speakAcc > 0 && result.speakMedianMs === undefined && (
+              <p className="text-sm text-amber-700 dark:text-amber-300" data-testid="result-self-estimate">
+                口语等级按自评估算；开启语音验证后会更准
+              </p>
+            )}
             {previous ? (
               <p className="text-sm text-slate-500 dark:text-slate-400">
                 对比{previous.kind === 'placement' ? '诊断' : '上次复测'}（{previous.date}）：听力 L{previous.listenLevel}，口语 S{previous.speakLevel}。

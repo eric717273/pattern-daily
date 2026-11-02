@@ -37,6 +37,8 @@ export function ResultStep({ assessment, onStart }: ResultStepProps) {
   const ladder = profile.adaptive?.ladder ?? defaultLadder();
   const listen = assessment?.listenLevel ?? ladder.listen;
   const speak = assessment?.speakLevel ?? ladder.speak;
+  // Correct speaking answers but no verified latency: the level was estimated from accuracy (self-check mode).
+  const selfEstimated = assessment !== undefined && assessment.speakAcc > 0 && assessment.speakMedianMs === undefined;
 
   return (
     <div className="flex flex-col gap-5">
@@ -60,6 +62,11 @@ export function ResultStep({ assessment, onStart }: ResultStepProps) {
               先用默认难度开始。练习一段时间后系统会自动调节；想要更准的起点，随时可以在“计划”里补做诊断。
             </p>
           </div>
+        )}
+        {selfEstimated && (
+          <p className="text-sm leading-relaxed text-amber-700 dark:text-amber-300" data-testid="result-self-estimate">
+            口语等级按自评估算；开启语音验证后会更准
+          </p>
         )}
         <div className="grid grid-cols-3 gap-2.5">
           <Stat label="听力起点语速" value={`${listenRate(listen).toFixed(2)}×`} sub={`等级 L${listen}`} />

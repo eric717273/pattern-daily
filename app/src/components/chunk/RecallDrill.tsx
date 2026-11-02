@@ -23,6 +23,11 @@ export interface RecallResult {
   ms: number;
   /** Best transcript of what the learner said (voice mode only; '' = nothing heard). */
   heard?: string;
+  /**
+   * True only when the speech recognizer produced the verdict (voice mode). In self-check mode (no recognition, voice
+   * off, or after a recognition error) `ms` is just the time until 显示答案, which is not a speaking latency.
+   */
+  verified: boolean;
 }
 
 export interface RecallDrillProps {
@@ -358,11 +363,11 @@ export function RecallDrill({ item, timeLimitMs, combo, onDone, continueLabel = 
               <Button
                 variant="secondary"
                 size="lg"
-                onClick={() => onDone({ correct: false, ms: selfMs })}
+                onClick={() => onDone({ correct: false, ms: selfMs, verified: false })}
               >
                 没说出来
               </Button>
-              <Button variant="primary" size="lg" onClick={() => onDone({ correct: true, ms: selfMs })}>
+              <Button variant="primary" size="lg" onClick={() => onDone({ correct: true, ms: selfMs, verified: false })}>
                 说对了
               </Button>
             </div>
@@ -374,8 +379,8 @@ export function RecallDrill({ item, timeLimitMs, combo, onDone, continueLabel = 
               onClick={() =>
                 onDone(
                   phase === 'success'
-                    ? { correct: true, ms: okMs, heard: live }
-                    : { correct: false, ms: failReason === 'timeout' ? limitMs : Math.min(limitMs, elapsed), heard: best?.heard ?? '' },
+                    ? { correct: true, ms: okMs, heard: live, verified: true }
+                    : { correct: false, ms: failReason === 'timeout' ? limitMs : Math.min(limitMs, elapsed), heard: best?.heard ?? '', verified: true },
                 )
               }
             >

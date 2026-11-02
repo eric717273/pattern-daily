@@ -112,15 +112,26 @@ export interface ItemParts {
   /** The 听辨 question: picked the right chunk. */
   listen?: { correct: boolean; ms: number };
   /** The 说出 prompts (a chunk has one, a reviewed frame two sentences). */
-  recall?: { correct: boolean; ms: number }[];
+  recall?: RecallPart[];
 }
 
-/** The speak measurement of an item: right when every prompt was said, latency = mean time of the right ones. */
-export function speakMeasurement(recall: readonly { correct: boolean; ms: number }[], level?: number): CardMeasurement | undefined {
+/** One 说出 prompt. `verified` = the speech recognizer judged it, so `ms` is a real speaking latency (self-check `ms` is not). */
+export interface RecallPart {
+  correct: boolean;
+  ms: number;
+  verified?: boolean;
+}
+
+/**
+ * The speak measurement of an item: right when every prompt was said, latency = mean time of the right AND verified
+ * ones (self-check time is not speech latency, so an item without a verified right answer carries no latency).
+ */
+export function speakMeasurement(recall: readonly RecallPart[], level?: number): CardMeasurement | undefined {
   if (recall.length === 0) return undefined;
   const right = recall.filter((r) => r.correct);
   const m: CardMeasurement = { skill: 'speak', correct: right.length === recall.length };
-  if (right.length > 0) m.latencyMs = Math.round(right.reduce((a, r) => a + r.ms, 0) / right.length);
+  const timed = right.filter((r) => r.verified === true);
+  if (timed.length > 0) m.latencyMs = Math.round(timed.reduce((a, r) => a + r.ms, 0) / timed.length);
   if (level !== undefined) m.level = level;
   return m;
 }
@@ -175,8 +186,16 @@ export async function saveNewItem(ref: ItemRef, grade: Grade, mode: DrillMode, m
   }
 }
 
-/** Persist one reviewed card (grade + SRS) together with its measurements. */
+/**
+ * Persist one reviewed card. A due card is graded (SRS + measurements). A card that is NOT due (an edge card practised
+ * early in 复习) must not be rescheduled, so only its measurements are logged (repo.logMeasurement).
+ */
 export async function saveReview(cardId: string, grade: Grade, mode: DrillMode, ms: number, parts?: ItemParts, ladder?: Ladder): Promise<void> {
+  const card = await db.cards.get(cardId);
+  if (card && !card.deleted && !isDue(card, Date.now())) {
+    await logParts(cardId, parts, ladder, false);
+    return;
+  }
   const speak = await logParts(cardId, parts, ladder, true);
   await gradeCard(cardId, grade, mode, ms, speak);
 }

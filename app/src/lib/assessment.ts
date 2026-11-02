@@ -45,6 +45,14 @@ export const SPEAK_LATENCY_LEVELS: readonly { maxMs: number; level: number }[] =
 /** Below this speaking accuracy the level is S0 whatever the speed. */
 export const SPEAK_MIN_ACC = 0.5;
 /**
+ * Conservative speaking level when there is no verified correct answer (self-check / voice off), so no latency exists:
+ * accuracy >= 0.75 -> S2, >= 0.5 -> S1, else S0. Never higher than S2, and nothing is fast-tracked.
+ */
+export const SPEAK_SELF_CHECK_LEVELS: readonly { minAcc: number; level: number }[] = [
+  { minAcc: 0.75, level: 2 },
+  { minAcc: SPEAK_MIN_ACC, level: 1 },
+];
+/**
  * A cap on the staircase level from the two dialogue gist questions: a wrong tier-1 dialogue caps listening at L2,
  * a wrong tier-2 dialogue at L5 (the top of tier 2). Single sentences are easier than dialogues, so the staircase
  * alone tends to overestimate.
@@ -173,8 +181,18 @@ export interface DialogueResult {
 }
 export interface SpeakResult extends ChunkProbe {
   correct: boolean;
-  /** Time from the prompt to a correct answer; absent for wrong answers. */
+  /** Time from the prompt to a correct answer; absent for wrong answers. Only meaningful when `verified`. */
   latencyMs?: number;
+  /**
+   * The speech recognizer matched the answer, so `latencyMs` is a real speaking latency. false = self-check (the time
+   * is just until the learner tapped 显示答案): the latency is then ignored. Absent counts as verified (older callers).
+   */
+  verified?: boolean;
+}
+
+/** A correct answer whose latency is a genuine speaking time. */
+function verifiedLatency(r: SpeakResult): number | undefined {
+  return r.correct && r.verified !== false && typeof r.latencyMs === 'number' ? r.latencyMs : undefined;
 }
 
 export interface PlacementResults {
@@ -209,16 +227,21 @@ export function highestPassedLevel(results: readonly { level: number; correct: b
   return best;
 }
 
-/** Speaking level S0-S5 from accuracy and the median latency of the correct answers (see the table above). */
+/**
+ * Speaking level S0-S5 from accuracy and the median latency of the VERIFIED correct answers (see the table above).
+ * Without any verified correct answer the level comes from accuracy alone (SPEAK_SELF_CHECK_LEVELS).
+ */
 export function speakLevelFromResults(results: readonly SpeakResult[]): { level: number; acc: number; medianMs?: number } {
   const acc = results.length === 0 ? 0 : results.filter((r) => r.correct).length / results.length;
-  const times = results
-    .filter((r) => r.correct && typeof r.latencyMs === 'number')
-    .map((r) => r.latencyMs as number);
+  const times = results.map(verifiedLatency).filter((t): t is number => t !== undefined);
   const medianMs = median(times);
   const out: { level: number; acc: number; medianMs?: number } = { level: 0, acc };
-  if (medianMs !== undefined) out.medianMs = medianMs;
-  if (acc < SPEAK_MIN_ACC || medianMs === undefined) return out;
+  if (acc < SPEAK_MIN_ACC) return out;
+  if (medianMs === undefined) {
+    out.level = SPEAK_SELF_CHECK_LEVELS.find((r) => acc >= r.minAcc - 1e-9)?.level ?? 0;
+    return out;
+  }
+  out.medianMs = medianMs;
   const row = SPEAK_LATENCY_LEVELS.find((r) => medianMs <= r.maxMs);
   out.level = row ? row.level : 0;
   return out;
@@ -249,9 +272,10 @@ function stamp(kind: Assessment['kind'], o: ScoreOptions): { id: string; date: s
  * Placement result.
  * - listenLevel: highest staircase level with >= 2/3 correct (0 if none), capped by the dialogue gist answers (DIALOGUE_CAP).
  * - listenAcc: share correct over staircase items and dialogues.
- * - speakLevel: accuracy < 50% -> S0, otherwise from the median latency of the correct answers
- *   (<= 3 s S5, <= 4 s S4, <= 5 s S3, <= 6.5 s S2, <= 8.5 s S1, else S0).
- * - fastTracked: freq-1 chunks said correctly within 3 s.
+ * - speakLevel: accuracy < 50% -> S0, otherwise from the median latency of the VERIFIED correct answers
+ *   (<= 3 s S5, <= 4 s S4, <= 5 s S3, <= 6.5 s S2, <= 8.5 s S1, else S0). Self-checked answers carry no latency; with no
+ *   verified correct answer the level is accuracy-based (>= 0.75 S2, >= 0.5 S1, else S0).
+ * - fastTracked: freq-1 chunks said correctly AND verified within 3 s (empty without speech verification).
  */
 export function scorePlacement(results: PlacementResults, opts: ScoreOptions = {}): Assessment {
   let listenLevel = highestPassedLevel(results.listen) ?? 0;
@@ -265,7 +289,7 @@ export function scorePlacement(results: PlacementResults, opts: ScoreOptions = {
   const fastTracked = [
     ...new Set(
       results.speak
-        .filter((r) => r.freq === 1 && r.correct && typeof r.latencyMs === 'number' && r.latencyMs <= FAST_TRACK_MS)
+        .filter((r) => r.freq === 1 && (verifiedLatency(r) ?? Infinity) <= FAST_TRACK_MS)
         .map((r) => r.chunkId),
     ),
   ];

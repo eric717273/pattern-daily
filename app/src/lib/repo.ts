@@ -625,24 +625,48 @@ export async function getEdgeItems(now: number = Date.now(), limit: number = MAX
 
 const AVG_WINDOW_DAYS = 30;
 const MAX_STEP_MS = 120_000; // answers slower than this are treated as the learner walking away
-const NEW_FLOW_MODES: DrillMode[] = ['listen', 'shadow', 'recall'];
+/**
+ * Modes that only ever label measurement logs (logMeasurement / per-part listening logs): they describe a part of an
+ * item or a card-less practice, never a whole SRS review or new-item flow, so they never feed the time averages.
+ * (Measurement-only speak logs use mode 'recall' but always have durationMs 0, which the duration filter drops.)
+ */
+const MEASUREMENT_MODES: ReadonlySet<DrillMode> = new Set<DrillMode>(['listen', 'dialogue', 'sound', 'numbers', 'diagnostic']);
 
 function mean(values: number[]): number {
   return values.reduce((a, b) => a + b, 0) / values.length;
 }
 
-/** Average seconds per review card and per newly learned item, from the last 30 days of logs (undefined if too few). */
-function timeAverages(logs: ReviewLog[], now: number): { avgReviewSec?: number; avgNewSec?: number } {
-  const recent = logs.filter((l) => l.reviewedAt >= now - AVG_WINDOW_DAYS * DAY_MS && l.durationMs > 0 && l.durationMs <= MAX_STEP_MS);
-  const out: { avgReviewSec?: number; avgNewSec?: number } = {};
-  const reviews = recent.filter((l) => l.mode === 'review' && (l.cardId.startsWith('chunk:') || l.cardId.startsWith('frame:')));
-  if (reviews.length >= 5) out.avgReviewSec = mean(reviews.map((l) => l.durationMs)) / 1000;
-  const perCard = new Map<string, number>();
-  for (const l of recent) {
-    if (!NEW_FLOW_MODES.includes(l.mode) || !(l.cardId.startsWith('chunk:') || l.cardId.startsWith('frame:'))) continue;
-    perCard.set(l.cardId, (perCard.get(l.cardId) ?? 0) + l.durationMs);
+/**
+ * Average seconds per review card and per newly learned item, from the last 30 days of logs (undefined if too few).
+ * Only genuine SRS logs count: chunk/frame logs written by gradeCard (one per whole review or new-item flow). Logs of
+ * MEASUREMENT_MODES and zero-duration measurement logs are ignored. A card's earliest genuine log is its new-item flow
+ * (unless it was written in mode 'review', the v2 flashcard); every later one is a review.
+ */
+export function timeAverages(logs: ReviewLog[], now: number): { avgReviewSec?: number; avgNewSec?: number } {
+  const genuine = logs
+    .filter(
+      (l) =>
+        !l.deleted &&
+        (l.cardId.startsWith('chunk:') || l.cardId.startsWith('frame:')) &&
+        !MEASUREMENT_MODES.has(l.mode) &&
+        l.durationMs > 0 &&
+        l.durationMs <= MAX_STEP_MS,
+    )
+    .sort((a, b) => a.reviewedAt - b.reviewedAt);
+  const since = now - AVG_WINDOW_DAYS * DAY_MS;
+  const seen = new Set<string>();
+  const newMs: number[] = [];
+  const reviewMs: number[] = [];
+  for (const l of genuine) {
+    const first = !seen.has(l.cardId);
+    seen.add(l.cardId);
+    if (l.reviewedAt < since) continue;
+    if (first && l.mode !== 'review') newMs.push(l.durationMs);
+    else reviewMs.push(l.durationMs);
   }
-  if (perCard.size >= 3) out.avgNewSec = mean([...perCard.values()]) / 1000;
+  const out: { avgReviewSec?: number; avgNewSec?: number } = {};
+  if (reviewMs.length >= 5) out.avgReviewSec = mean(reviewMs) / 1000;
+  if (newMs.length >= 3) out.avgNewSec = mean(newMs) / 1000;
   return out;
 }
 

@@ -96,7 +96,7 @@ export function NewItemFlow(props: NewItemFlowProps) {
           timeLimitMs={recallLimit}
           continueLabel="完成"
           onDone={(r: RecallResult) =>
-            finish(chunkGrade(listenResult(), r, recallLimit), 'recall', { recall: [{ correct: r.correct, ms: r.ms }] })
+            finish(chunkGrade(listenResult(), r, recallLimit), 'recall', { recall: [{ correct: r.correct, ms: r.ms, verified: r.verified }] })
           }
         />
       );
@@ -115,7 +115,7 @@ export function NewItemFlow(props: NewItemFlowProps) {
               frameGrade(listenResult(), r.grade ?? FEEL_GRADE[r.feel]),
               'single-swap',
               r.total !== undefined && r.total > 0 && r.correct !== undefined
-                ? { recall: [{ correct: r.correct / r.total >= 0.7, ms: Math.round(r.ms / r.total) }] }
+                ? { recall: [{ correct: r.correct / r.total >= 0.7, ms: Math.round(r.ms / r.total), verified: true }] }
                 : undefined,
             )
           }

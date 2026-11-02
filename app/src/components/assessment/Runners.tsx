@@ -27,8 +27,8 @@ function chunkItem(id: string): LibraryItem | undefined {
 }
 
 function speakResult(probe: ChunkProbe, r: RecallResult): SpeakResult {
-  const out: SpeakResult = { chunkId: probe.chunkId, freq: probe.freq, correct: r.correct };
-  if (r.correct) out.latencyMs = Math.max(0, Math.round(r.ms));
+  const out: SpeakResult = { chunkId: probe.chunkId, freq: probe.freq, correct: r.correct, verified: r.verified };
+  if (r.correct && r.verified) out.latencyMs = Math.max(0, Math.round(r.ms));
   return out;
 }
 
