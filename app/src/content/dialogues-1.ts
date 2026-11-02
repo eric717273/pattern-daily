@@ -20,8 +20,8 @@ export const DIALOGUES_1: Dialogue[] = [
     chunkIds: ['c001', 'c008', 'c010'],
     gist: {
       questionZh: 'Maria 刚才在做什么？',
-      optionsZh: ['倒垃圾', '遛狗', '取快递', '洗车'],
-      answer: 0,
+      optionsZh: ['洗车', '遛狗', '取快递', '倒垃圾'],
+      answer: 3,
     },
     blanks: [
       { turn: 0, text: "How's it going" },
@@ -43,8 +43,8 @@ export const DIALOGUES_1: Dialogue[] = [
     chunkIds: ['c191', 'c189'],
     gist: {
       questionZh: 'A 周末想做什么？',
-      optionsZh: ['在家打扫卫生', '天气好的话去爬山', '去看电影', '去看望爷爷奶奶'],
-      answer: 1,
+      optionsZh: ['在家打扫卫生', '去看电影', '天气好的话去爬山', '去看望爷爷奶奶'],
+      answer: 2,
     },
     blanks: [
       { turn: 0, text: 'up to this weekend' },
@@ -66,8 +66,8 @@ export const DIALOGUES_1: Dialogue[] = [
     chunkIds: ['c129', 'c128'],
     gist: {
       questionZh: 'A 为什么迟到了？',
-      optionsZh: ['睡过头了', '找不到地方', '路上堵车', '忘记了时间'],
-      answer: 2,
+      optionsZh: ['睡过头了', '路上堵车', '找不到地方', '忘记了时间'],
+      answer: 1,
     },
     blanks: [
       { turn: 0, text: 'The traffic was crazy' },
@@ -89,8 +89,8 @@ export const DIALOGUES_1: Dialogue[] = [
     chunkIds: ['c101', 'c102'],
     gist: {
       questionZh: 'A 想请 B 帮什么忙？',
-      optionsZh: ['修电脑', '借一点钱', '照看小孩', '一起搬沙发'],
-      answer: 3,
+      optionsZh: ['修电脑', '一起搬沙发', '照看小孩', '借一点钱'],
+      answer: 1,
     },
     blanks: [
       { turn: 0, text: 'Could you do me a favor' },
@@ -112,8 +112,8 @@ export const DIALOGUES_1: Dialogue[] = [
     chunkIds: ['c117', 'c118'],
     gist: {
       questionZh: 'B 为什么不能一起吃午饭？',
-      optionsZh: ['已经吃过了', '中午有会议', '要去看医生', '不喜欢那家餐厅'],
-      answer: 1,
+      optionsZh: ['中午有会议', '已经吃过了', '要去看医生', '不喜欢那家餐厅'],
+      answer: 0,
     },
     blanks: [
       { turn: 0, text: 'Want to grab lunch' },
@@ -135,8 +135,8 @@ export const DIALOGUES_1: Dialogue[] = [
     chunkIds: ['c229', 'c232'],
     gist: {
       questionZh: 'A 点了什么？',
-      optionsZh: ['大杯美式', '中杯拿铁', '热巧克力', '一杯茶'],
-      answer: 1,
+      optionsZh: ['大杯美式', '一杯茶', '热巧克力', '中杯拿铁'],
+      answer: 3,
     },
     blanks: [
       { turn: 0, text: "I'll have a medium latte" },
@@ -158,8 +158,8 @@ export const DIALOGUES_1: Dialogue[] = [
     chunkIds: ['c167', 'c016', 'c154', 'c022'],
     gist: {
       questionZh: '两个人在聊什么？',
-      optionsZh: ['周末去哪玩', '今天天气太热', '晚饭吃什么菜', '新买的空调'],
-      answer: 1,
+      optionsZh: ['周末去哪玩', '晚饭吃什么菜', '今天天气太热', '新买的空调'],
+      answer: 2,
     },
     blanks: [
       { turn: 1, text: 'Tell me about it' },
@@ -181,8 +181,8 @@ export const DIALOGUES_1: Dialogue[] = [
     chunkIds: ['c116', 'c142'],
     gist: {
       questionZh: 'A 主动提出要做什么？',
-      optionsZh: ['洗碗', '倒垃圾', '去买面包', '摆餐桌'],
-      answer: 3,
+      optionsZh: ['洗碗', '倒垃圾', '摆餐桌', '去买面包'],
+      answer: 2,
     },
     blanks: [
       { turn: 0, text: 'Do you want me to' },
@@ -227,8 +227,8 @@ export const DIALOGUES_1: Dialogue[] = [
     chunkIds: ['c019', 'c032'],
     gist: {
       questionZh: '昨晚发生了什么事？',
-      optionsZh: ['狗走丢了', '狗咬了邻居', '狗生病去看兽医', '狗做了手术'],
-      answer: 2,
+      optionsZh: ['狗生病去看兽医', '狗咬了邻居', '狗走丢了', '狗做了手术'],
+      answer: 0,
     },
     blanks: [
       { turn: 1, text: "that's too bad" },
@@ -250,8 +250,8 @@ export const DIALOGUES_1: Dialogue[] = [
     chunkIds: ['c241', 'c118'],
     gist: {
       questionZh: 'A 周六为什么不行？',
-      optionsZh: ['要去旅行', '要上班', '要看医生', '要陪家人'],
-      answer: 1,
+      optionsZh: ['要去旅行', '要陪家人', '要看医生', '要上班'],
+      answer: 3,
     },
     blanks: [
       { turn: 0, text: 'We should hang out' },
@@ -273,8 +273,8 @@ export const DIALOGUES_1: Dialogue[] = [
     chunkIds: ['c243', 'c165', 'c014'],
     gist: {
       questionZh: 'B 周末去了哪里？',
-      optionsZh: ['爬山', '去朋友家', '海边', '湖边'],
-      answer: 2,
+      optionsZh: ['爬山', '去朋友家', '湖边', '海边'],
+      answer: 3,
     },
     blanks: [
       { turn: 0, text: 'How was your weekend' },
@@ -296,8 +296,8 @@ export const DIALOGUES_1: Dialogue[] = [
     chunkIds: ['c103', 'c166'],
     gist: {
       questionZh: 'A 想做什么？',
-      optionsZh: ['关灯', '开窗', '开空调', '关门'],
-      answer: 1,
+      optionsZh: ['关灯', '开空调', '开窗', '关门'],
+      answer: 2,
     },
     blanks: [
       { turn: 0, text: 'Do you mind if I' },
@@ -319,8 +319,8 @@ export const DIALOGUES_1: Dialogue[] = [
     chunkIds: ['c152', 'c147', 'c145', 'c127'],
     gist: {
       questionZh: 'A 为什么有压力？',
-      optionsZh: ['明天要面试', '明天要考试', '明天要搬家', '明天要演讲'],
-      answer: 0,
+      optionsZh: ['明天要考试', '明天要面试', '明天要搬家', '明天要演讲'],
+      answer: 1,
     },
     blanks: [
       { turn: 0, text: "I'm a bit stressed out" },
@@ -346,8 +346,8 @@ export const DIALOGUES_1: Dialogue[] = [
     chunkIds: ['c173', 'c166', 'c055', 'c146'],
     gist: {
       questionZh: 'A 对这部剧是什么态度？',
-      optionsZh: ['已经看过了，很喜欢', '不感兴趣，不会看', '不太爱看紧张的剧，但愿意试试', '觉得太无聊了'],
-      answer: 2,
+      optionsZh: ['不太爱看紧张的剧，但愿意试试', '不感兴趣，不会看', '已经看过了，很喜欢', '觉得太无聊了'],
+      answer: 0,
     },
     blanks: [
       { turn: 1, text: 'one of the best shows' },
@@ -370,8 +370,8 @@ export const DIALOGUES_1: Dialogue[] = [
     chunkIds: ['c196', 'c019', 'c192'],
     gist: {
       questionZh: 'B 为什么取消了今晚的晚饭？',
-      optionsZh: ['身体不舒服', '忘记了约定', '老板要她加班', '要去接孩子'],
-      answer: 2,
+      optionsZh: ['老板要她加班', '忘记了约定', '身体不舒服', '要去接孩子'],
+      answer: 0,
     },
     blanks: [
       { turn: 1, text: 'something came up' },
@@ -395,8 +395,8 @@ export const DIALOGUES_1: Dialogue[] = [
     chunkIds: ['c003', 'c249', 'c007', 'c246'],
     gist: {
       questionZh: '两人是什么关系？',
-      optionsZh: ['现在的同事', '多年没见的老同学', '邻居', '亲戚'],
-      answer: 1,
+      optionsZh: ['现在的同事', '亲戚', '邻居', '多年没见的老同学'],
+      answer: 3,
     },
     blanks: [
       { turn: 0, text: 'Long time no see' },
@@ -419,8 +419,8 @@ export const DIALOGUES_1: Dialogue[] = [
     chunkIds: ['c156', 'c207', 'c189'],
     gist: {
       questionZh: 'B 以后打算怎么通勤？',
-      optionsZh: ['继续开车', '坐火车', '骑自行车', '搬家'],
-      answer: 1,
+      optionsZh: ['继续开车', '骑自行车', '坐火车', '搬家'],
+      answer: 2,
     },
     blanks: [
       { turn: 2, text: "I'm sick of" },
@@ -444,8 +444,8 @@ export const DIALOGUES_1: Dialogue[] = [
     chunkIds: ['c227', 'c234', 'c233', 'c166'],
     gist: {
       questionZh: '顾客试穿后遇到了什么问题？',
-      optionsZh: ['颜色不喜欢', '价格太贵', '衣服有点紧', '衣服有点长'],
-      answer: 2,
+      optionsZh: ['颜色不喜欢', '衣服有点紧', '价格太贵', '衣服有点长'],
+      answer: 1,
     },
     blanks: [
       { turn: 1, text: "I'm just looking" },
@@ -463,14 +463,14 @@ export const DIALOGUES_1: Dialogue[] = [
       { speaker: 'A', en: 'I need a birthday gift for my sister. Any ideas?', zh: '我得给妹妹买个生日礼物，有主意吗？' },
       { speaker: 'B', en: "What's she like?", zh: '她是什么样的人？' },
       { speaker: 'A', en: "She's super into yoga, but I don't know much about it.", zh: '她超爱瑜伽，可我不太懂这个。' },
-      { speaker: 'B', en: "If I were you, I'd get her a nice yoga mat. The other day, I saw some on sale at the mall.", zh: '要是我，就给她买个好点的瑜伽垫。前几天我在商场看到有打折的。' },
+      { speaker: 'B', en: "If I were you, I'd get her a nice yoga mat. The other day, I saw some on sale.", zh: '要是我，就给她买个好点的瑜伽垫。前几天我在商场看到有打折的。' },
       { speaker: 'A', en: "Sounds good. Let's go take a look.", zh: '好啊，我们去看看。' },
     ],
     chunkIds: ['c144', 'c178', 'c021'],
     gist: {
       questionZh: 'B 建议给妹妹买什么？',
-      optionsZh: ['一本烹饪书', '运动鞋', '水杯', '瑜伽垫'],
-      answer: 3,
+      optionsZh: ['一本烹饪书', '瑜伽垫', '水杯', '运动鞋'],
+      answer: 1,
     },
     blanks: [
       { turn: 3, text: "If I were you, I'd" },
@@ -494,8 +494,8 @@ export const DIALOGUES_1: Dialogue[] = [
     chunkIds: ['c188', 'c090', 'c115'],
     gist: {
       questionZh: 'B 在做什么？',
-      optionsZh: ['蛋糕', '意大利面', '妈妈的鸡汤', '炒饭'],
-      answer: 2,
+      optionsZh: ['妈妈的鸡汤', '意大利面', '蛋糕', '炒饭'],
+      answer: 0,
     },
     blanks: [
       { turn: 1, text: "I've been meaning to" },
@@ -518,8 +518,8 @@ export const DIALOGUES_1: Dialogue[] = [
     chunkIds: ['c132', 'c142', 'c143'],
     gist: {
       questionZh: '妈妈提醒女儿别忘了做什么？',
-      optionsZh: ['多睡觉', '给奶奶打电话', '寄点钱回家', '周末回家'],
-      answer: 1,
+      optionsZh: ['多睡觉', '周末回家', '寄点钱回家', '给奶奶打电话'],
+      answer: 3,
     },
     blanks: [
       { turn: 0, text: 'Sorry about that' },
@@ -543,8 +543,8 @@ export const DIALOGUES_1: Dialogue[] = [
     chunkIds: ['c106', 'c002', 'c107', 'c027', 'c131'],
     gist: {
       questionZh: 'A 请 B 帮什么忙？',
-      optionsZh: ['周四接孩子', '周末照看宠物', '借一辆车', '帮忙搬家'],
-      answer: 0,
+      optionsZh: ['借一辆车', '周末照看宠物', '周四接孩子', '帮忙搬家'],
+      answer: 2,
     },
     blanks: [
       { turn: 0, text: 'do you have a minute' },
@@ -617,8 +617,8 @@ export const DIALOGUES_1: Dialogue[] = [
     chunkIds: ['c186', 'c129', 'c185'],
     gist: {
       questionZh: 'B 为什么还没到？',
-      optionsZh: ['迷路了', '路上堵车', '忘了时间', '车坏了'],
-      answer: 2,
+      optionsZh: ['忘了时间', '路上堵车', '迷路了', '车坏了'],
+      answer: 0,
     },
     blanks: [
       { turn: 1, text: 'lost track of time' },
@@ -642,8 +642,8 @@ export const DIALOGUES_1: Dialogue[] = [
     chunkIds: ['c005', 'c240', 'c242', 'c014'],
     gist: {
       questionZh: 'Dave 和 Chris 是什么关系？',
-      optionsZh: ['大学同学', '邻居', 'Chris 是 Dave 的老板', 'Dave 是 Chris 的学生'],
-      answer: 2,
+      optionsZh: ['大学同学', '邻居', 'Dave 是 Chris 的学生', 'Chris 是 Dave 的老板'],
+      answer: 3,
     },
     blanks: [
       { turn: 1, text: 'How do you know' },
@@ -666,8 +666,8 @@ export const DIALOGUES_1: Dialogue[] = [
     chunkIds: ['c095', 'c171', 'c021'],
     gist: {
       questionZh: 'B 推荐的餐厅有什么特点？',
-      optionsZh: ['装修豪华，菜一般', '环境普通，菜很好吃', '价格便宜，但很远', '只能外带'],
-      answer: 1,
+      optionsZh: ['装修豪华，菜一般', '只能外带', '价格便宜，但很远', '环境普通，菜很好吃'],
+      answer: 3,
     },
     blanks: [
       { turn: 0, text: 'Is there a good place to' },
@@ -695,8 +695,8 @@ export const DIALOGUES_1: Dialogue[] = [
     chunkIds: ['c004', 'c032', 'c181', 'c180', 'c023', 'c162'],
     gist: {
       questionZh: 'B 今年经历了什么？',
-      optionsZh: ['搬到了新城市', '被裁员，后来找到了更好的工作', '自己创业成功了', '生了一场大病'],
-      answer: 1,
+      optionsZh: ['搬到了新城市', '自己创业成功了', '被裁员，后来找到了更好的工作', '生了一场大病'],
+      answer: 2,
     },
     blanks: [
       { turn: 1, text: 'kind of a rough year' },
@@ -721,8 +721,8 @@ export const DIALOGUES_1: Dialogue[] = [
     chunkIds: ['c128', 'c149', 'c038', 'c121', 'c136'],
     gist: {
       questionZh: 'B 为什么迟到了？',
-      optionsZh: ['公交车晚点', '开车堵在路上', '地铁在途中停了', '手机没电，找不到地方'],
-      answer: 2,
+      optionsZh: ['公交车晚点', '地铁在途中停了', '开车堵在路上', '手机没电，找不到地方'],
+      answer: 1,
     },
     blanks: [
       { turn: 1, text: 'My bad' },
@@ -743,13 +743,13 @@ export const DIALOGUES_1: Dialogue[] = [
       { speaker: 'B', en: "Sunday could work. Let me see … I have brunch at eleven, but I'm free after that.", zh: '周日可以。我看看……十一点有个早午餐，之后都有空。' },
       { speaker: 'A', en: "Perfect. I mean, it's a two-hour drive, so we'd get there by three.", zh: '太好了。我是说，开车要两小时，三点前能到。' },
       { speaker: 'B', en: "Works for me. I'll let you know if anything changes.", zh: '我可以。有变化我告诉你。' },
-      { speaker: 'A', en: "Sounds good. Let's keep it loose and play it by ear.", zh: '好。我们别安排太死，到时候再说。' },
+      { speaker: 'A', en: "Sounds good. Let's play it by ear and keep it loose.", zh: '好。我们别安排太死，到时候再说。' },
     ],
     chunkIds: ['c118', 'c200', 'c027', 'c032', 'c192', 'c021', 'c195'],
     gist: {
       questionZh: '他们最后决定什么时候去湖边？',
-      optionsZh: ['这周六', '下周六', '下周日', '下周五晚上'],
-      answer: 2,
+      optionsZh: ['下周日', '下周六', '这周六', '下周五晚上'],
+      answer: 0,
     },
     blanks: [
       { turn: 1, text: "I'd love to, but" },
@@ -774,8 +774,8 @@ export const DIALOGUES_1: Dialogue[] = [
     chunkIds: ['c211', 'c022', 'c153', 'c138', 'c207', 'c208'],
     gist: {
       questionZh: 'B 昨晚为什么没睡好？',
-      optionsZh: ['工作加班', '隔壁装修', '楼上邻居开派对', '街上很吵'],
-      answer: 2,
+      optionsZh: ['楼上邻居开派对', '隔壁装修', '工作加班', '街上很吵'],
+      answer: 0,
     },
     blanks: [
       { turn: 2, text: "I've had it with" },
@@ -800,8 +800,8 @@ export const DIALOGUES_1: Dialogue[] = [
     chunkIds: ['c151', 'c025', 'c163', 'c140'],
     gist: {
       questionZh: 'A 打电话主要是为了什么？',
-      optionsZh: ['请假', '吐槽工作压力', '约朋友吃饭', '问工作建议'],
-      answer: 1,
+      optionsZh: ['请假', '问工作建议', '约朋友吃饭', '吐槽工作压力'],
+      answer: 3,
     },
     blanks: [
       { turn: 2, text: "I'm so over it" },
@@ -827,8 +827,8 @@ export const DIALOGUES_1: Dialogue[] = [
     chunkIds: ['c167', 'c028', 'c128', 'c027', 'c051', 'c032'],
     gist: {
       questionZh: '他们差点犯了什么错误？',
-      optionsZh: ['把盐当成了糖', '把两汤匙糖看成两杯', '烤箱温度调错', '忘记放面粉'],
-      answer: 1,
+      optionsZh: ['把盐当成了糖', '烤箱温度调错', '把两汤匙糖看成两杯', '忘记放面粉'],
+      answer: 2,
     },
     blanks: [
       { turn: 1, text: 'Hang on a second' },
@@ -909,8 +909,8 @@ export const DIALOGUES_1: Dialogue[] = [
     chunkIds: ['c020', 'c190', 'c043', 'c015'],
     gist: {
       questionZh: '最后两人怎么分工做派？',
-      optionsZh: ['A 做三个', 'B 做两个，A 做一个', '各做一个，再买一个', '全部买现成的'],
-      answer: 1,
+      optionsZh: ['B 做两个，A 做一个', 'A 做三个', '各做一个，再买一个', '全部买现成的'],
+      answer: 0,
     },
     blanks: [
       { turn: 3, text: "You're kidding" },
@@ -930,13 +930,13 @@ export const DIALOGUES_1: Dialogue[] = [
       { speaker: 'A', en: 'No way! The one who never fixed your heater?', zh: '不会吧！就是那个一直不修你暖气的？' },
       { speaker: 'B', en: 'The very same. I mean, I wanted to say something, but he asked about my mom.', zh: '就是他。我本来想说点什么，可他问起了我妈妈。' },
       { speaker: 'A', en: 'Ha, classic. So what did you do?', zh: '哈，太典型了。那你怎么办的？' },
-      { speaker: 'B', en: "I just said, take care, and got out of there. I wasn't going to start a fight over a heater, you know?", zh: '我就说了句保重，然后溜了。我总不能为了暖气吵一架吧？' },
+      { speaker: 'B', en: "I just said, take care, and left. I wasn't starting a fight over a heater, you know?", zh: '我就说了句保重，然后溜了。我总不能为了暖气吵一架吧？' },
     ],
     chunkIds: ['c243', 'c183', 'c014', 'c032', 'c010', 'c031'],
     gist: {
       questionZh: 'B 周末遇到了谁？',
-      optionsZh: ['以前的同事', '老同学', '以前的房东', '邻居'],
-      answer: 2,
+      optionsZh: ['以前的同事', '老同学', '邻居', '以前的房东'],
+      answer: 3,
     },
     blanks: [
       { turn: 0, text: 'How was your weekend' },
@@ -961,8 +961,8 @@ export const DIALOGUES_1: Dialogue[] = [
     chunkIds: ['c196', 'c123', 'c116', 'c124', 'c011'],
     gist: {
       questionZh: 'B 周五为什么去不了？',
-      optionsZh: ['要加班', '弟弟有演奏会', '身体不舒服', '要出差'],
-      answer: 1,
+      optionsZh: ['要加班', '身体不舒服', '弟弟有演奏会', '要出差'],
+      answer: 2,
     },
     blanks: [
       { turn: 1, text: 'Something came up' },
