@@ -53,7 +53,7 @@ test('library progress section on 我的 starts empty and the two-track plan is 
   await expect(section.getByText(/还没有学过语块/)).toBeVisible();
   const explain = page.getByTestId('plan-explain');
   await expect(explain).toContainText('前 13 课每天学一个骨架句');
-  await expect(explain).toContainText('约 400 条');
+  await expect(explain).toContainText('约 500 条（150 个母框 + 350 条固定表达，含短语动词与常用搭配）');
 });
 
 test('install instructions show in the browser but not when installed', async ({ page, browser }) => {

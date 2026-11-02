@@ -62,7 +62,7 @@ describe('NewItemFlow (chunk)', () => {
     fireEvent.click(screen.getByRole('button', { name: '显示答案' }));
     fireEvent.click(screen.getByRole('button', { name: '说对了' }));
     expect(onDone).toHaveBeenCalledTimes(1);
-    expect(onDone).toHaveBeenCalledWith(3, { ms: expect.any(Number), mode: 'recall' });
+    expect(onDone).toHaveBeenCalledWith(3, expect.objectContaining({ ms: expect.any(Number), mode: 'recall' }));
   });
 
   it('a wrong listening answer and a missed recall give 忘了 (0)', () => {
@@ -107,7 +107,7 @@ describe('NewItemFlow (frame)', () => {
     }
     fireEvent.click(screen.getByRole('button', { name: '轻松' }));
     fireEvent.click(screen.getByRole('button', { name: '完成' }));
-    expect(onDone).toHaveBeenCalledWith(correct ? 3 : 2, { ms: expect.any(Number), mode: 'single-swap' });
+    expect(onDone).toHaveBeenCalledWith(correct ? 3 : 2, expect.objectContaining({ ms: expect.any(Number), mode: 'single-swap' }));
   });
 });
 
@@ -122,7 +122,7 @@ describe('ReviewItem', () => {
     fireEvent.click(screen.getByRole('button', { name: '下一步：说出来' }));
     fireEvent.click(screen.getByRole('button', { name: '显示答案' }));
     fireEvent.click(screen.getByRole('button', { name: '说对了' }));
-    expect(onDone).toHaveBeenCalledWith(3, 'recall', { ms: expect.any(Number) });
+    expect(onDone).toHaveBeenCalledWith(3, 'recall', expect.objectContaining({ ms: expect.any(Number) }));
   });
 
   it('frame: two Chinese prompts of the frame, mode multi-swap', () => {
@@ -137,7 +137,20 @@ describe('ReviewItem', () => {
     expect(screen.getByTestId('recall-zh').textContent).not.toBe(first);
     fireEvent.click(screen.getByRole('button', { name: '显示答案' }));
     fireEvent.click(screen.getByRole('button', { name: '没说出来' }));
-    expect(onDone).toHaveBeenCalledWith(1, 'multi-swap', { ms: expect.any(Number) });
+    expect(onDone).toHaveBeenCalledWith(1, 'multi-swap', expect.objectContaining({ ms: expect.any(Number) }));
+  });
+
+  it('reports the listen and recall parts for the measurements', () => {
+    const onDone = vi.fn();
+    render(<ReviewItem card={card('chunk', 'c003')} onDone={onDone} />);
+    pickAnswer(true);
+    fireEvent.click(screen.getByRole('button', { name: '下一步：说出来' }));
+    fireEvent.click(screen.getByRole('button', { name: '显示答案' }));
+    fireEvent.click(screen.getByRole('button', { name: '说对了' }));
+    const info = onDone.mock.calls[0][2] as { parts: { listen: { correct: boolean }; recall: { correct: boolean }[] } };
+    expect(info.parts.listen.correct).toBe(true);
+    expect(info.parts.recall).toHaveLength(1);
+    expect(info.parts.recall[0].correct).toBe(true);
   });
 
   it('a card whose content is gone can be skipped', () => {

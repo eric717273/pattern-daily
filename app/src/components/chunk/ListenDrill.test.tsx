@@ -139,4 +139,15 @@ describe('ListenDrill (frame)', () => {
     fireEvent.click(screen.getByRole('button', { name: '继续' }));
     expect(onDone).toHaveBeenCalledWith({ correct: true, replays: 0, ms: expect.any(Number) });
   });
+
+  it('plays at the `rate` prop when given (placement staircase), default stays natural', () => {
+    const q = question();
+    render(<ListenDrill item={item} rng={seededRng(seed)} rate={1.15} onDone={() => undefined} />);
+    fireEvent.click(screen.getByRole('button', { name: '播放' }));
+    fireEvent.click(screen.getByRole('button', { name: '再听一次' }));
+    expect(spoken).toEqual([
+      { text: q.sentence, rate: 1.15 },
+      { text: q.sentence, rate: 1.15 },
+    ]);
+  });
 });

@@ -26,10 +26,15 @@ test('complete a full day offline without AI, and it persists', async ({ page })
   await expect(page.getByRole('heading', { name: '第 1 课' })).toBeVisible();
   await expect(page.getByTestId('decode-badge')).toHaveText('解码 骨架 1/13');
   await expect(page.getByTestId('chunk-badge')).toHaveText('语块 已学 0 / 500');
-  // four step tabs
+  // no goal yet: the v2 flow with four step tabs, no budgets, and the card that leads to the onboarding
   for (const label of ['复习', '新语块', '解码', '输出']) {
     await expect(page.getByRole('button', { name: new RegExp(`^第 \\d 步 ${label}`) })).toBeVisible();
   }
+  await expect(page.getByRole('button', { name: /^第 \d 步 听力/ })).toHaveCount(0);
+  await expect(page.getByTestId('goal-card')).toContainText('设定目标并做 10 分钟诊断，开启自适应训练');
+  await expect(page.getByRole('link', { name: '设定目标' })).toHaveAttribute('href', '#/onboarding');
+  await expect(page.getByTestId('today-goal')).toHaveCount(0);
+  await expect(page.getByTestId('step-clock')).toHaveCount(0);
 
   // 1. review: nothing due on day 1
   await finishEmptyReview(page);
@@ -55,6 +60,7 @@ test('complete a full day offline without AI, and it persists', async ({ page })
   await expect(page.getByTestId('sum-decode')).toHaveText('骨架 1/13');
   await expect(page.getByRole('link', { name: '去语块库' })).toBeVisible();
   await expect(page.getByRole('link', { name: '再做一组解码练习' })).toHaveAttribute('href', '#/decode/practice');
+  await expect(page.getByTestId('day-feedback')).toHaveCount(0); // 今日反馈 is for goal-based (v3) days
 
   // survives a reload
   await page.reload();

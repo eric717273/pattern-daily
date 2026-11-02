@@ -1,14 +1,25 @@
-import { useEffect, useRef, useState } from 'react';
-import type { CardState, DrillMode, Grade } from '../../types';
+import { useEffect, useMemo, useRef, useState } from 'react';
+import type { CardState, DrillMode, Grade, ItemRef, Ladder } from '../../types';
 import { useActiveTimer } from '../../lib/activeTimer';
-import { getDueCards, gradeCard } from '../../lib/repo';
+import { db } from '../../lib/db';
+import { speakLimitMs } from '../../lib/ladder';
+import { itemKey } from '../../lib/plan';
+import { getDueCards } from '../../lib/repo';
+import { saveReview, type ItemParts } from '../../lib/today';
 import { ReviewItem } from '../chunk';
 import { Badge, Button, Card, EmptyState, PageLoading } from '../ui';
 
 /** Most cards one review step asks for. */
 export const REVIEW_LIMIT = 15;
 
+/** Edge cards that are not due yet but still worth a look (v3), at most this many. */
+export const EDGE_EXTRA_LIMIT = 3;
+
 export interface ReviewStepProps {
+  /** v3: edge items come first (labelled 边缘语块), including a few that are not due yet. */
+  edge?: ItemRef[];
+  /** v3: the ladder in force; its speak limit applies to the recall drills and its levels go into the measurements. */
+  ladder?: Ladder;
   onComplete: (activeMs: number) => void | Promise<void>;
 }
 
@@ -16,7 +27,7 @@ export interface ReviewStepProps {
  * Step 1 复习: the chunk/frame cards that are due, taken as a snapshot when the step opens and reviewed one by one
  * (ReviewItem). Each grade is saved right away, so a reload simply continues with what is still due.
  */
-export function ReviewStep({ onComplete }: ReviewStepProps) {
+export function ReviewStep({ edge, ladder, onComplete }: ReviewStepProps) {
   const timer = useActiveTimer();
   const [cards, setCards] = useState<CardState[] | null>(null);
   const [index, setIndex] = useState(0);
@@ -24,12 +35,27 @@ export function ReviewStep({ onComplete }: ReviewStepProps) {
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const started = useRef(false);
+  const edgeKeys = useMemo(() => new Set((edge ?? []).map(itemKey)), [edge]);
 
   useEffect(() => {
     let cancelled = false;
-    getDueCards(Date.now(), REVIEW_LIMIT, ['chunk', 'frame'])
-      .then((due) => {
-        if (!cancelled) setCards(due);
+    void (async () => {
+      const due = await getDueCards(Date.now(), REVIEW_LIMIT, ['chunk', 'frame']);
+      if (edgeKeys.size === 0) return due;
+      // edge items first; a few that are not due yet join them, the rest keep their order
+      const dueEdge = due.filter((c) => edgeKeys.has(c.id));
+      const have = new Set(due.map((c) => c.id));
+      const extra: CardState[] = [];
+      for (const key of edgeKeys) {
+        if (extra.length >= EDGE_EXTRA_LIMIT) break;
+        if (have.has(key)) continue;
+        const card = await db.cards.get(key);
+        if (card && !card.deleted) extra.push(card);
+      }
+      return [...dueEdge, ...extra, ...due.filter((c) => !edgeKeys.has(c.id))].slice(0, REVIEW_LIMIT);
+    })()
+      .then((list) => {
+        if (!cancelled) setCards(list);
       })
       .catch(() => {
         if (!cancelled) setCards([]);
@@ -37,7 +63,7 @@ export function ReviewStep({ onComplete }: ReviewStepProps) {
     return () => {
       cancelled = true;
     };
-  }, []);
+  }, [edgeKeys]);
 
   const finish = async () => {
     if (started.current) return;
@@ -92,9 +118,9 @@ export function ReviewStep({ onComplete }: ReviewStepProps) {
     setIndex((i) => i + 1);
   };
 
-  const onDone = (grade: Grade, mode: DrillMode, info?: { ms: number }) => {
+  const onDone = (grade: Grade, mode: DrillMode, info?: { ms: number; parts?: ItemParts }) => {
     setReviewed((n) => n + 1);
-    void gradeCard(card.id, grade, mode, info?.ms ?? 0)
+    void saveReview(card.id, grade, mode, info?.ms ?? 0, ladder ? info?.parts : undefined, ladder)
       .catch(() => setError('这条的复习结果没有保存成功，但不影响继续。'))
       .finally(advance);
   };
@@ -102,9 +128,16 @@ export function ReviewStep({ onComplete }: ReviewStepProps) {
   return (
     <div className="flex flex-col gap-3.5">
       <div className="flex items-center justify-between gap-3">
-        <Badge tone="indigo" data-testid="review-progress">
-          复习 {index + 1} / {cards.length}
-        </Badge>
+        <div className="flex items-center gap-2">
+          <Badge tone="indigo" data-testid="review-progress">
+            复习 {index + 1} / {cards.length}
+          </Badge>
+          {edgeKeys.has(card.id) && (
+            <Badge tone="amber" data-testid="edge-badge">
+              边缘语块
+            </Badge>
+          )}
+        </div>
         <Button variant="ghost" size="sm" disabled={saving} onClick={() => void finish()}>
           今天就复习到这
         </Button>
@@ -114,7 +147,7 @@ export function ReviewStep({ onComplete }: ReviewStepProps) {
           {error}
         </p>
       )}
-      <ReviewItem key={card.id} card={card} onDone={onDone} onSkip={advance} />
+      <ReviewItem key={card.id} card={card} onDone={onDone} onSkip={advance} speakLimitMs={ladder ? speakLimitMs(ladder.speak) : undefined} />
     </div>
   );
 }

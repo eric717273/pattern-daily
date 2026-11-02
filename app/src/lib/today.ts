@@ -1,11 +1,11 @@
 import { exampleTurn } from './chunkDrill';
 import type { LibraryItem } from '../content';
-import type { DayPlan, DrillMode, Grade, ItemRef, SubstitutionFrame } from '../types';
+import type { DayPlan, DrillMode, Grade, ItemRef, Ladder, SubstitutionFrame } from '../types';
 import { db } from './db';
 import { hashString, seededRng } from './drill';
 import { randomCombo } from './frameEngine';
 import { itemKey } from './plan';
-import { gradeCard, introduceItems } from './repo';
+import { gradeCard, introduceItems, logMeasurement, type CardMeasurement } from './repo';
 import { isDue } from './srs';
 
 /** Items that become the targets of the output step: at most this many. */
@@ -35,6 +35,28 @@ export async function introducedPlanItems(plan: DayPlan): Promise<ItemRef[]> {
  * exhausted, or the learner skipped everything), the most recently introduced items, found by each card's first review.
  */
 export async function pickOutputTargets(plan: DayPlan, limit: number = MAX_OUTPUT_TARGETS): Promise<ItemRef[]> {
+  const base = await pickBaseTargets(plan, limit);
+  return mixEdge(base, plan.edge ?? [], limit);
+}
+
+/** Today's new items with the edge items woven in after each one (v3): both are the weak spots worth using in a sentence. */
+export function mixEdge(base: readonly ItemRef[], edge: readonly ItemRef[], limit: number): ItemRef[] {
+  const seen = new Set<string>();
+  const out: ItemRef[] = [];
+  const add = (r: ItemRef | undefined) => {
+    if (!r || seen.has(itemKey(r)) || out.length >= limit) return;
+    seen.add(itemKey(r));
+    out.push(r);
+  };
+  const n = Math.max(base.length, edge.length);
+  for (let i = 0; i < n; i++) {
+    add(base[i]);
+    add(edge[i]);
+  }
+  return out;
+}
+
+async function pickBaseTargets(plan: DayPlan, limit: number): Promise<ItemRef[]> {
   const today = await introducedPlanItems(plan);
   if (today.length > 0) return today.slice(0, limit);
 
@@ -85,19 +107,78 @@ export async function getDaySummary(date: string, plan: DayPlan): Promise<DaySum
   };
 }
 
+/** What the learner did in each part of an item's drill (reported by NewItemFlow / ReviewItem, additive to the grade). */
+export interface ItemParts {
+  /** The 听辨 question: picked the right chunk. */
+  listen?: { correct: boolean; ms: number };
+  /** The 说出 prompts (a chunk has one, a reviewed frame two sentences). */
+  recall?: { correct: boolean; ms: number }[];
+}
+
+/** The speak measurement of an item: right when every prompt was said, latency = mean time of the right ones. */
+export function speakMeasurement(recall: readonly { correct: boolean; ms: number }[], level?: number): CardMeasurement | undefined {
+  if (recall.length === 0) return undefined;
+  const right = recall.filter((r) => r.correct);
+  const m: CardMeasurement = { skill: 'speak', correct: right.length === recall.length };
+  if (right.length > 0) m.latencyMs = Math.round(right.reduce((a, r) => a + r.ms, 0) / right.length);
+  if (level !== undefined) m.level = level;
+  return m;
+}
+
+/** Writes the measurement logs of one finished item: the speak part rides on the graded log, the listen part is its own log. */
+async function logParts(id: string, parts: ItemParts | undefined, ladder: Ladder | undefined, graded: boolean): Promise<CardMeasurement | undefined> {
+  if (!parts) return undefined;
+  if (parts.listen) {
+    await logMeasurement({
+      cardId: id,
+      skill: 'listen',
+      correct: parts.listen.correct,
+      mode: 'listen',
+      durationMs: Math.max(0, Math.round(parts.listen.ms)),
+      latencyMs: Math.max(0, Math.round(parts.listen.ms)),
+      ...(ladder ? { level: ladder.listen } : {}),
+    });
+  }
+  const speak = parts.recall ? speakMeasurement(parts.recall, ladder?.speak) : undefined;
+  if (speak && !graded) {
+    await logMeasurement({
+      cardId: id,
+      skill: 'speak',
+      correct: speak.correct ?? false,
+      mode: 'recall',
+      durationMs: 0,
+      ...(speak.latencyMs !== undefined ? { latencyMs: speak.latencyMs } : {}),
+      ...(speak.level !== undefined ? { level: speak.level } : {}),
+    });
+    return undefined;
+  }
+  return speak;
+}
+
 /**
  * Persist a finished new-item flow: the first time creates the card and grades it; when the item is already known
- * only a due card is graded, so repeating a finished step never disturbs the review schedule.
+ * only a due card is graded, so repeating a finished step never disturbs the review schedule. With `parts` (v3
+ * plans) the listen / speak results are also written as measurements.
  */
-export async function saveNewItem(ref: ItemRef, grade: Grade, mode: DrillMode, ms: number): Promise<void> {
+export async function saveNewItem(ref: ItemRef, grade: Grade, mode: DrillMode, ms: number, parts?: ItemParts, ladder?: Ladder): Promise<void> {
   const id = itemKey(ref);
   const card = await db.cards.get(id);
   if (!card || card.deleted) {
     await introduceItems([ref]);
-    await gradeCard(id, grade, mode, ms);
+    const speak = await logParts(id, parts, ladder, true);
+    await gradeCard(id, grade, mode, ms, speak);
   } else if (isDue(card, Date.now())) {
-    await gradeCard(id, grade, mode, ms);
+    const speak = await logParts(id, parts, ladder, true);
+    await gradeCard(id, grade, mode, ms, speak);
+  } else {
+    await logParts(id, parts, ladder, false);
   }
+}
+
+/** Persist one reviewed card (grade + SRS) together with its measurements. */
+export async function saveReview(cardId: string, grade: Grade, mode: DrillMode, ms: number, parts?: ItemParts, ladder?: Ladder): Promise<void> {
+  const speak = await logParts(cardId, parts, ladder, true);
+  await gradeCard(cardId, grade, mode, ms, speak);
 }
 
 /** One output question. Chunk track only: the target is a chunk or a frame, never a grammar point. */

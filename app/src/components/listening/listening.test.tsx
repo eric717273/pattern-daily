@@ -176,6 +176,28 @@ describe('DialogueListen', () => {
   });
 });
 
+describe('DialogueListen gistOnly', () => {
+  it('ends after the gist question with 继续: no dictation, no blanks', async () => {
+    const done = vi.fn();
+    render(
+      <MemoryRouter>
+        <DialogueListen dialogue={dl as NonNullable<typeof dl>} rate={0.95} gistOnly onDone={done} />
+      </MemoryRouter>,
+    );
+    await click('播放对话');
+    const options = within(screen.getByRole('group', { name: '主旨选项' })).getAllByRole('button');
+    await act(async () => {
+      fireEvent.click(options[3]);
+    });
+    expect(screen.queryByRole('button', { name: /下一步/ })).not.toBeInTheDocument();
+    await click('继续');
+    expect(done).toHaveBeenCalledTimes(1);
+    const r: DialogueListenResult = done.mock.calls[0][0];
+    expect(r.gistCorrect).toBe(true);
+    expect(r.blanks).toEqual([]);
+  });
+});
+
 describe('SoundDrill', () => {
   const pattern = getSound('s01');
   if (!pattern) throw new Error('s01');

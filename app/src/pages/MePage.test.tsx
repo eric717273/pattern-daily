@@ -14,7 +14,7 @@ vi.mock('../lib/ai', async (importOriginal) => {
 });
 
 import { db } from '../lib/db';
-import { getOrCreateProfile, getOrCreateSession, gradeCard, introduceItems, markStepDone, saveAttempt, updateProfile } from '../lib/repo';
+import { getOrCreateProfile, getOrCreateSession, gradeCard, introduceItems, markStepDone, saveAttempt, setGoal, updateProfile } from '../lib/repo';
 import { getSettings } from '../lib/settings';
 import { todayStr } from '../lib/plan';
 import { MePage } from './MePage';
@@ -228,6 +228,24 @@ describe('MePage two-track plan and library progress', () => {
     expect(screen.getByRole('button', { name: '减少每天新语块数量' })).toBeDisabled();
   });
 
+  it('with a goal the daily minutes (15-30) also update goal.dailyMinutes, and a card links to /plan', async () => {
+    await setGoal({ focus: 'speaking-listening', horizonDays: 60, dailyMinutes: 20, startDate: todayStr(), startLesson: 1 });
+    renderMe();
+    expect(await screen.findByRole('link', { name: '查看计划' })).toHaveAttribute('href', '/plan');
+    expect(screen.queryByRole('button', { name: '10 分钟' })).not.toBeInTheDocument();
+    fireEvent.click(screen.getByRole('button', { name: '25 分钟' }));
+    await waitFor(async () => expect((await db.profile.get('profile'))?.goal?.dailyMinutes).toBe(25));
+    const p = await db.profile.get('profile');
+    expect(p?.dailyMinutes).toBe(25);
+    expect(p?.goal).toMatchObject({ horizonDays: 60, startLesson: 1 });
+    expect(p?.adaptive).toBeDefined();
+  });
+
+  it('without a goal the card offers 去设定 -> /onboarding', async () => {
+    renderMe();
+    expect(await screen.findByRole('link', { name: '去设定' })).toHaveAttribute('href', '/onboarding');
+  });
+
   it("does not change today's frozen plan when the number changes", async () => {
     const before = await getOrCreateSession(todayStr());
     expect(before.plan?.newItems).toHaveLength(5);
@@ -242,6 +260,6 @@ describe('MePage two-track plan and library progress', () => {
     const box = await screen.findByTestId('plan-explain');
     expect(box).toHaveTextContent('前 13 课每天学一个骨架句');
     expect(box).toHaveTextContent('每天 5 条新语块');
-    expect(box).toHaveTextContent('约 400 条');
+    expect(box).toHaveTextContent('约 500 条（150 个母框 + 350 条固定表达，含短语动词与常用搭配）');
   });
 });

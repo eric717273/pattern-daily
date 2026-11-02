@@ -2,7 +2,7 @@ import type { DayPlan, StepKey } from '../../types';
 import { getDozen } from '../../content';
 import { CheckIcon } from '../icons';
 import { Badge, Card, cx } from '../ui';
-import { decodeBadge, remainingMinutes, STEPS } from './steps';
+import { decodeBadge, isV3Plan, remainingMinutes, stepMinutes, stepsFor, todayGoals } from './steps';
 
 export interface DayHeaderProps {
   plan: DayPlan;
@@ -54,9 +54,11 @@ export function ProgressRing({ done, total, size = 60 }: { done: number; total: 
   );
 }
 
-/** "第 N 课", the two track badges, streak, progress ring, remaining minutes and the four step tabs. */
+/** "第 N 课", the two track badges, streak, progress ring, remaining minutes, (v3) today's micro-goals and the step tabs. */
 export function DayHeader({ plan, stepsDone, streak, dailyMinutes, library, view, onSelect }: DayHeaderProps) {
-  const left = remainingMinutes(stepsDone, dailyMinutes);
+  const steps = stepsFor(plan);
+  const v3 = isV3Plan(plan);
+  const left = remainingMinutes(stepsDone, dailyMinutes, plan);
   const order = getDozen(plan.decode.dozenId)?.order ?? plan.dayIndex;
   return (
     <Card className="mb-5">
@@ -68,7 +70,7 @@ export function DayHeader({ plan, stepsDone, streak, dailyMinutes, library, view
               解码 {decodeBadge(plan.decode, order)}
             </Badge>
             <Badge tone="violet" data-testid="chunk-badge">
-              语块 已学 {library?.introduced ?? '–'} / {library?.total ?? 400}
+              语块 已学 {library?.introduced ?? '–'} / {library?.total ?? 500}
             </Badge>
           </div>
           <p className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-0.5 text-sm text-slate-500 dark:text-slate-400">
@@ -76,11 +78,24 @@ export function DayHeader({ plan, stepsDone, streak, dailyMinutes, library, view
             <span>{left === 0 ? '今日已完成' : `预计还需约 ${left} 分钟`}</span>
           </p>
         </div>
-        <ProgressRing done={stepsDone.length} total={STEPS.length} />
+        <ProgressRing done={stepsDone.length} total={steps.length} />
       </div>
 
-      <ol className="mt-4 grid grid-cols-4 gap-1.5" aria-label="今日四步">
-        {STEPS.map((s, i) => {
+      {v3 && (
+        <div className="mt-4 rounded-xl bg-indigo-50 px-3.5 py-3 dark:bg-indigo-950/40" data-testid="today-goal" aria-label="今日目标">
+          <p className="text-xs font-semibold text-indigo-700 dark:text-indigo-300">今日目标</p>
+          <p className="mt-0.5 text-[15px] leading-relaxed font-medium text-slate-800 dark:text-slate-100">
+            {todayGoals(plan).join(' · ')}
+          </p>
+        </div>
+      )}
+
+      <ol
+        className="mt-4 grid gap-1.5"
+        style={{ gridTemplateColumns: `repeat(${steps.length}, minmax(0, 1fr))` }}
+        aria-label={`今日${steps.length === 5 ? '五' : '四'}步`}
+      >
+        {steps.map((s, i) => {
           const done = stepsDone.includes(s.key);
           const active = view === s.key;
           return (
@@ -109,6 +124,11 @@ export function DayHeader({ plan, stepsDone, streak, dailyMinutes, library, view
                   {done ? <CheckIcon size={13} /> : i + 1}
                 </span>
                 {s.label}
+                {v3 && (
+                  <span className={cx('text-[10px] font-normal', active ? 'text-white/80' : 'text-slate-400 dark:text-slate-500')}>
+                    {stepMinutes(plan, s.key)} 分钟
+                  </span>
+                )}
               </button>
             </li>
           );

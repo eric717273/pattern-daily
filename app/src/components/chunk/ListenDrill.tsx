@@ -30,6 +30,8 @@ export interface ListenDrillProps {
   /** Chunks that distractors are drawn from (default: all 250). */
   pool?: readonly Chunk[];
   continueLabel?: string;
+  /** Playback rate of the question sentence (default NATURAL_RATE 1.0); the placement test passes the ladder rate. */
+  rate?: number;
 }
 
 /**
@@ -39,7 +41,7 @@ export interface ListenDrillProps {
  * sentence of the frame with 3 other sentences that differ in one slot. After a pick the full sentence is
  * revealed with the chunk highlighted, plus the Chinese and the 听力提示; a wrong pick offers a slow replay.
  */
-export function ListenDrill({ item, onDone, rng, pool = CHUNKS, continueLabel = '继续' }: ListenDrillProps) {
+export function ListenDrill({ item, onDone, rng, pool = CHUNKS, continueLabel = '继续', rate: questionRate = NATURAL_RATE }: ListenDrillProps) {
   const [question] = useState(() => buildListenQuestion(item, pool, rng));
   const [plays, setPlays] = useState(0);
   const [playing, setPlaying] = useState(false);
@@ -93,7 +95,7 @@ export function ListenDrill({ item, onDone, rng, pool = CHUNKS, continueLabel = 
           variant={plays === 0 ? 'primary' : 'secondary'}
           size="lg"
           full
-          onClick={() => play(NATURAL_RATE)}
+          onClick={() => play(questionRate)}
           aria-label={plays === 0 ? '播放' : '再听一次'}
         >
           <SpeakerIcon size={22} className={cx(playing && 'animate-pulse')} />
@@ -154,7 +156,7 @@ export function ListenDrill({ item, onDone, rng, pool = CHUNKS, continueLabel = 
           </div>
           {question.soundZh && <SoundTip text={question.soundZh} />}
           <div className="flex flex-wrap gap-2.5">
-            <Button variant="secondary" onClick={() => play(NATURAL_RATE)} aria-label="再听一遍">
+            <Button variant="secondary" onClick={() => play(questionRate)} aria-label="再听一遍">
               <SpeakerIcon size={18} />
               再听一遍
             </Button>

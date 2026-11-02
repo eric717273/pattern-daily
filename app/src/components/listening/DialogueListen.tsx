@@ -32,6 +32,8 @@ export interface DialogueListenProps {
   /** TTS rate, e.g. from the ladder. */
   rate: number;
   onDone: (result: DialogueListenResult) => void;
+  /** Only the gist question (no dictation, no transcript step): 继续 ends it with `blanks: []`. Used by the placement test. */
+  gistOnly?: boolean;
 }
 
 const STEPS = ['听主旨', '听写关键语块', '对照'] as const;
@@ -91,7 +93,7 @@ function useDialogueAudio(dialogue: Dialogue) {
  * 听写关键语块 (the line with one chunk masked, type what you hear) -> 对照 (transcript). Pure presentation:
  * the caller logs the measurement from `onDone`.
  */
-export function DialogueListen({ dialogue, rate, onDone }: DialogueListenProps) {
+export function DialogueListen({ dialogue, rate, onDone, gistOnly = false }: DialogueListenProps) {
   const [step, setStep] = useState<0 | 1 | 2>(0);
   const audio = useDialogueAudio(dialogue);
   const startedAt = useRef(clock());
@@ -168,7 +170,7 @@ export function DialogueListen({ dialogue, rate, onDone }: DialogueListenProps) 
 
   return (
     <div className="flex flex-col gap-4">
-      <StepIndicator steps={STEPS} current={step} />
+      {!gistOnly && <StepIndicator steps={STEPS} current={step} />}
 
       {step === 0 && (
         <Card className="flex flex-col gap-4" aria-label="听主旨">
@@ -237,9 +239,28 @@ export function DialogueListen({ dialogue, rate, onDone }: DialogueListenProps) 
           {gistPick !== null && (
             <>
               <ResultBanner correct={gistCorrect}>{gistCorrect ? '✓ 主旨听对了' : '✗ 主旨没听对，下一步慢慢找原因'}</ResultBanner>
-              <Button variant="primary" size="lg" full onClick={goDictation}>
-                下一步：听写关键语块
-              </Button>
+              {gistOnly ? (
+                <Button
+                  variant="primary"
+                  size="lg"
+                  full
+                  onClick={() => {
+                    audio.stop();
+                    onDone({
+                      gistCorrect,
+                      blanks: [],
+                      replays: Math.max(0, gistPlays - 1),
+                      ms: Math.max(0, clock() - startedAt.current),
+                    });
+                  }}
+                >
+                  继续
+                </Button>
+              ) : (
+                <Button variant="primary" size="lg" full onClick={goDictation}>
+                  下一步：听写关键语块
+                </Button>
+              )}
             </>
           )}
         </Card>

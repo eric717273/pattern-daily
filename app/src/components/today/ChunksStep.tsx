@@ -1,11 +1,12 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { getItem } from '../../content';
-import type { DrillMode, Grade, ItemRef } from '../../types';
+import type { DrillMode, Grade, ItemRef, Ladder } from '../../types';
 import { useActiveTimer } from '../../lib/activeTimer';
 import { db } from '../../lib/db';
 import { useAllFrames } from '../../lib/hooks';
 import { itemKey } from '../../lib/plan';
-import { saveNewItem } from '../../lib/today';
+import { speakLimitMs } from '../../lib/ladder';
+import { saveNewItem, type ItemParts } from '../../lib/today';
 import { NewItemFlow } from '../chunk';
 import { Badge, Button, Card, EmptyState, PageLoading } from '../ui';
 
@@ -14,6 +15,8 @@ export interface ChunksStepProps {
   items: ItemRef[];
   /** The step is already done: go through all items again, as practice. */
   redo?: boolean;
+  /** v3: the ladder in force (speak limit for the 说出 step; levels for the measurements). */
+  ladder?: Ladder;
   onComplete: (activeMs: number) => void | Promise<void>;
 }
 
@@ -22,7 +25,7 @@ export interface ChunksStepProps {
  * interrupted attempt) are skipped, so the step resumes where it stopped. 剩下的明天再学 ends the step early; the
  * un-introduced items come back in tomorrow's plan.
  */
-export function ChunksStep({ items, redo = false, onComplete }: ChunksStepProps) {
+export function ChunksStep({ items, redo = false, ladder, onComplete }: ChunksStepProps) {
   const timer = useActiveTimer();
   const frames = useAllFrames();
   const [queue, setQueue] = useState<ItemRef[] | null>(null);
@@ -67,7 +70,7 @@ export function ChunksStep({ items, redo = false, onComplete }: ChunksStepProps)
       <Card>
         <EmptyState
           title="语块库已经学完了"
-          description="400 条新语块全部学过，今天只需要复习、解码和输出。"
+          description="500 条新语块全部学过，今天只需要复习、解码和输出。"
           action={
             <Button variant="primary" size="lg" disabled={saving} onClick={() => void finish()}>
               继续：解码
@@ -98,8 +101,8 @@ export function ChunksStep({ items, redo = false, onComplete }: ChunksStepProps)
   const done = items.length - queue.length + index;
   const title = item ? (item.kind === 'chunk' ? item.chunk.en : item.frame.title) : '';
 
-  const onDone = (grade: Grade, info: { ms: number; mode: DrillMode }) => {
-    void saveNewItem(current, grade, info.mode, info.ms)
+  const onDone = (grade: Grade, info: { ms: number; mode: DrillMode; parts?: ItemParts }) => {
+    void saveNewItem(current, grade, info.mode, info.ms, ladder ? info.parts : undefined, ladder)
       .catch(() => setError('这一条没有保存成功，明天它还会再出现。'))
       .finally(() => setIndex((i) => i + 1));
   };
@@ -124,7 +127,7 @@ export function ChunksStep({ items, redo = false, onComplete }: ChunksStepProps)
           {error}
         </p>
       )}
-      <NewItemFlow key={itemKey(current)} ref={current} onDone={onDone} />
+      <NewItemFlow key={itemKey(current)} ref={current} onDone={onDone} speakLimitMs={ladder ? speakLimitMs(ladder.speak) : undefined} />
     </div>
   );
 }

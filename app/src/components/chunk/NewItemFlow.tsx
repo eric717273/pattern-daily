@@ -3,6 +3,7 @@ import { getItem } from '../../content';
 import type { DrillMode, Grade, ItemRef } from '../../types';
 import { chunkGrade, frameGrade } from '../../lib/chunkDrill';
 import { useAllFrames } from '../../lib/hooks';
+import type { ItemParts } from '../../lib/today';
 import { FEEL_GRADE } from '../../lib/swap';
 import { AnchorDrill } from '../drills/AnchorDrill';
 import { SingleSwapDrill, type SingleSwapResult } from '../drills/SingleSwapDrill';
@@ -25,7 +26,9 @@ export interface NewItemFlowProps {
    * `repo.gradeCard(...)`). `info.ms` is the wall-clock time of the whole flow, `info.mode` the DrillMode
    * to log (chunk 'recall', frame 'single-swap').
    */
-  onDone: (grade: Grade, info: { ms: number; mode: DrillMode }) => void;
+  onDone: (grade: Grade, info: { ms: number; mode: DrillMode; parts?: ItemParts }) => void;
+  /** v3: the speaking time limit of the ladder (ms) for the chunk 说出 step. Default 6000 (CHUNK_RECALL_MS). */
+  speakLimitMs?: number;
 }
 
 /** The item to learn (React 19 hands `ref` to function components as a normal prop). */
@@ -44,7 +47,8 @@ const refOf = (p: NewItemFlowProps): ItemRef => p.ref;
  *     轻松 3) minus 1 when the listening question was wrong.
  */
 export function NewItemFlow(props: NewItemFlowProps) {
-  const { onDone } = props;
+  const { onDone, speakLimitMs } = props;
+  const recallLimit = speakLimitMs ?? CHUNK_RECALL_MS;
   const target = refOf(props);
   const frames = useAllFrames();
   const item = useMemo(() => getItem({ kind: target.kind, id: target.id }, frames ?? []), [target.kind, target.id, frames]);
@@ -58,8 +62,14 @@ export function NewItemFlow(props: NewItemFlowProps) {
   }
 
   const steps = item.kind === 'chunk' ? CHUNK_STEPS : FRAME_STEPS;
-  const finish = (grade: Grade, mode: DrillMode) =>
-    onDone(grade, { ms: Math.min(1_800_000, Date.now() - startedAt), mode });
+  const finish = (grade: Grade, mode: DrillMode, extra?: ItemParts) => {
+    const l = listen.current;
+    onDone(grade, {
+      ms: Math.min(1_800_000, Date.now() - startedAt),
+      mode,
+      parts: { ...(l ? { listen: { correct: l.correct, ms: l.ms } } : {}), ...extra },
+    });
+  };
   const listenResult = (): ListenResult => listen.current ?? { correct: false, replays: 0, ms: 0 };
 
   let body;
@@ -83,9 +93,11 @@ export function NewItemFlow(props: NewItemFlowProps) {
         <RecallDrill
           key="recall"
           item={item}
-          timeLimitMs={CHUNK_RECALL_MS}
+          timeLimitMs={recallLimit}
           continueLabel="完成"
-          onDone={(r: RecallResult) => finish(chunkGrade(listenResult(), r, CHUNK_RECALL_MS), 'recall')}
+          onDone={(r: RecallResult) =>
+            finish(chunkGrade(listenResult(), r, recallLimit), 'recall', { recall: [{ correct: r.correct, ms: r.ms }] })
+          }
         />
       );
   } else {
@@ -98,7 +110,15 @@ export function NewItemFlow(props: NewItemFlowProps) {
           frame={item.frame}
           length={NEW_FRAME_SWAP_LENGTH}
           doneLabel="完成"
-          onDone={(r: SingleSwapResult) => finish(frameGrade(listenResult(), r.grade ?? FEEL_GRADE[r.feel]), 'single-swap')}
+          onDone={(r: SingleSwapResult) =>
+            finish(
+              frameGrade(listenResult(), r.grade ?? FEEL_GRADE[r.feel]),
+              'single-swap',
+              r.total !== undefined && r.total > 0 && r.correct !== undefined
+                ? { recall: [{ correct: r.correct / r.total >= 0.7, ms: Math.round(r.ms / r.total) }] }
+                : undefined,
+            )
+          }
         />
       );
   }

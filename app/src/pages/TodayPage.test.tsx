@@ -247,6 +247,7 @@ describe('TodayPage v2: step 2 新语块', () => {
     renderToday();
     fireEvent.click(await screen.findByRole('button', { name: '第 2 步 新语块' }));
     expect(await screen.findByText('语块库已经学完了')).toBeInTheDocument();
+    expect(screen.getByText(/500 条新语块全部学过/)).toBeInTheDocument();
     fireEvent.click(await screen.findByRole('button', { name: '继续：解码' }));
     expect(await screen.findByTestId('lesson')).toBeInTheDocument();
     expect((await db.sessions.get(todayStr()))?.stepsDone).toContain('chunks');

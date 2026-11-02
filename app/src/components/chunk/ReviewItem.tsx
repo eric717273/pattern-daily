@@ -2,6 +2,7 @@ import { useMemo, useRef, useState } from 'react';
 import { getItem } from '../../content';
 import type { Chunk, CardState, DrillMode, Grade, SubstitutionFrame } from '../../types';
 import { chunkGrade, frameReviewGrade } from '../../lib/chunkDrill';
+import type { ItemParts } from '../../lib/today';
 import { singleSwapSequence } from '../../lib/frameEngine';
 import { useAllFrames } from '../../lib/hooks';
 import { Button, EmptyState, PageLoading } from '../ui';
@@ -24,7 +25,12 @@ export interface ReviewItemProps {
    * `repo.gradeCard(card.id, grade, mode, ms)`. mode is 'recall' for a chunk and 'multi-swap' for a frame;
    * `info.ms` is the wall-clock time spent.
    */
-  onDone: (grade: Grade, mode: DrillMode, info?: { ms: number }) => void;
+  onDone: (grade: Grade, mode: DrillMode, info?: { ms: number; parts?: ItemParts }) => void;
+  /**
+   * v3: the speaking time limit of the ladder (ms). Chunks are recalled within it, frame sentences within 1.5 x it.
+   * Without it the fixed v2 limits (5 s / 8 s) apply.
+   */
+  speakLimitMs?: number;
   /** Called by 跳过 when the card's content no longer exists (a deleted user frame) or is not a chunk/frame. */
   onSkip?: () => void;
 }
@@ -36,7 +42,7 @@ export interface ReviewItemProps {
  *          each said in full within 8 s. Grade: both right -> 3 when the average is within half the limit else 2,
  *          one right -> 1, none -> 0.
  */
-export function ReviewItem({ card, onDone, onSkip }: ReviewItemProps) {
+export function ReviewItem({ card, onDone, onSkip, speakLimitMs }: ReviewItemProps) {
   const frames = useAllFrames();
   const refKind = card.kind === 'chunk' ? 'chunk' : card.kind === 'frame' ? 'frame' : null;
   const item = useMemo(
@@ -59,15 +65,15 @@ export function ReviewItem({ card, onDone, onSkip }: ReviewItemProps) {
     );
   }
   return item.kind === 'chunk' ? (
-    <ReviewChunk chunk={item.chunk} onDone={onDone} />
+    <ReviewChunk chunk={item.chunk} onDone={onDone} limitMs={speakLimitMs ?? REVIEW_CHUNK_RECALL_MS} />
   ) : (
-    <ReviewFrame frame={item.frame} onDone={onDone} />
+    <ReviewFrame frame={item.frame} onDone={onDone} limitMs={speakLimitMs !== undefined ? Math.round(speakLimitMs * 1.5) : REVIEW_FRAME_RECALL_MS} />
   );
 }
 
 type Done = ReviewItemProps['onDone'];
 
-function ReviewChunk({ chunk, onDone }: { chunk: Chunk; onDone: Done }) {
+function ReviewChunk({ chunk, onDone, limitMs }: { chunk: Chunk; onDone: Done; limitMs: number }) {
   const item = useMemo(() => ({ kind: 'chunk' as const, chunk }), [chunk]);
   const [stage, setStage] = useState(0);
   const listen = useRef<ListenResult | null>(null);
@@ -89,22 +95,25 @@ function ReviewChunk({ chunk, onDone }: { chunk: Chunk; onDone: Done }) {
         <RecallDrill
           key="recall"
           item={item}
-          timeLimitMs={REVIEW_CHUNK_RECALL_MS}
+          timeLimitMs={limitMs}
           continueLabel="完成"
-          onDone={(r) =>
-            onDone(
-              chunkGrade(listen.current ?? { correct: false, replays: 0 }, r, REVIEW_CHUNK_RECALL_MS),
-              'recall',
-              { ms: Math.min(600_000, Date.now() - startedAt) },
-            )
-          }
+          onDone={(r) => {
+            const l = listen.current;
+            onDone(chunkGrade(l ?? { correct: false, replays: 0 }, r, limitMs), 'recall', {
+              ms: Math.min(600_000, Date.now() - startedAt),
+              parts: {
+                ...(l ? { listen: { correct: l.correct, ms: l.ms } } : {}),
+                recall: [{ correct: r.correct, ms: r.ms }],
+              },
+            });
+          }}
         />
       )}
     </div>
   );
 }
 
-function ReviewFrame({ frame, onDone }: { frame: SubstitutionFrame; onDone: Done }) {
+function ReviewFrame({ frame, onDone, limitMs }: { frame: SubstitutionFrame; onDone: Done; limitMs: number }) {
   const item = useMemo(() => ({ kind: 'frame' as const, frame }), [frame]);
   const [combos] = useState(() => singleSwapSequence(frame, REVIEW_FRAME_PROMPTS));
   const [stage, setStage] = useState(0);
@@ -125,8 +134,9 @@ function ReviewFrame({ frame, onDone }: { frame: SubstitutionFrame; onDone: Done
             results.current = [...results.current, r];
             if (stage + 1 < combos.length) setStage(stage + 1);
             else
-              onDone(frameReviewGrade(results.current, REVIEW_FRAME_RECALL_MS), 'multi-swap', {
+              onDone(frameReviewGrade(results.current, limitMs), 'multi-swap', {
                 ms: Math.min(600_000, Date.now() - startedAt),
+                parts: { recall: results.current.map((x) => ({ correct: x.correct, ms: x.ms })) },
               });
           }}
         />

@@ -27,6 +27,9 @@ const listeningHub = page(() => import('./pages/listening/ListeningHubPage'), 'L
 const listeningDialogue = page(() => import('./pages/listening/ListeningPracticePages'), 'ListeningDialoguePage');
 const listeningSound = page(() => import('./pages/listening/ListeningPracticePages'), 'ListeningSoundPage');
 const listeningNumbers = page(() => import('./pages/listening/ListeningPracticePages'), 'ListeningNumbersPage');
+const plan = page(() => import('./pages/PlanPage'), 'PlanPage');
+const onboarding = page(() => import('./pages/onboarding/OnboardingPage'), 'OnboardingPage');
+const checkpoint = page(() => import('./pages/CheckpointPage'), 'CheckpointPage');
 const me = page(() => import('./pages/MePage'), 'MePage');
 const notFound = page(() => import('./pages/NotFoundPage'), 'NotFoundPage');
 
@@ -52,6 +55,10 @@ export function AppRoutes() {
         <Route path="listening/dialogue/:id" element={listeningDialogue} />
         <Route path="listening/sound/:id" element={listeningSound} />
         <Route path="listening/numbers" element={listeningNumbers} />
+        {/* v3 deliberate practice: goal, placement, plan, weekly checkpoint */}
+        <Route path="onboarding" element={onboarding} />
+        <Route path="plan" element={plan} />
+        <Route path="assessment/checkpoint" element={checkpoint} />
         {/* v1 paths */}
         <Route path="frames" element={<Navigate to="/library" replace />} />
         <Route path="dozen" element={<Navigate to="/decode" replace />} />
