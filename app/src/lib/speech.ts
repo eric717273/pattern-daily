@@ -34,8 +34,8 @@ const langOf = (v: SpeechSynthesisVoice) => v.lang.replace('_', '-').toLowerCase
 export function voiceQuality(v: SpeechSynthesisVoice): VoiceQuality {
   const uri = v.voiceURI ?? '';
   if (/eloquence/i.test(uri) || NOVELTY_NAMES.test(v.name) || NOVELTY_URI_TAIL.test(uri)) return 'novelty';
-  if (/premium/i.test(v.name) || /\.premium\./i.test(uri)) return 'premium';
-  if (/enhanced/i.test(v.name) || /\.enhanced\./i.test(uri)) return 'enhanced';
+  if (/premium|高级|高級|优质|優質/i.test(v.name) || /\.premium\./i.test(uri)) return 'premium';
+  if (/enhanced|增强|增強|优化|優化/i.test(v.name) || /\.enhanced\./i.test(uri)) return 'enhanced';
   return 'standard';
 }
 
