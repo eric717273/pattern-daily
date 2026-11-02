@@ -140,7 +140,12 @@ describe('TodayPage v3: header, budgets, goal', () => {
     expect(tabs.map((t) => t.textContent)).toEqual(['1复习5 分钟', '2新语块5 分钟', '3听力5 分钟', '4解码2 分钟', '5输出3 分钟']);
     const goalLine = screen.getByTestId('today-goal');
     expect(goalLine).toHaveTextContent('今日目标');
-    expect(goalLine).toHaveTextContent('新学 5 条 · 听力语速 0.95 · 口语 8 秒内说出 · 正确率保持在 70–88%');
+    expect(within(goalLine).getAllByRole('listitem').map((li) => li.textContent)).toEqual([
+      '新学 5 条',
+      '听力语速 0.95',
+      '口语 8 秒内说出',
+      '正确率保持在 70–88%',
+    ]);
     expect(screen.getByText(/预计还需约 20 分钟/)).toBeInTheDocument();
     expect(screen.queryByTestId('goal-card')).not.toBeInTheDocument();
     // the running block shows its budget and a live countdown

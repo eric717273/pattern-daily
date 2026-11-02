@@ -84,9 +84,16 @@ export function DayHeader({ plan, stepsDone, streak, dailyMinutes, library, view
       {v3 && (
         <div className="mt-4 rounded-xl bg-indigo-50 px-3.5 py-3 dark:bg-indigo-950/40" data-testid="today-goal" aria-label="今日目标">
           <p className="text-xs font-semibold text-indigo-700 dark:text-indigo-300">今日目标</p>
-          <p className="mt-0.5 text-[15px] leading-relaxed font-medium text-slate-800 dark:text-slate-100">
-            {todayGoals(plan).join(' · ')}
-          </p>
+          <ul className="mt-1.5 flex flex-wrap gap-1.5">
+            {todayGoals(plan).map((g) => (
+              <li
+                key={g}
+                className="rounded-full bg-white px-2.5 py-1 text-sm font-medium whitespace-nowrap text-slate-800 shadow-sm dark:bg-slate-800 dark:text-slate-100"
+              >
+                {g}
+              </li>
+            ))}
+          </ul>
         </div>
       )}
 

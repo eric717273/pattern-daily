@@ -14,7 +14,7 @@ test('a full v3 day offline: five budgeted blocks, 今日反馈, and tomorrow re
   await expect(page.getByTestId('goal-card')).toHaveCount(0);
   const goalLine = page.getByTestId('today-goal');
   await expect(goalLine).toContainText('今日目标');
-  await expect(goalLine).toContainText('新学 5 条 · 听力语速 0.95 · 口语 8 秒内说出 · 正确率保持在 70–88%');
+  await expect(goalLine.getByRole('listitem')).toHaveText(['新学 5 条', '听力语速 0.95', '口语 8 秒内说出', '正确率保持在 70–88%']);
   await expect(page.getByTestId('step-budget')).toHaveText('约 5 分钟');
   await expect(page.getByTestId('step-clock')).toContainText('剩');
 
