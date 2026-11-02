@@ -529,7 +529,7 @@ export const DIALOGUES_2: Dialogue[] = [
       optionsZh: ["跑步", "游泳", "攀岩", "打篮球"],
       answer: 2,
     },
-    blanks: [{ turn: 0, text: "What do you do for fun" }, { turn: 1, text: "I'm really into" }, { turn: 2, text: "No way" }],
+    blanks: [{ turn: 0, text: "what do you do for fun" }, { turn: 1, text: "I'm really into" }, { turn: 2, text: "No way" }],
   },
   {
     id: "dl068",
