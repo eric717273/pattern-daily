@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from 'react';
 import type { FrameCombo, Grade, SubstitutionFrame } from '../../types';
 import { primeAudio } from '../../lib/cue';
 import { singleSwapSequence } from '../../lib/frameEngine';
-import { speak } from '../../lib/speech';
+import { speak, stopSpeaking } from '../../lib/speech';
 import { FrameTable } from '../FrameTable';
 import { SpeakButton } from '../SpeakButton';
 import { Button, Card, Segmented, cx } from '../ui';
@@ -115,26 +115,35 @@ export function SingleSwapDrill({ frame, length = 8, onDone, doneLabel = '完成
   };
 
   const startDrill = () => {
+    next(); // state first: nothing below may keep the drill from moving on
     if (voice) {
       // first tap of the drill: Safari only allows the microphone / audio inside a user gesture
-      primeAudio();
-      listener.start();
+      try {
+        primeAudio();
+        stopSpeaking();
+        listener.start();
+      } catch {
+        // the watchdog / error handler falls back to self-check
+      }
     }
-    next();
   };
 
   const toggleVoice = (on: boolean) => {
     voicePref.setEnabled(on);
-    if (on) {
-      primeAudio();
-      if (index >= 1 && !finished) listener.start();
-    } else {
-      listener.stop();
-    }
     if (index >= 1 && !finished) {
       setRevealed(false);
       setElapsed(0);
       setPromptKey((k) => k + 1);
+    }
+    try {
+      if (on) {
+        primeAudio();
+        if (index >= 1 && !finished) listener.start();
+      } else {
+        listener.stop();
+      }
+    } catch {
+      // ignore
     }
   };
 

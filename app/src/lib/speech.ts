@@ -9,43 +9,94 @@ function synth(): SpeechSynthesis | null {
 
 // ---------- voices ----------
 
-/** Voices that are good for learning, in order of preference (Apple first). */
-const PREFERRED_NAMES = ['Samantha', 'Ava', 'Alex', 'Allison', 'Susan', 'Nicky', 'Evan', 'Google US English'];
-/** Novelty / low-quality voices to avoid. */
-const AVOID_NAMES =
-  /albert|bad news|bahh|bells|boing|bubbles|cellos|good news|jester|organ|superstar|trinoids|whisper|wobble|zarvox|fred|ralph|junior|kathy|eddy|flo|grandma|grandpa|reed|rocko|sandy|shelley/i;
+export type VoiceQuality = 'premium' | 'enhanced' | 'standard' | 'novelty';
 
-function voiceScore(v: SpeechSynthesisVoice): number {
-  const lang = v.lang.replace('_', '-').toLowerCase();
-  let score = 0;
-  if (lang === 'en-us') score += 20;
-  else if (lang.startsWith('en-gb')) score += 8;
-  else if (lang.startsWith('en')) score += 4;
-  else return -1;
-  const idx = PREFERRED_NAMES.findIndex((n) => v.name.includes(n));
-  if (idx >= 0) score += 12 - idx;
-  if (/premium|enhanced|natural/i.test(v.name)) score += 6;
-  if (v.localService) score += 1;
-  if (AVOID_NAMES.test(v.name)) score -= 30;
-  return score;
+/** Robotic / novelty voices (classic Mac fun voices and the Eloquence set) that must never be picked automatically. */
+const NOVELTY_NAMES =
+  /^(albert|bad news|bahh|bells|boing|bubbles|cellos|eddy|flo|fred|good news|grandma|grandpa|jester|junior|kathy|organ|ralph|reed|rocko|sandy|shelley|superstar|trinoids|whisper|wobble|zarvox)(\b|\s*\()/i;
+const NOVELTY_URI_TAIL = /speech\.synthesis\.voice\.(albert|bad ?news|bahh|bells|boing|bubbles|cellos|fred|good ?news|jester|junior|kathy|organ|ralph|superstar|trinoids|whisper|wobble|zarvox)$/i;
+
+/** Standard (non-downloaded) voices that still sound decent, best first. */
+const KNOWN_GOOD: readonly RegExp[] = [
+  /^samantha\b/i,
+  /^alex\b/i,
+  /^daniel\b/i,
+  /^karen\b/i,
+  /^moira\b/i,
+  /google us english/i,
+  /microsoft .*online.*\(natural\)/i,
+  /\(natural\)/i,
+];
+
+const langOf = (v: SpeechSynthesisVoice) => v.lang.replace('_', '-').toLowerCase();
+
+/** Quality class of a voice: downloaded premium / enhanced Apple voices beat the stock ones; novelty voices are junk. */
+export function voiceQuality(v: SpeechSynthesisVoice): VoiceQuality {
+  const uri = v.voiceURI ?? '';
+  if (/eloquence/i.test(uri) || NOVELTY_NAMES.test(v.name) || NOVELTY_URI_TAIL.test(uri)) return 'novelty';
+  if (/premium/i.test(v.name) || /\.premium\./i.test(uri)) return 'premium';
+  if (/enhanced/i.test(v.name) || /\.enhanced\./i.test(uri)) return 'enhanced';
+  return 'standard';
 }
 
-/** Choose the best voice: the user's saved voice, else the best en-US voice. */
+const TIER: Record<VoiceQuality, number> = { premium: 3, enhanced: 2, standard: 0, novelty: -1 };
+
+function knownGoodIndex(v: SpeechSynthesisVoice): number {
+  const i = KNOWN_GOOD.findIndex((re) => re.test(v.name));
+  return i < 0 ? KNOWN_GOOD.length : i;
+}
+
+/** 3 premium, 2 enhanced, 1 known-good standard, 0 other standard, -1 novelty. */
+function tierOf(v: SpeechSynthesisVoice): number {
+  const q = voiceQuality(v);
+  if (q === 'standard') return knownGoodIndex(v) < KNOWN_GOOD.length ? 1 : 0;
+  return TIER[q];
+}
+
+/** 0 en-US, 1 en-GB / en-AU / en-IE, 2 other English, -1 not English. */
+function langGroup(v: SpeechSynthesisVoice): number {
+  const l = langOf(v);
+  if (l === 'en-us') return 0;
+  if (l === 'en-gb' || l === 'en-au' || l === 'en-ie') return 1;
+  return l.startsWith('en') ? 2 : -1;
+}
+
+/**
+ * English voices, best first, novelty voices removed: premium > enhanced > known-good standard > other standard
+ * (within a class en-US, then en-GB / en-AU / en-IE; other English accents come after the main four).
+ */
+export function rankVoices(voices: readonly SpeechSynthesisVoice[]): SpeechSynthesisVoice[] {
+  return voices
+    .filter((v) => langGroup(v) >= 0 && voiceQuality(v) !== 'novelty')
+    .sort((a, b) => {
+      const ga = langGroup(a) === 2 ? 1 : 0;
+      const gb = langGroup(b) === 2 ? 1 : 0;
+      return (
+        ga - gb ||
+        tierOf(b) - tierOf(a) ||
+        langGroup(a) - langGroup(b) ||
+        knownGoodIndex(a) - knownGoodIndex(b) ||
+        (b.localService ? 1 : 0) - (a.localService ? 1 : 0) ||
+        a.name.localeCompare(b.name)
+      );
+    });
+}
+
+/** True when a downloaded premium / enhanced English voice is installed. */
+export function hasHighQualityVoice(voices: readonly SpeechSynthesisVoice[]): boolean {
+  return rankVoices(voices).some((v) => {
+    const q = voiceQuality(v);
+    return q === 'premium' || q === 'enhanced';
+  });
+}
+
+/** Choose the voice: the user's saved voice, else the best-ranked English voice. */
 export function pickVoice(voices: SpeechSynthesisVoice[], voiceURI: string): SpeechSynthesisVoice | null {
   if (voiceURI) {
     const chosen = voices.find((v) => v.voiceURI === voiceURI);
     if (chosen) return chosen;
   }
-  let best: SpeechSynthesisVoice | null = null;
-  let bestScore = 0;
-  for (const v of voices) {
-    const s = voiceScore(v);
-    if (s > bestScore) {
-      best = v;
-      bestScore = s;
-    }
-  }
-  return best;
+  return rankVoices(voices)[0] ?? null;
 }
 
 let voicesPromise: Promise<SpeechSynthesisVoice[]> | null = null;
@@ -75,10 +126,7 @@ function loadVoices(): Promise<SpeechSynthesisVoice[]> {
 
 /** English voices available on this device (for the settings page). Resolves to [] when unsupported. */
 export async function listVoices(): Promise<SpeechSynthesisVoice[]> {
-  const voices = await loadVoices();
-  return voices
-    .filter((v) => v.lang.toLowerCase().startsWith('en'))
-    .sort((a, b) => voiceScore(b) - voiceScore(a) || a.name.localeCompare(b.name));
+  return rankVoices(await loadVoices());
 }
 
 // Warm the voice list up as early as possible so the first tap already has voices.
@@ -92,74 +140,95 @@ let current: SpeechSynthesisUtterance | null = null;
 let epoch = 0;
 
 /** Speak English text. Cancels any previous utterance. Resolves when finished (also on error / cancel). */
-export function speak(text: string, opts: { rate?: number } = {}): Promise<void> {
+export function speak(text: string, opts: { rate?: number; voice?: SpeechSynthesisVoice } = {}): Promise<void> {
   const s = synth();
   const clean = text.trim();
   if (!s || !clean || typeof SpeechSynthesisUtterance === 'undefined') return Promise.resolve();
 
   const settings = getSettings();
   // Must run synchronously inside the tap handler on iOS, so only use the voices already loaded.
-  const voice = pickVoice(s.getVoices(), settings.ttsVoiceURI);
+  const voice = opts.voice ?? pickVoice(s.getVoices(), settings.ttsVoiceURI);
 
   epoch++;
   return new Promise<void>((resolve) => {
-    const u = new SpeechSynthesisUtterance(clean);
-    u.lang = voice?.lang || 'en-US';
-    if (voice) u.voice = voice;
-    const rate = opts.rate ?? settings.ttsRate;
-    u.rate = Math.min(1.5, Math.max(0.5, rate));
-    const finish = () => {
-      if (current === u) current = null;
+    try {
+      const u = new SpeechSynthesisUtterance(clean);
+      u.lang = voice?.lang || 'en-US';
+      if (voice) u.voice = voice;
+      const rate = opts.rate ?? settings.ttsRate;
+      u.rate = Math.min(1.5, Math.max(0.5, rate));
+      // Safari sometimes never fires 'end': a watchdog keeps `current` (and callers awaiting us) from sticking forever.
+      let watchdog: ReturnType<typeof setTimeout> | null = null;
+      const finish = () => {
+        if (watchdog !== null) clearTimeout(watchdog);
+        watchdog = null;
+        if (current === u) current = null;
+        resolve();
+      };
+      u.onend = finish;
+      u.onerror = finish;
+      watchdog = setTimeout(finish, (clean.length * 90) / u.rate + 4000);
+      s.cancel();
+      current = u;
+      s.speak(u);
+    } catch {
+      current = null;
       resolve();
-    };
-    u.onend = finish;
-    u.onerror = finish;
-    s.cancel();
-    current = u;
-    s.speak(u);
+    }
   });
 }
 
 export function stopSpeaking(): void {
   epoch++;
-  const s = synth();
-  if (s) s.cancel();
   current = null;
+  try {
+    synth()?.cancel();
+  } catch {
+    // speech synthesis unavailable
+  }
 }
 
 /** True while a `speak()` utterance is playing (used to ignore the microphone so TTS is not "heard"). */
 export function isSpeaking(): boolean {
   if (current !== null) return true;
-  const s = synth();
-  return s ? s.speaking : false;
+  try {
+    return synth()?.speaking ?? false;
+  } catch {
+    return false;
+  }
 }
 
 // ---------- two-voice dialogue ----------
 
-const FEMALE_NAMES = /samantha|ava\b|allison|susan|victoria|karen|serena|kate|moira|tessa|fiona|zira|jenny|aria|nicky|joanna|salli|female/i;
-const MALE_NAMES = /\balex\b|daniel|\btom\b|evan|aaron|oliver|arthur|david|mark|guy|gordon|male|rishi/i;
+const FEMALE_NAMES =
+  /samantha|\bava\b|allison|susan|victoria|karen|serena|kate|moira|tessa|fiona|zoe|joelle|noelle|stephanie|zira|jenny|aria|nicky|joanna|salli|\bfemale\b/i;
+const MALE_NAMES = /\balex\b|daniel|\btom\b|evan|nathan|aaron|oliver|arthur|david|\bmark\b|\bguy\b|gordon|rishi|\blee\b|\bmale\b/i;
 
-function isEnglishUsGb(v: SpeechSynthesisVoice): boolean {
-  const lang = v.lang.replace('_', '-').toLowerCase();
-  return (lang === 'en-us' || lang === 'en-gb') && !AVOID_NAMES.test(v.name);
-}
+const isFemale = (v: SpeechSynthesisVoice) => FEMALE_NAMES.test(v.name) && !MALE_NAMES.test(v.name);
+const isMale = (v: SpeechSynthesisVoice) => MALE_NAMES.test(v.name);
 
-/** Pure choice of two clearly different voices from `voices`: female + male when known, else two different voices. */
+/**
+ * Pure choice of two clearly different voices from `voices`: the best voice plus the best voice of the other gender
+ * that is about as good (female first when both genders are known), else any other voice, else the same voice twice.
+ */
 export function choosePair(voices: SpeechSynthesisVoice[]): [SpeechSynthesisVoice | null, SpeechSynthesisVoice | null] {
-  const ranked = voices
-    .filter(isEnglishUsGb)
-    .sort((a, b) => voiceScore(b) - voiceScore(a) || a.name.localeCompare(b.name));
+  const ranked = rankVoices(voices).filter((v) => langGroup(v) <= 1);
   if (ranked.length === 0) return [null, null];
-  const female = ranked.find((v) => FEMALE_NAMES.test(v.name) && !MALE_NAMES.test(v.name));
-  const male = ranked.find((v) => MALE_NAMES.test(v.name));
-  if (female && male) return [female, male];
-  const first = female ?? male ?? ranked[0];
-  const other = ranked.find((v) => v.voiceURI !== first.voiceURI && v.name !== first.name);
-  // Same voice twice: speakSequence callers separate the speakers with pitch (see pairPitches).
-  return [first, other ?? first];
+  const first = ranked[0];
+  // Keep both voices high quality when the best one is; a stock voice may be paired with any stock voice.
+  const minTier = Math.min(tierOf(first), 2);
+  const good = ranked.filter((v) => v !== first && tierOf(v) >= minTier && v.name !== first.name);
+  const firstIsFemale = isFemale(first);
+  const firstIsMale = isMale(first);
+  const opposite = good.find((v) => (firstIsFemale ? isMale(v) : firstIsMale ? isFemale(v) : isFemale(v) || isMale(v)));
+  const other = opposite ?? good[0] ?? ranked.find((v) => v !== first && v.name !== first.name);
+  if (!other) return [first, first];
+  // Same voice twice is handled by pairPitches; here the voices differ. Female speaks first when known.
+  if (isMale(first) && isFemale(other)) return [other, first];
+  return [first, other];
 }
 
-/** Two clearly different en-US / en-GB voices for speakers A and B (null = browser default). */
+/** Two clearly different, high-quality en-US / en-GB voices for speakers A and B (null = browser default). */
 export async function pickVoicePair(): Promise<[SpeechSynthesisVoice | null, SpeechSynthesisVoice | null]> {
   return choosePair(await loadVoices());
 }
@@ -283,6 +352,7 @@ interface RecognitionLike {
   onerror: ((e: RecognitionErrorEvent) => void) | null;
   onend: (() => void) | null;
   onstart: (() => void) | null;
+  onaudiostart: (() => void) | null;
   start(): void;
   stop(): void;
   abort(): void;
@@ -314,6 +384,9 @@ const RECOGNITION_ERRORS: Record<string, string> = {
   'language-not-supported': '当前设备不支持英语语音识别。',
 };
 
+const LISTEN_START_MS = 4000;
+const LISTEN_MAX_MS = 15_000;
+
 /** Listen once and resolve with the transcript. Rejects with a Chinese error message. */
 export function listenOnce(lang = 'en-US'): Promise<string> {
   const Ctor = recognitionCtor();
@@ -325,13 +398,34 @@ export function listenOnce(lang = 'en-US'): Promise<string> {
     rec.continuous = false;
     rec.maxAlternatives = 1;
     let settled = false;
+    let started = false;
     let transcript = '';
+    const timers: ReturnType<typeof setTimeout>[] = [];
+    const clearTimers = () => {
+      timers.forEach(clearTimeout);
+      timers.length = 0;
+    };
     const fail = (msg: string) => {
       if (settled) return;
       settled = true;
+      clearTimers();
+      try {
+        rec.abort();
+      } catch {
+        // already stopped
+      }
       reject(new Error(msg));
     };
+    const markStarted = () => {
+      started = true;
+    };
+    rec.onstart = markStarted;
+    rec.onaudiostart = markStarted;
+    // Watchdogs: a recognizer that never starts, or never ends, must not leave the button spinning forever.
+    timers.push(setTimeout(() => !started && fail(START_TIMEOUT_MESSAGE), LISTEN_START_MS));
+    timers.push(setTimeout(() => fail(RECOGNITION_ERRORS['no-speech']), LISTEN_MAX_MS));
     rec.onresult = (e) => {
+      started = true;
       const parts: string[] = [];
       for (let i = 0; i < e.results.length; i++) {
         const r = e.results[i];
@@ -344,6 +438,7 @@ export function listenOnce(lang = 'en-US'): Promise<string> {
       if (settled) return;
       if (transcript) {
         settled = true;
+        clearTimers();
         resolve(transcript);
       } else {
         fail(RECOGNITION_ERRORS['no-speech']);
@@ -360,13 +455,17 @@ export function listenOnce(lang = 'en-US'): Promise<string> {
 // ---------- streaming recognition ----------
 
 export interface SpeechError {
-  /** Raw SpeechRecognition error code ('not-allowed', 'network', ...) or 'unsupported' / 'start-failed'. */
+  /** Raw SpeechRecognition error code ('not-allowed', 'network', ...) or 'unsupported' / 'start-failed' / 'start-timeout'. */
   code: string;
   /** Chinese message for the user. */
   message: string;
   /** False for 'no-speech' / 'aborted': the session can simply be restarted. */
   fatal: boolean;
 }
+
+/** Shown when the recognizer never reported that it started (Dictation off, permission stuck, Safari quirk). */
+export const START_TIMEOUT_MESSAGE =
+  '麦克风没有启动。请检查：Mac 到 系统设置 → 键盘 → 听写，打开“听写”；iPhone 到 设置 → 通用 → 键盘 → 启用听写；并在 Safari 网站设置 → 麦克风 中选“允许”';
 
 const STREAM_ERRORS: Record<string, string> = {
   'not-allowed': '麦克风权限被拒绝：请在浏览器/系统设置中允许本网站使用麦克风',
@@ -379,6 +478,7 @@ const STREAM_ERRORS: Record<string, string> = {
   aborted: '语音识别已取消',
   unsupported: '当前浏览器不支持语音识别',
   'start-failed': '无法启动语音识别，请稍后重试',
+  'start-timeout': START_TIMEOUT_MESSAGE,
 };
 
 /** Map a SpeechRecognition error code to a user-facing Chinese error. */
@@ -399,8 +499,13 @@ export interface ListenOptions {
    */
   onResult: (text: string, isFinal: boolean, alternatives: string[]) => void;
   onError?: (err: SpeechError) => void;
-  /** The engine started capturing (after the permission prompt was accepted). */
+  /** The engine started capturing (first of onstart / onaudiostart / first result; fires once). */
   onStart?: () => void;
+  /**
+   * Start watchdog: when the engine reports no start within this many ms of start(), the session is aborted and
+   * onError('start-timeout') + onEnd fire. Waits while the page is hidden (the permission prompt). Default: off.
+   */
+  startTimeoutMs?: number;
   /** The session ended: by stop() / abort(), by the browser (silence, time limit) or after an error. */
   onEnd?: () => void;
 }
@@ -415,6 +520,8 @@ export interface ListenHandle {
 }
 
 const MAX_ALTERNATIVES = 3;
+/** Extra start-watchdog periods granted while the page is hidden (permission prompt). */
+const MAX_HIDDEN_WAITS = 5;
 
 /**
  * Continuous recognition with interim results. Must be called inside a user gesture the first time
@@ -476,10 +583,30 @@ export function startListening(opts: ListenOptions): ListenHandle {
     opts.onResult(best, last.isFinal === true, alternatives);
   };
 
-  rec.onstart = () => {
-    if (!closed) opts.onStart?.();
+  let started = false;
+  let watchdog: ReturnType<typeof setTimeout> | null = null;
+  const clearWatchdog = () => {
+    if (watchdog !== null) clearTimeout(watchdog);
+    watchdog = null;
   };
+  const markStarted = () => {
+    if (closed || started) return;
+    started = true;
+    clearWatchdog();
+    opts.onStart?.();
+  };
+  const detach = () => {
+    rec.onresult = null;
+    rec.onerror = null;
+    rec.onend = null;
+    rec.onstart = null;
+    rec.onaudiostart = null;
+  };
+
+  rec.onstart = markStarted;
+  rec.onaudiostart = markStarted;
   rec.onresult = (e) => {
+    markStarted();
     latest = e.results;
     emit();
   };
@@ -489,6 +616,7 @@ export function startListening(opts: ListenOptions): ListenHandle {
   rec.onend = () => {
     if (closed) return;
     closed = true;
+    clearWatchdog();
     opts.onEnd?.();
   };
 
@@ -496,9 +624,37 @@ export function startListening(opts: ListenOptions): ListenHandle {
     rec.start();
   } catch {
     closed = true;
+    detach();
     opts.onError?.(speechError('start-failed'));
     opts.onEnd?.();
     return noop;
+  }
+
+  const timeoutMs = opts.startTimeoutMs;
+  if (timeoutMs !== undefined && timeoutMs > 0) {
+    let waits = 0;
+    const arm = () => {
+      watchdog = setTimeout(() => {
+        watchdog = null;
+        if (closed || started) return;
+        // The permission prompt can hide the page for a while: do not blame the microphone yet.
+        if (waits < MAX_HIDDEN_WAITS && typeof document !== 'undefined' && document.visibilityState === 'hidden') {
+          waits++;
+          arm();
+          return;
+        }
+        closed = true;
+        detach();
+        try {
+          rec.abort();
+        } catch {
+          // already stopped
+        }
+        opts.onError?.(speechError('start-timeout'));
+        opts.onEnd?.();
+      }, timeoutMs);
+    };
+    arm();
   }
 
   return {
@@ -513,10 +669,8 @@ export function startListening(opts: ListenOptions): ListenHandle {
     abort() {
       if (closed) return;
       closed = true;
-      rec.onresult = null;
-      rec.onerror = null;
-      rec.onend = null;
-      rec.onstart = null;
+      clearWatchdog();
+      detach();
       try {
         rec.abort();
       } catch {

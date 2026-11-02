@@ -1,3 +1,5 @@
+import { useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import { AiSection } from '../components/me/AiSection';
 import { AttemptsSection } from '../components/me/AttemptsSection';
 import { BackupSection } from '../components/me/BackupSection';
@@ -11,6 +13,12 @@ import { PageHeader } from '../components/ui';
 
 /** 我的: statistics, recent attempts and all settings. */
 export function MePage() {
+  const location = useLocation();
+  const wantsSpeech = (location.state as { section?: string } | null)?.section === 'speech';
+  useEffect(() => {
+    // e.g. the onboarding tip about installing better voices
+    if (wantsSpeech) document.getElementById('me-speech')?.scrollIntoView?.({ block: 'start' });
+  }, [wantsSpeech]);
   return (
     <>
       <PageHeader title="我的" subtitle="学习统计、语块库进度、学习计划、AI 与同步设置、数据备份。" />

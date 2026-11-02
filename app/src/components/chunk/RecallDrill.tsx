@@ -4,7 +4,7 @@ import type { FrameCombo } from '../../types';
 import { chunkCore, exampleTurn, matchChunkSpoken, maskZh } from '../../lib/chunkDrill';
 import { playSuccessCue, primeAudio } from '../../lib/cue';
 import { randomCombo, type AnswerToken } from '../../lib/frameEngine';
-import { speak, stopSpeaking } from '../../lib/speech';
+import { speak, stopSpeaking, type SpeechError } from '../../lib/speech';
 import { matchVoice, VOICE_THRESHOLD, READ_ALOUD_THRESHOLD } from '../../lib/voiceMatch';
 import { AnswerDiff } from '../drills/AnswerDiff';
 import { useVoiceListener, useVoicePref } from '../drills/useVoice';
@@ -39,6 +39,10 @@ export interface RecallDrillProps {
   /** Fired when the learner taps 继续 (voice mode) or 说对了 / 没说出来 (self-check mode). */
   onDone: (result: RecallResult) => void;
   continueLabel?: string;
+  /** False = never use voice verification (self-check only), e.g. the microphone test did not pass. Default true. */
+  voiceAllowed?: boolean;
+  /** Voice verification failed during this drill (mic never started, permission, Dictation off): it fell back to self-check. */
+  onVoiceFailed?: (err: SpeechError) => void;
 }
 
 type Phase = 'idle' | 'listening' | 'success' | 'failed' | 'revealed';
@@ -84,7 +88,7 @@ function buildPrompt(item: LibraryItem, combo: FrameCombo | undefined): Prompt {
  * recognizer judges it (a chunk is also accepted inside a longer utterance; frames need a 0.85 match of the
  * whole sentence). Without recognition (or after a recognition error): 显示答案, then 说对了 / 没说出来.
  */
-export function RecallDrill({ item, timeLimitMs, combo, onDone, continueLabel = '继续' }: RecallDrillProps) {
+export function RecallDrill({ item, timeLimitMs, combo, onDone, continueLabel = '继续', voiceAllowed = true, onVoiceFailed }: RecallDrillProps) {
   const limitMs = timeLimitMs ?? (item.kind === 'chunk' ? CHUNK_RECALL_MS : FRAME_RECALL_MS);
   const [prompt] = useState(() => buildPrompt(item, combo));
   const voicePref = useVoicePref();
@@ -105,15 +109,23 @@ export function RecallDrill({ item, timeLimitMs, combo, onDone, continueLabel = 
     setPhaseState(p);
   };
 
-  // A fatal recognition error drops the drill back to the self-check flow.
-  const listener = useVoiceListener(() => {
+  /** The learner gave up on the microphone for this prompt ("麦克风没反应"): self-check only. */
+  const [selfCheck, setSelfCheck] = useState(false);
+  const failedRef = useRef(onVoiceFailed);
+  useEffect(() => {
+    failedRef.current = onVoiceFailed;
+  });
+
+  // A fatal recognition error (including a microphone that never starts) drops the drill back to the self-check flow.
+  const listener = useVoiceListener((err) => {
     if (phaseRef.current === 'listening') {
       setPhase('idle');
       setElapsed(0);
       t0.current = null;
     }
+    failedRef.current?.(err);
   });
-  const voice = voicePref.enabled && !listener.error;
+  const voice = voiceAllowed && voicePref.enabled && !listener.error && !selfCheck;
 
   const judge = (heard: string | readonly string[]) =>
     item.kind === 'chunk'
@@ -126,6 +138,7 @@ export function RecallDrill({ item, timeLimitMs, combo, onDone, continueLabel = 
     setOkMs(Math.max(0, Date.now() - (t0.current ?? Date.now())));
     setLive(heard);
     setPhase('success');
+    // state first: audio teardown can misbehave in Safari but must never block the UI
     stopListening();
     playSuccessCue();
     void speak(prompt.say);
@@ -134,6 +147,7 @@ export function RecallDrill({ item, timeLimitMs, combo, onDone, continueLabel = 
     if (phaseRef.current !== 'listening') return;
     setFailReason(reason);
     setPhase('failed');
+    // state first: audio teardown can misbehave in Safari but must never block the UI
     stopListening();
     void speak(prompt.say);
   };
@@ -178,32 +192,48 @@ export function RecallDrill({ item, timeLimitMs, combo, onDone, continueLabel = 
   useEffect(() => () => stopSpeaking(), []);
 
   const start = () => {
-    primeAudio();
     bestRef.current = null;
     setBest(null);
     setLive('');
     setElapsed(0);
     t0.current = null;
     setPhase('listening');
-    listener.start();
-    listener.mark();
+    try {
+      primeAudio();
+      stopSpeaking(); // an unfinished utterance would contend with the microphone
+      listener.start();
+      listener.mark();
+    } catch {
+      // the escape buttons below still work; the start watchdog / error handler falls back to self-check
+    }
   };
 
   const reveal = () => {
     setSelfMs(Math.min(120_000, Date.now() - mountedAt));
     setPhase('revealed');
+    listener.stop();
     void speak(prompt.say);
+  };
+
+  /** "麦克风没反应": give up voice for this prompt and self-check instead (state first, then tear the microphone down). */
+  const giveUpMic = () => {
+    setSelfCheck(true);
+    setPhase('idle');
+    setElapsed(0);
+    t0.current = null;
+    listener.stop();
   };
 
   const toggleVoice = (on: boolean) => {
     voicePref.setEnabled(on);
+    if (on) setSelfCheck(false);
     if (!on) {
-      listener.stop();
       if (phaseRef.current === 'listening') {
         setPhase('idle');
         setElapsed(0);
         t0.current = null;
       }
+      listener.stop();
     }
   };
 
@@ -229,14 +259,16 @@ export function RecallDrill({ item, timeLimitMs, combo, onDone, continueLabel = 
 
       {phase === 'idle' && (
         <div className="flex flex-col gap-2.5">
-          {voicePref.supported ? (
+          {!voicePref.supported ? (
+            <VoiceUnsupportedNote />
+          ) : voiceAllowed ? (
             <VoiceToggle enabled={voice} onChange={toggleVoice} className="self-start" />
           ) : (
-            <VoiceUnsupportedNote />
+            <p className="text-xs text-slate-500 dark:text-slate-400">本次使用自评模式：看完答案后诚实地点“说对了”或“没说出来”。</p>
           )}
           {listener.error && voicePref.enabled && (
             <p role="alert" className="text-sm text-rose-600 dark:text-rose-400">
-              {listener.error.message}。已改为自评模式。
+              {listener.error.message}。已改为自评模式，本题照常继续。
             </p>
           )}
           {voice ? (
@@ -303,6 +335,11 @@ export function RecallDrill({ item, timeLimitMs, combo, onDone, continueLabel = 
           <Button variant="secondary" size="lg" full onClick={() => fail('skipped')}>
             跳过 / 显示答案
           </Button>
+          {!ready && (
+            <Button variant="ghost" size="sm" onClick={giveUpMic}>
+              麦克风没反应？改用自评
+            </Button>
+          )}
         </>
       )}
 

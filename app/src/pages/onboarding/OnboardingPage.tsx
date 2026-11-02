@@ -32,6 +32,8 @@ export function OnboardingPage() {
   const [step, setStep] = useState<Step>('goal');
   const [draft, setDraft] = useState<GoalDraft>({ horizonDays: RECOMMENDED_HORIZON, dailyMinutes: RECOMMENDED_MINUTES });
   const [plan, setPlan] = useState<PlacementPlan | null>(null);
+  /** Voice verification in the speaking items only when the microphone test passed. */
+  const [voiceOk, setVoiceOk] = useState(false);
   const [assessment, setAssessment] = useState<Assessment | undefined>();
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -92,7 +94,8 @@ export function OnboardingPage() {
       setStep('result');
     });
 
-  const startRun = () => {
+  const startRun = (voice: boolean) => {
+    setVoiceOk(voice);
     setPlan(buildPlacement(Math.random));
     setError(null);
     setStep('run');
@@ -125,7 +128,7 @@ export function OnboardingPage() {
         {step === 'intro' && (
           <IntroStep onStart={startRun} onSkip={() => void skip()} onBack={() => setStep('goal')} busy={busy} error={error} />
         )}
-        {step === 'run' && plan && (busy ? <PageLoading /> : <PlacementRunner plan={plan} onDone={(r) => void finishRun(r)} />)}
+        {step === 'run' && plan && (busy ? <PageLoading /> : <PlacementRunner plan={plan} voiceAllowed={voiceOk} onDone={(r) => void finishRun(r)} />)}
         {step === 'result' && <ResultStep assessment={assessment} onStart={() => navigate('/')} />}
       </div>
     </>

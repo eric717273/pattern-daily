@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import type { LibraryItem } from '../../content';
 import { getChunk, getDialogue } from '../../content';
 import type {
@@ -59,6 +59,21 @@ export function RunHeader({ section, index, total, note }: { section: string; in
   );
 }
 
+/**
+ * Whether speaking items may use the microphone. Progress lives in the runner's state, so a microphone failure
+ * only turns voice off for the remaining items: the current item falls back to self-check and the test goes on.
+ */
+function useVoiceGate(initial: boolean) {
+  const [failed, setFailed] = useState(false);
+  const failedRef = useRef(false);
+  const onFailed = () => {
+    if (failedRef.current) return;
+    failedRef.current = true;
+    setFailed(true);
+  };
+  return { allowed: initial && !failed, onFailed };
+}
+
 function MissingItem({ id }: { id: string }) {
   return (
     <Card>
@@ -79,11 +94,14 @@ interface PlacementState {
 
 export interface PlacementRunnerProps {
   plan: PlacementPlan;
+  /** Voice verification in speaking items (the microphone test passed). Default true; a failure during the run turns it off. */
+  voiceAllowed?: boolean;
   onDone: (results: PlacementResults) => void;
 }
 
 /** Listening staircase -> 2 gist-only dialogues -> speaking items (timed, latency measured). */
-export function PlacementRunner({ plan, onDone }: PlacementRunnerProps) {
+export function PlacementRunner({ plan, onDone, voiceAllowed = true }: PlacementRunnerProps) {
+  const voice = useVoiceGate(voiceAllowed);
   const nL = plan.listen.items.length;
   const nD = plan.dialogues.length;
   const nS = plan.speak.items.length;
@@ -161,6 +179,8 @@ export function PlacementRunner({ plan, onDone }: PlacementRunnerProps) {
           key={`speak-${idx}`}
           item={item}
           timeLimitMs={plan.speak.limitMs}
+          voiceAllowed={voice.allowed}
+          onVoiceFailed={voice.onFailed}
           continueLabel={idx + 1 < total ? '下一题' : '完成'}
           onDone={(r) => advance({ ...st, idx: idx + 1, speak: [...st.speak, speakResult(probe, r)] })}
         />
@@ -175,11 +195,14 @@ export function PlacementRunner({ plan, onDone }: PlacementRunnerProps) {
 
 export interface CheckpointRunnerProps {
   plan: CheckpointPlan;
+  /** Voice verification in speaking items. Default true; a failure during the run turns it off. */
+  voiceAllowed?: boolean;
   onDone: (results: CheckpointResults) => void;
 }
 
 /** 6 listening items (each at its own level) then 4 speaking items. */
-export function CheckpointRunner({ plan, onDone }: CheckpointRunnerProps) {
+export function CheckpointRunner({ plan, onDone, voiceAllowed = true }: CheckpointRunnerProps) {
+  const voice = useVoiceGate(voiceAllowed);
   const nL = plan.listen.length;
   const total = nL + plan.speak.items.length;
   const [st, setSt] = useState<{ idx: number; listen: ListenResult[]; speak: SpeakResult[] }>({ idx: 0, listen: [], speak: [] });
@@ -227,6 +250,8 @@ export function CheckpointRunner({ plan, onDone }: CheckpointRunnerProps) {
           key={`speak-${idx}`}
           item={item}
           timeLimitMs={plan.speak.limitMs}
+          voiceAllowed={voice.allowed}
+          onVoiceFailed={voice.onFailed}
           continueLabel={idx + 1 < total ? '下一题' : '完成'}
           onDone={(r) => advance({ ...st, idx: idx + 1, speak: [...st.speak, speakResult(probe, r)] })}
         />

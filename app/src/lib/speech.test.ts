@@ -1,15 +1,18 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import {
   choosePair,
+  hasHighQualityVoice,
   listenOnce,
   listVoices,
   pairPitches,
   pickVoice,
+  rankVoices,
   recognitionSupported,
   speak,
   speakSequence,
   speechError,
   startListening,
+  voiceQuality,
 } from './speech';
 
 function voice(name: string, lang: string, uri = name): SpeechSynthesisVoice {
@@ -315,5 +318,178 @@ describe('speakSequence', () => {
     await vi.advanceTimersByTimeAsync(5000); // no 'end' ever fires
     expect(queue.map((u) => u.text)).toEqual(['Stuck', 'Next']);
     h2.stop();
+  });
+});
+
+// ---------- voice quality ----------
+
+const macVoices = [
+  voice('Albert', 'en-US', 'com.apple.speech.synthesis.voice.Albert'),
+  voice('Bad News', 'en-US', 'com.apple.speech.synthesis.voice.BadNews'),
+  voice('Fred', 'en-US', 'com.apple.speech.synthesis.voice.Fred'),
+  voice('Alex', 'en-US', 'com.apple.speech.synthesis.voice.Alex'),
+  voice('Samantha', 'en-US', 'com.apple.voice.compact.en-US.Samantha'),
+  voice('Daniel', 'en-GB', 'com.apple.voice.compact.en-GB.Daniel'),
+  voice('Ava (Premium)', 'en-US', 'com.apple.voice.premium.en-US.Ava'),
+  voice('Zoe (Premium)', 'en-US', 'com.apple.voice.premium.en-US.Zoe'),
+  voice('Evan (Enhanced)', 'en-US', 'com.apple.voice.enhanced.en-US.Evan'),
+  voice('Serena (Enhanced)', 'en-GB', 'com.apple.voice.enhanced.en-GB.Serena'),
+  voice('Tessa', 'en-ZA'),
+  voice('Anna', 'de-DE'),
+];
+const iphoneVoices = [
+  voice('Flo (English (US))', 'en-US', 'com.apple.eloquence.en-US.Flo'),
+  voice('Rocko (English (US))', 'en-US', 'com.apple.eloquence.en-US.Rocko'),
+  voice('Samantha', 'en-US', 'com.apple.voice.compact.en-US.Samantha'),
+  voice('Nicky', 'en-US', 'com.apple.voice.compact.en-US.Nicky'),
+  voice('Aaron', 'en-US', 'com.apple.voice.compact.en-US.Aaron'),
+  voice('Karen', 'en-AU', 'com.apple.voice.compact.en-AU.Karen'),
+  voice('Joelle (Enhanced)', 'en-US', 'com.apple.voice.enhanced.en-US.Joelle'),
+  voice('Nathan (Enhanced)', 'en-US', 'com.apple.voice.enhanced.en-US.Nathan'),
+];
+const find = (list: SpeechSynthesisVoice[], name: string) => list.find((v) => v.name === name) as SpeechSynthesisVoice;
+
+describe('voiceQuality', () => {
+  it('classifies premium, enhanced, standard and novelty voices', () => {
+    expect(voiceQuality(find(macVoices, 'Ava (Premium)'))).toBe('premium');
+    expect(voiceQuality(find(macVoices, 'Evan (Enhanced)'))).toBe('enhanced');
+    expect(voiceQuality(voice('Tom', 'en-US', 'com.apple.voice.enhanced.en-US.Tom'))).toBe('enhanced');
+    expect(voiceQuality(find(macVoices, 'Samantha'))).toBe('standard');
+    expect(voiceQuality(find(macVoices, 'Alex'))).toBe('standard');
+    for (const n of ['Albert', 'Bad News', 'Fred']) expect(voiceQuality(find(macVoices, n))).toBe('novelty');
+    expect(voiceQuality(find(iphoneVoices, 'Flo (English (US))'))).toBe('novelty');
+    expect(voiceQuality(voice('Whatever', 'en-US', 'x.eloquence.y'))).toBe('novelty');
+    expect(voiceQuality(voice('Zarvox', 'en-US'))).toBe('novelty');
+  });
+});
+
+describe('rankVoices', () => {
+  it('Mac-like list: premium > enhanced > known-good > other; novelty and non-English are dropped', () => {
+    const names = rankVoices(macVoices).map((v) => v.name);
+    expect(names.slice(0, 4)).toEqual(['Ava (Premium)', 'Zoe (Premium)', 'Evan (Enhanced)', 'Serena (Enhanced)']);
+    expect(names.slice(4, 7)).toEqual(['Samantha', 'Alex', 'Daniel']);
+    expect(names).not.toContain('Albert');
+    expect(names).not.toContain('Fred');
+    expect(names).not.toContain('Anna');
+    expect(names.at(-1)).toBe('Tessa');
+  });
+
+  it('iPhone-like list: Eloquence voices are excluded, enhanced voices lead, en-US before en-AU', () => {
+    const names = rankVoices(iphoneVoices).map((v) => v.name);
+    expect(names).toEqual(['Joelle (Enhanced)', 'Nathan (Enhanced)', 'Samantha', 'Karen', 'Aaron', 'Nicky']);
+  });
+
+  it('known-good Chrome / Edge voices beat unknown standard ones', () => {
+    const list = [voice('Random Voice', 'en-US'), voice('Google US English', 'en-US'), voice('Microsoft Aria Online (Natural) - English (United States)', 'en-US')];
+    const names = rankVoices(list).map((v) => v.name);
+    expect(names.at(-1)).toBe('Random Voice');
+  });
+
+  it('hasHighQualityVoice only counts premium / enhanced English voices', () => {
+    expect(hasHighQualityVoice(macVoices)).toBe(true);
+    expect(hasHighQualityVoice(iphoneVoices)).toBe(true);
+    expect(hasHighQualityVoice([voice('Samantha', 'en-US'), voice('Daniel', 'en-GB')])).toBe(false);
+    expect(hasHighQualityVoice([voice('Amelie (Premium)', 'fr-CA')])).toBe(false);
+  });
+
+  it('the default voice is the best-ranked one; a saved URI still wins', () => {
+    expect(pickVoice(macVoices, '')?.name).toBe('Ava (Premium)');
+    expect(pickVoice(iphoneVoices, '')?.name).toBe('Joelle (Enhanced)');
+    expect(pickVoice(macVoices, 'com.apple.voice.compact.en-US.Samantha')?.name).toBe('Samantha');
+    expect(pickVoice([voice('Fred', 'en-US'), voice('Bubbles', 'en-US')], '')).toBeNull();
+  });
+});
+
+describe('choosePair with ranked voices', () => {
+  it('Mac-like: two high-quality voices, one female and one male', () => {
+    const [a, b] = choosePair(macVoices);
+    expect(a?.name).toBe('Ava (Premium)');
+    expect(b?.name).toBe('Evan (Enhanced)');
+  });
+
+  it('iPhone-like: female + male enhanced voices, female first', () => {
+    const [a, b] = choosePair(iphoneVoices);
+    expect(a?.name).toBe('Joelle (Enhanced)');
+    expect(b?.name).toBe('Nathan (Enhanced)');
+  });
+
+  it('only same-gender high-quality voices: still two different voices', () => {
+    const [a, b] = choosePair([voice('Ava (Premium)', 'en-US'), voice('Zoe (Premium)', 'en-US'), voice('Daniel', 'en-GB')]);
+    expect(a?.name).toBe('Ava (Premium)');
+    expect(b?.name).toBe('Zoe (Premium)');
+  });
+
+  it('never picks a novelty voice, even as the only other choice', () => {
+    const [a, b] = choosePair([voice('Samantha', 'en-US'), voice('Fred', 'en-US')]);
+    expect(a?.name).toBe('Samantha');
+    expect(b).toBe(a);
+  });
+});
+
+describe('startListening start watchdog', () => {
+  class Silent {
+    static last: Silent | null = null;
+    onresult: ((e: { results: unknown[] }) => void) | null = null;
+    onerror: ((e: { error: string }) => void) | null = null;
+    onend: (() => void) | null = null;
+    onstart: (() => void) | null = null;
+    onaudiostart: (() => void) | null = null;
+    aborted = 0;
+    constructor() {
+      Silent.last = this;
+    }
+    start() {}
+    stop() {}
+    abort() {
+      this.aborted++;
+    }
+  }
+  beforeEach(() => {
+    vi.useFakeTimers();
+    (window as unknown as Record<string, unknown>).webkitSpeechRecognition = Silent;
+  });
+  afterEach(() => {
+    vi.useRealTimers();
+    delete (window as unknown as Record<string, unknown>).webkitSpeechRecognition;
+  });
+
+  it('aborts and reports start-timeout (then onEnd) when nothing starts within the limit', () => {
+    const onError = vi.fn();
+    const onEnd = vi.fn();
+    startListening({ onResult: vi.fn(), onError, onEnd, startTimeoutMs: 4000 });
+    vi.advanceTimersByTime(3999);
+    expect(onError).not.toHaveBeenCalled();
+    vi.advanceTimersByTime(2);
+    expect(Silent.last?.aborted).toBe(1);
+    expect(onError).toHaveBeenCalledWith(expect.objectContaining({ code: 'start-timeout', fatal: true }));
+    expect(onEnd).toHaveBeenCalledTimes(1);
+  });
+
+  it('onaudiostart, onstart or a first result each count as started', () => {
+    for (const fire of [
+      (r: Silent) => r.onaudiostart?.(),
+      (r: Silent) => r.onstart?.(),
+      (r: Silent) => r.onresult?.({ results: [{ isFinal: false, length: 1, 0: { transcript: 'hi' } }] }),
+    ]) {
+      const onError = vi.fn();
+      const onStart = vi.fn();
+      startListening({ onResult: vi.fn(), onError, onStart, startTimeoutMs: 4000 });
+      fire(Silent.last as Silent);
+      fire(Silent.last as Silent);
+      vi.advanceTimersByTime(10_000);
+      expect(onStart).toHaveBeenCalledTimes(1);
+      expect(onError).not.toHaveBeenCalled();
+    }
+  });
+
+  it('abort() cancels the watchdog and swallows a throwing engine', () => {
+    const onError = vi.fn();
+    const h = startListening({ onResult: vi.fn(), onError, startTimeoutMs: 4000 });
+    (Silent.last as Silent).abort = () => {
+      throw new DOMException('x', 'InvalidStateError');
+    };
+    expect(() => h.abort()).not.toThrow();
+    vi.advanceTimersByTime(10_000);
+    expect(onError).not.toHaveBeenCalled();
   });
 });

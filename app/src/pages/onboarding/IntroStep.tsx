@@ -1,7 +1,15 @@
+import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+import { MicCheck, type MicCheckResult } from '../../components/drills/MicCheck';
 import { Button, Card } from '../../components/ui';
+import { loadMicStatus } from '../../lib/micCheck';
+import { hasHighQualityVoice, listVoices, recognitionSupported } from '../../lib/speech';
+
+type MicMode = 'pending' | 'ok' | 'failed' | 'skipped';
 
 export interface IntroStepProps {
-  onStart: () => void;
+  /** `voice`: the microphone test passed, so the speaking items may use voice verification. */
+  onStart: (voice: boolean) => void;
   onSkip: () => void;
   onBack: () => void;
   busy?: boolean;
@@ -9,6 +17,22 @@ export interface IntroStepProps {
 }
 
 export function IntroStep({ onStart, onSkip, onBack, busy = false, error }: IntroStepProps) {
+  const [mic, setMic] = useState<MicMode>(() => {
+    const saved = loadMicStatus();
+    return saved === null ? 'pending' : saved.ok ? 'ok' : 'failed';
+  });
+  const [onlyStandardVoices, setOnlyStandardVoices] = useState(false);
+  useEffect(() => {
+    let cancelled = false;
+    void listVoices().then((v) => {
+      if (!cancelled) setOnlyStandardVoices(v.length > 0 && !hasHighQualityVoice(v));
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+  const onMic = (r: MicCheckResult) => setMic(r.ok ? 'ok' : 'failed');
+
   return (
     <div className="flex flex-col gap-5">
       <Card className="flex flex-col gap-3.5" aria-label="诊断测试说明">
@@ -36,13 +60,37 @@ export function IntroStep({ onStart, onSkip, onBack, busy = false, error }: Intr
         </ul>
       </Card>
 
+      {recognitionSupported() && (
+        <Card className="flex flex-col gap-2" aria-label="麦克风检查">
+          {mic === 'skipped' ? (
+            <div className="flex flex-wrap items-center gap-2">
+              <p className="flex-1 text-sm text-slate-600 dark:text-slate-300">已选择自评模式：口语题看完答案后自己点“说对了”。</p>
+              <Button variant="ghost" size="md" onClick={() => setMic('pending')}>
+                改为测试麦克风
+              </Button>
+            </div>
+          ) : (
+            <MicCheck onResult={onMic} onSkip={() => setMic('skipped')} />
+          )}
+        </Card>
+      )}
+
+      {onlyStandardVoices && (
+        <p className="text-center text-xs text-slate-500 dark:text-slate-400" data-testid="voice-tip">
+          小提示：这台设备目前只有普通质量的英语声音，听起来会比较机械。
+          <Link to="/me" state={{ section: 'speech' }} className="font-medium text-indigo-600 underline dark:text-indigo-300">
+            安装免费的高质量语音
+          </Link>
+        </p>
+      )}
+
       {error && (
         <p role="alert" className="rounded-xl bg-rose-50 px-3.5 py-2.5 text-sm text-rose-800 dark:bg-rose-950/40 dark:text-rose-200">
           {error}
         </p>
       )}
       <div className="flex flex-col gap-2.5">
-        <Button variant="primary" size="lg" full onClick={onStart} disabled={busy}>
+        <Button variant="primary" size="lg" full onClick={() => onStart(mic === 'ok')} disabled={busy}>
           开始诊断
         </Button>
         <Button variant="ghost" size="lg" full onClick={onSkip} disabled={busy}>

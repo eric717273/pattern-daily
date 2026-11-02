@@ -122,7 +122,7 @@ describe('RecallDrill (voice mode)', () => {
     render(<RecallDrill item={item} timeLimitMs={3000} onDone={() => undefined} />);
     expect(screen.getByRole('button', { name: /限时 3 秒/ })).toBeInTheDocument();
     start();
-    await tick(20_000);
+    await tick(3500);
     expect(screen.queryByTestId('recall-result')).not.toBeInTheDocument();
     expect(screen.getByText(/正在启动麦克风/)).toBeInTheDocument();
     act(() => liveRecognition().onstart?.());

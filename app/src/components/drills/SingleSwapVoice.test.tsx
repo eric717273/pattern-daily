@@ -239,7 +239,7 @@ describe('SingleSwapDrill voice mode', () => {
     }
     (window as unknown as Record<string, unknown>).webkitSpeechRecognition = SlowStart;
     startDrill();
-    await tick(20_000);
+    await tick(3500);
     expect(screen.queryByTestId('swap-result')).not.toBeInTheDocument();
     expect(screen.getByText(/正在启动麦克风/)).toBeInTheDocument();
     act(() => live().onstart?.());
