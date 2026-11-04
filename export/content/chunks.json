@@ -1,0 +1,7295 @@
+[
+ {
+  "id": "c001",
+  "en": "How's it going?",
+  "zh": "最近怎么样？／还好吗？",
+  "category": "greeting",
+  "freq": 1,
+  "register": "casual",
+  "examples": [
+   {
+    "en": "A: Hey, how's it going? B: Pretty good, thanks. You?",
+    "zh": "A：嘿，最近怎么样？B：挺好的，谢谢。你呢？"
+   },
+   {
+    "en": "Hey, Mike! How's it going? I haven't seen you all week.",
+    "zh": "嘿，Mike！最近怎么样？这一周都没见到你。"
+   }
+  ],
+  "noteZh": "熟人见面最常用的打招呼方式，不是真的在问“进展如何”。简单回一句 “Good, you?” 就行，不用长篇汇报。",
+  "soundZh": "How's it → 连成 howzit；going 常弱读成 goin'。整句听起来像 “howzit goin”。"
+ },
+ {
+  "id": "c002",
+  "en": "What's up?",
+  "zh": "怎么了？／最近咋样？",
+  "category": "greeting",
+  "freq": 1,
+  "register": "casual",
+  "examples": [
+   {
+    "en": "A: Hey, what's up? B: Not much. Just got off work.",
+    "zh": "A：嘿，最近咋样？B：没什么，刚下班。"
+   },
+   {
+    "en": "You look worried. What's up?",
+    "zh": "你看起来有心事。怎么了？"
+   }
+  ],
+  "noteZh": "朋友之间打招呼，常回 “Not much.”。语气认真时也可以真的问“出什么事了”。陌生人或正式场合不用。",
+  "soundZh": "What's up → 常说成 wassup、sup，What 的 t 几乎不发音。"
+ },
+ {
+  "id": "c003",
+  "en": "Long time no see.",
+  "zh": "好久不见。",
+  "category": "greeting",
+  "freq": 2,
+  "register": "casual",
+  "examples": [
+   {
+    "en": "A: Long time no see! B: I know! It must be two years.",
+    "zh": "A：好久不见！B：是啊！得有两年了吧。"
+   },
+   {
+    "en": "Long time no see. What have you been doing since college?",
+    "zh": "好久不见。大学毕业后你都在忙什么？"
+   }
+  ],
+  "noteZh": "很口语的“好久不见”，朋友、老同事之间用。后面常接 “How have you been?”。",
+  "soundZh": "四个词几乎一口气读完，time 和 no 轻读，重音落在 Long 和 see 上。"
+ },
+ {
+  "id": "c004",
+  "en": "How have you been?",
+  "zh": "你最近过得怎么样？",
+  "category": "greeting",
+  "freq": 1,
+  "register": "neutral",
+  "examples": [
+   {
+    "en": "A: Hi, Sarah! How have you been? B: Busy, but good. How about you?",
+    "zh": "A：嗨，Sarah！你最近过得怎么样？B：挺忙的，不过不错。你呢？"
+   },
+   {
+    "en": "It's been a while. How have you been?",
+    "zh": "有一阵子没见了。你最近过得怎么样？"
+   }
+  ],
+  "noteZh": "隔了一段时间再见面时问候用，比 “How are you?” 更自然。回答时说说这段时间的大致状态就好。",
+  "soundZh": "have 弱读成 /əv/，How have you → How’ve ya，听起来像 “howvya been”；been 常弱读成 bin。"
+ },
+ {
+  "id": "c005",
+  "en": "Nice to meet you.",
+  "zh": "很高兴认识你。",
+  "category": "greeting",
+  "freq": 1,
+  "register": "neutral",
+  "examples": [
+   {
+    "en": "A: Nice to meet you. I'm Tom. B: Nice to meet you, too. I'm Lisa.",
+    "zh": "A：很高兴认识你，我是 Tom。B：我也很高兴认识你，我是 Lisa。"
+   },
+   {
+    "en": "Nice to meet you. I've heard a lot about you.",
+    "zh": "很高兴认识你，久仰大名。"
+   }
+  ],
+  "noteZh": "第一次见面的标准问候，任何场合都能用。对方说完，回 “You too.” 即可。道别时改说 “Nice meeting you.”。",
+  "soundZh": "Nice to → 连成 “Nice-tuh”，to 弱读成 /tə/；meet you → 常连成 “meechu”。"
+ },
+ {
+  "id": "c006",
+  "en": "Good to see you.",
+  "zh": "见到你真高兴。",
+  "category": "greeting",
+  "freq": 2,
+  "register": "neutral",
+  "examples": [
+   {
+    "en": "A: Good to see you! B: You too! Come on in.",
+    "zh": "A：见到你真高兴！B：我也是！快进来。"
+   },
+   {
+    "en": "Hey, good to see you. How was your flight?",
+    "zh": "嘿，见到你真高兴。航班还顺利吗？"
+   }
+  ],
+  "noteZh": "和认识的人见面时用，比 “Nice to meet you” 更熟络，不能用于初次见面。口语常省略 It’s。",
+  "soundZh": "Good to → 常读成 “goodta”；see you → 常连成 “seeya”。"
+ },
+ {
+  "id": "c007",
+  "en": "What have you been up to?",
+  "zh": "你最近都在忙些什么？",
+  "category": "greeting",
+  "freq": 2,
+  "register": "casual",
+  "examples": [
+   {
+    "en": "A: What have you been up to lately? B: Not much. Just work, mostly.",
+    "zh": "A：你最近都在忙些什么？B：没什么，主要就是工作。"
+   },
+   {
+    "en": "I haven't heard from you in ages. What have you been up to?",
+    "zh": "好久没你的消息了。你最近都在忙些什么？"
+   }
+  ],
+  "noteZh": "朋友之间问“最近在干嘛”，比 “How have you been?” 更具体，期待对方讲点近况。不是质问，语气轻松。",
+  "soundZh": "What have you been → 常连读成 “whatuvya bin”；up to → 连成 “uptuh”。"
+ },
+ {
+  "id": "c008",
+  "en": "I'd better get going.",
+  "zh": "我该走了。",
+  "category": "greeting",
+  "freq": 1,
+  "register": "neutral",
+  "examples": [
+   {
+    "en": "It's getting late. I'd better get going.",
+    "zh": "时间不早了，我该走了。"
+   },
+   {
+    "en": "A: Already? B: Yeah, I'd better get going. I have an early meeting tomorrow.",
+    "zh": "A：这就走了？B：嗯，我该走了，明天一早有个会。"
+   }
+  ],
+  "noteZh": "委婉地结束聊天、起身告辞，比 “I want to leave” 礼貌得多。也可说 “I should get going.”。",
+  "soundZh": "I'd better → 缩成 “I'd bedder”，better 的 t 浊化成 d；get going → 连成 “geddgoing”。"
+ },
+ {
+  "id": "c009",
+  "en": "Catch you later.",
+  "zh": "回头见。",
+  "category": "greeting",
+  "freq": 2,
+  "register": "casual",
+  "examples": [
+   {
+    "en": "A: I've got to run. B: OK, catch you later!",
+    "zh": "A：我得先走了。B：好，回头见！"
+   },
+   {
+    "en": "Alright, catch you later. Text me when you get home.",
+    "zh": "好了，回头见。到家给我发个消息。"
+   }
+  ],
+  "noteZh": "朋友间轻松的告别，不一定真有约定。对上级或正式场合请改用 “See you later.”。",
+  "soundZh": "Catch you → 连成 “catcha”；整句听起来像 “catcha later”。"
+ },
+ {
+  "id": "c010",
+  "en": "Take care.",
+  "zh": "保重。／多保重。",
+  "category": "greeting",
+  "freq": 1,
+  "register": "neutral",
+  "examples": [
+   {
+    "en": "A: It was great seeing you. B: You too. Take care!",
+    "zh": "A：见到你真好。B：我也是，多保重！"
+   },
+   {
+    "en": "Thanks for stopping by. Take care and drive safely.",
+    "zh": "谢谢你过来。多保重，开车慢点。"
+   }
+  ],
+  "noteZh": "告别时的万能暖心语，朋友、同事、客户都可以说。也常用在对方生病或要出远门的时候。"
+ },
+ {
+  "id": "c011",
+  "en": "Have a good one.",
+  "zh": "祝你今天／这几天愉快。",
+  "category": "greeting",
+  "freq": 2,
+  "register": "casual",
+  "examples": [
+   {
+    "en": "A: Thanks for your help. B: No problem. Have a good one!",
+    "zh": "A：谢谢你帮忙。B：没问题，祝你今天愉快！"
+   },
+   {
+    "en": "Alright, I'm heading out. Have a good one, guys.",
+    "zh": "好了，我先走了。大家玩得开心。"
+   }
+  ],
+  "noteZh": "美式口语里的告别，one 指“这一天／这个周末”，店员和邻居也爱说。回 “You too.” 即可。",
+  "soundZh": "Have a → 连成 “havuh”；good one → 连成 “goodwun”。"
+ },
+ {
+  "id": "c012",
+  "en": "Gotta run.",
+  "zh": "得走了，先不聊了。",
+  "category": "greeting",
+  "freq": 2,
+  "register": "casual",
+  "examples": [
+   {
+    "en": "Oh, it's already five? Sorry, gotta run. Talk later!",
+    "zh": "哎，已经五点了？不好意思，得走了，回头聊！"
+   },
+   {
+    "en": "I'd love to stay, but I gotta run. My bus leaves in ten minutes.",
+    "zh": "我很想多待会儿，但得走了，我的公交车十分钟后就开。"
+   }
+  ],
+  "noteZh": "熟人之间匆匆告别，也常用于打电话中途结束。gotta = got to，主语 I 常被省略。不适合很正式的场合。",
+  "soundZh": "Gotta 读作 /ˈɡɑːɾə/，got to 连读后 t 变成轻 d，听起来像 “gada”。"
+ },
+ {
+  "id": "c013",
+  "en": "Give my best to …",
+  "zh": "代我向……问好。",
+  "category": "greeting",
+  "freq": 3,
+  "register": "neutral",
+  "examples": [
+   {
+    "en": "Give my best to your parents.",
+    "zh": "代我向你父母问好。"
+   },
+   {
+    "en": "It was great to catch up. Please give my best to Sarah and the kids.",
+    "zh": "很高兴能叙叙旧。请代我向 Sarah 和孩子们问好。"
+   }
+  ],
+  "noteZh": "告别时请对方转达问候，比 “Say hi to …” 稍正式。后面接人，如 your family。",
+  "soundZh": "Give my → 连成 “givmy”；best to → best 的 t 和 to 的 t 连成一个，听起来像 “besto”。"
+ },
+ {
+  "id": "c014",
+  "en": "No way!",
+  "zh": "不会吧！／怎么可能！",
+  "category": "response",
+  "freq": 1,
+  "register": "casual",
+  "examples": [
+   {
+    "en": "A: I just got a job at Google. B: No way! Congratulations!",
+    "zh": "A：我刚拿到 Google 的工作。B：不会吧！恭喜你！"
+   },
+   {
+    "en": "A: They're closing the café on Main Street. B: No way! I go there every day.",
+    "zh": "A：主街那家咖啡馆要关门了。B：不会吧！我天天去。"
+   }
+  ],
+  "noteZh": "表示惊讶、不敢相信，好事坏事都能用。注意单独说 “No way.” 语气平下来时则是“绝对不行”。",
+  "soundZh": "两个词都是重读长音，No 往往拖得很长，语调先升后降。"
+ },
+ {
+  "id": "c015",
+  "en": "Fair enough.",
+  "zh": "行，有道理。／好吧，说得过去。",
+  "category": "response",
+  "freq": 1,
+  "register": "neutral",
+  "examples": [
+   {
+    "en": "A: I'd rather stay home tonight. I'm exhausted. B: Fair enough. Get some rest.",
+    "zh": "A：我今晚想待在家，累坏了。B：行，那你好好休息。"
+   },
+   {
+    "en": "A: I don't drink coffee after noon. B: Fair enough.",
+    "zh": "A：我中午以后不喝咖啡。B：行，理解。"
+   }
+  ],
+  "noteZh": "听了对方的理由或立场，觉得合理、愿意接受时用，不一定表示完全赞同。语气比 “You’re right” 淡。",
+  "soundZh": "Fair enough 连成 “fairenough”，enough 弱读为 /ɪˈnʌf/，重音落在 Fair 上。"
+ },
+ {
+  "id": "c016",
+  "en": "Tell me about it.",
+  "zh": "可不是嘛！／我太懂了。",
+  "category": "response",
+  "freq": 2,
+  "register": "casual",
+  "examples": [
+   {
+    "en": "A: This traffic is insane. B: Tell me about it. I was stuck for an hour.",
+    "zh": "A：这堵车太夸张了。B：可不是嘛，我堵了一个小时。"
+   },
+   {
+    "en": "A: Mondays are the worst. B: Tell me about it.",
+    "zh": "A：周一最讨厌了。B：谁说不是呢。"
+   }
+  ],
+  "noteZh": "表示“你不用说，我深有同感”，多用于抱怨共鸣。千万别当成“请告诉我这件事”，那是字面误解。",
+  "soundZh": "Tell me about it → 常连成 “tellmi-baudit”，about 的 a 吞掉，it 的 t 浊化成 d。"
+ },
+ {
+  "id": "c017",
+  "en": "That makes sense.",
+  "zh": "这就说得通了。／有道理。",
+  "category": "response",
+  "freq": 1,
+  "register": "neutral",
+  "examples": [
+   {
+    "en": "A: I took the train because the roads were closed. B: Oh, that makes sense.",
+    "zh": "A：路封了，所以我坐了火车。B：哦，那就说得通了。"
+   },
+   {
+    "en": "A: He's new, so he doesn't know the system yet. B: That makes sense.",
+    "zh": "A：他是新来的，还不熟悉系统。B：这就说得通了。"
+   }
+  ],
+  "noteZh": "听完解释后表示理解，几乎是每天都会听到的回应。可以加 “Oh,” 或 “Yeah,” 让语气更自然。",
+  "soundZh": "makes sense → 两个 s 连成一个，听起来像 “makessense”；That 的 t 常被吞掉。"
+ },
+ {
+  "id": "c018",
+  "en": "I see.",
+  "zh": "哦，我明白了。",
+  "category": "response",
+  "freq": 1,
+  "register": "neutral",
+  "examples": [
+   {
+    "en": "A: The meeting was moved to Friday. B: I see. Thanks for letting me know.",
+    "zh": "A：会议改到周五了。B：哦，明白了，谢谢告知。"
+   },
+   {
+    "en": "A: She left because her mom was sick. B: Oh, I see. I didn't know that.",
+    "zh": "A：她因为妈妈生病才走的。B：哦，原来如此，我之前不知道。"
+   }
+  ],
+  "noteZh": "表示“听明白了，原来如此”，是接收新信息时最常用的回应。语调下降时表示理解，拖长上扬则可能带怀疑。"
+ },
+ {
+  "id": "c019",
+  "en": "That's too bad.",
+  "zh": "真遗憾。／太可惜了。",
+  "category": "response",
+  "freq": 1,
+  "register": "neutral",
+  "examples": [
+   {
+    "en": "A: I couldn't get tickets for the concert. B: Oh, that's too bad.",
+    "zh": "A：我没抢到演唱会的票。B：哦，太可惜了。"
+   },
+   {
+    "en": "A: Our flight got canceled. B: That's too bad. Can they rebook you?",
+    "zh": "A：我们的航班取消了。B：真遗憾，他们能帮你改签吗？"
+   }
+  ],
+  "noteZh": "对不太严重的坏消息表示同情或惋惜。遇到严重的事（亲人去世、重病）不要用，那时说 “I’m so sorry.”。",
+  "soundZh": "That's too → 连成 “thatstoo”，That's 结尾的 ts 连得很紧。"
+ },
+ {
+  "id": "c020",
+  "en": "You're kidding!",
+  "zh": "你开玩笑吧！",
+  "category": "response",
+  "freq": 2,
+  "register": "casual",
+  "examples": [
+   {
+    "en": "A: I'm getting married next month. B: You're kidding! To whom?",
+    "zh": "A：我下个月结婚。B：你开玩笑吧！跟谁？"
+   },
+   {
+    "en": "A: He quit without telling anyone. B: You're kidding! He just started.",
+    "zh": "A：他谁都没说就辞职了。B：你开玩笑吧！他才刚入职。"
+   }
+  ],
+  "noteZh": "表示惊讶、难以置信，和 “No way!” 相近，语气稍温和。要说 kidding，不能说成 joking。",
+  "soundZh": "You're 弱读成 “yer”，所以整句听起来像 “yer kidding”。"
+ },
+ {
+  "id": "c021",
+  "en": "Sounds good.",
+  "zh": "听起来不错。／好的。",
+  "category": "response",
+  "freq": 1,
+  "register": "neutral",
+  "examples": [
+   {
+    "en": "A: Let's meet at six in front of the theater. B: Sounds good.",
+    "zh": "A：我们六点在剧院门口见。B：好的。"
+   },
+   {
+    "en": "A: I can send you the file by noon. B: Sounds good. Thanks!",
+    "zh": "A：我中午前把文件发给你。B：好的，谢谢！"
+   }
+  ],
+  "noteZh": "对提议或安排表示同意的万能回应，职场、朋友间都通用。完整说法是 “That sounds good.”。",
+  "soundZh": "Sounds good → 两个音连成 “soundzgood”，s 与 g 之间没有停顿。"
+ },
+ {
+  "id": "c022",
+  "en": "Same here.",
+  "zh": "我也一样。／彼此彼此。",
+  "category": "response",
+  "freq": 2,
+  "register": "neutral",
+  "examples": [
+   {
+    "en": "A: I'm so ready for the weekend. B: Same here.",
+    "zh": "A：我太盼着周末了。B：我也是。"
+   },
+   {
+    "en": "A: It was really nice meeting you. B: Same here. Let's keep in touch.",
+    "zh": "A：认识你真的很高兴。B：我也是，保持联系。"
+   }
+  ],
+  "noteZh": "对方说了感受或经历，你也一样时的简短回应，肯定句和否定句都能接（对否定句更常用 “Me neither.”）。"
+ },
+ {
+  "id": "c023",
+  "en": "Good for you.",
+  "zh": "真为你高兴。／你真棒。",
+  "category": "response",
+  "freq": 2,
+  "register": "neutral",
+  "examples": [
+   {
+    "en": "A: I finally finished my first marathon. B: Good for you! That's a big deal.",
+    "zh": "A：我终于跑完了第一个马拉松。B：真为你高兴！这可不简单。"
+   },
+   {
+    "en": "A: I started going to the gym every morning. B: Good for you.",
+    "zh": "A：我开始每天早上去健身房了。B：真棒。"
+   }
+  ],
+  "noteZh": "为对方的成就或决定感到高兴。语气要带笑意；若平淡拖长，可能被听成讽刺，要注意语调。",
+  "soundZh": "Good for you → 常连成 “goodfuhya”，for 弱读成 /fər/。"
+ },
+ {
+  "id": "c024",
+  "en": "For real?",
+  "zh": "真的假的？",
+  "category": "response",
+  "freq": 3,
+  "register": "casual",
+  "examples": [
+   {
+    "en": "A: I'm moving to Paris next month. B: For real? You never said anything!",
+    "zh": "A：我下个月要搬去巴黎。B：真的假的？你从来没提过！"
+   },
+   {
+    "en": "A: The boss just gave everyone Friday off. B: For real?",
+    "zh": "A：老板刚说大家周五放假。B：真的假的？"
+   }
+  ],
+  "noteZh": "年轻人口语里表示“真的吗？”，比 “Really?” 更随意。长辈或正式场合用 “Really?” 更稳妥。",
+  "soundZh": "For 弱读成 /fər/，整句听起来像 “fuh-reel”，调子上扬。"
+ },
+ {
+  "id": "c025",
+  "en": "I hear you.",
+  "zh": "我懂你的意思。／我理解你。",
+  "category": "response",
+  "freq": 3,
+  "register": "neutral",
+  "examples": [
+   {
+    "en": "A: I'm so tired of this commute. B: I hear you. Mine is almost two hours.",
+    "zh": "A：我受够这通勤了。B：我懂你，我的差不多要两个小时。"
+   },
+   {
+    "en": "I hear you, but we just don't have the budget this year.",
+    "zh": "我理解你的意思，但我们今年确实没有预算。"
+   }
+  ],
+  "noteZh": "表示“我听到了、我理解你的感受”，不等于同意。后面常接 But 引出不同意见，所以要留意后文。",
+  "soundZh": "hear you → 连成 “hearya”，I hear you 听起来像 “I hearya”。"
+ },
+ {
+  "id": "c026",
+  "en": "Let me think.",
+  "zh": "让我想想。",
+  "category": "filler",
+  "freq": 1,
+  "register": "neutral",
+  "examples": [
+   {
+    "en": "A: What should we get Dad for his birthday? B: Hmm, let me think.",
+    "zh": "A：爸爸生日我们送什么好？B：嗯，让我想想。"
+   },
+   {
+    "en": "A: Are you free next Thursday? B: Let me think. I think I have a dentist appointment.",
+    "zh": "A：你下周四有空吗？B：让我想想，我好像约了牙医。"
+   }
+  ],
+  "noteZh": "被问到需要考虑的问题时，用它争取几秒钟时间。比一直沉默自然，也比 “Wait.” 礼貌。",
+  "soundZh": "Let me → 连成 “lemme”，听起来是 “lemme think”。"
+ },
+ {
+  "id": "c027",
+  "en": "Let me see …",
+  "zh": "我看看……／嗯……让我想想……",
+  "category": "filler",
+  "freq": 1,
+  "register": "neutral",
+  "examples": [
+   {
+    "en": "A: When's your flight? B: Let me see … it leaves at 7:40.",
+    "zh": "A：你的航班几点？B：我看看……7 点 40 分起飞。"
+   },
+   {
+    "en": "Let me see … I think I left my keys in the car.",
+    "zh": "嗯……我好像把钥匙落在车里了。"
+   }
+  ],
+  "noteZh": "回忆或查找信息时的缓冲，常带拖音，边说边想。与 “Let me think.” 相比，更偏向“查一下、回忆一下”。",
+  "soundZh": "Let me → “lemme”；see 常拖长，后面的停顿用来思考。"
+ },
+ {
+  "id": "c028",
+  "en": "Hang on a second.",
+  "zh": "稍等一下。",
+  "category": "filler",
+  "freq": 2,
+  "register": "casual",
+  "examples": [
+   {
+    "en": "Hang on a second. Let me grab my jacket.",
+    "zh": "稍等一下，我去拿件外套。"
+   },
+   {
+    "en": "A: Are you ready to go? B: Hang on a second. I can't find my phone.",
+    "zh": "A：你准备好出发了吗？B：等一下，我找不到手机了。"
+   }
+  ],
+  "noteZh": "请对方稍等片刻，朋友同事间都能用。也说 “Hold on a second.”，意思一样。电话里叫对方别挂也用它。",
+  "soundZh": "Hang on a → 连成 “hangonna”；a second 连成 “uh-second”，几乎听不到 a。"
+ },
+ {
+  "id": "c029",
+  "en": "How should I put it?",
+  "zh": "该怎么说呢？",
+  "category": "filler",
+  "freq": 2,
+  "register": "neutral",
+  "examples": [
+   {
+    "en": "He's a nice guy, but … how should I put it? He talks a lot.",
+    "zh": "他人不错，但是……该怎么说呢，他话太多了。"
+   },
+   {
+    "en": "A: Did you like the movie? B: Well, how should I put it? It was long.",
+    "zh": "A：你喜欢那部电影吗？B：嗯，该怎么说呢，挺长的。"
+   }
+  ],
+  "noteZh": "想委婉表达批评、或一时找不到合适措辞时用，既缓冲又显得体贴。常放在要说的话前面。",
+  "soundZh": "should I → 连成 “shoulday”；put it → “pudit”，t 变轻 d。"
+ },
+ {
+  "id": "c030",
+  "en": "It's on the tip of my tongue.",
+  "zh": "就在嘴边，想不起来了。",
+  "category": "filler",
+  "freq": 3,
+  "register": "neutral",
+  "examples": [
+   {
+    "en": "What's that actor's name? It's on the tip of my tongue.",
+    "zh": "那个演员叫什么来着？就在嘴边，想不起来了。"
+   },
+   {
+    "en": "A: What was the name of that restaurant? B: Hold on, it's on the tip of my tongue.",
+    "zh": "A：那家餐厅叫什么来着？B：等等，就在嘴边，想不起来了。"
+   }
+  ],
+  "noteZh": "明明知道、却一时想不起一个词或名字时用，和中文的“话到嘴边”几乎一样。后面常接停顿思考。",
+  "soundZh": "It's on the → 连成 “itsonthe”；tip of my → “tipuhmy”，of 弱读成 /əv/。"
+ },
+ {
+  "id": "c031",
+  "en": "You know, …",
+  "zh": "你知道的……／就是……",
+  "category": "filler",
+  "freq": 1,
+  "register": "casual",
+  "examples": [
+   {
+    "en": "It was, you know, kind of awkward at first.",
+    "zh": "一开始吧，怎么说呢，有点尴尬。"
+   },
+   {
+    "en": "You know, I've been thinking about changing jobs.",
+    "zh": "你知道吗，我一直在考虑换工作。"
+   }
+  ],
+  "noteZh": "口语里最常见的缓冲词之一，用来引出话题、或在句中停顿思考。别逐字翻成“你知道”，更接近中文的“那个”“就是”。",
+  "soundZh": "you know → 常弱读成 “y'know”（/jə noʊ/），夹在句中几乎听不出来。"
+ },
+ {
+  "id": "c032",
+  "en": "I mean, …",
+  "zh": "我的意思是……／就是说……",
+  "category": "filler",
+  "freq": 1,
+  "register": "casual",
+  "examples": [
+   {
+    "en": "I mean, it's not bad, but it's not great either.",
+    "zh": "就是说，也不差，但也谈不上多好。"
+   },
+   {
+    "en": "A: Why did you quit? B: I mean, the pay was fine, but I was bored.",
+    "zh": "A：你为什么辞职？B：就是，薪水还行，但我很无聊。"
+   }
+  ],
+  "noteZh": "用来补充、修正刚说的话，也是给自己争取思考时间。后面的内容往往才是重点，听力中要留意。",
+  "soundZh": "I mean 连成 “I-mean”，在句首很轻很快，像 “ahmean”。"
+ },
+ {
+  "id": "c033",
+  "en": "That's a good question.",
+  "zh": "问得好。／这个问题问得好。",
+  "category": "filler",
+  "freq": 1,
+  "register": "neutral",
+  "examples": [
+   {
+    "en": "A: When will the project be finished? B: That's a good question. I'll check with the team.",
+    "zh": "A：项目什么时候完成？B：问得好，我去问问团队。"
+   },
+   {
+    "en": "A: Why is the sky blue? B: That's a good question. I'm not sure, actually.",
+    "zh": "A：天为什么是蓝的？B：问得好，我其实不太确定。"
+   }
+  ],
+  "noteZh": "回答不上来或需要时间思考时，用它先稳住场面。真心夸问题好时也用，但常常是在“拖时间”。",
+  "soundZh": "That's a → 连成 “thatsuh”；good question → “goodkwestion”，重音在 good 和 ques-。"
+ },
+ {
+  "id": "c034",
+  "en": "Where was I?",
+  "zh": "我刚才说到哪儿了？",
+  "category": "filler",
+  "freq": 2,
+  "register": "neutral",
+  "examples": [
+   {
+    "en": "Sorry, I got distracted. Where was I?",
+    "zh": "不好意思，我走神了。我刚才说到哪儿了？"
+   },
+   {
+    "en": "A: Oh, hold on, my phone … okay. Where was I? B: You were telling us about your trip to Chicago.",
+    "zh": "A：哦，等一下，我手机……好了。我刚说到哪儿了？B：你在讲去芝加哥的旅行。"
+   }
+  ],
+  "noteZh": "话被打断或自己走神后，想接回刚才的话题时用。说完往往会有人帮你接上，听力中也很常见。",
+  "soundZh": "Where was I → 连成 “wherewuzai”，was 弱读成 /wəz/。"
+ },
+ {
+  "id": "c035",
+  "en": "If I remember right, …",
+  "zh": "要是我没记错的话……",
+  "category": "filler",
+  "freq": 3,
+  "register": "neutral",
+  "examples": [
+   {
+    "en": "If I remember right, the meeting starts at ten.",
+    "zh": "要是我没记错，会议十点开始。"
+   },
+   {
+    "en": "If I remember right, she moved here in 2015.",
+    "zh": "要是我没记错，她是 2015 年搬来的。"
+   }
+  ],
+  "noteZh": "提到自己不太确定的细节时先打个预防针，既留余地又谦虚。说 “If I remember correctly, …” 更正式。",
+  "soundZh": "If I → 连成 “ifai”；remember 中间的 e 弱读，像 “rmember”。"
+ },
+ {
+  "id": "c036",
+  "en": "It's kind of hard to explain.",
+  "zh": "这有点难解释。",
+  "category": "filler",
+  "freq": 2,
+  "register": "casual",
+  "examples": [
+   {
+    "en": "A: What's your job exactly? B: It's kind of hard to explain. I work with data, basically.",
+    "zh": "A：你到底是做什么的？B：有点难解释，基本上是跟数据打交道。"
+   },
+   {
+    "en": "A: Why do you like him? B: I don't know. It's kind of hard to explain.",
+    "zh": "A：你为什么喜欢他？B：不知道，有点说不清。"
+   }
+  ],
+  "noteZh": "一时说不清楚，或不想展开时的缓冲，通常后面还会接一点解释。kind of 在这里是“有点”，减弱语气。",
+  "soundZh": "kind of → 常读成 “kinda”；hard to → “harduh”；It's kind of → 连成 “itskinduh”。"
+ },
+ {
+  "id": "c037",
+  "en": "Bear with me.",
+  "zh": "请稍等一下。／请耐心听我说。",
+  "category": "filler",
+  "freq": 2,
+  "register": "neutral",
+  "examples": [
+   {
+    "en": "Bear with me for a second while I pull up the file.",
+    "zh": "请稍等一下，我把文件调出来。"
+   },
+   {
+    "en": "This is a bit complicated, so please bear with me.",
+    "zh": "这有点复杂，请耐心听我讲。"
+   }
+  ],
+  "noteZh": "请对方耐心等一会儿，或耐心听自己讲得绕的内容。比 “Wait a minute.” 礼貌，职场和客服场景特别常用。",
+  "soundZh": "Bear with me → 连成 “bearwithme”，with 弱读，me 稍重。"
+ },
+ {
+  "id": "c038",
+  "en": "Anyway, …",
+  "zh": "不管怎样，……／总之，……",
+  "category": "connector",
+  "freq": 1,
+  "register": "casual",
+  "examples": [
+   {
+    "en": "Anyway, I should let you get back to work.",
+    "zh": "总之，我不耽误你工作了。"
+   },
+   {
+    "en": "A: ... and then he forgot his wallet. B: Haha. Anyway, what time are we meeting?",
+    "zh": "A：……然后他把钱包忘了。B：哈哈。对了，我们几点碰头？"
+   }
+  ],
+  "noteZh": "用来结束支线话题、回到正题，或收尾。语气随意，书面语里更常用 “In any case”。",
+  "soundZh": "Anyway 读作 /ˈɛniweɪ/，口语里常拖长，后面略停顿。"
+ },
+ {
+  "id": "c039",
+  "en": "By the way, …",
+  "zh": "顺便说一句，……",
+  "category": "connector",
+  "freq": 1,
+  "register": "neutral",
+  "examples": [
+   {
+    "en": "By the way, did you finish the report?",
+    "zh": "顺便问一下，你把报告写完了吗？"
+   },
+   {
+    "en": "Oh, by the way, Anna called this morning.",
+    "zh": "哦，顺便说一句，Anna 今天早上来过电话。"
+   }
+  ],
+  "noteZh": "临时想起一件不相关的事，顺带提一下。不要用它引出特别重要的事，那会显得轻描淡写。",
+  "soundZh": "By the way → 连成 “bythe-way”，the 弱读成 /ðə/，几乎听不到。"
+ },
+ {
+  "id": "c040",
+  "en": "On top of that, …",
+  "zh": "除此之外，……／更糟（好）的是，……",
+  "category": "connector",
+  "freq": 2,
+  "register": "neutral",
+  "examples": [
+   {
+    "en": "The hotel was far from downtown. On top of that, the room was tiny.",
+    "zh": "酒店离市中心很远，而且房间还特别小。"
+   },
+   {
+    "en": "He's smart and hardworking. On top of that, he's really easy to work with.",
+    "zh": "他聪明又勤奋，更重要的是很好相处。"
+   }
+  ],
+  "noteZh": "在已经说了一点之后再追加一点，好坏都可以追加。比 “Also” 更有力，有“雪上加霜／锦上添花”的意味。",
+  "soundZh": "On top of that → 连成 “ontopuhthat”，of 弱读成 /əv/，几乎被吞掉。"
+ },
+ {
+  "id": "c041",
+  "en": "Having said that, …",
+  "zh": "话虽如此，……／尽管如此，……",
+  "category": "connector",
+  "freq": 3,
+  "register": "neutral",
+  "examples": [
+   {
+    "en": "The plan has some risks. Having said that, I think it's worth trying.",
+    "zh": "这个计划有一些风险。话虽如此，我认为值得一试。"
+   },
+   {
+    "en": "I love my job. Having said that, I do miss having more free time.",
+    "zh": "我喜欢我的工作。话虽如此，我确实怀念有更多空闲时间的日子。"
+   }
+  ],
+  "noteZh": "先肯定一点，再引出相反的看法，类似 “but” 但更成熟。常见于会议、访谈、播客，听到它就知道要转折了。",
+  "soundZh": "Having said → 连成 “havingsed”，said 读 /sɛd/；that 常弱读成 “thət”。"
+ },
+ {
+  "id": "c042",
+  "en": "What I mean is …",
+  "zh": "我的意思是……",
+  "category": "connector",
+  "freq": 2,
+  "register": "neutral",
+  "examples": [
+   {
+    "en": "What I mean is, we need more time to finish it properly.",
+    "zh": "我的意思是，我们需要更多时间把它做好。"
+   },
+   {
+    "en": "A: So you don't like the idea? B: No, what I mean is I need to think about it more.",
+    "zh": "A：所以你不喜欢这个主意？B：不是，我的意思是我需要再想想。"
+   }
+  ],
+  "noteZh": "对方可能误会时，换种说法再解释一遍。比 “I mean” 更完整、更明确，话题更重要时用。",
+  "soundZh": "What I → 连成 “whaddai”，t 在两个元音之间变成轻 d；mean is → “meaniz”。"
+ },
+ {
+  "id": "c043",
+  "en": "The thing is, …",
+  "zh": "问题是，……／事情是这样的，……",
+  "category": "connector",
+  "freq": 2,
+  "register": "casual",
+  "examples": [
+   {
+    "en": "I'd love to come, but the thing is, I have to work that night.",
+    "zh": "我很想去，但问题是我那天晚上要上班。"
+   },
+   {
+    "en": "The thing is, nobody told me the deadline had changed.",
+    "zh": "问题是，没人告诉我截止日期改了。"
+   }
+  ],
+  "noteZh": "引出真正的原因、难处或关键点，常放在转折之后。听到它，后面的内容往往就是重点。",
+  "soundZh": "The thing is → 连成 “thethingiz”，thing is 之间几乎没有停顿。"
+ },
+ {
+  "id": "c044",
+  "en": "In other words, …",
+  "zh": "换句话说，……",
+  "category": "connector",
+  "freq": 3,
+  "register": "neutral",
+  "examples": [
+   {
+    "en": "We're not ready to launch. In other words, we need another month.",
+    "zh": "我们还没准备好上线。换句话说，还需要一个月。"
+   },
+   {
+    "en": "The budget was cut in half. In other words, we have to be much more careful.",
+    "zh": "预算被砍掉一半。换句话说，我们得小心得多。"
+   }
+  ],
+  "noteZh": "把前面的话换成更简单、更直接的说法，也常用来总结。后面的句子往往是结论，听力中要抓住。",
+  "soundZh": "In other → 连成 “inuther”；other 读 /ˈʌðər/，words 末尾略轻。"
+ },
+ {
+  "id": "c045",
+  "en": "For example, …",
+  "zh": "比如说，……／例如，……",
+  "category": "connector",
+  "freq": 1,
+  "register": "neutral",
+  "examples": [
+   {
+    "en": "There are lots of ways to practice. For example, you can listen to podcasts.",
+    "zh": "练习的方法有很多，比如听播客。"
+   },
+   {
+    "en": "I like trying new things. For example, last month I started surfing.",
+    "zh": "我喜欢尝试新事物，比如上个月我开始冲浪了。"
+   }
+  ],
+  "noteZh": "用具体例子支撑前面的观点，几乎任何场合都能用。插在句中时前后各停顿一下。",
+  "soundZh": "For 弱读成 /fər/，For example → “fer-example”，重音落在 -am- 上。"
+ },
+ {
+  "id": "c046",
+  "en": "As a matter of fact, …",
+  "zh": "事实上，……／其实，……",
+  "category": "connector",
+  "freq": 3,
+  "register": "neutral",
+  "examples": [
+   {
+    "en": "A: Have you been to Japan? B: As a matter of fact, I lived there for two years.",
+    "zh": "A：你去过日本吗？B：其实我在那里住过两年。"
+   },
+   {
+    "en": "As a matter of fact, I was just about to call you.",
+    "zh": "事实上，我正要给你打电话呢。"
+   }
+  ],
+  "noteZh": "用来补充一个出人意料或纠正对方想法的事实。语气有点正式、带点“告诉你吧”的意味。",
+  "soundZh": "As a matter of fact → 连成 “azuh-madder-uh-fact”，matter 的 t 变 d，of 弱读成 /əv/。"
+ },
+ {
+  "id": "c047",
+  "en": "Speaking of …",
+  "zh": "说到……",
+  "category": "connector",
+  "freq": 2,
+  "register": "neutral",
+  "examples": [
+   {
+    "en": "Speaking of coffee, there's a new place near the office.",
+    "zh": "说到咖啡，办公室附近新开了一家店。"
+   },
+   {
+    "en": "A: Mark just got promoted. B: Speaking of Mark, have you seen him lately?",
+    "zh": "A：Mark 刚升职了。B：说到 Mark，你最近见过他吗？"
+   }
+  ],
+  "noteZh": "顺着对方刚提到的某个词或人，把话题转到相关内容上。后面直接接名词或 “which” 引导的短语。",
+  "soundZh": "Speaking of → 常读成 “speakinuv”，-ing 弱读成 -in，of 弱读为 /əv/。"
+ },
+ {
+  "id": "c048",
+  "en": "All in all, …",
+  "zh": "总的来说，……",
+  "category": "connector",
+  "freq": 3,
+  "register": "neutral",
+  "examples": [
+   {
+    "en": "All in all, it was a pretty good trip.",
+    "zh": "总的来说，这是一次相当不错的旅行。"
+   },
+   {
+    "en": "All in all, I think we did a great job this quarter.",
+    "zh": "总的来说，我觉得我们这个季度做得很好。"
+   }
+  ],
+  "noteZh": "讲完几点之后做总结，常用于评价、汇报的结尾。听到它，后面就是整体结论了。",
+  "soundZh": "All in all → 连成 “all-in-all”，第二个 all 带重音，前两个很轻。"
+ },
+ {
+  "id": "c049",
+  "en": "Long story short, …",
+  "zh": "长话短说，……",
+  "category": "connector",
+  "freq": 3,
+  "register": "casual",
+  "examples": [
+   {
+    "en": "Long story short, we missed the flight and spent the night at the airport.",
+    "zh": "长话短说，我们错过了航班，在机场过了一夜。"
+   },
+   {
+    "en": "Long story short, I got the job.",
+    "zh": "长话短说，我拿到那份工作了。"
+   }
+  ],
+  "noteZh": "讲故事时跳过细节，直奔结果。聊天、吐槽时很常用。完整说法是 “To make a long story short”。",
+  "soundZh": "Long story → 连成 “longstory”，short 拖长，后面常有停顿。"
+ },
+ {
+  "id": "c050",
+  "en": "It turns out …",
+  "zh": "结果发现……／原来……",
+  "category": "connector",
+  "freq": 2,
+  "register": "neutral",
+  "examples": [
+   {
+    "en": "I thought I'd lost my wallet, but it turns out my brother had it.",
+    "zh": "我以为我把钱包弄丢了，结果发现在我哥那儿。"
+   },
+   {
+    "en": "It turns out the store closes at six on Sundays.",
+    "zh": "原来这家店周日六点就关门。"
+   }
+  ],
+  "noteZh": "讲出一个与预期不同的事实，常带“没想到”的语气。后面可接 that，也可直接接句子，口语里常省略 that。",
+  "soundZh": "turns out → 连成 “turnzout”，s 和 o 之间直接相连。"
+ },
+ {
+  "id": "c051",
+  "en": "I feel like …",
+  "zh": "我觉得……",
+  "category": "opinion",
+  "freq": 1,
+  "register": "casual",
+  "examples": [
+   {
+    "en": "I feel like we should leave earlier tomorrow.",
+    "zh": "我觉得我们明天应该早点出发。"
+   },
+   {
+    "en": "A: Why don't you like it? B: I feel like it's too expensive for what you get.",
+    "zh": "A：你为什么不喜欢？B：我觉得这东西不值这个价。"
+   }
+  ],
+  "noteZh": "最常用的开口说看法的方式，语气比 I think 轻松、不那么武断。后面直接接完整句子，不一定在说\"感觉\"。",
+  "soundZh": "feel like 常连读成 \"feel-like\"，I 很轻，听起来像 \"fee-like\""
+ },
+ {
+  "id": "c052",
+  "en": "To be honest, …",
+  "zh": "说实话，……",
+  "category": "opinion",
+  "freq": 1,
+  "register": "neutral",
+  "examples": [
+   {
+    "en": "To be honest, I didn't really like the movie.",
+    "zh": "说实话，我不太喜欢那部电影。"
+   },
+   {
+    "en": "To be honest, I'd rather stay home tonight.",
+    "zh": "说实话，我今晚更想待在家里。"
+   }
+  ],
+  "noteZh": "用来引出真实但可能不太好听的想法，相当于\"老实说\"。别每句都用，否则像在暗示前面都是假话。",
+  "soundZh": "to be → \"tuh-bee\"，honest 的 h 不发音，读 \"ON-ist\""
+ },
+ {
+  "id": "c053",
+  "en": "I'd rather …",
+  "zh": "我宁愿……；我更想……",
+  "category": "opinion",
+  "freq": 1,
+  "register": "neutral",
+  "examples": [
+   {
+    "en": "I'd rather take the train than drive.",
+    "zh": "我宁愿坐火车也不想开车。"
+   },
+   {
+    "en": "A: Want to go out for dinner? B: I'd rather just order in tonight.",
+    "zh": "A：要不要出去吃晚饭？B：我今晚更想直接叫外卖。"
+   }
+  ],
+  "noteZh": "表达偏好，礼貌地拒绝对方提议时也很好用。后面接动词原形，比 I prefer 更口语。",
+  "soundZh": "I'd rather → \"ayd-RATH-er\"，I'd 很轻短，rather 重读"
+ },
+ {
+  "id": "c054",
+  "en": "It depends on …",
+  "zh": "这要看……；取决于……",
+  "category": "opinion",
+  "freq": 1,
+  "register": "neutral",
+  "examples": [
+   {
+    "en": "It depends on how much time we have.",
+    "zh": "这要看我们有多少时间。"
+   },
+   {
+    "en": "A: Is the hotel expensive? B: It depends on the season.",
+    "zh": "A：那家酒店贵吗？B：这要看季节。"
+   }
+  ],
+  "noteZh": "不想直接给出绝对答案时用，几乎任何话题都适用。单独说 \"It depends.\" 也很自然，后面再补充原因。",
+  "soundZh": "It depends on → \"it-di-PENDS-on\"，depends 和 on 连读成 \"dependzon\""
+ },
+ {
+  "id": "c055",
+  "en": "I'm not a big fan of …",
+  "zh": "我不太喜欢……",
+  "category": "opinion",
+  "freq": 1,
+  "register": "casual",
+  "examples": [
+   {
+    "en": "I'm not a big fan of spicy food.",
+    "zh": "我不太爱吃辣。"
+   },
+   {
+    "en": "A: How was the show? B: Honestly, I'm not a big fan of musicals.",
+    "zh": "A：演出怎么样？B：说实话，我不太喜欢音乐剧。"
+   }
+  ],
+  "noteZh": "委婉地说不喜欢，比 I hate 或 I don't like 缓和得多，母语者几乎都用它来避免冲突。fan 后面接名词或动词加 -ing。",
+  "soundZh": "not a → \"nodda\"；big fan of → \"big-fan-uv\"，of 弱读成 \"uv\""
+ },
+ {
+  "id": "c056",
+  "en": "If you ask me, …",
+  "zh": "依我看，……；要我说的话，……",
+  "category": "opinion",
+  "freq": 2,
+  "register": "casual",
+  "examples": [
+   {
+    "en": "If you ask me, he's working too hard.",
+    "zh": "依我看，他工作太拼了。"
+   },
+   {
+    "en": "If you ask me, we should just tell her the truth.",
+    "zh": "要我说，我们就该直接告诉她实情。"
+   }
+  ],
+  "noteZh": "带点个人看法的口吻，常用于朋友间评论别人或某件事。并不是真的在等对方问你，别误会成\"如果你问我的话\"的字面意思。",
+  "soundZh": "If you → \"ifyuh\"；ask me → \"askmee\" 连读"
+ },
+ {
+  "id": "c057",
+  "en": "The way I see it, …",
+  "zh": "在我看来，……；我的理解是，……",
+  "category": "opinion",
+  "freq": 2,
+  "register": "neutral",
+  "examples": [
+   {
+    "en": "The way I see it, we have two options.",
+    "zh": "在我看来，我们有两个选择。"
+   },
+   {
+    "en": "The way I see it, it's not your fault.",
+    "zh": "我觉得这不是你的错。"
+   }
+  ],
+  "noteZh": "用来摆出自己对局面的判断，常带分析口吻，开会和聊天都适合。后面往往接结论或分类。",
+  "soundZh": "way I see it → \"wayi-see-it\"，I see it 连读成 \"iseeit\""
+ },
+ {
+  "id": "c058",
+  "en": "I'd say …",
+  "zh": "我觉得……；我会说……",
+  "category": "opinion",
+  "freq": 2,
+  "register": "neutral",
+  "examples": [
+   {
+    "en": "I'd say it's about a twenty-minute walk.",
+    "zh": "我估计走路大概二十分钟。"
+   },
+   {
+    "en": "A: Is it any good? B: I'd say it's the best pizza in town.",
+    "zh": "A：好吃吗？B：我觉得这是全城最好的披萨。"
+   }
+  ],
+  "noteZh": "语气比较柔和、留有余地，常用于估计数量或给出评价。\"我会说\"是字面，实际就是\"我觉得、大概是\"。",
+  "soundZh": "I'd say → \"ayd-say\"，I'd 很短促"
+ },
+ {
+  "id": "c059",
+  "en": "Personally, I think …",
+  "zh": "我个人认为……",
+  "category": "opinion",
+  "freq": 2,
+  "register": "neutral",
+  "examples": [
+   {
+    "en": "Personally, I think the first version looks better.",
+    "zh": "我个人觉得第一版更好看。"
+   },
+   {
+    "en": "Personally, I think it's a mistake to rush this.",
+    "zh": "我个人认为赶这件事是个错误。"
+   }
+  ],
+  "noteZh": "强调这是自己的看法，不代表别人，既礼貌又不显得强势，职场发言也适合。",
+  "soundZh": "Personally 常读成三个音节 \"PER-snuh-lee\""
+ },
+ {
+  "id": "c060",
+  "en": "Not gonna lie, …",
+  "zh": "不骗你，……；说真的，……",
+  "category": "opinion",
+  "freq": 2,
+  "register": "casual",
+  "examples": [
+   {
+    "en": "Not gonna lie, that was kind of boring.",
+    "zh": "不骗你，那个有点无聊。"
+   },
+   {
+    "en": "Not gonna lie, I'm pretty nervous about the interview.",
+    "zh": "说真的，我对面试挺紧张的。"
+   }
+  ],
+  "noteZh": "年轻人聊天里很常见，引出坦白的话。偏口语和网络腔，正式场合和邮件里不要用。",
+  "soundZh": "Not gonna → \"nah-gunna\"，gonna = going to；lie 清晰"
+ },
+ {
+  "id": "c061",
+  "en": "In my opinion, …",
+  "zh": "依我之见，……",
+  "category": "opinion",
+  "freq": 3,
+  "register": "formal",
+  "examples": [
+   {
+    "en": "In my opinion, the plan needs more time.",
+    "zh": "依我之见，这个计划需要更多时间。"
+   },
+   {
+    "en": "In my opinion, the report is too long.",
+    "zh": "我认为这份报告太长了。"
+   }
+  ],
+  "noteZh": "偏书面、偏正式，演讲、邮件、讨论里常见。朋友闲聊时用会有点刻意，聊天里更常说 I think 或 I feel like。",
+  "soundZh": "In my → \"in-my\"，opinion 读 \"uh-PIN-yun\""
+ },
+ {
+  "id": "c062",
+  "en": "It seems to me that …",
+  "zh": "在我看来，……；我觉得似乎……",
+  "category": "opinion",
+  "freq": 3,
+  "register": "formal",
+  "examples": [
+   {
+    "en": "It seems to me that nobody read the instructions.",
+    "zh": "我觉得似乎没人看过说明书。"
+   },
+   {
+    "en": "It seems to me that we're asking the wrong question.",
+    "zh": "我觉得我们问的问题好像不对。"
+   }
+  ],
+  "noteZh": "带推断和保留意味的说法，比 I think 更谨慎、更有分寸，适合会议和书面表达。",
+  "soundZh": "seems to me → \"seemz-tuh-mee\"，to 弱读"
+ },
+ {
+  "id": "c063",
+  "en": "As far as I'm concerned, …",
+  "zh": "就我而言，……；在我看来，……",
+  "category": "opinion",
+  "freq": 3,
+  "register": "neutral",
+  "examples": [
+   {
+    "en": "As far as I'm concerned, the matter is closed.",
+    "zh": "就我而言，这件事已经结束了。"
+   },
+   {
+    "en": "As far as I'm concerned, you can do whatever you want.",
+    "zh": "在我看来，你想怎么做都行。"
+   }
+  ],
+  "noteZh": "语气较强，常表示\"别人怎么想我不管，我的立场是……\"，有时带一点不耐烦。别和 as far as I know（据我所知）混淆。",
+  "soundZh": "As far as I'm → \"az-FAR-az-aim\"，as 都弱读成 \"az\""
+ },
+ {
+  "id": "c064",
+  "en": "I totally agree.",
+  "zh": "我完全同意。",
+  "category": "agree",
+  "freq": 1,
+  "register": "neutral",
+  "examples": [
+   {
+    "en": "A: We need more time for this. B: I totally agree.",
+    "zh": "A：这件事我们需要更多时间。B：我完全同意。"
+   },
+   {
+    "en": "I totally agree with you about the price.",
+    "zh": "关于价格，我完全同意你的看法。"
+   }
+  ],
+  "noteZh": "最安全的表示赞同的说法，任何场合都可以。后面要接对象时用 with：agree with you / with that。",
+  "soundZh": "totally agree → \"TOH-duh-lee uh-GREE\"，t 在元音间读成轻 d"
+ },
+ {
+  "id": "c065",
+  "en": "You've got a point.",
+  "zh": "你说得有道理。",
+  "category": "agree",
+  "freq": 1,
+  "register": "casual",
+  "examples": [
+   {
+    "en": "A: We'll just lose more money if we wait. B: Hmm, you've got a point.",
+    "zh": "A：再等下去只会亏更多钱。B：嗯，你说得有道理。"
+   },
+   {
+    "en": "You've got a point, but it's still risky.",
+    "zh": "你说得有道理，不过这样还是有风险。"
+   }
+  ],
+  "noteZh": "在对方提出一个你之前没想到的理由时用，承认对方观点有分量，但不一定完全同意。后面常接 but。",
+  "soundZh": "You've got a → \"yuv-GOD-uh\"，got a 连读成 \"godda\""
+ },
+ {
+  "id": "c066",
+  "en": "That's a good point.",
+  "zh": "你这点说得很对。",
+  "category": "agree",
+  "freq": 1,
+  "register": "neutral",
+  "examples": [
+   {
+    "en": "A: We haven't asked the customers yet. B: That's a good point.",
+    "zh": "A：我们还没问过客户。B：你这点说得很对。"
+   },
+   {
+    "en": "That's a good point. I hadn't thought of that.",
+    "zh": "这点说得好，我之前没想到。"
+   }
+  ],
+  "noteZh": "会议和讨论中最常用的认可方式，也可以用来争取思考时间。比 You've got a point 稍正式一点。",
+  "soundZh": "That's a → \"thatsuh\"；good point → \"goo-point\"，d 轻弱"
+ },
+ {
+  "id": "c067",
+  "en": "I don't think so.",
+  "zh": "我不这么认为。；应该不是吧。",
+  "category": "agree",
+  "freq": 1,
+  "register": "neutral",
+  "examples": [
+   {
+    "en": "A: Is he coming tonight? B: I don't think so.",
+    "zh": "A：他今晚来吗？B：我看不会。"
+   },
+   {
+    "en": "A: Everyone loves this song. B: I don't think so. I find it annoying.",
+    "zh": "A：大家都喜欢这首歌。B：我不这么觉得，我觉得挺烦的。"
+   }
+  ],
+  "noteZh": "委婉的否定，既可以回答\"是不是\"，也可以不同意对方观点。注意是 I don't think so，不说 I think not（太书面）。",
+  "soundZh": "don't think so → \"doan-THINK-so\"，t 常吞掉，听起来像 \"doan think so\""
+ },
+ {
+  "id": "c068",
+  "en": "Not necessarily.",
+  "zh": "不一定。；未必。",
+  "category": "agree",
+  "freq": 1,
+  "register": "neutral",
+  "examples": [
+   {
+    "en": "A: Expensive means better quality, right? B: Not necessarily.",
+    "zh": "A：贵就是质量更好，对吧？B：不一定。"
+   },
+   {
+    "en": "A: You must be tired. B: Not necessarily. I slept well.",
+    "zh": "A：你一定很累吧。B：未必，我睡得挺好。"
+   }
+  ],
+  "noteZh": "部分反对、不完全接受对方说法时用，语气温和。比直接说 No 更有礼貌，后面常补一句理由。",
+  "soundZh": "necessarily 重音在第一音节：NESS-uh-sair-uh-lee，听起来很长"
+ },
+ {
+  "id": "c069",
+  "en": "I couldn't agree more.",
+  "zh": "我再同意不过了。；完全赞同。",
+  "category": "agree",
+  "freq": 2,
+  "register": "neutral",
+  "examples": [
+   {
+    "en": "A: This place has the best coffee. B: I couldn't agree more.",
+    "zh": "A：这家店的咖啡最好喝。B：我太同意了。"
+   },
+   {
+    "en": "I couldn't agree more. We should have done it years ago.",
+    "zh": "我完全赞同，我们早就该这么做了。"
+   }
+  ],
+  "noteZh": "字面是\"想更同意也做不到\"，表示非常赞同，比 I agree 强烈。语气要带感情，别平淡地说。",
+  "soundZh": "couldn't agree → \"KUD-nt-uh-GREE\"，t 几乎听不到，注意区分 couldn't 和 could"
+ },
+ {
+  "id": "c070",
+  "en": "We're on the same page.",
+  "zh": "我们想法一致。",
+  "category": "agree",
+  "freq": 2,
+  "register": "neutral",
+  "examples": [
+   {
+    "en": "Let's make sure we're on the same page before the meeting.",
+    "zh": "开会前我们先对齐一下想法。"
+   },
+   {
+    "en": "A: So we both want it done by Friday? B: Yes, we're on the same page.",
+    "zh": "A：所以我们俩都希望周五前完成？B：对，我们想法一致。"
+   }
+  ],
+  "noteZh": "职场和日常都常用，表示理解一致、没有分歧。也可以说 Are we on the same page?（我们理解一致吗？）。",
+  "soundZh": "We're on the → \"weer-on-thuh\"，on the 连读；same page 紧凑"
+ },
+ {
+  "id": "c071",
+  "en": "I'm not so sure about that.",
+  "zh": "这个我不太确定。；我不太这么认为。",
+  "category": "agree",
+  "freq": 2,
+  "register": "neutral",
+  "examples": [
+   {
+    "en": "A: This will fix the problem. B: I'm not so sure about that.",
+    "zh": "A：这样就能解决问题。B：这个我不太确定。"
+   },
+   {
+    "en": "I'm not so sure about that. Let me check the numbers.",
+    "zh": "这个我不太确定，我去核实一下数据。"
+   }
+  ],
+  "noteZh": "最常用的礼貌反对方式，不直接说\"你错了\"，给对方留面子。语调通常下降并略拖长。",
+  "soundZh": "I'm not so sure → \"aym-nahdso-SHOR\"，not so 连读，sure 读 \"shor\""
+ },
+ {
+  "id": "c072",
+  "en": "I see where you're coming from, but …",
+  "zh": "我明白你的意思，不过……",
+  "category": "agree",
+  "freq": 2,
+  "register": "neutral",
+  "examples": [
+   {
+    "en": "I see where you're coming from, but we don't have the budget.",
+    "zh": "我明白你的想法，不过我们没有这个预算。"
+   },
+   {
+    "en": "I see where you're coming from, but I'd still do it differently.",
+    "zh": "我理解你的出发点，不过我还是会换个做法。"
+   }
+  ],
+  "noteZh": "先理解对方、再提出不同意见的万能开场，适合说服和协商。和 I see your point, but 意思接近，但更强调理解对方立场。",
+  "soundZh": "where you're → \"wheryer\"；coming from → \"cummin-frum\""
+ },
+ {
+  "id": "c073",
+  "en": "You can say that again.",
+  "zh": "你说得太对了。；可不是嘛。",
+  "category": "agree",
+  "freq": 3,
+  "register": "casual",
+  "examples": [
+   {
+    "en": "A: This traffic is terrible. B: You can say that again.",
+    "zh": "A：这堵车太糟糕了。B：可不是嘛。"
+   },
+   {
+    "en": "A: That was a long day. B: You can say that again!",
+    "zh": "A：今天真漫长。B：谁说不是呢！"
+   }
+  ],
+  "noteZh": "强烈附和对方，多用于吐槽或感慨。不是真的让对方重复，别当成没听清。",
+  "soundZh": "can say that → \"kn-SAY-that\"，can 弱读；say that again 重音在 say 和 gain"
+ },
+ {
+  "id": "c074",
+  "en": "I wouldn't say that.",
+  "zh": "我可不这么说。；也不能这么说吧。",
+  "category": "agree",
+  "freq": 3,
+  "register": "neutral",
+  "examples": [
+   {
+    "en": "A: He's really lazy. B: I wouldn't say that. He just had a tough week.",
+    "zh": "A：他真懒。B：也不能这么说，他只是这周比较辛苦。"
+   },
+   {
+    "en": "I wouldn't say that. It was more of a misunderstanding.",
+    "zh": "我可不这么说，那更像是一场误会。"
+   }
+  ],
+  "noteZh": "不赞同对方的说法或判断，语气比 I disagree 缓和，常带替对方\"降温\"的意思。",
+  "soundZh": "wouldn't say → \"WOODnt-say\"，t 在 n 后几乎不发音"
+ },
+ {
+  "id": "c075",
+  "en": "I'm afraid I disagree.",
+  "zh": "恐怕我不同意。",
+  "category": "agree",
+  "freq": 3,
+  "register": "formal",
+  "examples": [
+   {
+    "en": "I'm afraid I disagree. The data says otherwise.",
+    "zh": "恐怕我不能同意，数据显示的并非如此。"
+   },
+   {
+    "en": "I'm afraid I disagree with the second point.",
+    "zh": "恐怕我不同意第二点。"
+   }
+  ],
+  "noteZh": "正式场合礼貌地表达反对，afraid 只是缓和语气，并不表示害怕。朋友间闲聊用会显得过于客气。",
+  "soundZh": "I'm afraid I → \"aym-uh-FRAYD-eye\"，afraid 的 a 弱读"
+ },
+ {
+  "id": "c076",
+  "en": "Sorry, I didn't catch that.",
+  "zh": "抱歉，我没听清。",
+  "category": "clarify",
+  "freq": 1,
+  "register": "neutral",
+  "examples": [
+   {
+    "en": "Sorry, I didn't catch that. Can you say it again?",
+    "zh": "抱歉，我没听清，你能再说一遍吗？"
+   },
+   {
+    "en": "Sorry, I didn't catch that. It's really loud in here.",
+    "zh": "抱歉没听清，这里太吵了。"
+   }
+  ],
+  "noteZh": "没听清对方的话时的首选，礼貌自然。catch 在这里是\"听清楚\"，不是\"抓住\"。",
+  "soundZh": "didn't catch that → \"DID-nt-catch-that\"，t 吞音，catch that 连读成 \"catchat\""
+ },
+ {
+  "id": "c077",
+  "en": "Could you say that again?",
+  "zh": "你能再说一遍吗？",
+  "category": "clarify",
+  "freq": 1,
+  "register": "neutral",
+  "examples": [
+   {
+    "en": "Could you say that again? I missed the last part.",
+    "zh": "你能再说一遍吗？最后一段我没听到。"
+   },
+   {
+    "en": "A: The meeting is at 3:15. B: Could you say that again?",
+    "zh": "A：会议三点一刻。B：你能再说一遍吗？"
+   }
+  ],
+  "noteZh": "请对方重复的礼貌说法，随时可用。也可以说 Could you repeat that?，意思一样。",
+  "soundZh": "Could you → \"couldja\"；say that again → \"say-thuh-GEN\"，that 弱读，again 常读 \"uh-GEN\""
+ },
+ {
+  "id": "c078",
+  "en": "I'm not sure I follow.",
+  "zh": "我不太明白你的意思。",
+  "category": "clarify",
+  "freq": 1,
+  "register": "neutral",
+  "examples": [
+   {
+    "en": "I'm not sure I follow. Can you explain it differently?",
+    "zh": "我不太跟得上，你能换个方式解释吗？"
+   },
+   {
+    "en": "A: So we move the budget to Q3. B: I'm not sure I follow.",
+    "zh": "A：所以我们把预算移到第三季度。B：我不太明白。"
+   }
+  ],
+  "noteZh": "没理解逻辑或思路时用，比 I don't understand 委婉，不会让对方觉得是他说得不好。follow 指跟上思路。",
+  "soundZh": "I'm not sure I → \"aym-nah-SHOR-eye\"，sure I 连读"
+ },
+ {
+  "id": "c079",
+  "en": "What do you mean by …?",
+  "zh": "你说的……是什么意思？",
+  "category": "clarify",
+  "freq": 1,
+  "register": "neutral",
+  "examples": [
+   {
+    "en": "What do you mean by \"flexible\"?",
+    "zh": "你说的\"灵活\"是什么意思？"
+   },
+   {
+    "en": "What do you mean by \"later\"? Today or next week?",
+    "zh": "你说的\"晚点\"是指什么时候？今天还是下周？"
+   }
+  ],
+  "noteZh": "针对某个词或某句话追问含义，by 后面接具体的词或短语。语气不对时会显得质问，要用平和的语调。",
+  "soundZh": "What do you mean → \"whaddaya mean\"，三个词连成一串"
+ },
+ {
+  "id": "c080",
+  "en": "Do you mean …?",
+  "zh": "你的意思是……吗？",
+  "category": "clarify",
+  "freq": 1,
+  "register": "neutral",
+  "examples": [
+   {
+    "en": "Do you mean the one on the left?",
+    "zh": "你是说左边那个吗？"
+   },
+   {
+    "en": "A: Let's meet at the usual place. B: Do you mean the coffee shop?",
+    "zh": "A：老地方见。B：你是说那家咖啡店吗？"
+   }
+  ],
+  "noteZh": "用来猜测并确认对方的意思，比 What do you mean? 更具体、更友好，对方只需回答 yes 或 no。",
+  "soundZh": "Do you mean → \"dyuh mean\"，Do you 连读成 \"dyuh\""
+ },
+ {
+  "id": "c081",
+  "en": "Are you saying that …?",
+  "zh": "你是说……吗？",
+  "category": "clarify",
+  "freq": 2,
+  "register": "neutral",
+  "examples": [
+   {
+    "en": "Are you saying that we should cancel the trip?",
+    "zh": "你是说我们应该取消这次旅行吗？"
+   },
+   {
+    "en": "Are you saying that he lied to us?",
+    "zh": "你是说他对我们撒了谎？"
+   }
+  ],
+  "noteZh": "复述并确认对方的观点，有时用于对不寻常的话表示惊讶。带怀疑的语调会显得不满，注意放平和。",
+  "soundZh": "Are you → \"aryuh\"；saying that → \"SAY-ing-that\"，-ing 常读成 \"in\""
+ },
+ {
+  "id": "c082",
+  "en": "Does that make sense?",
+  "zh": "你听明白了吗？；这样说得通吗？",
+  "category": "clarify",
+  "freq": 2,
+  "register": "neutral",
+  "examples": [
+   {
+    "en": "We split the cost evenly. Does that make sense?",
+    "zh": "我们平摊费用。这样说得通吗？"
+   },
+   {
+    "en": "A: So you start on Monday and finish on Friday. Does that make sense? B: Yes, that's clear.",
+    "zh": "A：所以你周一开始、周五完成。你听明白了吗？B：明白，很清楚。"
+   }
+  ],
+  "noteZh": "讲完一段解释后确认对方是否跟上，比 Do you understand? 友好，不像在质疑对方。",
+  "soundZh": "Does that → \"duzzat\"；make sense → \"may-ksense\"，连读紧凑"
+ },
+ {
+  "id": "c083",
+  "en": "Just to be clear, …",
+  "zh": "我再确认一下，……；先说清楚，……",
+  "category": "clarify",
+  "freq": 2,
+  "register": "neutral",
+  "examples": [
+   {
+    "en": "Just to be clear, the deadline is Friday, not Monday.",
+    "zh": "我再确认一下，截止时间是周五，不是周一。"
+   },
+   {
+    "en": "Just to be clear, I'm paying for dinner.",
+    "zh": "先说清楚，晚饭我请。"
+   }
+  ],
+  "noteZh": "用来强调或确认关键信息，避免误会，职场和日常都常用。可以复述对方的话，也可以重申自己的意思。",
+  "soundZh": "Just to be → \"jus-tuh-bee\"，Just 的 t 常吞掉"
+ },
+ {
+  "id": "c084",
+  "en": "Could you speak a little slower?",
+  "zh": "你能说慢一点吗？",
+  "category": "clarify",
+  "freq": 2,
+  "register": "neutral",
+  "examples": [
+   {
+    "en": "Could you speak a little slower? My English isn't great.",
+    "zh": "你能说慢一点吗？我的英语不太好。"
+   },
+   {
+    "en": "Sorry, could you speak a little slower? You're going too fast for me.",
+    "zh": "抱歉，能说慢点吗？你语速太快我跟不上。"
+   }
+  ],
+  "noteZh": "听不懂时提出的礼貌请求，对方一般很乐意放慢。也可以说 slowly，但口语中 slower 更常见。",
+  "soundZh": "speak a little → \"speak-uh-LIDDLE\"，little 的 tt 读成轻 d"
+ },
+ {
+  "id": "c085",
+  "en": "How do you spell that?",
+  "zh": "这个怎么拼？",
+  "category": "clarify",
+  "freq": 2,
+  "register": "neutral",
+  "examples": [
+   {
+    "en": "A: My name is Siobhan. B: How do you spell that? A: S-I-O-B-H-A-N.",
+    "zh": "A：我叫 Siobhan。B：这怎么拼？A：S-I-O-B-H-A-N。"
+   },
+   {
+    "en": "How do you spell that? I want to write it down.",
+    "zh": "这个怎么拼？我想记下来。"
+   }
+  ],
+  "noteZh": "遇到人名、地名、专有名词时必问。对方说出字母后可以复述一遍确认。",
+  "soundZh": "How do you → \"howja\"；spell that → \"spell-that\""
+ },
+ {
+  "id": "c086",
+  "en": "Can you give me an example?",
+  "zh": "你能举个例子吗？",
+  "category": "clarify",
+  "freq": 2,
+  "register": "neutral",
+  "examples": [
+   {
+    "en": "Can you give me an example? I'm not sure what you mean.",
+    "zh": "你能举个例子吗？我不太确定你的意思。"
+   },
+   {
+    "en": "A: We need better communication. B: Can you give me an example?",
+    "zh": "A：我们需要更好的沟通。B：你能举个例子吗？"
+   }
+  ],
+  "noteZh": "对方说得抽象或笼统时，请他具体说明，职场里特别有用。也可以说 Like what? 更随意。",
+  "soundZh": "Can you give me → \"kenya-gimme\"，give me → \"gimme\""
+ },
+ {
+  "id": "c087",
+  "en": "Let me rephrase that.",
+  "zh": "我换个说法。",
+  "category": "clarify",
+  "freq": 3,
+  "register": "neutral",
+  "examples": [
+   {
+    "en": "That sounded wrong. Let me rephrase that.",
+    "zh": "这话听着不对，我换个说法。"
+   },
+   {
+    "en": "Let me rephrase that. I'm not blaming anyone.",
+    "zh": "我换个说法，我不是在怪任何人。"
+   }
+  ],
+  "noteZh": "发现自己说得不清楚或不妥当时，主动重新表述。也可以说 Let me put it another way。",
+  "soundZh": "Let me → \"lemme\"；rephrase that → \"ree-FRAYZ-that\""
+ },
+ {
+  "id": "c088",
+  "en": "Come again?",
+  "zh": "什么？你再说一遍？",
+  "category": "clarify",
+  "freq": 3,
+  "register": "casual",
+  "examples": [
+   {
+    "en": "A: The meeting moved to six a.m. B: Come again?",
+    "zh": "A：会议改到早上六点了。B：什么？再说一遍？"
+   },
+   {
+    "en": "A: I just quit my job. B: Come again?",
+    "zh": "A：我刚辞职了。B：啊？你说什么？"
+   }
+  ],
+  "noteZh": "随意的\"再说一遍\"，也常用于听到令人吃惊的事。只在熟人之间用，对上司、陌生人用会显得随便。",
+  "soundZh": "Come again → \"cum-uh-GEN\"，两词连读，语调上扬"
+ },
+ {
+  "id": "c089",
+  "en": "Any idea when …?",
+  "zh": "你知道……是什么时候吗？",
+  "category": "question",
+  "freq": 1,
+  "register": "casual",
+  "examples": [
+   {
+    "en": "Any idea when the next bus comes?",
+    "zh": "你知道下一班车什么时候来吗？"
+   },
+   {
+    "en": "Any idea when they're going to announce the results?",
+    "zh": "你知道他们什么时候公布结果吗？"
+   }
+  ],
+  "noteZh": "省略了 Do you have 的随意问法，when 可换成 where、who、why。后面接陈述语序（不再倒装）。",
+  "soundZh": "Any idea → \"enny-eye-DEE-uh\"，连读成 \"ennyidea\""
+ },
+ {
+  "id": "c090",
+  "en": "How long does it take to …?",
+  "zh": "……要花多长时间？",
+  "category": "question",
+  "freq": 1,
+  "register": "neutral",
+  "examples": [
+   {
+    "en": "How long does it take to get to the airport?",
+    "zh": "到机场要多久？"
+   },
+   {
+    "en": "How long does it take to learn to drive?",
+    "zh": "学开车要多长时间？"
+   }
+  ],
+  "noteZh": "问所需时间最自然的说法，出行、办事、学习都能用。to 后面接动词原形，回答可以是 about twenty minutes。",
+  "soundZh": "does it take → \"duzit-take\"，does it 连读成 \"duzit\"；take to → \"take-tuh\""
+ },
+ {
+  "id": "c091",
+  "en": "Where can I find …?",
+  "zh": "我在哪里能找到……？",
+  "category": "question",
+  "freq": 1,
+  "register": "neutral",
+  "examples": [
+   {
+    "en": "Where can I find the restrooms?",
+    "zh": "洗手间在哪里？"
+   },
+   {
+    "en": "Excuse me, where can I find a charger?",
+    "zh": "打扰一下，哪里能买到充电器？"
+   }
+  ],
+  "noteZh": "在商店、办公室、机场里问东西放在哪的万能句。比 Where is ...? 更像在找一件东西，也更礼貌。",
+  "soundZh": "Where can I → \"wherekn-eye\"，can 弱读成 \"kn\"，Where can I 连成一串"
+ },
+ {
+  "id": "c092",
+  "en": "What was it like?",
+  "zh": "那是什么感觉？；怎么样？",
+  "category": "question",
+  "freq": 1,
+  "register": "casual",
+  "examples": [
+   {
+    "en": "You lived in Tokyo? What was it like?",
+    "zh": "你在东京住过？那里怎么样？"
+   },
+   {
+    "en": "A: I met the president once. B: Wow, what was it like?",
+    "zh": "A：我见过总统一次。B：哇，什么感觉？"
+   }
+  ],
+  "noteZh": "想让对方描述经历和感受时用。like 是介词，不能说 How was it like；问现在的情形说 What's it like?。",
+  "soundZh": "What was it → \"whuh-wuz-it\"，was 弱读成 \"wuz\""
+ },
+ {
+  "id": "c093",
+  "en": "How do you say that in English?",
+  "zh": "这个用英语怎么说？",
+  "category": "question",
+  "freq": 1,
+  "register": "neutral",
+  "examples": [
+   {
+    "en": "How do you say that in English? I forgot the word.",
+    "zh": "这个用英语怎么说？我忘了那个词。"
+   },
+   {
+    "en": "How do you say that in English? We call it something else at home.",
+    "zh": "这个英语怎么说？我们家里叫法不一样。"
+   }
+  ],
+  "noteZh": "想不起来某个词时，直接请教母语者，对方通常很乐意帮忙。也可以先说中文词再问。",
+  "soundZh": "How do you → \"howja\"；say that in → \"say-thadin\"，that in 连读"
+ },
+ {
+  "id": "c094",
+  "en": "How does this work?",
+  "zh": "这个怎么用？",
+  "category": "question",
+  "freq": 1,
+  "register": "neutral",
+  "examples": [
+   {
+    "en": "How does this work? There's no manual.",
+    "zh": "这个怎么用？没有说明书。"
+   },
+   {
+    "en": "A: Is this the ticket machine? B: Yes. A: How does this work?",
+    "zh": "A：这是售票机吗？B：是的。A：这个怎么用？"
+   }
+  ],
+  "noteZh": "问某个设备或流程的操作方式，可用于机器、App、规则、办事流程，不局限于机器。",
+  "soundZh": "does this → \"duz-this\"；this work → \"thiswork\" 连读"
+ },
+ {
+  "id": "c095",
+  "en": "Is there a good place to …?",
+  "zh": "哪里有适合……的好地方？",
+  "category": "question",
+  "freq": 2,
+  "register": "neutral",
+  "examples": [
+   {
+    "en": "Is there a good place to get breakfast around here?",
+    "zh": "这附近哪里有好吃的早餐店？"
+   },
+   {
+    "en": "Is there a good place to park near the stadium?",
+    "zh": "体育场附近哪里适合停车？"
+   }
+  ],
+  "noteZh": "向本地人打听推荐的好办法。to 后面接动词原形，用 around here 可以限定在附近。",
+  "soundZh": "Is there a → \"izzer-uh\"，Is there 连读；place to → \"plays-tuh\""
+ },
+ {
+  "id": "c096",
+  "en": "What's the best way to …?",
+  "zh": "……最好的办法是什么？",
+  "category": "question",
+  "freq": 2,
+  "register": "neutral",
+  "examples": [
+   {
+    "en": "What's the best way to get downtown?",
+    "zh": "去市中心怎么走最方便？"
+   },
+   {
+    "en": "What's the best way to learn a new language?",
+    "zh": "学一门新语言最好的办法是什么？"
+   }
+  ],
+  "noteZh": "想要一个最优建议时用，从路线到学习方法都能问。to 后接动词原形。",
+  "soundZh": "What's the best → \"whatsthuh-BEST\"；best way → \"bes-way\"，t 轻吞"
+ },
+ {
+  "id": "c097",
+  "en": "How come …?",
+  "zh": "怎么会……？；为什么……？",
+  "category": "question",
+  "freq": 2,
+  "register": "casual",
+  "examples": [
+   {
+    "en": "How come you didn't call me back?",
+    "zh": "你怎么没给我回电话？"
+   },
+   {
+    "en": "How come the store is closed? It's only noon.",
+    "zh": "这家店怎么关门了？才中午啊。"
+   }
+  ],
+  "noteZh": "比 Why 更随意，常带惊讶或好奇。后面用陈述语序，说 How come you left?，不说 How come did you leave?。",
+  "soundZh": "How come → \"how-cum\"，come 读 \"cum\""
+ },
+ {
+  "id": "c098",
+  "en": "Who should I talk to about …?",
+  "zh": "关于……我该找谁谈？",
+  "category": "question",
+  "freq": 2,
+  "register": "neutral",
+  "examples": [
+   {
+    "en": "Who should I talk to about the billing problem?",
+    "zh": "账单的问题我该找谁？"
+   },
+   {
+    "en": "Who should I talk to about getting a refund?",
+    "zh": "申请退款我该找谁？"
+   }
+  ],
+  "noteZh": "办事、投诉、问手续时用，比直接说 Who is in charge? 更礼貌。回答常是 You should talk to …。",
+  "soundZh": "Who should I → \"hoo-shudeye\"，should I 连读；talk to → \"talk-tuh\""
+ },
+ {
+  "id": "c099",
+  "en": "Do you happen to know …?",
+  "zh": "你碰巧知道……吗？",
+  "category": "question",
+  "freq": 3,
+  "register": "neutral",
+  "examples": [
+   {
+    "en": "Do you happen to know what time the pharmacy closes?",
+    "zh": "你知道药店几点关门吗？"
+   },
+   {
+    "en": "Excuse me, do you happen to know where Mr. Lee's office is?",
+    "zh": "打扰一下，你知道李先生的办公室在哪吗？"
+   }
+  ],
+  "noteZh": "向不确定是否知道的人打听信息，语气很客气，让对方答不上来也不尴尬。后面接陈述语序，如 where the station is。",
+  "soundZh": "Do you happen → \"dyuh-HAP-en\"；happen to → \"happen-tuh\""
+ },
+ {
+  "id": "c100",
+  "en": "What's the deal with …?",
+  "zh": "……是怎么回事？；……到底什么情况？",
+  "category": "question",
+  "freq": 3,
+  "register": "casual",
+  "examples": [
+   {
+    "en": "What's the deal with the new parking rules?",
+    "zh": "新的停车规定是怎么回事？"
+   },
+   {
+    "en": "What's the deal with Jake? He hasn't answered my texts all week.",
+    "zh": "杰克怎么回事？他一周都没回我短信。"
+   }
+  ],
+  "noteZh": "带点好奇或疑惑甚至抱怨地询问某件事或某人的情况，口语随意，不适合在书面和很正式的场合用。",
+  "soundZh": "What's the deal → \"whatsthuh-DEEL\"，What's the 连读很快"
+ },
+ {
+  "id": "c101",
+  "en": "Could you do me a favor?",
+  "zh": "能帮我个忙吗？",
+  "category": "request",
+  "freq": 1,
+  "register": "neutral",
+  "examples": [
+   {
+    "en": "A: Could you do me a favor? B: Sure, what do you need?",
+    "zh": "A：能帮我个忙吗？B：当然，要我做什么？"
+   },
+   {
+    "en": "Could you do me a favor and grab my coat? It's by the door.",
+    "zh": "能帮我拿一下外套吗？就在门边。"
+   }
+  ],
+  "noteZh": "开口求人前的铺垫，先问对方愿不愿意，等对方回 Sure, what's up? 后再说具体的事。语气客气，不显得强求。",
+  "soundZh": "Could you → Couldja；do me a → doomeə，整句连成一串。"
+ },
+ {
+  "id": "c102",
+  "en": "Can you give me a hand?",
+  "zh": "你能帮我一把吗？",
+  "category": "request",
+  "freq": 1,
+  "register": "neutral",
+  "examples": [
+   {
+    "en": "A: Can you give me a hand with this box? B: Sure, where do you want it?",
+    "zh": "A：你能帮我搬一下这个箱子吗？B：当然，你想放哪儿？"
+   },
+   {
+    "en": "Can you give me a hand with the slides? I'm running out of time.",
+    "zh": "你能帮我弄一下幻灯片吗？我快没时间了。"
+   }
+  ],
+  "noteZh": "请别人搭把手，体力活、小任务都可以用。后面常接 with + 具体的事。比 Help me! 随和得多。",
+  "soundZh": "Can you → Canya；give me a → givmeə。"
+ },
+ {
+  "id": "c103",
+  "en": "Do you mind if I …",
+  "zh": "我可以……吗？（你介意我……吗？）",
+  "category": "request",
+  "freq": 1,
+  "register": "neutral",
+  "examples": [
+   {
+    "en": "A: Do you mind if I sit here? B: Not at all.",
+    "zh": "A：我坐这儿可以吗？B：当然可以。"
+   },
+   {
+    "en": "Do you mind if I open the window? It's pretty stuffy in here.",
+    "zh": "我开一下窗可以吗？这里有点闷。"
+   }
+  ],
+  "noteZh": "礼貌地征求许可。对方回 Not at all / No, go ahead 才是同意；回 Sure 时要听语气。",
+  "soundZh": "Do you → Dyou；mind if I → mindifai，三个词连成一团。"
+ },
+ {
+  "id": "c104",
+  "en": "Could I get …",
+  "zh": "能给我来……吗？",
+  "category": "request",
+  "freq": 1,
+  "register": "neutral",
+  "examples": [
+   {
+    "en": "Could I get a glass of water, please?",
+    "zh": "能给我来杯水吗？"
+   },
+   {
+    "en": "Hi, could I get a large latte with oat milk?",
+    "zh": "你好，我想要一杯大杯的燕麦奶拿铁，可以吗？"
+   }
+  ],
+  "noteZh": "点餐、买东西、向服务员要东西时的万能开头。美式口语里比 I want … 礼貌自然得多，后面直接接想要的东西。",
+  "soundZh": "Could I → Couldai，I 几乎被吞进前一个词里。"
+ },
+ {
+  "id": "c105",
+  "en": "Can I borrow …",
+  "zh": "我能借一下……吗？",
+  "category": "request",
+  "freq": 2,
+  "register": "casual",
+  "examples": [
+   {
+    "en": "Can I borrow your pen for a second?",
+    "zh": "你的笔借我用一下行吗？"
+   },
+   {
+    "en": "Can I borrow your car this weekend? Mine's in the shop.",
+    "zh": "这个周末我能借你的车吗？我的车在修。"
+   }
+  ],
+  "noteZh": "向朋友、同事借东西，用完要还的才说 borrow。说话人是借进的一方，千万别说成 Can I borrow you my pen。",
+  "soundZh": "Can I → Kenai；borrow your → borrowyer。"
+ },
+ {
+  "id": "c106",
+  "en": "Do you have a minute?",
+  "zh": "你现在有空吗？",
+  "category": "request",
+  "freq": 2,
+  "register": "neutral",
+  "examples": [
+   {
+    "en": "A: Hey, do you have a minute? B: Sure, come on in.",
+    "zh": "A：嘿，你有空吗？B：有，进来吧。"
+   },
+   {
+    "en": "Do you have a minute? I'd like to run something by you.",
+    "zh": "你有空吗？我想跟你说件事，听听你的意见。"
+   }
+  ],
+  "noteZh": "想占用对方几分钟谈事情时用，职场和朋友之间都很常见。字面是“一分钟”，实际可能聊更久，对方多半不会计较。",
+  "soundZh": "Do you have a → Dyahvə / Djuhavə，have 与 a 连读。"
+ },
+ {
+  "id": "c107",
+  "en": "I was wondering if …",
+  "zh": "不知道你能不能……",
+  "category": "request",
+  "freq": 2,
+  "register": "neutral",
+  "examples": [
+   {
+    "en": "I was wondering if you could take a look at my résumé.",
+    "zh": "不知道你能不能帮我看看简历。"
+   },
+   {
+    "en": "Hi, I was wondering if you have any rooms available this weekend.",
+    "zh": "你好，想问一下这个周末还有空房吗？"
+   }
+  ],
+  "noteZh": "比 Can you … 委婉，适合打电话、写邮件、向不太熟的人开口。后面常接 you could / I could。",
+  "soundZh": "was wondering if → wəz wunderin-if，wondering 常读成 wunderin。"
+ },
+ {
+  "id": "c108",
+  "en": "Would it be okay if …",
+  "zh": "如果……可以吗？",
+  "category": "request",
+  "freq": 3,
+  "register": "neutral",
+  "examples": [
+   {
+    "en": "Would it be okay if I left a little early today?",
+    "zh": "我今天能早点走吗？"
+   },
+   {
+    "en": "Would it be okay if we moved the meeting to Thursday?",
+    "zh": "会议改到周四可以吗？"
+   }
+  ],
+  "noteZh": "很客气地征求许可或提出变动，对象多半是上级、客户或不太熟的人。整块记住，后面直接接你想做的事就行。",
+  "soundZh": "Would it be → Wouldit-be，t 轻轻带过；be okay 连成 be-okay。"
+ },
+ {
+  "id": "c109",
+  "en": "Would you mind …",
+  "zh": "你能不能……？（麻烦你……）",
+  "category": "request",
+  "freq": 2,
+  "register": "neutral",
+  "examples": [
+   {
+    "en": "Would you mind closing the door?",
+    "zh": "麻烦你把门关上好吗？"
+   },
+   {
+    "en": "Would you mind taking a picture of us?",
+    "zh": "能麻烦你给我们拍张照吗？"
+   }
+  ],
+  "noteZh": "礼貌地请对方做事。回答要小心：Not at all / Of course not 才是答应；如果对方说 Yes，反而是“我介意”。",
+  "soundZh": "Would you → Wouldja；mind 后面的动词通常带 -ing。"
+ },
+ {
+  "id": "c110",
+  "en": "I could use some help.",
+  "zh": "我需要点帮助。",
+  "category": "request",
+  "freq": 2,
+  "register": "casual",
+  "examples": [
+   {
+    "en": "A: You look busy. B: Yeah, I could use some help with these boxes.",
+    "zh": "A：你看起来很忙。B：是啊，这些箱子我正需要人搭把手。"
+   },
+   {
+    "en": "I could use some help figuring out this form.",
+    "zh": "我需要人帮我弄明白这张表怎么填。"
+   }
+  ],
+  "noteZh": "不直接开口求人，而是暗示“有人帮就好了”，听起来随和不生硬。可以把 help 换成别的，如 I could use a coffee。",
+  "soundZh": "could use some → cud-yooz-səm，use 的 /z/ 与 some 连在一起。"
+ },
+ {
+  "id": "c111",
+  "en": "Would you be able to …",
+  "zh": "你能不能……？",
+  "category": "request",
+  "freq": 2,
+  "register": "neutral",
+  "examples": [
+   {
+    "en": "Would you be able to send me the report by Friday?",
+    "zh": "你能在周五前把报告发给我吗？"
+   },
+   {
+    "en": "Would you be able to pick up the kids today? I'm stuck at work.",
+    "zh": "你今天能去接一下孩子吗？我被工作困住了。"
+   }
+  ],
+  "noteZh": "带有“你的时间和能力允不允许”的意思，职场请求很常用，比 Can you 正式一点，又不像 Would you mind 那么拘谨。",
+  "soundZh": "Would you → Wouldja；able to → abletə，to 弱读成 tə。"
+ },
+ {
+  "id": "c112",
+  "en": "Could you keep an eye on …",
+  "zh": "你能帮我看着……吗？",
+  "category": "request",
+  "freq": 3,
+  "register": "neutral",
+  "examples": [
+   {
+    "en": "Could you keep an eye on my bag while I grab a coffee?",
+    "zh": "我去买杯咖啡，你能帮我看着包吗？"
+   },
+   {
+    "en": "Could you keep an eye on the soup? I'll be right back.",
+    "zh": "你能帮我看着汤吗？我马上回来。"
+   }
+  ],
+  "noteZh": "请别人暂时照看东西、小孩、宠物或炉子，说的是“留意一下”，不是一直盯着。后面接要照看的人或物。",
+  "soundZh": "keep an eye → keepənai，an 与 eye 连成一个音。"
+ },
+ {
+  "id": "c113",
+  "en": "Any chance you could …",
+  "zh": "你有没有可能……？",
+  "category": "request",
+  "freq": 3,
+  "register": "casual",
+  "examples": [
+   {
+    "en": "Any chance you could give me a ride tomorrow?",
+    "zh": "明天你有没有可能载我一程？"
+   },
+   {
+    "en": "Any chance you could cover my shift on Saturday?",
+    "zh": "周六的班你有没有可能替我顶一下？"
+   }
+  ],
+  "noteZh": "知道这个请求有点麻烦，所以用试探的口气问。适合熟人之间，开头省掉了 Is there，口语里这样说很自然。",
+  "soundZh": "chance you → chancha，ch + you 合成 cha。"
+ },
+ {
+  "id": "c114",
+  "en": "Let me know if you need anything.",
+  "zh": "需要什么就告诉我。",
+  "category": "offer",
+  "freq": 1,
+  "register": "neutral",
+  "examples": [
+   {
+    "en": "I'll be at my desk all day. Let me know if you need anything.",
+    "zh": "我一整天都在座位上。需要什么就告诉我。"
+   },
+   {
+    "en": "Let me know if you need anything, okay? I'm just down the hall.",
+    "zh": "需要什么跟我说，好吗？我就在走廊那头。"
+   }
+  ],
+  "noteZh": "主人对客人、同事对新人最常说的客套话，表示“我愿意帮忙”。对方多半回 Thanks, I will。",
+  "soundZh": "Let me → Lemme；know if you → know-if-ya；need anything → needenything。"
+ },
+ {
+  "id": "c115",
+  "en": "Feel free to …",
+  "zh": "请随意……；尽管……",
+  "category": "offer",
+  "freq": 1,
+  "register": "neutral",
+  "examples": [
+   {
+    "en": "Feel free to take a seat.",
+    "zh": "请随便坐。"
+   },
+   {
+    "en": "Feel free to call me if you have any questions.",
+    "zh": "有任何问题尽管打电话给我。"
+   }
+  ],
+  "noteZh": "鼓励对方放心去做，邮件、接待、办公室里都很常见。后面接动词原形。语气友好，不带命令味。",
+  "soundZh": "Feel free → feelfree，l 与 f 紧贴；free to → freeta。"
+ },
+ {
+  "id": "c116",
+  "en": "Do you want me to …",
+  "zh": "要我……吗？",
+  "category": "offer",
+  "freq": 1,
+  "register": "neutral",
+  "examples": [
+   {
+    "en": "Do you want me to drive?",
+    "zh": "要我来开车吗？"
+   },
+   {
+    "en": "Do you want me to call her for you?",
+    "zh": "要我替你打给她吗？"
+   }
+  ],
+  "noteZh": "主动提出帮忙，并把决定权留给对方。比直接说 I'll do it 更体贴。对方说 That would be great 就是接受。",
+  "soundZh": "Do you want me to → Dya-wanmi-ta，想象成 “遮万咪它” 一口气读完。"
+ },
+ {
+  "id": "c117",
+  "en": "Want to grab …",
+  "zh": "要不要一起去吃点/喝点……？",
+  "category": "offer",
+  "freq": 1,
+  "register": "casual",
+  "examples": [
+   {
+    "en": "Want to grab lunch after the meeting?",
+    "zh": "开完会要不要一起吃个午饭？"
+   },
+   {
+    "en": "Want to grab a coffee sometime this week?",
+    "zh": "这周找个时间喝杯咖啡？"
+   }
+  ],
+  "noteZh": "约朋友同事吃喝的随意邀请，grab 表示“随便去买点来吃/喝”。后面常接 lunch、a bite、a coffee、a drink。",
+  "soundZh": "Want to → Wanna；Want to grab → Wannagrab，开头的 Do you 常被省略。"
+ },
+ {
+  "id": "c118",
+  "en": "I'd love to, but …",
+  "zh": "我很想去，可是……",
+  "category": "offer",
+  "freq": 1,
+  "register": "neutral",
+  "examples": [
+   {
+    "en": "I'd love to, but I have to work late tonight.",
+    "zh": "我很想去，可是今晚得加班。"
+   },
+   {
+    "en": "A: Are you coming on Saturday? B: I'd love to, but I'm out of town.",
+    "zh": "A：周六你来吗？B：我很想去，但我不在本地。"
+   }
+  ],
+  "noteZh": "婉拒邀请的标准说法：先表达好意再说原因，比直接说 No 柔和。接受邀请时只说 I'd love to! 即可。",
+  "soundZh": "I'd love to → Idlove-ta；but I → budai，but 的 t 几乎不发。"
+ },
+ {
+  "id": "c119",
+  "en": "Why don't we …",
+  "zh": "我们……怎么样？",
+  "category": "offer",
+  "freq": 2,
+  "register": "casual",
+  "examples": [
+   {
+    "en": "Why don't we order pizza tonight?",
+    "zh": "我们今晚叫个披萨怎么样？"
+   },
+   {
+    "en": "Why don't we meet halfway? Say, around noon?",
+    "zh": "我们各让一步怎么样？比如中午左右见？"
+   }
+  ],
+  "noteZh": "用来提议两个人或一群人一起做某事，虽然带 Why，但不是在问原因。语气轻松随和，很容易被接受。",
+  "soundZh": "Why don't we → Whydontwee，don't 的 t 吞掉，听上去像 Why-don-we。"
+ },
+ {
+  "id": "c120",
+  "en": "Help yourself.",
+  "zh": "请自便，自己拿。",
+  "category": "offer",
+  "freq": 2,
+  "register": "casual",
+  "examples": [
+   {
+    "en": "There are drinks in the fridge. Help yourself.",
+    "zh": "冰箱里有饮料，自己拿。"
+   },
+   {
+    "en": "A: Can I try one? B: Sure, help yourself!",
+    "zh": "A：我能尝一个吗？B：当然，随便拿！"
+   }
+  ],
+  "noteZh": "在家里、聚会、办公室请人随意取用食物饮料时说。常带上 to：Help yourself to some coffee。",
+  "soundZh": "Help yourself → helpyerself，yourself 弱读成 yerself。"
+ },
+ {
+  "id": "c121",
+  "en": "It's on me.",
+  "zh": "我请客。",
+  "category": "offer",
+  "freq": 2,
+  "register": "casual",
+  "examples": [
+   {
+    "en": "Put your wallet away. It's on me.",
+    "zh": "把钱包收起来，我请。"
+   },
+   {
+    "en": "A: Let me get my half. B: No, it's on me.",
+    "zh": "A：我来付我那一半。B：不用，我请。"
+   }
+  ],
+  "noteZh": "抢着买单的标准说法，饭、酒、咖啡都能用，也可说 My treat。对方这么说，可回 Thanks, next one's mine。",
+  "soundZh": "It's on me → Itson-me，on 与 me 连读。"
+ },
+ {
+  "id": "c122",
+  "en": "Count me in.",
+  "zh": "算我一个。",
+  "category": "offer",
+  "freq": 2,
+  "register": "casual",
+  "examples": [
+   {
+    "en": "A: We're going hiking on Sunday. B: Count me in!",
+    "zh": "A：我们周日去徒步。B：算我一个！"
+   },
+   {
+    "en": "If you guys are getting pizza, count me in.",
+    "zh": "你们要是点披萨，算我一份。"
+   }
+  ],
+  "noteZh": "对邀请或集体活动表示愿意参加，反义是 Count me out（别算我）。用于朋友同事之间，语气爽快。",
+  "soundZh": "Count me in → Countmein，三个词紧紧连在一起。"
+ },
+ {
+  "id": "c123",
+  "en": "Rain check?",
+  "zh": "改天行吗？（这次先不去了）",
+  "category": "offer",
+  "freq": 2,
+  "register": "casual",
+  "examples": [
+   {
+    "en": "Rain check? I'm totally wiped tonight.",
+    "zh": "改天行吗？我今晚累透了。"
+   },
+   {
+    "en": "A: Can you make it for dinner? B: Can I take a rain check?",
+    "zh": "A：你能来吃晚饭吗？B：我能改天再约吗？"
+   }
+  ],
+  "noteZh": "这次去不了，但表示以后还想去，比直接拒绝友好。完整说法是 Can I take a rain check?",
+  "soundZh": "rain check → raincheck，两个词都重读，像一个词。"
+ },
+ {
+  "id": "c124",
+  "en": "I'll take you up on that.",
+  "zh": "那我就不客气了，到时找你。",
+  "category": "offer",
+  "freq": 3,
+  "register": "neutral",
+  "examples": [
+   {
+    "en": "A: You can stay with us if you're ever in Chicago. B: I'll take you up on that!",
+    "zh": "A：你要是来芝加哥，可以住我们家。B：那我就不客气了！"
+   },
+   {
+    "en": "I'll take you up on that offer. Thanks.",
+    "zh": "这个提议我接受了，谢谢。"
+   }
+  ],
+  "noteZh": "接受对方此前提出的邀请或帮助时用，是“接招”的意思。只能用来接受，不能用来主动邀请别人。",
+  "soundZh": "I'll take you up on that → Ill-take-ya-up-on-that，you 弱读成 ya。"
+ },
+ {
+  "id": "c125",
+  "en": "Be my guest.",
+  "zh": "请便。（尽管用）",
+  "category": "offer",
+  "freq": 3,
+  "register": "neutral",
+  "examples": [
+   {
+    "en": "A: Mind if I use your phone? B: Be my guest.",
+    "zh": "A：我能用一下你的手机吗？B：请便。"
+   },
+   {
+    "en": "If you want the last slice, be my guest.",
+    "zh": "你要是想吃最后一块，请便。"
+   }
+  ],
+  "noteZh": "对方征求许可时，爽快地答应并表示完全不介意。听起来大方，有时带一点“你要就拿去”的玩笑口气。",
+  "soundZh": "Be my guest → Bemy-guest，be 和 my 连读。"
+ },
+ {
+  "id": "c126",
+  "en": "Thanks for having me.",
+  "zh": "谢谢你们的款待。",
+  "category": "thanks",
+  "freq": 3,
+  "register": "neutral",
+  "examples": [
+   {
+    "en": "Thanks for having me over. I had a great time.",
+    "zh": "谢谢邀请我来做客，我玩得很开心。"
+   },
+   {
+    "en": "Thanks for having me, Sarah. It was a lovely evening.",
+    "zh": "谢谢款待，莎拉。今晚很愉快。"
+   }
+  ],
+  "noteZh": "离开聚会、饭局或受邀做客时对主人说，也可在做完访谈、演讲后对主办方说。表达“谢谢你们让我来”。",
+  "soundZh": "Thanks for → Thanksfer；having me → havin-me。"
+ },
+ {
+  "id": "c127",
+  "en": "I really appreciate it.",
+  "zh": "真的非常感谢。",
+  "category": "thanks",
+  "freq": 1,
+  "register": "neutral",
+  "examples": [
+   {
+    "en": "You stayed late to help me? I really appreciate it.",
+    "zh": "你特意留下来帮我？真的很感谢。"
+   },
+   {
+    "en": "A: I'll cover your shift. B: Wow, I really appreciate it.",
+    "zh": "A：我来替你值班。B：哇，真的太感谢了。"
+   }
+  ],
+  "noteZh": "比 Thanks 更有分量，用于别人确实付出了时间或精力的时候。注意 appreciate 后面接的是事（it），不能接人。",
+  "soundZh": "appreciate it → appreciaid，t 在中间变成轻轻的 d 音，两个词连成一个。"
+ },
+ {
+  "id": "c128",
+  "en": "My bad.",
+  "zh": "怪我，我的错。",
+  "category": "thanks",
+  "freq": 1,
+  "register": "casual",
+  "examples": [
+   {
+    "en": "A: You stepped on my foot! B: Oh, my bad!",
+    "zh": "A：你踩到我脚了！B：哎，怪我！"
+   },
+   {
+    "en": "My bad, I thought the meeting was at three.",
+    "zh": "我的错，我还以为会议是三点。"
+   }
+  ],
+  "noteZh": "随口认错，很口语，只用在朋友同事之间的小失误上。严重的过错或正式场合要说 I'm so sorry。"
+ },
+ {
+  "id": "c129",
+  "en": "No worries.",
+  "zh": "没事，别担心。",
+  "category": "thanks",
+  "freq": 1,
+  "register": "casual",
+  "examples": [
+   {
+    "en": "A: Sorry I'm late. B: No worries.",
+    "zh": "A：抱歉我迟到了。B：没事。"
+   },
+   {
+    "en": "No worries, I'll send it again.",
+    "zh": "没事，我再发一次。"
+   }
+  ],
+  "noteZh": "回应道歉或感谢，表示“小事一桩”。比 It's okay 更轻松随意，在美英澳都很常用。"
+ },
+ {
+  "id": "c130",
+  "en": "Don't mention it.",
+  "zh": "别客气，不用谢。",
+  "category": "thanks",
+  "freq": 2,
+  "register": "neutral",
+  "examples": [
+   {
+    "en": "A: Thanks for the ride. B: Don't mention it.",
+    "zh": "A：谢谢你送我。B：别客气。"
+   },
+   {
+    "en": "A: Thank you so much for your help! B: Don't mention it. It was no trouble.",
+    "zh": "A：非常感谢你的帮助！B：别客气，不麻烦。"
+   }
+  ],
+  "noteZh": "回应感谢，稍微有点老派和客气，美国人日常更常说 No problem。你不一定常说，但一定要听得懂。",
+  "soundZh": "Don't mention it → Dontmentionit，n 与后面连读。"
+ },
+ {
+  "id": "c131",
+  "en": "I owe you one.",
+  "zh": "我欠你个人情。",
+  "category": "thanks",
+  "freq": 2,
+  "register": "casual",
+  "examples": [
+   {
+    "en": "Thanks for covering for me. I owe you one.",
+    "zh": "谢谢你替我顶班，我欠你个人情。"
+   },
+   {
+    "en": "A: I'll drive you to the airport. B: Seriously? I owe you one.",
+    "zh": "A：我送你去机场。B：真的？我欠你一次。"
+   }
+  ],
+  "noteZh": "别人帮了个不大不小的忙之后，表示以后会还这个人情。朋友同事之间很常用，也可以说 I owe you big time。",
+  "soundZh": "owe you → oweya，you 弱读成 ya。"
+ },
+ {
+  "id": "c132",
+  "en": "Sorry about that.",
+  "zh": "抱歉，刚才那样不好意思。",
+  "category": "thanks",
+  "freq": 1,
+  "register": "neutral",
+  "examples": [
+   {
+    "en": "Sorry about that. I didn't see you there.",
+    "zh": "不好意思，刚才没看到你在那儿。"
+   },
+   {
+    "en": "Sorry about that, my phone went off in the middle of the meeting.",
+    "zh": "抱歉，开会时我手机响了。"
+   }
+  ],
+  "noteZh": "为刚发生的小事道歉，about that 指的就是刚才那件事。不适合正式、严重的道歉。",
+  "soundZh": "Sorry about that → Sorry-bout-that，about 的 a 弱读。"
+ },
+ {
+  "id": "c133",
+  "en": "Sorry to bother you",
+  "zh": "不好意思打扰一下",
+  "category": "thanks",
+  "freq": 2,
+  "register": "neutral",
+  "examples": [
+   {
+    "en": "Sorry to bother you, but is this seat taken?",
+    "zh": "不好意思打扰一下，这个座位有人吗？"
+   },
+   {
+    "en": "Sorry to bother you again. Do you know where the restroom is?",
+    "zh": "不好意思又打扰你，请问洗手间在哪里？"
+   }
+  ],
+  "noteZh": "向陌生人或忙碌的人开口之前先打招呼，后面常接 but 加问题。比单独的 Excuse me 更体贴。",
+  "soundZh": "to bother → ta-bother，to 弱读成 ta。"
+ },
+ {
+  "id": "c134",
+  "en": "Thanks for letting me know.",
+  "zh": "谢谢你告诉我。",
+  "category": "thanks",
+  "freq": 1,
+  "register": "neutral",
+  "examples": [
+   {
+    "en": "A: The meeting got moved to three. B: Oh, thanks for letting me know.",
+    "zh": "A：会议改到三点了。B：哦，谢谢你告诉我。"
+   },
+   {
+    "en": "Thanks for letting me know. I'll rearrange my schedule.",
+    "zh": "谢谢你告知，我来调整一下日程。"
+   }
+  ],
+  "noteZh": "别人通知了你一件事或变动时的得体回应，职场邮件和聊天中非常常见，可以换成 Thanks for the heads-up。",
+  "soundZh": "Thanks for → Thanksfer；letting me → lettin-me。"
+ },
+ {
+  "id": "c135",
+  "en": "Happy to help.",
+  "zh": "很乐意帮忙。",
+  "category": "thanks",
+  "freq": 2,
+  "register": "neutral",
+  "examples": [
+   {
+    "en": "A: Thanks for your help! B: Happy to help.",
+    "zh": "A：谢谢你的帮助！B：乐意效劳。"
+   },
+   {
+    "en": "Happy to help. Just give me a call anytime.",
+    "zh": "很乐意帮忙，随时给我打电话。"
+   }
+  ],
+  "noteZh": "回应感谢，同时传递“我是真心愿意”的意思。职场和服务场合都很合适，比 You're welcome 更暖。",
+  "soundZh": "Happy to → Happy-ta，to 弱读。"
+ },
+ {
+  "id": "c136",
+  "en": "It's the least I could do.",
+  "zh": "这是我应该做的，小意思。",
+  "category": "thanks",
+  "freq": 3,
+  "register": "neutral",
+  "examples": [
+   {
+    "en": "A: You didn't have to bring dinner. B: It's the least I could do after all your help.",
+    "zh": "A：你不用带晚饭来的。B：你帮了我那么多，这是我应该做的。"
+   },
+   {
+    "en": "It's the least I could do. You've been so good to us.",
+    "zh": "这是我应该做的，你对我们太好了。"
+   }
+  ],
+  "noteZh": "别人为你的好意道谢时，谦虚地回一句“这是我至少该做的”，表示这点心意不算什么。语气真诚温暖。",
+  "soundZh": "It's the least I could do → Itsthe-leastai-coulddo，least I 连成 leastai。"
+ },
+ {
+  "id": "c137",
+  "en": "Thanks anyway.",
+  "zh": "还是谢谢你。",
+  "category": "thanks",
+  "freq": 2,
+  "register": "neutral",
+  "examples": [
+   {
+    "en": "A: Sorry, we're out of that size. B: That's okay. Thanks anyway.",
+    "zh": "A：抱歉，那个尺码卖完了。B：没关系，还是谢谢。"
+   },
+   {
+    "en": "I couldn't find it, but thanks anyway.",
+    "zh": "我没找到，不过还是谢谢你。"
+   }
+  ],
+  "noteZh": "对方没能帮上忙，或者你谢绝了对方的好意时，仍然表示感谢。礼貌地结束对话很好用。",
+  "soundZh": "Thanks anyway → Thanksenyway，anyway 读成 enyway。"
+ },
+ {
+  "id": "c138",
+  "en": "You might want to …",
+  "zh": "你最好……；你或许该……",
+  "category": "advice",
+  "freq": 1,
+  "register": "neutral",
+  "examples": [
+   {
+    "en": "You might want to double-check the date.",
+    "zh": "你最好再核对一下日期。"
+   },
+   {
+    "en": "You might want to bring a jacket. It gets cold at night.",
+    "zh": "你最好带件外套，晚上会冷。"
+   }
+  ],
+  "noteZh": "婉转的建议，实际语气比 You should 轻，常用于指出对方可能漏掉或没想到的事。字面有 want，但并不是在问对方想不想。",
+  "soundZh": "might want to → mightwanna，want to 合成 wanna。"
+ },
+ {
+  "id": "c139",
+  "en": "Take it easy.",
+  "zh": "放轻松；保重。",
+  "category": "advice",
+  "freq": 1,
+  "register": "casual",
+  "examples": [
+   {
+    "en": "You've been working all week. Take it easy this weekend.",
+    "zh": "你忙了一整周，这个周末好好放松一下。"
+   },
+   {
+    "en": "A: See you next week! B: Take it easy!",
+    "zh": "A：下周见！B：保重！"
+   }
+  ],
+  "noteZh": "既可以劝人放松别太累，也可以作为随意的道别语。美国口语里非常常见，后者听到时回 You too 就行。",
+  "soundZh": "Take it easy → Take-kit-easy，it 与前后都连读。"
+ },
+ {
+  "id": "c140",
+  "en": "Hang in there.",
+  "zh": "撑住，加油，坚持下去。",
+  "category": "advice",
+  "freq": 2,
+  "register": "casual",
+  "examples": [
+   {
+    "en": "I know the exams are tough, but hang in there.",
+    "zh": "我知道考试很难，但要坚持住。"
+   },
+   {
+    "en": "Hang in there. It'll get better soon.",
+    "zh": "撑住，很快会好起来的。"
+   }
+  ],
+  "noteZh": "安慰和鼓励处在困难中的人，对方正在经历压力或低谷时特别合适。语气亲近，不用于正式场合。",
+  "soundZh": "Hang in there → Hangin-there，Hang 与 in 连成 Hangin。"
+ },
+ {
+  "id": "c141",
+  "en": "Better safe than sorry.",
+  "zh": "小心驶得万年船。",
+  "category": "advice",
+  "freq": 3,
+  "register": "neutral",
+  "examples": [
+   {
+    "en": "Take an umbrella. Better safe than sorry.",
+    "zh": "带把伞吧，宁可有备无患。"
+   },
+   {
+    "en": "It's probably nothing, but better safe than sorry. Let's get it checked.",
+    "zh": "大概没事，不过宁可稳妥些，去检查一下吧。"
+   }
+  ],
+  "noteZh": "劝人多做一步预防，哪怕可能没必要。口语里常省略开头的 It's，直接说这五个词，像句谚语一样整体记。"
+ },
+ {
+  "id": "c142",
+  "en": "Make sure you …",
+  "zh": "一定要……；确保你……",
+  "category": "advice",
+  "freq": 1,
+  "register": "neutral",
+  "examples": [
+   {
+    "en": "Make sure you lock the door when you leave.",
+    "zh": "你走的时候一定要锁门。"
+   },
+   {
+    "en": "Make sure you back up your files before updating.",
+    "zh": "更新之前一定要备份文件。"
+   }
+  ],
+  "noteZh": "提醒对方不要漏掉重要的事，语气比 Don't forget to 更强调“务必”。日常叮嘱和工作说明里都常用。",
+  "soundZh": "Make sure you → Make-shure-ya，sure you 读成 shure-ya。"
+ },
+ {
+  "id": "c143",
+  "en": "Don't forget to …",
+  "zh": "别忘了……",
+  "category": "advice",
+  "freq": 1,
+  "register": "neutral",
+  "examples": [
+   {
+    "en": "Don't forget to call your mom tonight.",
+    "zh": "别忘了今晚给你妈妈打电话。"
+   },
+   {
+    "en": "Don't forget to bring your ID.",
+    "zh": "别忘了带身份证件。"
+   }
+  ],
+  "noteZh": "轻轻提醒别人记得做某事，朋友、家人、同事之间都很自然。后面接动词原形。",
+  "soundZh": "Don't forget to → Donforgetta，forget to 读成 forgetta。"
+ },
+ {
+  "id": "c144",
+  "en": "If I were you, I'd …",
+  "zh": "要是我是你，我会……",
+  "category": "advice",
+  "freq": 2,
+  "register": "neutral",
+  "examples": [
+   {
+    "en": "If I were you, I'd just talk to him directly.",
+    "zh": "要是我是你，我就直接去跟他谈。"
+   },
+   {
+    "en": "If I were you, I'd take the job.",
+    "zh": "换了我是你，我会接受这份工作。"
+   }
+  ],
+  "noteZh": "给出明确的个人建议，意思是“我的想法是这样”。比 You should 柔和，因为站在对方的位置来说。",
+  "soundZh": "If I were you → Ifai-wer-ya，were you 常读成 wer-ya；I'd 轻轻带过。"
+ },
+ {
+  "id": "c145",
+  "en": "Good luck with …",
+  "zh": "祝你……顺利",
+  "category": "advice",
+  "freq": 1,
+  "register": "neutral",
+  "examples": [
+   {
+    "en": "Good luck with your interview tomorrow!",
+    "zh": "祝你明天面试顺利！"
+   },
+   {
+    "en": "Good luck with the move. Let me know if you need help.",
+    "zh": "祝搬家顺利，需要帮忙就告诉我。"
+   }
+  ],
+  "noteZh": "知道对方有件事要面对时，送上祝福。后面接具体的事。只说 Good luck! 也行，加 with 更显得你记得这件事。",
+  "soundZh": "Good luck with → Goodluck-with，with 弱读。"
+ },
+ {
+  "id": "c146",
+  "en": "Give it a shot.",
+  "zh": "试一试吧。",
+  "category": "advice",
+  "freq": 2,
+  "register": "casual",
+  "examples": [
+   {
+    "en": "You've never tried rock climbing? You should give it a shot.",
+    "zh": "你没试过攀岩？应该试试看。"
+   },
+   {
+    "en": "Why not apply? Give it a shot.",
+    "zh": "为什么不申请呢？试一试吧。"
+   }
+  ],
+  "noteZh": "鼓励对方别犹豫，先试试再说，输了也没什么损失。也可以说 Give it a try，意思几乎一样。",
+  "soundZh": "Give it a shot → Gividə-shot，give it a 连成 gividə。"
+ },
+ {
+  "id": "c147",
+  "en": "Take your time.",
+  "zh": "慢慢来，不着急。",
+  "category": "advice",
+  "freq": 1,
+  "register": "neutral",
+  "examples": [
+   {
+    "en": "A: Sorry, I'm not ready to order yet. B: Take your time.",
+    "zh": "A：抱歉，我还没想好点什么。B：慢慢来。"
+   },
+   {
+    "en": "Take your time with the report. It's not due until Monday.",
+    "zh": "报告慢慢写，周一才交。"
+   }
+  ],
+  "noteZh": "告诉对方不用赶，表示你愿意等。服务员、同事、老师都爱说。不要误解为“请花时间”，没有催促的意思。",
+  "soundZh": "Take your → Takeyer，your 弱读成 yer。"
+ },
+ {
+  "id": "c148",
+  "en": "You've got this.",
+  "zh": "你行的，没问题。",
+  "category": "advice",
+  "freq": 2,
+  "register": "casual",
+  "examples": [
+   {
+    "en": "Deep breath. You've got this.",
+    "zh": "深呼吸，你可以的。"
+   },
+   {
+    "en": "Don't be nervous about the presentation. You've got this!",
+    "zh": "别为演讲紧张，你行的！"
+   }
+  ],
+  "noteZh": "在对方紧张、没底气时给他信心，近年美国口语里很常用。朋友之间、运动场、考试前都合适。",
+  "soundZh": "You've got this → Youvgotthis，'ve 几乎听不见，got this 连读。"
+ },
+ {
+  "id": "c149",
+  "en": "Don't be too hard on yourself.",
+  "zh": "别对自己太苛刻。",
+  "category": "advice",
+  "freq": 3,
+  "register": "neutral",
+  "examples": [
+   {
+    "en": "You did your best. Don't be too hard on yourself.",
+    "zh": "你已经尽力了，别太苛责自己。"
+   },
+   {
+    "en": "Everyone makes mistakes. Don't be too hard on yourself.",
+    "zh": "谁都会犯错，别对自己太狠。"
+   }
+  ],
+  "noteZh": "安慰因为失误或表现不佳而自责的人，语气温和，放慢语速说，会让对方觉得被理解。",
+  "soundZh": "hard on yourself → hardon-yerself，hard 与 on 连读。"
+ },
+ {
+  "id": "c150",
+  "en": "Don't sweat it.",
+  "zh": "别放在心上，没什么大不了。",
+  "category": "advice",
+  "freq": 3,
+  "register": "casual",
+  "examples": [
+   {
+    "en": "Don't sweat it. It's just a small mistake.",
+    "zh": "别在意，只是个小错误。"
+   },
+   {
+    "en": "A: I'm so sorry I forgot! B: Don't sweat it.",
+    "zh": "A：真抱歉我忘了！B：没关系，别放在心上。"
+   }
+  ],
+  "noteZh": "宽慰对方不必为小事焦虑，也可用来回应道歉，意思接近 No worries。比较口语化，不用于正式场合。",
+  "soundZh": "sweat it → sweddit，中间的 t 变成轻快的 d 音。"
+ },
+ {
+  "id": "c151",
+  "en": "I'm so over it.",
+  "zh": "我早就受够了，不想再提了。",
+  "category": "feeling",
+  "freq": 2,
+  "register": "casual",
+  "examples": [
+   {
+    "en": "A: Are you still mad at Jake? B: No, I'm so over it.",
+    "zh": "A：你还在生杰克的气吗？B：没有，我早就不在意了。"
+   },
+   {
+    "en": "That whole drama at work? Honestly, I'm so over it.",
+    "zh": "公司里那一堆破事？说实话，我已经烦透了。"
+   }
+  ],
+  "noteZh": "表示对某事腻了、不想再纠结，或已经放下（比如前任）。很口语，朋友之间用，正式场合少用。",
+  "soundZh": "over it → overit 连读；so over → 两个元音相接，听起来像 \"soh-wover\""
+ },
+ {
+  "id": "c152",
+  "en": "I'm a bit stressed out.",
+  "zh": "我有点压力大。",
+  "category": "feeling",
+  "freq": 1,
+  "register": "neutral",
+  "examples": [
+   {
+    "en": "I'm a bit stressed out. I have three deadlines this week.",
+    "zh": "我有点压力大，这周有三个截止日期。"
+   },
+   {
+    "en": "A: You okay? B: Yeah, I'm a bit stressed out about the move.",
+    "zh": "A：你还好吗？B：嗯，搬家的事让我有点压力。"
+   }
+  ],
+  "noteZh": "比 \"I'm stressed.\" 语气更轻，说出来像是在解释自己状态不太好。后面可接 about 说明原因。",
+  "soundZh": "a bit → abit 连读；stressed out → stress-tout，ed 读成 t 并和 out 连在一起"
+ },
+ {
+  "id": "c153",
+  "en": "It drives me crazy.",
+  "zh": "这简直要把我逼疯了。",
+  "category": "feeling",
+  "freq": 2,
+  "register": "casual",
+  "examples": [
+   {
+    "en": "It drives me crazy when people talk during movies.",
+    "zh": "有人在电影院里说话，我就被烦得要命。"
+   },
+   {
+    "en": "My neighbor's dog barks all night. It drives me crazy.",
+    "zh": "邻居的狗整晚叫，吵得我快疯了。"
+   }
+  ],
+  "noteZh": "说某件事让你极度烦躁，不是真的\"疯了\"。也常说 drives me nuts，语气一样。",
+  "soundZh": "drives me → drivez-me 连读"
+ },
+ {
+  "id": "c154",
+  "en": "I can't wait to …",
+  "zh": "我等不及要……",
+  "category": "feeling",
+  "freq": 1,
+  "register": "neutral",
+  "examples": [
+   {
+    "en": "I can't wait to see you!",
+    "zh": "我等不及要见你了！"
+   },
+   {
+    "en": "I can't wait to try the new place downtown.",
+    "zh": "我等不及想去试试市中心那家新店。"
+   }
+  ],
+  "noteZh": "表示非常期待某件事，语气热情。是正面的期待，不要拿来说不愿意做的事。",
+  "soundZh": "can't wait to → can-wait-tə，can't 的 t 常被吞掉，to 弱读成 tə"
+ },
+ {
+  "id": "c155",
+  "en": "I'm so excited about …",
+  "zh": "我对……超级兴奋。",
+  "category": "feeling",
+  "freq": 1,
+  "register": "neutral",
+  "examples": [
+   {
+    "en": "I'm so excited about the trip next month!",
+    "zh": "我对下个月的旅行超级兴奋！"
+   },
+   {
+    "en": "A: How's the new job? B: I'm so excited about it, honestly.",
+    "zh": "A：新工作怎么样？B：说实话，我特别兴奋。"
+   }
+  ],
+  "noteZh": "直接表达兴奋和开心。about 后面接让你兴奋的事或人；对象是即将发生的事时，和 \"I can't wait to\" 意思接近。",
+  "soundZh": "I'm so excited about → im-so-excitid-about，excited 里的 t 常轻读成 d"
+ },
+ {
+  "id": "c156",
+  "en": "I'm sick of …",
+  "zh": "我受够……了。",
+  "category": "feeling",
+  "freq": 2,
+  "register": "casual",
+  "examples": [
+   {
+    "en": "I'm sick of eating the same thing every day.",
+    "zh": "我受够了每天吃同样的东西。"
+   },
+   {
+    "en": "I'm sick of this traffic. It takes forever to get home.",
+    "zh": "这堵车我受够了，回家要花一辈子。"
+   }
+  ],
+  "noteZh": "长期忍受后的厌烦，语气比较重，对上司或客户要谨慎。后面接名词或 -ing 形式。",
+  "soundZh": "sick of → sickuv 连读，of 弱读成 əv"
+ },
+ {
+  "id": "c157",
+  "en": "I feel bad about …",
+  "zh": "我对……感到过意不去。",
+  "category": "feeling",
+  "freq": 1,
+  "register": "neutral",
+  "examples": [
+   {
+    "en": "I feel bad about missing your party.",
+    "zh": "没去成你的派对，我很过意不去。"
+   },
+   {
+    "en": "I feel bad about what I said yesterday.",
+    "zh": "我为昨天说的话感到抱歉。"
+   }
+  ],
+  "noteZh": "表示内疚、不安，常引出一句道歉。注意 \"I feel bad for you\" 是同情对方，意思不同。",
+  "soundZh": "feel bad about → feel-bad-about，bad 的 d 和 about 连起来"
+ },
+ {
+  "id": "c158",
+  "en": "I'm freaking out.",
+  "zh": "我快慌死了。",
+  "category": "feeling",
+  "freq": 3,
+  "register": "casual",
+  "examples": [
+   {
+    "en": "A: Why are you so pale? B: I'm freaking out about the exam.",
+    "zh": "A：你脸色怎么这么白？B：我为考试快慌死了。"
+   },
+   {
+    "en": "I'm freaking out. My interview is in an hour!",
+    "zh": "我慌死了，一个小时后就要面试了！"
+   }
+  ],
+  "noteZh": "紧张、害怕或慌乱到不知所措。是很随意的口语，朋友之间说；也可以说 freaking out about + 事情。",
+  "soundZh": "freaking out → freakin-out，-ing 常读成 -in 并和 out 连读"
+ },
+ {
+  "id": "c159",
+  "en": "I'm looking forward to …",
+  "zh": "我很期待……",
+  "category": "feeling",
+  "freq": 1,
+  "register": "neutral",
+  "examples": [
+   {
+    "en": "I'm looking forward to the weekend.",
+    "zh": "我很期待周末。"
+   },
+   {
+    "en": "I'm looking forward to meeting your family.",
+    "zh": "我很期待见到你的家人。"
+   }
+  ],
+  "noteZh": "比 \"I can't wait to\" 语气平稳、更礼貌，邮件里也常用。to 后面接名词或 -ing 形式，如 seeing you。",
+  "soundZh": "looking forward to → lookin-forward-tə"
+ },
+ {
+  "id": "c160",
+  "en": "I'm not in the mood for …",
+  "zh": "我现在没心情……",
+  "category": "feeling",
+  "freq": 2,
+  "register": "casual",
+  "examples": [
+   {
+    "en": "I'm not in the mood for pizza tonight.",
+    "zh": "我今晚没心情吃披萨。"
+   },
+   {
+    "en": "A: Want to watch something? B: Sure, but I'm not in the mood for anything scary.",
+    "zh": "A：想看点什么吗？B：好啊，但我没心情看吓人的。"
+   }
+  ],
+  "noteZh": "委婉地拒绝某种活动或食物，不针对对方。肯定说法是 \"I'm in the mood for …\"（我想来点……）。",
+  "soundZh": "in the mood → inthə-mood；mood for → mood-fər"
+ },
+ {
+  "id": "c161",
+  "en": "I couldn't care less.",
+  "zh": "我一点都不在乎。",
+  "category": "feeling",
+  "freq": 3,
+  "register": "casual",
+  "examples": [
+   {
+    "en": "A: Who won the game? B: I couldn't care less.",
+    "zh": "A：谁赢了比赛？B：我一点都不在乎。"
+   },
+   {
+    "en": "He can say whatever he wants. I couldn't care less.",
+    "zh": "他爱说什么说什么，我完全无所谓。"
+   }
+  ],
+  "noteZh": "表示完全不在乎，语气冷淡甚至有点冲，对不熟的人别乱用。美式口语里也常听到 \"I could care less\"，意思相同。",
+  "soundZh": "couldn't care → couldnt-care，t 几乎听不到；care less → 轻快连读"
+ },
+ {
+  "id": "c162",
+  "en": "That's such a relief.",
+  "zh": "真是松了一口气。",
+  "category": "feeling",
+  "freq": 2,
+  "register": "neutral",
+  "examples": [
+   {
+    "en": "You passed? That's such a relief!",
+    "zh": "你通过了？这下我就放心了！"
+   },
+   {
+    "en": "The test results came back clear. That's such a relief.",
+    "zh": "检查结果没问题，真是松了一口气。"
+   }
+  ],
+  "noteZh": "担心的事有了好结果时说。也可以说成 \"What a relief!\"，语气更夸张。",
+  "soundZh": "that's such a → thatssuchə，几个词黏成一串"
+ },
+ {
+  "id": "c163",
+  "en": "I'm wiped out.",
+  "zh": "我累瘫了。",
+  "category": "feeling",
+  "freq": 3,
+  "register": "casual",
+  "examples": [
+   {
+    "en": "I'm wiped out. I've been on my feet all day.",
+    "zh": "我累瘫了，站了一整天。"
+   },
+   {
+    "en": "A: Want to grab dinner? B: I'm wiped out. Can we do it tomorrow?",
+    "zh": "A：要不要一起吃晚饭？B：我累瘫了，改明天行吗？"
+   }
+  ],
+  "noteZh": "比 tired 更形象，指体力或精力被耗光。近义的还有 beat、exhausted，exhausted 稍正式。",
+  "soundZh": "wiped out → wipt-out，ed 读 t 并和 out 连读"
+ },
+ {
+  "id": "c164",
+  "en": "It's not that bad.",
+  "zh": "没那么糟啦。",
+  "category": "describe",
+  "freq": 1,
+  "register": "neutral",
+  "examples": [
+   {
+    "en": "Don't worry, it's not that bad.",
+    "zh": "别担心，没那么糟。"
+   },
+   {
+    "en": "A: How's the food? B: It's not that bad, actually.",
+    "zh": "A：饭菜怎么样？B：其实还不错。"
+   }
+  ],
+  "noteZh": "安慰别人，或低调地表示\"还行\"，往往比 bad 好一点。语气偏委婉，并不是夸奖。",
+  "soundZh": "not that → t 常被吞掉，听起来像 \"nah-that\""
+ },
+ {
+  "id": "c165",
+  "en": "It was totally worth it.",
+  "zh": "真的太值了。",
+  "category": "describe",
+  "freq": 1,
+  "register": "casual",
+  "examples": [
+   {
+    "en": "The tickets were expensive, but it was totally worth it.",
+    "zh": "票很贵，但真的太值了。"
+   },
+   {
+    "en": "A: Was the hike hard? B: Yes, but it was totally worth it. The view was amazing.",
+    "zh": "A：爬山累吗？B：累，但太值了，风景绝了。"
+   }
+  ],
+  "noteZh": "事后评价，付出的钱、时间或力气换来了好结果。totally 加强语气，去掉也行：\"It was worth it.\"",
+  "soundZh": "worth it → worthit 连读；was totally → wəz-totally"
+ },
+ {
+  "id": "c166",
+  "en": "It's kind of …",
+  "zh": "它有点……",
+  "category": "describe",
+  "freq": 1,
+  "register": "casual",
+  "examples": [
+   {
+    "en": "It's kind of cold in here.",
+    "zh": "这里面有点冷。"
+   },
+   {
+    "en": "It's kind of hard to explain.",
+    "zh": "这个有点难解释。"
+   }
+  ],
+  "noteZh": "软化语气的万能说法，让评价不那么绝对。比 a little 更随意，书面和正式场合少用。",
+  "soundZh": "kind of → kinda /ˈkaɪndə/"
+ },
+ {
+  "id": "c167",
+  "en": "It's way too …",
+  "zh": "这也太……了。",
+  "category": "describe",
+  "freq": 1,
+  "register": "casual",
+  "examples": [
+   {
+    "en": "It's way too expensive for me.",
+    "zh": "这对我来说也太贵了。"
+   },
+   {
+    "en": "Turn it down. It's way too loud.",
+    "zh": "关小点，太吵了。"
+   }
+  ],
+  "noteZh": "way 用来加强 too，表示\"远远超过合适的程度\"，通常是抱怨或否定。后面接形容词。",
+  "soundZh": "way too → way-too 连读，way 拖得略长"
+ },
+ {
+  "id": "c168",
+  "en": "It looks like …",
+  "zh": "看起来……",
+  "category": "describe",
+  "freq": 1,
+  "register": "neutral",
+  "examples": [
+   {
+    "en": "It looks like it's going to rain.",
+    "zh": "看样子要下雨了。"
+   },
+   {
+    "en": "It looks like we're out of milk.",
+    "zh": "看来我们没牛奶了。"
+   }
+  ],
+  "noteZh": "根据眼前看到的情况做判断。如果依据是听到的消息，用 \"It sounds like …\"。",
+  "soundZh": "looks like → lookslike，ks 和 l 连着读"
+ },
+ {
+  "id": "c169",
+  "en": "It's a lot of fun.",
+  "zh": "这个特别好玩。",
+  "category": "describe",
+  "freq": 2,
+  "register": "casual",
+  "examples": [
+   {
+    "en": "You should try it. It's a lot of fun.",
+    "zh": "你该试试，特别好玩。"
+   },
+   {
+    "en": "A: How's pottery class? B: It's a lot of fun, and I'm actually getting better.",
+    "zh": "A：陶艺课怎么样？B：特别好玩，而且我真的在进步。"
+   }
+  ],
+  "noteZh": "推荐活动、游戏或聚会时用。注意是 a lot of fun，不说 many fun。",
+  "soundZh": "a lot of → a lotta /əˈlɑːɾə/"
+ },
+ {
+  "id": "c170",
+  "en": "It's better than I expected.",
+  "zh": "比我预想的好。",
+  "category": "describe",
+  "freq": 2,
+  "register": "neutral",
+  "examples": [
+   {
+    "en": "The movie was slow at first, but overall it's better than I expected.",
+    "zh": "电影开头有点慢，但整体比我预想的好。"
+   },
+   {
+    "en": "I was nervous about the new phone, but it's better than I expected.",
+    "zh": "我本来对新手机有点担心，结果比想象的好。"
+   }
+  ],
+  "noteZh": "带着一点惊喜的评价。反过来说是 \"It's worse than I thought.\"，表示比预想的差。",
+  "soundZh": "better than → bedder-thən，t 在美式里读成轻的 d；than I → thənai 连读"
+ },
+ {
+  "id": "c171",
+  "en": "It's nothing special.",
+  "zh": "也没什么特别的。",
+  "category": "describe",
+  "freq": 2,
+  "register": "neutral",
+  "examples": [
+   {
+    "en": "The restaurant is fine, but it's nothing special.",
+    "zh": "这家餐厅还行，但也没什么特别的。"
+   },
+   {
+    "en": "A: Is the hotel nice? B: It's nothing special, but it's clean.",
+    "zh": "A：酒店好吗？B：一般般，但挺干净。"
+   }
+  ],
+  "noteZh": "委婉表达\"一般般、不出彩\"，比直接说 not good 客气，带一点点失望。",
+  "soundZh": "it's nothing → itsnothing 连读；nothing special → 两个 s/sp 音紧挨着"
+ },
+ {
+  "id": "c172",
+  "en": "It's not my thing.",
+  "zh": "这不是我的菜。",
+  "category": "describe",
+  "freq": 3,
+  "register": "casual",
+  "examples": [
+   {
+    "en": "A: Do you like horror movies? B: Not really. It's not my thing.",
+    "zh": "A：你喜欢恐怖片吗？B：不太喜欢，不是我的菜。"
+   },
+   {
+    "en": "I tried yoga once, but it's not my thing.",
+    "zh": "我试过一次瑜伽，但不是我的菜。"
+   }
+  ],
+  "noteZh": "礼貌地说自己不喜欢某类活动，不批评对方。也可以换主语：\"Clubbing isn't really my thing.\"",
+  "soundZh": "not my → not-my，t 轻读几乎消失"
+ },
+ {
+  "id": "c173",
+  "en": "It's one of the best …",
+  "zh": "它是最好的……之一。",
+  "category": "describe",
+  "freq": 2,
+  "register": "neutral",
+  "examples": [
+   {
+    "en": "It's one of the best movies I've seen this year.",
+    "zh": "这是我今年看过最好的电影之一。"
+   },
+   {
+    "en": "It's one of the best cafés in town.",
+    "zh": "这是城里最好的咖啡馆之一。"
+   }
+  ],
+  "noteZh": "热情推荐时常用，比直接说 \"the best\" 更稳妥自然。后面接复数名词。",
+  "soundZh": "one of the → wunəvthə，of 弱读成 əv"
+ },
+ {
+  "id": "c174",
+  "en": "It's hit or miss.",
+  "zh": "时好时坏，不太稳定。",
+  "category": "describe",
+  "freq": 3,
+  "register": "casual",
+  "examples": [
+   {
+    "en": "The service here? It's hit or miss.",
+    "zh": "这里的服务？时好时坏。"
+   },
+   {
+    "en": "A: Is that place any good? B: It's hit or miss. Sometimes the food is great, sometimes it's cold.",
+    "zh": "A：那家店好吗？B：看运气，有时很棒，有时是凉的。"
+   }
+  ],
+  "noteZh": "形容质量不稳定，全凭运气。可以单独作为回答，也可以换主语说 \"The service is hit or miss.\"。",
+  "soundZh": "hit or miss → hidər-miss，or 弱读成 ər，hit 的 t 读成轻的 d"
+ },
+ {
+  "id": "c175",
+  "en": "It's a bit much.",
+  "zh": "有点过头了。",
+  "category": "describe",
+  "freq": 3,
+  "register": "casual",
+  "examples": [
+   {
+    "en": "A: I'm going to put lights on the whole house. B: Honestly, it's a bit much.",
+    "zh": "A：我打算把整栋房子都挂上灯。B：说实话，有点过了。"
+   },
+   {
+    "en": "Three hours of meetings every day? It's a bit much.",
+    "zh": "每天开三个小时的会？有点太多了。"
+   }
+  ],
+  "noteZh": "委婉批评\"过度、太夸张、让人受不了\"，比 too much 语气轻。适合朋友间提意见。",
+  "soundZh": "a bit → abit 连读；bit much → 中间 t 轻读"
+ },
+ {
+  "id": "c176",
+  "en": "You won't believe what happened.",
+  "zh": "你绝对想不到发生了什么。",
+  "category": "experience",
+  "freq": 2,
+  "register": "casual",
+  "examples": [
+   {
+    "en": "You won't believe what happened on my way to work.",
+    "zh": "你绝对想不到我上班路上发生了什么。"
+   },
+   {
+    "en": "Okay, you won't believe what happened. I ran into my ex at the airport.",
+    "zh": "好，你绝对想不到，我在机场碰到前任了。"
+   }
+  ],
+  "noteZh": "讲故事前吊胃口的开场白，好事坏事都能用。说完停一下，让对方问 \"What?\"。",
+  "soundZh": "won't believe → wont-believe；what happened → whatt-happened，t 轻读"
+ },
+ {
+  "id": "c177",
+  "en": "It was the first time I …",
+  "zh": "那是我第一次……",
+  "category": "experience",
+  "freq": 2,
+  "register": "neutral",
+  "examples": [
+   {
+    "en": "It was the first time I had ever seen snow.",
+    "zh": "那是我第一次见到雪。"
+   },
+   {
+    "en": "A: How was the flight? B: Honestly, it was the first time I flew alone, so I was nervous.",
+    "zh": "A：飞行怎么样？B：说实话，那是我第一次一个人坐飞机，有点紧张。"
+   }
+  ],
+  "noteZh": "讲述某件事的\"第一次\"，常带感慨。说现在的第一次用 \"This is the first time I …\"。",
+  "soundZh": "first time → firs-time，t 吞掉；time I → time-mai 连读"
+ },
+ {
+  "id": "c178",
+  "en": "The other day, …",
+  "zh": "前几天，……",
+  "category": "experience",
+  "freq": 1,
+  "register": "neutral",
+  "examples": [
+   {
+    "en": "The other day, I saw your brother at the gym.",
+    "zh": "前几天我在健身房看到你哥哥了。"
+   },
+   {
+    "en": "I was cleaning the garage the other day, and I found my old guitar.",
+    "zh": "前几天我在打扫车库，翻出了我的旧吉他。"
+   }
+  ],
+  "noteZh": "指几天前到一两周内的某天，不说具体日期。别用来指很久以前的事。",
+  "soundZh": "the other day → thee-udder-day，other 听起来像 \"udder\""
+ },
+ {
+  "id": "c179",
+  "en": "I used to …",
+  "zh": "我以前常……",
+  "category": "experience",
+  "freq": 1,
+  "register": "neutral",
+  "examples": [
+   {
+    "en": "I used to play piano when I was a kid.",
+    "zh": "我小时候弹过钢琴。"
+   },
+   {
+    "en": "A: Do you still smoke? B: No, I used to, but I quit.",
+    "zh": "A：你还抽烟吗？B：不抽了，以前抽，后来戒了。"
+   }
+  ],
+  "noteZh": "说过去的习惯或状态，暗示\"现在不这样了\"。注意这里读 used to，不要和\"习惯于\"混淆。",
+  "soundZh": "used to → yoos-ta，d 不发音，to 弱读"
+ },
+ {
+  "id": "c180",
+  "en": "It turned out …",
+  "zh": "结果发现……",
+  "category": "experience",
+  "freq": 1,
+  "register": "neutral",
+  "examples": [
+   {
+    "en": "It turned out the meeting was canceled.",
+    "zh": "结果会议取消了。"
+   },
+   {
+    "en": "I thought he was angry, but it turned out he was just tired.",
+    "zh": "我还以为他生气了，结果他只是累了。"
+   }
+  ],
+  "noteZh": "讲述后来才知道的真相或结果，常带\"和预想不同\"的意味。后面直接接一个完整的句子。",
+  "soundZh": "turned out → turn-dout，d 和 out 连读"
+ },
+ {
+  "id": "c181",
+  "en": "I ended up …",
+  "zh": "我最后落得……",
+  "category": "experience",
+  "freq": 1,
+  "register": "neutral",
+  "examples": [
+   {
+    "en": "I ended up staying home all weekend.",
+    "zh": "我最后整个周末都待在家里。"
+   },
+   {
+    "en": "The bus never came, so I ended up walking.",
+    "zh": "公交车一直没来，我最后只好走路。"
+   }
+  ],
+  "noteZh": "讲计划之外的结果，往往是不得已或无意之中。后面接 -ing 或 in/at 加地点。",
+  "soundZh": "ended up → endid-up 连读成 \"endidup\""
+ },
+ {
+  "id": "c182",
+  "en": "I've never been to …",
+  "zh": "我从没去过……",
+  "category": "experience",
+  "freq": 2,
+  "register": "neutral",
+  "examples": [
+   {
+    "en": "I've never been to Europe.",
+    "zh": "我从没去过欧洲。"
+   },
+   {
+    "en": "A: Have you been to Seattle? B: No, I've never been to the West Coast.",
+    "zh": "A：你去过西雅图吗？B：没有，我从没去过西海岸。"
+   }
+  ],
+  "noteZh": "聊旅行经历时的常用开头。说\"去过\"用 been to，不要说 went to。",
+  "soundZh": "I've never been → ive-never-bin，been 在美式里弱读成 bin"
+ },
+ {
+  "id": "c183",
+  "en": "I ran into …",
+  "zh": "我碰巧遇到了……",
+  "category": "experience",
+  "freq": 2,
+  "register": "casual",
+  "examples": [
+   {
+    "en": "I ran into my old boss at the grocery store.",
+    "zh": "我在超市碰到了以前的老板。"
+   },
+   {
+    "en": "Guess who I ran into today? Mike from college.",
+    "zh": "猜猜我今天碰到谁了？大学同学迈克。"
+   }
+  ],
+  "noteZh": "指偶然遇见人，不是\"跑进去\"。近义说法是 bump into，同样口语。",
+  "soundZh": "ran into → ran-intoo 连读"
+ },
+ {
+  "id": "c184",
+  "en": "I grew up in …",
+  "zh": "我是在……长大的。",
+  "category": "experience",
+  "freq": 1,
+  "register": "neutral",
+  "examples": [
+   {
+    "en": "I grew up in a small town in Ohio.",
+    "zh": "我是在俄亥俄州一个小镇长大的。"
+   },
+   {
+    "en": "A: Where are you from? B: Well, I was born in Denver, but I grew up in Texas.",
+    "zh": "A：你是哪里人？B：我出生在丹佛，不过是在得克萨斯长大的。"
+   }
+  ],
+  "noteZh": "自我介绍和闲聊的常用话题。出生地和长大的地方不同时，常把 born 和 grew up 一起说。",
+  "soundZh": "grew up in → grew-up-in 连读，三个词滑成一串"
+ },
+ {
+  "id": "c185",
+  "en": "I was about to …",
+  "zh": "我正要……",
+  "category": "experience",
+  "freq": 2,
+  "register": "neutral",
+  "examples": [
+   {
+    "en": "I was about to call you!",
+    "zh": "我正要给你打电话呢！"
+   },
+   {
+    "en": "I was about to leave when it started raining.",
+    "zh": "我刚要出门，就下起了雨。"
+   }
+  ],
+  "noteZh": "说\"刚要做某事时，另一件事发生了\"，常用来接话或打断。语气自然，朋友同事都能用。",
+  "soundZh": "about to → əbout-tə，两个 t 常合成一个"
+ },
+ {
+  "id": "c186",
+  "en": "I lost track of time.",
+  "zh": "我忘了时间。",
+  "category": "experience",
+  "freq": 3,
+  "register": "neutral",
+  "examples": [
+   {
+    "en": "Sorry I'm late. I lost track of time.",
+    "zh": "抱歉我迟到了，我一下子忘了时间。"
+   },
+   {
+    "en": "We were chatting and I lost track of time.",
+    "zh": "我们聊着聊着，我就忘了时间。"
+   }
+  ],
+  "noteZh": "解释迟到或做某事太投入时的好用说法，听起来真诚、不推卸责任。",
+  "soundZh": "lost track of → loss-track-əv，lost 的 t 几乎不发音"
+ },
+ {
+  "id": "c187",
+  "en": "It all started when …",
+  "zh": "这一切是从……开始的。",
+  "category": "experience",
+  "freq": 3,
+  "register": "neutral",
+  "examples": [
+   {
+    "en": "It all started when my boss asked me to cover for him.",
+    "zh": "一切是从老板让我替他顶班开始的。"
+   },
+   {
+    "en": "It all started when I missed the bus.",
+    "zh": "这一切都是从我错过那班公交车开始的。"
+   }
+  ],
+  "noteZh": "讲一段经过的起点，后面的故事通常有点戏剧性。"
+ },
+ {
+  "id": "c188",
+  "en": "I've been meaning to …",
+  "zh": "我一直想要……",
+  "category": "plan",
+  "freq": 1,
+  "register": "neutral",
+  "examples": [
+   {
+    "en": "I've been meaning to call you.",
+    "zh": "我一直想给你打电话来着。"
+   },
+   {
+    "en": "I've been meaning to clean out the garage for months.",
+    "zh": "我几个月来一直想清理车库。"
+   }
+  ],
+  "noteZh": "想做但一直没做，带一点歉意或拖延的味道。常用来解释\"为什么还没联系你\"。",
+  "soundZh": "I've been meaning to → ive-bin-meanin-ta"
+ },
+ {
+  "id": "c189",
+  "en": "I'm thinking of …",
+  "zh": "我在考虑……",
+  "category": "plan",
+  "freq": 1,
+  "register": "neutral",
+  "examples": [
+   {
+    "en": "I'm thinking of getting a dog.",
+    "zh": "我在考虑养一条狗。"
+   },
+   {
+    "en": "I'm thinking of changing my major.",
+    "zh": "我在考虑转专业。"
+   }
+  ],
+  "noteZh": "想法还不确定，在评估阶段。后面接 -ing 形式；也可以说 \"thinking about\"，意思相同。",
+  "soundZh": "thinking of → thinkin-əv"
+ },
+ {
+  "id": "c190",
+  "en": "I'll see how it goes.",
+  "zh": "走一步看一步吧。",
+  "category": "plan",
+  "freq": 1,
+  "register": "neutral",
+  "examples": [
+   {
+    "en": "A: Are you going to take the class? B: Maybe. I'll see how it goes.",
+    "zh": "A：你要去上这门课吗？B：也许吧，走一步看一步。"
+   },
+   {
+    "en": "I don't want to plan too much. I'll see how it goes.",
+    "zh": "我不想计划太多，走一步看一步。"
+   }
+  ],
+  "noteZh": "不承诺、不定死，等事情发展后再决定。回答对方的邀约或提问时很常用。",
+  "soundZh": "I'll see how it → ill-see-how-it 连读，how it 常连成 'howit'"
+ },
+ {
+  "id": "c191",
+  "en": "What are you up to this weekend?",
+  "zh": "这个周末你有什么安排？",
+  "category": "plan",
+  "freq": 1,
+  "register": "casual",
+  "examples": [
+   {
+    "en": "Hey, what are you up to this weekend?",
+    "zh": "嘿，这个周末你有什么安排？"
+   },
+   {
+    "en": "A: What are you up to this weekend? B: Not much. Maybe hiking if the weather's nice.",
+    "zh": "A：这个周末你打算干嘛？B：没什么，天气好的话也许去爬山。"
+   }
+  ],
+  "noteZh": "聊周末计划最自然的开头，也可以换成 tonight、tomorrow。回答 \"Not much.\" 很常见。",
+  "soundZh": "What are you → Whaddaya 或 Whatcha；up to → up-ta"
+ },
+ {
+  "id": "c192",
+  "en": "I'll let you know.",
+  "zh": "我到时候告诉你。",
+  "category": "plan",
+  "freq": 1,
+  "register": "neutral",
+  "examples": [
+   {
+    "en": "I'm not sure about Saturday yet. I'll let you know.",
+    "zh": "周六的事我还不确定，到时候告诉你。"
+   },
+   {
+    "en": "A: Can you come to dinner? B: Probably. I'll let you know tomorrow.",
+    "zh": "A：你能来吃晚饭吗？B：大概可以，明天告诉你。"
+   }
+  ],
+  "noteZh": "暂时无法答复，答应晚点给对方一个确切的答案。语气友好，既可以回绝也可以拖一拖。",
+  "soundZh": "let you → letcha；I'll let you know → ill-letcha-know"
+ },
+ {
+  "id": "c193",
+  "en": "I'm planning to …",
+  "zh": "我打算……",
+  "category": "plan",
+  "freq": 2,
+  "register": "neutral",
+  "examples": [
+   {
+    "en": "I'm planning to visit my parents in July.",
+    "zh": "我打算七月去看我父母。"
+   },
+   {
+    "en": "I'm planning to leave around nine.",
+    "zh": "我打算九点左右走。"
+   }
+  ],
+  "noteZh": "比 \"I'm thinking of\" 更确定，已经有大致安排。适合说中短期的具体计划。",
+  "soundZh": "planning to → plannin-ta"
+ },
+ {
+  "id": "c194",
+  "en": "I'm supposed to …",
+  "zh": "我本来应该……",
+  "category": "plan",
+  "freq": 2,
+  "register": "neutral",
+  "examples": [
+   {
+    "en": "I'm supposed to meet Sarah at six.",
+    "zh": "我和莎拉约好六点见面。"
+   },
+   {
+    "en": "A: Why are you up so early? B: I'm supposed to pick up my sister at seven.",
+    "zh": "A：你怎么起这么早？B：我七点要去接我妹妹。"
+   }
+  ],
+  "noteZh": "表示按安排或别人期望该做某事，常暗示\"但可能做不到\"。也说 \"I was supposed to …\"（本该做而没做）。",
+  "soundZh": "supposed to → suppose-ta，d 不发音"
+ },
+ {
+  "id": "c195",
+  "en": "Let's play it by ear.",
+  "zh": "到时候看情况再说吧。",
+  "category": "plan",
+  "freq": 2,
+  "register": "casual",
+  "examples": [
+   {
+    "en": "We don't know what the weather will be like, so let's play it by ear.",
+    "zh": "天气怎么样还不知道，到时候再看吧。"
+   },
+   {
+    "en": "A: What time should we meet? B: Let's play it by ear. I'll text you.",
+    "zh": "A：我们几点见？B：到时候看情况，我发消息给你。"
+   }
+  ],
+  "noteZh": "不提前定死细节，随机应变。是个习语（凭耳朵即兴演奏），要整块记，不要拆开猜意思。",
+  "soundZh": "let's play it by ear → lets-play-it-by-ear，it 的 t 轻读成 d，连成 'playidbyear'"
+ },
+ {
+  "id": "c196",
+  "en": "Something came up.",
+  "zh": "临时有点事。",
+  "category": "plan",
+  "freq": 2,
+  "register": "neutral",
+  "examples": [
+   {
+    "en": "I'm sorry, I can't make it tonight. Something came up.",
+    "zh": "抱歉，我今晚去不了了，临时有事。"
+   },
+   {
+    "en": "Something came up at work, so I'll be late.",
+    "zh": "公司临时有事，我会晚一点到。"
+   }
+  ],
+  "noteZh": "临时取消或改期时的万能说法，不必说明具体原因，对方一般不会追问。",
+  "soundZh": "came up → kay-mup 连读"
+ },
+ {
+  "id": "c197",
+  "en": "I'm saving up for …",
+  "zh": "我在攒钱买……",
+  "category": "plan",
+  "freq": 2,
+  "register": "neutral",
+  "examples": [
+   {
+    "en": "I'm saving up for a trip to Japan.",
+    "zh": "我在攒钱去日本旅行。"
+   },
+   {
+    "en": "I can't buy it right now. I'm saving up for a new laptop.",
+    "zh": "我现在不能买，我在攒钱买新电脑。"
+   }
+  ],
+  "noteZh": "说明为什么不花钱，或闲聊自己的目标。for 后面接要买的东西或要做的事。",
+  "soundZh": "saving up for → savin-up-fər"
+ },
+ {
+  "id": "c198",
+  "en": "I haven't decided yet.",
+  "zh": "我还没决定。",
+  "category": "plan",
+  "freq": 2,
+  "register": "neutral",
+  "examples": [
+   {
+    "en": "A: Where are you going for vacation? B: I haven't decided yet.",
+    "zh": "A：你假期去哪儿？B：我还没决定。"
+   },
+   {
+    "en": "I haven't decided yet. Give me until tomorrow.",
+    "zh": "我还没决定，给我到明天吧。"
+   }
+  ],
+  "noteZh": "被问到打算时的诚实回答，不会显得敷衍。通常后面会补一句时间或倾向。",
+  "soundZh": "haven't decided → havnt-decidid，decided yet → decididyet 连读"
+ },
+ {
+  "id": "c199",
+  "en": "I'm leaning toward …",
+  "zh": "我倾向于……",
+  "category": "plan",
+  "freq": 3,
+  "register": "neutral",
+  "examples": [
+   {
+    "en": "I'm leaning toward the second option.",
+    "zh": "我倾向于第二个方案。"
+   },
+   {
+    "en": "A: Are you taking the job? B: I'm leaning toward saying yes.",
+    "zh": "A：你会接这份工作吗？B：我倾向于答应。"
+   }
+  ],
+  "noteZh": "还没最终决定，但心里已经偏向某个选项。比 \"I'm thinking of\" 更接近做决定。",
+  "soundZh": "leaning toward → leanin-toward"
+ },
+ {
+  "id": "c200",
+  "en": "I'm booked solid.",
+  "zh": "我的日程全排满了。",
+  "category": "plan",
+  "freq": 3,
+  "register": "neutral",
+  "examples": [
+   {
+    "en": "I'm booked solid until Friday.",
+    "zh": "我到周五之前日程都排满了。"
+   },
+   {
+    "en": "A: Can you squeeze me in tomorrow? B: Sorry, I'm booked solid.",
+    "zh": "A：明天能给我挤出点时间吗？B：抱歉，我全排满了。"
+   }
+  ],
+  "noteZh": "用于预约、工作安排，说明时间已满。也可以说 \"I'm all booked up\"，意思一样。",
+  "soundZh": "booked solid → bookt-solid，ed 读 t"
+ },
+ {
+  "id": "c201",
+  "en": "Something's wrong with …",
+  "zh": "……出毛病了。",
+  "category": "problem",
+  "freq": 1,
+  "register": "neutral",
+  "examples": [
+   {
+    "en": "Something's wrong with my laptop. It won't turn on.",
+    "zh": "我的笔记本出毛病了，开不了机。"
+   },
+   {
+    "en": "A: You look worried. B: Something's wrong with the car again.",
+    "zh": "A：你看起来有点担心。B：车又出问题了。"
+   }
+  ],
+  "noteZh": "东西坏了、不对劲时的第一反应。后面接物品或人，也可以单独说 \"Something's wrong.\"，语气比 broken 更含糊、更自然。",
+  "soundZh": "Something's → 'Sumthinz'；wrong with 连成一串，几乎没有停顿。"
+ },
+ {
+  "id": "c202",
+  "en": "It's not working.",
+  "zh": "它坏了。／用不了。",
+  "category": "problem",
+  "freq": 1,
+  "register": "neutral",
+  "examples": [
+   {
+    "en": "I tried restarting it, but it's not working.",
+    "zh": "我试着重启了，但还是用不了。"
+   },
+   {
+    "en": "A: Is the Wi-Fi okay? B: No, it's not working again.",
+    "zh": "A：Wi-Fi 还好吗？B：不好，又用不了了。"
+   }
+  ],
+  "noteZh": "设备、软件、办法不好使时都能说，比 \"broken\" 更常用。想指别的东西，把 it 换成 this、that 或 the printer。",
+  "soundZh": "not working → 'nah(t) working'，t 常被吞掉，听起来像 'It's nah working'。"
+ },
+ {
+  "id": "c203",
+  "en": "I'm afraid there's a problem with …",
+  "zh": "恐怕……有点问题。",
+  "category": "problem",
+  "freq": 2,
+  "register": "formal",
+  "examples": [
+   {
+    "en": "I'm afraid there's a problem with your credit card.",
+    "zh": "恐怕您的信用卡出了点问题。"
+   },
+   {
+    "en": "I'm afraid there's a problem with the schedule.",
+    "zh": "恐怕日程有点问题。"
+   }
+  ],
+  "noteZh": "委婉地告知坏消息，客服、前台、同事间常用。这里的 afraid 只是客气的缓冲，不是真的\"害怕\"。",
+  "soundZh": "afraid there's 常连成 'afraidthere's'；I'm afraid 里 I'm 很轻。"
+ },
+ {
+  "id": "c204",
+  "en": "Let's figure it out.",
+  "zh": "我们一起想办法解决。",
+  "category": "problem",
+  "freq": 1,
+  "register": "neutral",
+  "examples": [
+   {
+    "en": "Don't panic. Let's figure it out together.",
+    "zh": "别慌，我们一起想办法。"
+   },
+   {
+    "en": "A: The files are all gone! B: Okay, let's figure it out.",
+    "zh": "A：文件全不见了！B：好，我们来想想办法。"
+   }
+  ],
+  "noteZh": "遇到麻烦时稳住对方、表示一起面对。语气积极，朋友同事都能用。",
+  "soundZh": "figure it out → 'figur-i-dout'，it 的 t 变成轻快的 d，三个词连成一个音串。"
+ },
+ {
+  "id": "c205",
+  "en": "What seems to be the problem?",
+  "zh": "请问有什么问题？",
+  "category": "problem",
+  "freq": 2,
+  "register": "neutral",
+  "examples": [
+   {
+    "en": "Hi, what seems to be the problem?",
+    "zh": "你好，请问是什么问题？"
+   },
+   {
+    "en": "A: Thanks for coming so fast. B: No problem. What seems to be the problem?",
+    "zh": "A：谢谢你这么快就来了。B：没事。是什么问题呢？"
+   }
+  ],
+  "noteZh": "客服、维修工、医生、老师上来先问的话，听到要整块听懂。自己求助时听到它，就直接描述症状。",
+  "soundZh": "What seems → 'Wha(t) seems'；to be 弱读成 'tuh be'。"
+ },
+ {
+  "id": "c206",
+  "en": "I can't figure out …",
+  "zh": "我搞不懂……／我想不明白……",
+  "category": "problem",
+  "freq": 1,
+  "register": "neutral",
+  "examples": [
+   {
+    "en": "I can't figure out how to use this app.",
+    "zh": "我搞不明白这个应用怎么用。"
+   },
+   {
+    "en": "I can't figure out why it keeps crashing.",
+    "zh": "我想不通它为什么老是崩溃。"
+   }
+  ],
+  "noteZh": "研究半天仍没搞定的口气。后面常接 how、why、what 引出的从句，也可以直接接名词。",
+  "soundZh": "can't 美式常听成 'ca'n'，没有清晰的 t；figure out 连读成 'figur-out'。"
+ },
+ {
+  "id": "c207",
+  "en": "It keeps …",
+  "zh": "它老是……／它总是不停地……",
+  "category": "problem",
+  "freq": 2,
+  "register": "neutral",
+  "examples": [
+   {
+    "en": "It keeps freezing every time I open that file.",
+    "zh": "我每次打开那个文件它都会卡死。"
+   },
+   {
+    "en": "My phone's so annoying. It keeps shutting down.",
+    "zh": "我的手机太烦人了，老是自动关机。"
+   }
+  ],
+  "noteZh": "抱怨同一个问题反复出现，后面接动词的 -ing 形式。It 可换成 he、she、they 或具体名词。",
+  "soundZh": "keeps → 'keeps'，结尾 ps 很短；It keeps 常连成 'Itkeeps'。"
+ },
+ {
+  "id": "c208",
+  "en": "I'll take care of it.",
+  "zh": "这事交给我吧。",
+  "category": "problem",
+  "freq": 1,
+  "register": "neutral",
+  "examples": [
+   {
+    "en": "Don't worry about the bill. I'll take care of it.",
+    "zh": "账单你别管了，我来处理。"
+   },
+   {
+    "en": "A: Who's going to call the landlord? B: I'll take care of it.",
+    "zh": "A：谁去给房东打电话？B：我来处理。"
+   }
+  ],
+  "noteZh": "主动接下一个问题或任务，让对方放心。比 \"I'll do it.\" 更有\"包在我身上\"的感觉。",
+  "soundZh": "take care of it → 'take care-uvit'，of 弱读成 'uv'，和 it 连成 'uvit'。"
+ },
+ {
+  "id": "c209",
+  "en": "Let me see what I can do.",
+  "zh": "我看看能怎么办。",
+  "category": "problem",
+  "freq": 2,
+  "register": "neutral",
+  "examples": [
+   {
+    "en": "Your room isn't ready yet, but let me see what I can do.",
+    "zh": "您的房间还没准备好，我看看能想什么办法。"
+   },
+   {
+    "en": "A: Can you get me a ticket? B: Let me see what I can do.",
+    "zh": "A：你能帮我弄张票吗？B：我看看能怎么办。"
+   }
+  ],
+  "noteZh": "客服或朋友答应帮忙，但不保证结果时用。语气是\"我会努力，但先别抱太大期望\"。",
+  "soundZh": "Let me → 'lemme'；what I can do → 'whaddI cn do'，can 弱读成 'cn'。"
+ },
+ {
+  "id": "c210",
+  "en": "I'm having trouble …",
+  "zh": "我在……上遇到了麻烦。",
+  "category": "problem",
+  "freq": 1,
+  "register": "neutral",
+  "examples": [
+   {
+    "en": "I'm having trouble logging into my account.",
+    "zh": "我登录不了自己的账号。"
+   },
+   {
+    "en": "I'm having trouble hearing you. Could you speak up?",
+    "zh": "我听不太清你说话，能大点声吗？"
+   }
+  ],
+  "noteZh": "求助时的常用开头，后面接 -ing，或接 with 加名词。语气比 can't 更委婉。",
+  "soundZh": "having → 'havin'，-ing 常弱化成 'in'。"
+ },
+ {
+  "id": "c211",
+  "en": "I've had it with …",
+  "zh": "我受够了……",
+  "category": "problem",
+  "freq": 3,
+  "register": "casual",
+  "examples": [
+   {
+    "en": "I've had it with this printer. We're buying a new one.",
+    "zh": "我受够这台打印机了，我们买台新的吧。"
+   },
+   {
+    "en": "I've had it with the noise next door.",
+    "zh": "我受够隔壁的噪音了。"
+   }
+  ],
+  "noteZh": "忍无可忍的口气，比 \"I'm tired of\" 更强烈。后面接 with 加名词，也可单说 \"I've had it.\"",
+  "soundZh": "I've had it → 'Ive hadit'，had it 连读，t 变成轻快的 d。"
+ },
+ {
+  "id": "c212",
+  "en": "There must be some mistake.",
+  "zh": "这肯定是弄错了。",
+  "category": "problem",
+  "freq": 3,
+  "register": "neutral",
+  "examples": [
+   {
+    "en": "There must be some mistake. I never ordered this.",
+    "zh": "一定是弄错了，我没点过这个。"
+   },
+   {
+    "en": "I was charged twice. There must be some mistake.",
+    "zh": "我被扣了两次费，肯定是哪里搞错了。"
+   }
+  ],
+  "noteZh": "发现账单、订单、名单出错时，礼貌地指出问题，不直接指责对方。语气比 \"You're wrong.\" 缓和得多。",
+  "soundZh": "must be → 'mus(t) be'，must 末尾的 t 常被吞掉。"
+ },
+ {
+  "id": "c213",
+  "en": "It's out of order.",
+  "zh": "它坏了，暂停使用。",
+  "category": "problem",
+  "freq": 3,
+  "register": "neutral",
+  "examples": [
+   {
+    "en": "Sorry, the elevator? It's out of order. Please use the stairs.",
+    "zh": "抱歉，电梯坏了，请走楼梯。"
+   },
+   {
+    "en": "Don't bother with the vending machine. It's out of order.",
+    "zh": "这层楼的自动售货机坏了。"
+   }
+  ],
+  "noteZh": "专指公共设施（电梯、公厕、售货机、ATM）暂停使用，常见于告示牌。私人物品坏了一般说 broken 或 not working。",
+  "soundZh": "out of order → 'outta order'，of 弱读并和前面连在一起。"
+ },
+ {
+  "id": "c214",
+  "en": "Let's touch base …",
+  "zh": "我们……再碰个头／联系一下。",
+  "category": "work",
+  "freq": 1,
+  "register": "neutral",
+  "examples": [
+   {
+    "en": "Let's touch base tomorrow morning.",
+    "zh": "我们明天早上再碰个头。"
+   },
+   {
+    "en": "Let's touch base after the client call.",
+    "zh": "客户电话开完后我们再沟通一下。"
+   }
+  ],
+  "noteZh": "约定之后简短沟通进展，不一定面对面，电话、消息都算。后面常接时间，如 tomorrow、next week、later。",
+  "soundZh": "touch base → 'tuch-base'，两个词挨得很紧。"
+ },
+ {
+  "id": "c215",
+  "en": "Just to follow up on …",
+  "zh": "跟进一下……的事。",
+  "category": "work",
+  "freq": 2,
+  "register": "neutral",
+  "examples": [
+   {
+    "en": "Just to follow up on my email from Monday, did you get a chance to look at it?",
+    "zh": "跟进一下我周一发的邮件，你有机会看一下吗？"
+   },
+   {
+    "en": "Hi Sam, just to follow up on our call yesterday.",
+    "zh": "嗨 Sam，跟进一下我们昨天通话的事。"
+   }
+  ],
+  "noteZh": "邮件和电话里温和地催问进度，用 just 让语气不强硬。后面接 our call、my email 等。",
+  "soundZh": "follow up on → 'follow-up-on'，三词连读，on 轻读。"
+ },
+ {
+  "id": "c216",
+  "en": "I'll get back to you.",
+  "zh": "我晚点给你答复。",
+  "category": "work",
+  "freq": 1,
+  "register": "neutral",
+  "examples": [
+   {
+    "en": "I need to check with my manager. I'll get back to you by Friday.",
+    "zh": "我得问一下经理，周五前给你答复。"
+   },
+   {
+    "en": "A: Can you do it by noon? B: Not sure. I'll get back to you.",
+    "zh": "A：中午前能做完吗？B：不确定，我晚点答复你。"
+   }
+  ],
+  "noteZh": "现在给不出答案，先承诺稍后回复。后面常接时间，如 \"by tomorrow\"、\"later today\"。",
+  "soundZh": "get back to you → 'ge(t) back-ta ya'，t 吞音，to you 变成 'ta ya'。"
+ },
+ {
+  "id": "c217",
+  "en": "Can we push it to …?",
+  "zh": "我们能不能推迟到……？",
+  "category": "work",
+  "freq": 2,
+  "register": "casual",
+  "examples": [
+   {
+    "en": "Can we push it to Thursday? I have a conflict tomorrow.",
+    "zh": "我们能推到周四吗？我明天有冲突。"
+   },
+   {
+    "en": "Can we push it to next week? The report is not ready yet.",
+    "zh": "能推到下周吗？报告还没弄好。"
+   }
+  ],
+  "noteZh": "想把会议、截止日期往后挪。push 在这里是\"推迟\"，不是\"推\"；后面接具体日期或时间。",
+  "soundZh": "push it to → 'pushit-ta'，it 的 t 与 to 连成轻音。"
+ },
+ {
+  "id": "c218",
+  "en": "Let's circle back to that.",
+  "zh": "这个我们稍后再回头讨论。",
+  "category": "work",
+  "freq": 3,
+  "register": "neutral",
+  "examples": [
+   {
+    "en": "We're running out of time. Let's circle back to that next week.",
+    "zh": "时间不多了，这个我们下周再回头谈。"
+   },
+   {
+    "en": "Good question, but let's circle back to that after the demo.",
+    "zh": "问得好，不过我们演示完再回头讨论这个。"
+   }
+  ],
+  "noteZh": "把当前跑题或太复杂的话题先搁下，之后再谈。职场常见，带一点商务腔，朋友聊天里较少用。",
+  "soundZh": "back to that → 'back-ta that'，to 弱读成 'ta'。"
+ },
+ {
+  "id": "c219",
+  "en": "You're on mute.",
+  "zh": "你静音了。",
+  "category": "work",
+  "freq": 1,
+  "register": "casual",
+  "examples": [
+   {
+    "en": "Sorry, Dan, you're on mute.",
+    "zh": "抱歉，Dan，你静音了。"
+   },
+   {
+    "en": "A: Can you hear me? B: No, you're on mute.",
+    "zh": "A：能听到我吗？B：听不到，你静音了。"
+   }
+  ],
+  "noteZh": "线上会议最高频的一句。别人说话没声音时提醒对方，对方说 \"Oops, sorry.\" 就好；自己说时是 \"I'm on mute.\"",
+  "soundZh": "You're → 弱读成 'yer'，on mute 连在一起。"
+ },
+ {
+  "id": "c220",
+  "en": "Does that work for you?",
+  "zh": "这样你方便吗？／你觉得行吗？",
+  "category": "work",
+  "freq": 1,
+  "register": "neutral",
+  "examples": [
+   {
+    "en": "How about Tuesday at ten? Does that work for you?",
+    "zh": "周二十点怎么样？你方便吗？"
+   },
+   {
+    "en": "I'll send the draft by five. Does that work for you?",
+    "zh": "我五点前发草稿，你看行吗？"
+   }
+  ],
+  "noteZh": "定了时间或方案后问对方是否可行。回答 \"Works for me.\" 或 \"That works.\" 即可。",
+  "soundZh": "Does that → 'Duzzat'；work for you → 'work-fer-ya'。"
+ },
+ {
+  "id": "c221",
+  "en": "Any updates on …?",
+  "zh": "……有什么进展吗？",
+  "category": "work",
+  "freq": 1,
+  "register": "neutral",
+  "examples": [
+   {
+    "en": "Any updates on the Johnson contract?",
+    "zh": "Johnson 的合同有什么进展吗？"
+   },
+   {
+    "en": "Any updates on the bug we found last week?",
+    "zh": "我们上周发现的那个 bug 有进展吗？"
+   }
+  ],
+  "noteZh": "开会或发消息时询问进度，比 \"How is it going?\" 更专业。也常单独说 \"Any updates?\"",
+  "soundZh": "updates on → 'updates-on'，连读成 'updatesson'。"
+ },
+ {
+  "id": "c222",
+  "en": "Please find attached …",
+  "zh": "随信附上……",
+  "category": "work",
+  "freq": 3,
+  "register": "formal",
+  "examples": [
+   {
+    "en": "Please find attached the revised budget for Q3.",
+    "zh": "随信附上第三季度的修订预算。"
+   },
+   {
+    "en": "Hi Ms. Lee, please find attached my resume and cover letter.",
+    "zh": "Lee 女士您好，随信附上我的简历和求职信。"
+   }
+  ],
+  "noteZh": "商务邮件里介绍附件的标准用语，偏正式。同事间更随意的说法是 \"I've attached …\" 或 \"Attached is …\"。",
+  "soundZh": "find attached → 'fine-duh-tached'，find 的 d 与 attached 连在一起。"
+ },
+ {
+  "id": "c223",
+  "en": "Sorry for the late reply.",
+  "zh": "抱歉回复晚了。",
+  "category": "work",
+  "freq": 2,
+  "register": "neutral",
+  "examples": [
+   {
+    "en": "Hi Mark, sorry for the late reply. I was traveling last week.",
+    "zh": "嗨 Mark，抱歉回复晚了，我上周在出差。"
+   },
+   {
+    "en": "Sorry for the late reply. Here's the info you asked for.",
+    "zh": "抱歉回复晚了，这是你要的资料。"
+   }
+  ],
+  "noteZh": "邮件和消息开头常见的客套话，延迟时间不长也会说。更正式可以说 \"Apologies for the delay.\"",
+  "soundZh": "for the → 'fer the'，for 弱读成 'fer'。"
+ },
+ {
+  "id": "c224",
+  "en": "Let's take this offline.",
+  "zh": "这个我们会后单独聊。",
+  "category": "work",
+  "freq": 3,
+  "register": "neutral",
+  "examples": [
+   {
+    "en": "That's a long discussion. Let's take this offline.",
+    "zh": "这事说来话长，我们会后单独聊。"
+   },
+   {
+    "en": "I don't want to hold everyone up. Let's take this offline.",
+    "zh": "我不想耽误大家时间，这个我们私下谈。"
+   }
+  ],
+  "noteZh": "会议中遇到只和少数人有关或太耗时的话题，请求在会外解决。offline 在这里不是\"断网\"，是\"不在会上\"。",
+  "soundZh": "take this offline → 'take-this-offline'，this 与 offline 连读。"
+ },
+ {
+  "id": "c225",
+  "en": "Just a heads-up that …",
+  "zh": "先提醒一下……",
+  "category": "work",
+  "freq": 2,
+  "register": "casual",
+  "examples": [
+   {
+    "en": "Just a heads-up that the system will be down tonight.",
+    "zh": "先提醒一下，今晚系统会停机。"
+   },
+   {
+    "en": "Just a heads-up that the client moved the deadline up.",
+    "zh": "提前说一声，客户把截止日期提前了。"
+   }
+  ],
+  "noteZh": "提前打个招呼让对方有心理准备，多用于变动或坏消息。也可说 \"Just a quick heads-up.\"",
+  "soundZh": "heads-up 读成 'heds-up'；that 在句中弱读成 'thət'。"
+ },
+ {
+  "id": "c226",
+  "en": "Can I get the check, please?",
+  "zh": "请给我结账。",
+  "category": "travel",
+  "freq": 1,
+  "register": "neutral",
+  "examples": [
+   {
+    "en": "Excuse me, can I get the check, please?",
+    "zh": "打扰一下，请给我结账。"
+   },
+   {
+    "en": "We're in a bit of a hurry. Can I get the check, please?",
+    "zh": "我们有点赶时间，麻烦结账。"
+   }
+  ],
+  "noteZh": "美式餐厅说 check，英式说 bill。服务员不会主动催你结账，需要自己开口。",
+  "soundZh": "Can I → 'Kinai'；get the → 'geh-the'，t 变成轻音。"
+ },
+ {
+  "id": "c227",
+  "en": "I'm just looking, thanks.",
+  "zh": "我随便看看，谢谢。",
+  "category": "travel",
+  "freq": 1,
+  "register": "neutral",
+  "examples": [
+   {
+    "en": "A: Can I help you find anything? B: I'm just looking, thanks.",
+    "zh": "A：需要帮您找什么吗？B：我随便看看，谢谢。"
+   },
+   {
+    "en": "I'm just looking, thanks. I'll let you know if I need anything.",
+    "zh": "我随便看看，谢谢，有需要我会叫您。"
+   }
+  ],
+  "noteZh": "店员过来问需不需要帮忙，又不想被打扰时的标准回答，礼貌不失态。想买时再说 \"Actually, could you help me?\"",
+  "soundZh": "just looking → 'jus(t) looking'，t 被吞掉。"
+ },
+ {
+  "id": "c228",
+  "en": "Keep the change.",
+  "zh": "不用找了。",
+  "category": "travel",
+  "freq": 3,
+  "register": "casual",
+  "examples": [
+   {
+    "en": "Here's twenty. Keep the change.",
+    "zh": "给你二十，不用找了。"
+   },
+   {
+    "en": "A: That'll be $17.50. B: Here's $20. Keep the change.",
+    "zh": "A：一共 17.5 美元。B：给你 20，不用找了。"
+   }
+  ],
+  "noteZh": "付小费或凑整时对出租车司机、咖啡店员说。直接用祈使句最自然，不必说 \"Could you keep the change?\"",
+  "soundZh": "Keep the → 'keep-the'，p 和 th 不爆破，直接过渡。"
+ },
+ {
+  "id": "c229",
+  "en": "I'll have …",
+  "zh": "我要……（点餐）",
+  "category": "travel",
+  "freq": 1,
+  "register": "neutral",
+  "examples": [
+   {
+    "en": "I'll have the grilled chicken, please.",
+    "zh": "我要烤鸡，谢谢。"
+   },
+   {
+    "en": "A: Anything to drink? B: I'll have a coffee.",
+    "zh": "A：要喝点什么？B：我要一杯咖啡。"
+   }
+  ],
+  "noteZh": "点餐最自然的句式，比 \"I want …\" 礼貌、地道得多。后面接餐点名，句末常加 please。",
+  "soundZh": "I'll have → 'Ill hav'，have 末尾的 v 很轻。"
+ },
+ {
+  "id": "c230",
+  "en": "Is this seat taken?",
+  "zh": "这个位子有人吗？",
+  "category": "travel",
+  "freq": 2,
+  "register": "neutral",
+  "examples": [
+   {
+    "en": "Excuse me, is this seat taken?",
+    "zh": "打扰一下，这个位子有人坐吗？"
+   },
+   {
+    "en": "A: Is this seat taken? B: No, go ahead.",
+    "zh": "A：这里有人吗？B：没人，请坐。"
+   }
+  ],
+  "noteZh": "在咖啡馆、火车、候机厅想坐别人旁边的空位时用。回答 \"Go ahead.\" 或 \"Sorry, it's taken.\" 都很常见。",
+  "soundZh": "Is this → 'Izzthis'；seat taken → 'seat-tay-kin'，seat 的 t 被吞。"
+ },
+ {
+  "id": "c231",
+  "en": "Can I get this to go?",
+  "zh": "这个能打包带走吗？",
+  "category": "travel",
+  "freq": 2,
+  "register": "casual",
+  "examples": [
+   {
+    "en": "I can't finish all this. Can I get this to go?",
+    "zh": "我吃不完，这个能打包吗？"
+   },
+   {
+    "en": "A: For here or to go? B: Can I get this to go?",
+    "zh": "A：在这吃还是带走？B：能帮我打包带走吗？"
+   }
+  ],
+  "noteZh": "美式用法，餐厅剩菜打包、快餐带走都用。英式常说 takeaway。服务员问的 \"For here or to go?\" 也要能听懂。",
+  "soundZh": "Can I → 'Kinai'；get this → 'geh-this'；to go → 'ta go'。"
+ },
+ {
+  "id": "c232",
+  "en": "Can I pay by card?",
+  "zh": "可以刷卡吗？",
+  "category": "travel",
+  "freq": 1,
+  "register": "neutral",
+  "examples": [
+   {
+    "en": "Do you take cash only, or can I pay by card?",
+    "zh": "你们只收现金，还是我可以刷卡？"
+   },
+   {
+    "en": "A: That's thirty dollars. B: Can I pay by card?",
+    "zh": "A：一共三十美元。B：可以刷卡吗？"
+   }
+  ],
+  "noteZh": "小店、出租车、摊位付款前先确认。换成 \"by cash\" 就是付现金；也可以问 \"Do you take credit cards?\"",
+  "soundZh": "Can I → 'Kinai'；pay by → 'pay-by'，连读很紧。"
+ },
+ {
+  "id": "c233",
+  "en": "Do you have this in …?",
+  "zh": "这个有……的吗？",
+  "category": "travel",
+  "freq": 2,
+  "register": "neutral",
+  "examples": [
+   {
+    "en": "Do you have this in a medium?",
+    "zh": "这个有中码的吗？"
+   },
+   {
+    "en": "Do you have this in black?",
+    "zh": "这个有黑色的吗？"
+   }
+  ],
+  "noteZh": "逛街时问同款的尺码、颜色。后面接 a medium、blue、another size 等，回答 \"Let me check.\" 很常见。",
+  "soundZh": "Do you → 'Dya'；have this in → 'havethisin' 连成一串。"
+ },
+ {
+  "id": "c234",
+  "en": "Can I try this on?",
+  "zh": "我可以试穿一下吗？",
+  "category": "travel",
+  "freq": 1,
+  "register": "neutral",
+  "examples": [
+   {
+    "en": "I like this jacket. Can I try this on?",
+    "zh": "我喜欢这件夹克，可以试穿吗？"
+   },
+   {
+    "en": "A: Can I try this on? B: Sure, the fitting rooms are over there.",
+    "zh": "A：我能试穿吗？B：当然，试衣间在那边。"
+   }
+  ],
+  "noteZh": "买衣服鞋子时的常用句。try on 要把 on 放在最后；指代具体物品时可以换成 these、that dress。",
+  "soundZh": "try this on → 'try-thi-zon'，this 的 s 连到 on 上。"
+ },
+ {
+  "id": "c235",
+  "en": "I have a reservation under …",
+  "zh": "我以……的名字订了位／房。",
+  "category": "travel",
+  "freq": 2,
+  "register": "neutral",
+  "examples": [
+   {
+    "en": "Hi, I have a reservation under Wang.",
+    "zh": "你好，我以王的名字订了位。"
+   },
+   {
+    "en": "Good evening. I have a reservation under Chen for seven o'clock.",
+    "zh": "晚上好，我以陈的名字订了七点的位。"
+   }
+  ],
+  "noteZh": "到餐厅或酒店向前台报名字，under 后面接姓或全名。如果名字难拼，可以顺便拼一下。",
+  "soundZh": "have a → 'havuh'；reservation under 中 under 重读，前面轻带过。"
+ },
+ {
+  "id": "c236",
+  "en": "I'm allergic to …",
+  "zh": "我对……过敏。",
+  "category": "travel",
+  "freq": 2,
+  "register": "neutral",
+  "examples": [
+   {
+    "en": "I'm allergic to peanuts. Does this dish have any?",
+    "zh": "我对花生过敏，这道菜里有吗？"
+   },
+   {
+    "en": "I'm allergic to penicillin, so please tell the doctor.",
+    "zh": "我对青霉素过敏，请告诉医生。"
+   }
+  ],
+  "noteZh": "点餐、看病时必须能脱口而出的安全用语。后面接食物、药物或花粉等；严重时可以补一句 \"It's serious.\"",
+  "soundZh": "allergic to → 'allergic-ta'；allergic 重音在第一个音节 'AL-er-jik'。"
+ },
+ {
+  "id": "c237",
+  "en": "Where's the nearest …?",
+  "zh": "最近的……在哪里？",
+  "category": "travel",
+  "freq": 2,
+  "register": "neutral",
+  "examples": [
+   {
+    "en": "Excuse me, where's the nearest subway station?",
+    "zh": "打扰一下，最近的地铁站在哪里？"
+   },
+   {
+    "en": "Where's the nearest pharmacy? I need some cold medicine.",
+    "zh": "最近的药店在哪？我要买点感冒药。"
+   }
+  ],
+  "noteZh": "旅行或搬到新地方时问路的万能句，后面接 ATM、restroom、gas station、pharmacy 等。",
+  "soundZh": "Where's the → 'Wheres-the'；nearest → 'NEER-ist'。"
+ },
+ {
+  "id": "c238",
+  "en": "Can we split the bill?",
+  "zh": "我们可以分开付账吗？",
+  "category": "travel",
+  "freq": 3,
+  "register": "neutral",
+  "examples": [
+   {
+    "en": "There are six of us. Can we split the bill?",
+    "zh": "我们有六个人，可以分开付吗？"
+   },
+   {
+    "en": "A: Is it one check? B: Can we split the bill, please?",
+    "zh": "A：一起结吗？B：麻烦分开结账。"
+   }
+  ],
+  "noteZh": "朋友聚餐时对服务员说。各付各的也可说 \"separate checks\"；美式里 bill 与 check 都通用。",
+  "soundZh": "Can we → 'Cn we'；split the → 'split-the'，两个词连读。"
+ },
+ {
+  "id": "c239",
+  "en": "What do you do for fun?",
+  "zh": "你平时有什么爱好？",
+  "category": "social",
+  "freq": 2,
+  "register": "casual",
+  "examples": [
+   {
+    "en": "So, what do you do for fun?",
+    "zh": "那你平时都玩点什么？"
+   },
+   {
+    "en": "A: What do you do for fun? B: I play basketball and hike a lot.",
+    "zh": "A：你平时有什么爱好？B：我常打篮球、爬山。"
+   }
+  ],
+  "noteZh": "认识新朋友时问兴趣的最自然问法，比 \"What are your hobbies?\" 更口语，不像面试。",
+  "soundZh": "What do you do → 'Whaddya do'，前三词连成 'whaddya'。"
+ },
+ {
+  "id": "c240",
+  "en": "How do you know …?",
+  "zh": "你是怎么认识……的？",
+  "category": "social",
+  "freq": 2,
+  "register": "casual",
+  "examples": [
+   {
+    "en": "How do you know Emily?",
+    "zh": "你是怎么认识 Emily 的？"
+   },
+   {
+    "en": "A: How do you know the groom? B: We went to college together.",
+    "zh": "A：你是怎么认识新郎的？B：我们是大学同学。"
+   }
+  ],
+  "noteZh": "婚礼、聚会上遇到陌生人时的万能开场，问的是你和主人或某人的关系。后面接人名或 each other。",
+  "soundZh": "How do you → 'How-dya'，do you 变成 'dya'。"
+ },
+ {
+  "id": "c241",
+  "en": "We should hang out sometime.",
+  "zh": "我们改天应该约着一起玩。",
+  "category": "social",
+  "freq": 1,
+  "register": "casual",
+  "examples": [
+   {
+    "en": "It was great seeing you. We should hang out sometime.",
+    "zh": "见到你真好，改天我们约着出来玩。"
+   },
+   {
+    "en": "A: We should hang out sometime. B: Definitely! Let's text.",
+    "zh": "A：改天我们该聚聚。B：一定！微信联系。"
+   }
+  ],
+  "noteZh": "道别时的友好表达，常常只是客套；想真约，需要补一句具体时间：\"How about Friday?\"",
+  "soundZh": "should → 'shud'；hang out → 'hang-out' 连成 'hangout'。"
+ },
+ {
+  "id": "c242",
+  "en": "What do you do for a living?",
+  "zh": "你是做什么工作的？",
+  "category": "social",
+  "freq": 1,
+  "register": "neutral",
+  "examples": [
+   {
+    "en": "So, what do you do for a living?",
+    "zh": "那你是做什么工作的？"
+   },
+   {
+    "en": "A: What do you do for a living? B: I'm a nurse at a children's hospital.",
+    "zh": "A：你是做什么工作的？B：我在儿童医院当护士。"
+   }
+  ],
+  "noteZh": "社交场合最常见的了解对方的问题，也可简化为 \"What do you do?\"。不要把 living 误解成\"生活\"。",
+  "soundZh": "What do you → 'Whaddya'；for a → 'fer-uh'。"
+ },
+ {
+  "id": "c243",
+  "en": "How was your weekend?",
+  "zh": "周末过得怎么样？",
+  "category": "social",
+  "freq": 1,
+  "register": "casual",
+  "examples": [
+   {
+    "en": "Morning, Kate! How was your weekend?",
+    "zh": "早啊 Kate！周末过得怎么样？"
+   },
+   {
+    "en": "A: How was your weekend? B: Pretty good. We went to the beach.",
+    "zh": "A：周末过得怎么样？B：挺好的，我们去了海边。"
+   }
+  ],
+  "noteZh": "周一早上同事之间最常见的闲聊开场。对方答完后，记得反问 \"How about you?\" 或 \"How was yours?\"",
+  "soundZh": "was your → 'wuz-yer'，your 弱读成 'yer'。"
+ },
+ {
+  "id": "c244",
+  "en": "What brings you here?",
+  "zh": "你怎么来这儿了？／你是来做什么的？",
+  "category": "social",
+  "freq": 2,
+  "register": "neutral",
+  "examples": [
+   {
+    "en": "I haven't seen you here before. What brings you here?",
+    "zh": "以前没在这见过你，你怎么来这了？"
+   },
+   {
+    "en": "A: What brings you here? B: I'm visiting a friend for the week.",
+    "zh": "A：你怎么来这了？B：我来看个朋友，待一周。"
+   }
+  ],
+  "noteZh": "在聚会、旅途、办公室遇到陌生人时的搭话方式，比 \"Why are you here?\" 友好很多，不带质问感。",
+  "soundZh": "brings you → 'brings-ya'，you 弱读成 'ya'。"
+ },
+ {
+  "id": "c245",
+  "en": "It was great catching up.",
+  "zh": "很高兴跟你聊聊近况。",
+  "category": "social",
+  "freq": 2,
+  "register": "casual",
+  "examples": [
+   {
+    "en": "I have to run, but it was great catching up.",
+    "zh": "我得走了，不过很高兴能聊聊近况。"
+   },
+   {
+    "en": "It was great catching up. Let's not wait so long next time.",
+    "zh": "很高兴叙了叙旧，下次别隔这么久了。"
+   }
+  ],
+  "noteZh": "久未见面的朋友聊完要分开时说。catch up 是\"补上彼此近况\"，适合熟人或老同学，初次见面不用。",
+  "soundZh": "catching up → 'catchin-nup'，-ing 弱化，up 与前词连读。"
+ },
+ {
+  "id": "c246",
+  "en": "Let's keep in touch.",
+  "zh": "咱们保持联系。",
+  "category": "social",
+  "freq": 1,
+  "register": "neutral",
+  "examples": [
+   {
+    "en": "It was nice meeting you. Let's keep in touch.",
+    "zh": "很高兴认识你，咱们保持联系。"
+   },
+   {
+    "en": "A: I'm moving to Boston next month. B: Let's keep in touch!",
+    "zh": "A：我下个月搬去波士顿。B：我们保持联系！"
+   }
+  ],
+  "noteZh": "分别前的客气话，对同事、老友、刚认识的人都合适。回答可以用 \"Definitely!\" 或 \"You bet.\"",
+  "soundZh": "keep in → 'keepin'，in 与 keep 连读；in touch 中 n 与 t 紧连。"
+ },
+ {
+  "id": "c247",
+  "en": "I'm really into …",
+  "zh": "我对……特别着迷。",
+  "category": "social",
+  "freq": 2,
+  "register": "casual",
+  "examples": [
+   {
+    "en": "I'm really into photography these days.",
+    "zh": "我最近特别迷摄影。"
+   },
+   {
+    "en": "A: Do you like jazz? B: Yeah, I'm really into it.",
+    "zh": "A：你喜欢爵士吗？B：喜欢，我超爱的。"
+   }
+  ],
+  "noteZh": "谈兴趣爱好的口语表达，比 like 程度更深，后面接名词或 -ing。说 \"I'm into it.\" 就够，不必加 very。",
+  "soundZh": "I'm really into → 'Im really-inta'，into 末尾弱化成 'inta'。"
+ },
+ {
+  "id": "c248",
+  "en": "Say hi to …",
+  "zh": "代我向……问好。",
+  "category": "social",
+  "freq": 2,
+  "register": "casual",
+  "examples": [
+   {
+    "en": "Say hi to your parents for me.",
+    "zh": "替我向你爸妈问好。"
+   },
+   {
+    "en": "A: I'll see Jake tonight. B: Cool, say hi to him for me.",
+    "zh": "A：我今晚要见 Jake。B：好，替我问个好。"
+   }
+  ],
+  "noteZh": "聊完分别时常加的一句，亲切但不正式。正式场合用 \"Please give my regards to …\"；后面通常再补 for me。",
+  "soundZh": "hi to → 'hi-ta'，to 弱读成 'ta'。"
+ },
+ {
+  "id": "c249",
+  "en": "What a small world!",
+  "zh": "世界真小！",
+  "category": "social",
+  "freq": 3,
+  "register": "neutral",
+  "examples": [
+   {
+    "en": "You know my cousin too? What a small world!",
+    "zh": "你也认识我表哥？世界真小！"
+   },
+   {
+    "en": "We're on the same flight again? What a small world!",
+    "zh": "我们又同一班飞机？世界真小！"
+   }
+  ],
+  "noteZh": "意外发现共同认识的人或偶遇时的感叹。也可以简单说 \"Small world!\"，语气轻松友善。",
+  "soundZh": "What a → 'Whata'；small world 里两个 l 连着，舌尖保持不动。"
+ },
+ {
+  "id": "c250",
+  "en": "You look familiar.",
+  "zh": "你看着有点眼熟。",
+  "category": "social",
+  "freq": 3,
+  "register": "neutral",
+  "examples": [
+   {
+    "en": "You look familiar. Have we met before?",
+    "zh": "你看着眼熟，我们见过吗？"
+   },
+   {
+    "en": "Sorry, you look familiar. Do you work in the finance department?",
+    "zh": "不好意思，你看着眼熟，你是财务部的吗？"
+   }
+  ],
+  "noteZh": "想搭话或确认是否见过对方时用，后面常跟 \"Have we met?\"。语气自然，不会被误解成搭讪套话。",
+  "soundZh": "You look → 'Ya look'，you 弱读成 'ya'；familiar 读 'fuh-MIL-yer'。"
+ },
+ {
+  "id": "c251",
+  "en": "I'll pick you up …",
+  "zh": "我去接你……",
+  "category": "plan",
+  "freq": 1,
+  "register": "neutral",
+  "tags": [
+   "phrasal"
+  ],
+  "examples": [
+   {
+    "en": "I'll pick you up at seven, okay?",
+    "zh": "我七点去接你，好吗？"
+   },
+   {
+    "en": "A: How are we getting there? B: I'll pick you up after work.",
+    "zh": "A：我们怎么过去？B：我下班后去接你。"
+   }
+  ],
+  "noteZh": "开车去接人。代词必须夹在中间：pick you up，不能说 pick up you。名词可以 pick up Tom，也可以 pick Tom up。",
+  "soundZh": "pick you up → pick-yuh-up；you 弱读成 yuh，up 贴着前面连读，整句像 “ail-pik-yuh-wup”。"
+ },
+ {
+  "id": "c252",
+  "en": "Can you pick up …?",
+  "zh": "你能顺路买／取一下……吗？",
+  "category": "request",
+  "freq": 1,
+  "register": "neutral",
+  "tags": [
+   "phrasal"
+  ],
+  "examples": [
+   {
+    "en": "Can you pick up some milk on your way home?",
+    "zh": "你回家路上能买点牛奶吗？"
+   },
+   {
+    "en": "A: Can you pick up the kids today? B: Sure, no problem.",
+    "zh": "A：你今天能去接孩子吗？B：行，没问题。"
+   }
+  ],
+  "noteZh": "请人顺路买、取或接。名词可分可合：pick up the milk / pick the milk up；用代词只能说 pick it up。",
+  "soundZh": "Can you pick up → kenyuh-pi-kup；pick 的 k 直接带到 up，听起来像 “pikup”，Can you 弱读成 kenyuh。"
+ },
+ {
+  "id": "c253",
+  "en": "come up with …",
+  "zh": "想出……（主意、办法、名字）",
+  "category": "problem",
+  "freq": 2,
+  "register": "neutral",
+  "tags": [
+   "phrasal"
+  ],
+  "examples": [
+   {
+    "en": "We need to come up with a better plan.",
+    "zh": "我们得想出一个更好的计划。"
+   },
+   {
+    "en": "A: What should we call the dog? B: Can you come up with a name?",
+    "zh": "A：这条狗叫什么好？B：你能想个名字吗？"
+   }
+  ],
+  "noteZh": "想出主意、办法、借口、名字。固定不拆：come up with an idea。别和 come up（出现、被提起）混。过去式 came up with。",
+  "soundZh": "come up with → cum-mup-with；come 和 up 连成 “cummup”，with 弱读；过去式听起来像 “kay-mup-with”。"
+ },
+ {
+  "id": "c254",
+  "en": "Let me find out.",
+  "zh": "我去打听／查一下。",
+  "category": "question",
+  "freq": 1,
+  "register": "neutral",
+  "tags": [
+   "phrasal"
+  ],
+  "examples": [
+   {
+    "en": "I don't know when it opens. Let me find out.",
+    "zh": "我不知道几点开门，我去问问。"
+   },
+   {
+    "en": "A: Is the store open on Sunday? B: Let me find out.",
+    "zh": "A：这家店周日开门吗？B：我去查一下。"
+   }
+  ],
+  "noteZh": "find out 是“查明、打听出来”（本来不知道）；find 只是“找到东西”。常说 I found out that …（我发现了……）。",
+  "soundZh": "find out → fine-dout，d 滑到 out 上；Let me → lemme，整句像 “lemme fine-dout”。"
+ },
+ {
+  "id": "c255",
+  "en": "He didn't show up.",
+  "zh": "他没来。／他没露面。",
+  "category": "experience",
+  "freq": 2,
+  "register": "neutral",
+  "tags": [
+   "phrasal"
+  ],
+  "examples": [
+   {
+    "en": "We waited an hour, but he didn't show up.",
+    "zh": "我们等了一个小时，他也没来。"
+   },
+   {
+    "en": "A: Was Tom at the party? B: No, he didn't show up.",
+    "zh": "A：汤姆在派对上吗？B：没有，他没来。"
+   }
+  ],
+  "noteZh": "show up = 出现、到场，多指本该来的人没来或迟到。比 come 更口语。别和 show（展示）混。主语可换成 she、they。",
+  "soundZh": "didn't show up → didn(t)-sho-wup；t 常被吞掉，show 和 up 连成 “showup”，重音在 show。"
+ },
+ {
+  "id": "c256",
+  "en": "I keep putting it off.",
+  "zh": "我一直在拖。",
+  "category": "problem",
+  "freq": 3,
+  "register": "neutral",
+  "tags": [
+   "phrasal"
+  ],
+  "examples": [
+   {
+    "en": "I keep putting it off, but I really need to call the bank.",
+    "zh": "我一直在拖，可我真的得给银行打电话了。"
+   },
+   {
+    "en": "A: Did you finish the report? B: Not yet. I keep putting it off.",
+    "zh": "A：报告写完了吗？B：还没，我一直在拖。"
+   }
+  ],
+  "noteZh": "put off = 拖延、推迟。代词夹中间：put it off。也可指把会议推迟：put off the meeting。keep + -ing 表示“老是……”。",
+  "soundZh": "putting it off → pu-di-ni-dof；putting 里的 t 闪成轻 d，it 和 off 连读，整串像 “pudinidof”。"
+ },
+ {
+  "id": "c257",
+  "en": "I'll call you back.",
+  "zh": "我回头给你回电话。",
+  "category": "work",
+  "freq": 1,
+  "register": "neutral",
+  "tags": [
+   "phrasal"
+  ],
+  "examples": [
+   {
+    "en": "I'm driving right now. I'll call you back in ten minutes.",
+    "zh": "我正在开车，十分钟后给你回电话。"
+   },
+   {
+    "en": "A: Can you talk? B: Not right now. I'll call you back.",
+    "zh": "A：你方便说话吗？B：现在不方便，我回头打给你。"
+   }
+  ],
+  "noteZh": "回电话。代词夹中间：call you back，不说 call back you。想让对方回电：Can you call me back?（call back 也可作名词）。",
+  "soundZh": "I'll call you back → ail-cawl-yuh-back；you 弱读成 yuh，call you 连成 “cawlyuh”。"
+ },
+ {
+  "id": "c258",
+  "en": "I'd like to check in.",
+  "zh": "我想办理入住。",
+  "category": "travel",
+  "freq": 2,
+  "register": "neutral",
+  "tags": [
+   "phrasal"
+  ],
+  "examples": [
+   {
+    "en": "Hi, I'd like to check in. The reservation is under Wang.",
+    "zh": "你好，我想办理入住，预订的名字是 Wang。"
+   },
+   {
+    "en": "A: How can I help you? B: I'd like to check in, please.",
+    "zh": "A：有什么可以帮您？B：我想办理入住。"
+   }
+  ],
+  "noteZh": "酒店入住、机场办登机都用 check in；退房、离店用 check out。名词 check-in / check-out 重音在前一个词。",
+  "soundZh": "I'd like to check in → aid-lai-ktuh-che-kin；to 弱读成 tuh，check 的 k 连到 in，像 “chekin”。"
+ },
+ {
+  "id": "c259",
+  "en": "Check this out.",
+  "zh": "你看看这个！",
+  "category": "social",
+  "freq": 2,
+  "register": "casual",
+  "tags": [
+   "phrasal"
+  ],
+  "examples": [
+   {
+    "en": "Check this out. I just found a video of our old school.",
+    "zh": "你看这个，我刚找到一段我们老学校的视频。"
+   },
+   {
+    "en": "A: What is it? B: Check this out. It's so funny.",
+    "zh": "A：什么东西？B：你看看，超好笑。"
+   }
+  ],
+  "noteZh": "招呼别人看你发现的有趣东西，很口语。注意这里不是“退房”，而是“看看这个”。Check it out 同义，也可当“去看看”。",
+  "soundZh": "check this out → chek-thi-sout；this 末尾的 s 连到 out，听起来像 “chek-thi-SOUT”。"
+ },
+ {
+  "id": "c260",
+  "en": "Let's set up a …",
+  "zh": "我们约／安排一个……吧。",
+  "category": "work",
+  "freq": 2,
+  "register": "neutral",
+  "tags": [
+   "phrasal"
+  ],
+  "examples": [
+   {
+    "en": "Let's set up a meeting for next week.",
+    "zh": "我们约个下周的会吧。"
+   },
+   {
+    "en": "A: We should talk about this. B: Okay, let's set up a call tomorrow.",
+    "zh": "A：这事我们该谈谈。B：好，明天约个电话。"
+   }
+  ],
+  "noteZh": "安排（会议、通话、见面），也指设置、开通：set up an account / a router。set 的过去式还是 set，不变形。",
+  "soundZh": "Let's set up a → lets-seh-duh-puh；set 末尾 t 变轻 d 连到 up，整串像 “sehdup”。"
+ },
+ {
+  "id": "c261",
+  "en": "It takes off at …",
+  "zh": "它……起飞。",
+  "category": "travel",
+  "freq": 2,
+  "register": "neutral",
+  "tags": [
+   "phrasal"
+  ],
+  "examples": [
+   {
+    "en": "Don't be late. It takes off at 6:40 a.m.",
+    "zh": "别迟到，它早上 6:40 起飞。"
+   },
+   {
+    "en": "A: When does your plane leave? B: It takes off at noon.",
+    "zh": "A：你的飞机几点走？B：中午起飞。"
+   }
+  ],
+  "noteZh": "飞机起飞；反义 land（降落）。take off 还有脱衣服（take off your coat）、走红、匆忙离开等意思，看语境。",
+  "soundZh": "takes off at → takes-sof-fat；s 滑到 off 上，off 和 at 连读，整串像 “tay-ksoffat”。"
+ },
+ {
+  "id": "c262",
+  "en": "Could you turn it down?",
+  "zh": "你能调小一点吗？",
+  "category": "request",
+  "freq": 2,
+  "register": "neutral",
+  "tags": [
+   "phrasal"
+  ],
+  "examples": [
+   {
+    "en": "Could you turn it down a little? I'm trying to study.",
+    "zh": "你能调小一点吗？我在学习。"
+   },
+   {
+    "en": "A: Is the music too loud? B: Yeah, could you turn it down?",
+    "zh": "A：音乐是不是太吵了？B：是的，能调小点吗？"
+   }
+  ],
+  "noteZh": "调低音量、火力或温度；反义 turn it up。代词夹中间。turn down an offer 则是“拒绝”，别混。",
+  "soundZh": "Could you turn it down → couldja-tur-ni-down；it 夹在中间很轻，t 几乎听不到，整串像 “tur-nuh-down”。"
+ },
+ {
+  "id": "c263",
+  "en": "It'll work out.",
+  "zh": "会好起来的。／会解决的。",
+  "category": "advice",
+  "freq": 1,
+  "register": "neutral",
+  "tags": [
+   "phrasal"
+  ],
+  "examples": [
+   {
+    "en": "Don't worry. It'll work out in the end.",
+    "zh": "别担心，最后会解决的。"
+   },
+   {
+    "en": "A: I'm so nervous about the interview. B: Relax. It'll work out.",
+    "zh": "A：我对面试紧张死了。B：放松，会顺利的。"
+   }
+  ],
+  "noteZh": "安慰人时说，意思是事情终会妥善解决。work out 还可指健身（I work out a lot）和算出（work out the price）。",
+  "soundZh": "It'll work out → ih-dl-wur-kout；It'll 读成 “ih-dl”，work 与 out 连读成 “wur-kout”。"
+ },
+ {
+  "id": "c264",
+  "en": "I'll sort it out.",
+  "zh": "我来处理／理顺。",
+  "category": "problem",
+  "freq": 3,
+  "register": "neutral",
+  "tags": [
+   "phrasal"
+  ],
+  "examples": [
+   {
+    "en": "Don't worry about the bill. I'll sort it out.",
+    "zh": "账单别担心，我来处理。"
+   },
+   {
+    "en": "A: There is a mix-up with our booking. B: I know. I'll sort it out with the hotel.",
+    "zh": "A：我们的预订出了点乱子。B：我知道，我去跟酒店理清楚。"
+   }
+  ],
+  "noteZh": "理清、解决（乱的安排、误会、麻烦），偏英式，美式也能听懂；美式更爱说 figure it out。代词夹中间。",
+  "soundZh": "sort it out → sor-di-dout；sort 末尾 t 与 it 连成轻 d，整串像 “sor-di-dout”。"
+ },
+ {
+  "id": "c265",
+  "en": "Don't give up.",
+  "zh": "别放弃。",
+  "category": "advice",
+  "freq": 1,
+  "register": "neutral",
+  "tags": [
+   "phrasal"
+  ],
+  "examples": [
+   {
+    "en": "It's hard now, but don't give up.",
+    "zh": "现在很难，但别放弃。"
+   },
+   {
+    "en": "A: I failed again. B: Don't give up. You're almost there.",
+    "zh": "A：我又没过。B：别放弃，你快成功了。"
+   }
+  ],
+  "noteZh": "鼓励别人坚持。give up 后接名词或 -ing：give up smoking；代词夹中间：give it up。I give up. 是“我认输／猜不出”。",
+  "soundZh": "Don't give up → don-gi-vup；v 滑到 up 上，整串像 “don-GI-vup”，t 常被吞。"
+ },
+ {
+  "id": "c266",
+  "en": "We get along well.",
+  "zh": "我们相处得很好。",
+  "category": "social",
+  "freq": 2,
+  "register": "neutral",
+  "tags": [
+   "phrasal"
+  ],
+  "examples": [
+   {
+    "en": "I have a new roommate, and we get along well.",
+    "zh": "我有个新室友，我们相处得很好。"
+   },
+   {
+    "en": "A: How is your boss? B: Great. We get along well.",
+    "zh": "A：你老板怎么样？B：很好，我们处得不错。"
+   }
+  ],
+  "noteZh": "相处融洽，后接 with：I get along with my coworkers。英式也说 get on。get along 另有“过得去”的意思。",
+  "soundZh": "get along → ge-duh-long；get 末尾 t 变轻 d 连到 along，a 弱读，像 “geh-duh-LONG”。"
+ },
+ {
+  "id": "c267",
+  "en": "I'm getting over …",
+  "zh": "我正在从……中恢复过来。",
+  "category": "feeling",
+  "freq": 3,
+  "register": "neutral",
+  "tags": [
+   "phrasal"
+  ],
+  "examples": [
+   {
+    "en": "I'm getting over a bad cold.",
+    "zh": "我感冒还没好利索。"
+   },
+   {
+    "en": "A: Are you still upset about it? B: A little. I'm getting over it.",
+    "zh": "A：你还在为这事难过吗？B：有一点，我在慢慢走出来。"
+   }
+  ],
+  "noteZh": "从感冒、失恋、打击中恢复。Get over it! 对别人说是“别纠结了”，有点冲。别和 get it over with（早点了结）混。",
+  "soundZh": "getting over → geh-ding-OH-ver；t 闪成轻 d，getting 与 over 连读，像 “geh-ding-oh-ver”。"
+ },
+ {
+  "id": "c268",
+  "en": "Let's go over …",
+  "zh": "我们把……过一遍吧。",
+  "category": "work",
+  "freq": 2,
+  "register": "neutral",
+  "tags": [
+   "phrasal"
+  ],
+  "examples": [
+   {
+    "en": "Let's go over the schedule one more time.",
+    "zh": "我们再把日程过一遍。"
+   },
+   {
+    "en": "A: Do we have time before the meeting? B: Yes, let's go over the slides.",
+    "zh": "A：会前我们还有时间吗？B：有，把幻灯片过一遍吧。"
+   }
+  ],
+  "noteZh": "逐项检查、复习、过一遍（计划、文件、答案）。go over 也能指“过去拜访”：I’ll go over to his place。不拆开。",
+  "soundZh": "Let's go over → lets-go-WO-ver；go 与 over 之间滑出轻微的 w，整串像 “lets-go-wover”。"
+ },
+ {
+  "id": "c269",
+  "en": "I'll look into it.",
+  "zh": "我去查一下／调查一下。",
+  "category": "work",
+  "freq": 2,
+  "register": "neutral",
+  "tags": [
+   "phrasal"
+  ],
+  "examples": [
+   {
+    "en": "I'll look into it and get back to you tomorrow.",
+    "zh": "我去查一下，明天回复你。"
+   },
+   {
+    "en": "A: The invoice looks wrong. B: Thanks for flagging that. I'll look into it.",
+    "zh": "A：这张发票好像不对。B：谢谢提醒，我去查一下。"
+   }
+  ],
+  "noteZh": "承诺去调查（问题、投诉），比 check 更正式、更负责。look into 不可拆：look into it，不能说 look it into。",
+  "soundZh": "look into it → loo-kin-too-it；k 连到 in，into 的 t 常变轻 d，像 “loo-kin-tuh-dit”。"
+ },
+ {
+  "id": "c270",
+  "en": "I'll make it up to you.",
+  "zh": "我会补偿你的。",
+  "category": "thanks",
+  "freq": 3,
+  "register": "neutral",
+  "tags": [
+   "phrasal"
+  ],
+  "examples": [
+   {
+    "en": "Sorry I missed your birthday. I'll make it up to you.",
+    "zh": "抱歉错过了你的生日，我会补偿你。"
+   },
+   {
+    "en": "A: You promised to come. B: I know, I'm sorry. I'll make it up to you.",
+    "zh": "A：你答应要来的。B：我知道，对不起，我会补偿你。"
+   }
+  ],
+  "noteZh": "为失约或过错做补偿的承诺，固定整体不拆。后接事情用 make up for：make up for lost time（弥补失去的时间）。",
+  "soundZh": "make it up to you → may-ki-dup-tuh-yuh；it 夹在中间，to you 弱读成 tuh-yuh，几乎听不到 to。"
+ },
+ {
+  "id": "c271",
+  "en": "We ran out of …",
+  "zh": "我们……用完了／卖光了。",
+  "category": "problem",
+  "freq": 1,
+  "register": "neutral",
+  "tags": [
+   "phrasal"
+  ],
+  "examples": [
+   {
+    "en": "Sorry, we ran out of coffee.",
+    "zh": "抱歉，咖啡卖完了。"
+   },
+   {
+    "en": "A: Can I get a large one? B: I'm afraid we ran out of large cups.",
+    "zh": "A：我要大杯的。B：恐怕大杯用完了。"
+   }
+  ],
+  "noteZh": "后接东西：run out of time / money / gas。正在用完时说 We’re running out of …。过去式 ran，不是 runned。",
+  "soundZh": "ran out of → ra-nou-duv；ran 与 out 连读，of 弱读成 uv，t 变轻 d，整串像 “ra-nou-duv”。"
+ },
+ {
+  "id": "c272",
+  "en": "Drop by anytime.",
+  "zh": "随时来坐坐。",
+  "category": "offer",
+  "freq": 3,
+  "register": "casual",
+  "tags": [
+   "phrasal"
+  ],
+  "examples": [
+   {
+    "en": "I live near your office. Drop by anytime.",
+    "zh": "我住你办公室附近，随时过来坐坐。"
+   },
+   {
+    "en": "A: Thanks for the help! B: No problem. Drop by anytime.",
+    "zh": "A：谢谢你帮忙！B：没事，随时来玩。"
+   }
+  ],
+  "noteZh": "顺路、不用预约地来一下。stop by、swing by、drop in 近义。比 come over 更随意、停留更短。",
+  "soundZh": "Drop by → dra-pbai，p 与 by 连读；anytime 读成 “EN-ee-time”，整句像 “drop-by-ENNY-time”。"
+ },
+ {
+  "id": "c273",
+  "en": "Can you drop me off …?",
+  "zh": "你能把我送到……吗？",
+  "category": "travel",
+  "freq": 2,
+  "register": "neutral",
+  "tags": [
+   "phrasal"
+  ],
+  "examples": [
+   {
+    "en": "Can you drop me off at the station?",
+    "zh": "你能把我送到车站吗？"
+   },
+   {
+    "en": "A: Where to? B: Can you drop me off at the corner?",
+    "zh": "A：去哪儿？B：能把我放在街角吗？"
+   }
+  ],
+  "noteZh": "请人开车把你送到某处放下。代词必须夹中间：drop me off。反过来 I’ll drop you off at … 是“我送你到……”。",
+  "soundZh": "drop me off → dra-pmee-yof；drop 的 p 连到 me，off 轻轻带出；Can you → kenyuh。"
+ },
+ {
+  "id": "c274",
+  "en": "Could you fill this out?",
+  "zh": "你能把这个填一下吗？",
+  "category": "request",
+  "freq": 3,
+  "register": "neutral",
+  "tags": [
+   "phrasal"
+  ],
+  "examples": [
+   {
+    "en": "Could you fill this out and sign at the bottom?",
+    "zh": "请填写这个并在下面签字好吗？"
+   },
+   {
+    "en": "A: What do I need to do? B: Could you fill this out first?",
+    "zh": "A：我需要做什么？B：请先填一下这个。"
+   }
+  ],
+  "noteZh": "填写表格：fill out a form，美式常用；英式多说 fill in。代词夹中间：fill it out。",
+  "soundZh": "Could you → couldja；fill this out → fi-lthi-sout，this 的 s 连到 out，像 “fill-thi-SOUT”。"
+ },
+ {
+  "id": "c275",
+  "en": "Go ahead.",
+  "zh": "请便。／你说吧。／你先来。",
+  "category": "response",
+  "freq": 1,
+  "register": "neutral",
+  "tags": [
+   "phrasal"
+  ],
+  "examples": [
+   {
+    "en": "A: Can I ask you something? B: Sure, go ahead.",
+    "zh": "A：我能问你点事吗？B：当然，问吧。"
+   },
+   {
+    "en": "Go ahead and start eating. I'll join you in a minute.",
+    "zh": "你们先吃吧，我马上就来。"
+   }
+  ],
+  "noteZh": "同意对方做某事或让对方先说、先做。Go on 更像“继续说吧”。Go ahead and + 动词 = 放心去做。",
+  "soundZh": "go ahead → go-uh-HEAD；ahead 开头的 a 弱读成 uh，重音落在 head 上。"
+ },
+ {
+  "id": "c276",
+  "en": "Hold on a minute.",
+  "zh": "等一下，先别急。",
+  "category": "agree",
+  "freq": 2,
+  "register": "neutral",
+  "tags": [
+   "phrasal"
+  ],
+  "examples": [
+   {
+    "en": "Hold on a minute. That's not what I said.",
+    "zh": "等一下，我不是这个意思。"
+   },
+   {
+    "en": "A: Let's just cancel it. B: Hold on a minute. Let's think about this first.",
+    "zh": "A：干脆取消吧。B：等等，先想想。"
+   }
+  ],
+  "noteZh": "打断对方，带质疑：先别下结论。和已收的 Hang on a second（稍等）不同，这句更像叫停、表示不同意。",
+  "soundZh": "Hold on a → hol-DON-uh；d 滑到 on 上，a 弱读，整句像 “hol-don-uh-MIN-it”。"
+ },
+ {
+  "id": "c277",
+  "en": "Could you slow down a bit?",
+  "zh": "你能说慢一点吗？",
+  "category": "clarify",
+  "freq": 1,
+  "register": "neutral",
+  "tags": [
+   "phrasal"
+  ],
+  "examples": [
+   {
+    "en": "Could you slow down a bit? I can't keep up.",
+    "zh": "能慢一点吗？我跟不上。"
+   },
+   {
+    "en": "A: So the app sends a request to the server and then— B: Could you slow down a bit? I'm taking notes.",
+    "zh": "A：应用向服务器发请求，然后——B：能慢点吗？我在记笔记。"
+   }
+  ],
+  "noteZh": "对方说太快时礼貌打断。a bit 可换 a little。slow down 也可指放慢车速或节奏；反义 speed up。",
+  "soundZh": "Could you → couldja；slow down 几乎无停顿连成 “slow-down”；a bit → uh-bit。"
+ },
+ {
+  "id": "c278",
+  "en": "Let me back up a bit.",
+  "zh": "我退回去补充一下背景。",
+  "category": "connector",
+  "freq": 3,
+  "register": "neutral",
+  "tags": [
+   "phrasal"
+  ],
+  "examples": [
+   {
+    "en": "Let me back up a bit. You need some background first.",
+    "zh": "我退回去一点，你得先了解背景。"
+   },
+   {
+    "en": "A: I'm lost. B: Sorry, let me back up a bit.",
+    "zh": "A：我听糊涂了。B：抱歉，我从前面说起。"
+   }
+  ],
+  "noteZh": "发现对方没跟上，退回前面补充背景。back up 还有倒车、备份文件的意思：Back up your files。",
+  "soundZh": "back up → ba-kup，k 靠到 up 上；Let me → lemme，整句像 “lemme-ba-kup-uh-bit”。"
+ },
+ {
+  "id": "c279",
+  "en": "I came across …",
+  "zh": "我偶然碰到／发现了……",
+  "category": "experience",
+  "freq": 3,
+  "register": "neutral",
+  "tags": [
+   "phrasal"
+  ],
+  "examples": [
+   {
+    "en": "I came across an old photo of us yesterday.",
+    "zh": "昨天我偶然翻到一张我们的旧照片。"
+   },
+   {
+    "en": "A: Where did you hear about it? B: I came across it online.",
+    "zh": "A：你从哪儿知道的？B：我在网上偶然看到的。"
+   }
+  ],
+  "noteZh": "偶然遇到（东西、文章、人）。不可拆开：came across it。与 run into 近似，但 run into 更常指碰到人。",
+  "soundZh": "came across → kay-muh-CROSS；across 开头的 a 弱读成 uh，came 的 m 连到它上面。"
+ },
+ {
+  "id": "c280",
+  "en": "I have to deal with …",
+  "zh": "我得处理／应付……",
+  "category": "work",
+  "freq": 2,
+  "register": "neutral",
+  "tags": [
+   "phrasal"
+  ],
+  "examples": [
+   {
+    "en": "I have to deal with a lot of emails every morning.",
+    "zh": "我每天早上得处理一大堆邮件。"
+   },
+   {
+    "en": "A: Are you free this weekend? B: Not really. I have to deal with a broken pipe at home.",
+    "zh": "A：你这周末有空吗？B：不太有，我得处理家里坏掉的水管。"
+   }
+  ],
+  "noteZh": "处理、应付（问题、人、事务）。不拆开：deal with it。How do you deal with stress? 是常见问法。",
+  "soundZh": "have to deal with → hafta-deal-with；have to 变 hafta，deal with 里 with 弱读，连成 “dealwith”。"
+ },
+ {
+  "id": "c281",
+  "en": "I woke up late.",
+  "zh": "我起晚了。",
+  "category": "experience",
+  "freq": 1,
+  "register": "neutral",
+  "tags": [
+   "phrasal"
+  ],
+  "examples": [
+   {
+    "en": "I woke up late this morning and missed the bus.",
+    "zh": "今天早上我睡过头了，没赶上公交。"
+   },
+   {
+    "en": "A: Why didn't you answer? B: Sorry, I woke up late.",
+    "zh": "A：你怎么没接电话？B：抱歉，我起晚了。"
+   }
+  ],
+  "noteZh": "wake up 是“醒来”，get up 才是“起床”：I woke up at seven but got up at eight。woke 是过去式。",
+  "soundZh": "woke up → wo-kup；k 滑到 up 上，听起来像 “wo-KUP”。"
+ },
+ {
+  "id": "c282",
+  "en": "I just got back from …",
+  "zh": "我刚从……回来。",
+  "category": "experience",
+  "freq": 2,
+  "register": "neutral",
+  "tags": [
+   "phrasal"
+  ],
+  "examples": [
+   {
+    "en": "I just got back from a business trip in Chicago.",
+    "zh": "我刚出差回来，去了芝加哥。"
+   },
+   {
+    "en": "A: Where have you been? B: I just got back from the gym.",
+    "zh": "A：你去哪儿了？B：我刚从健身房回来。"
+   }
+  ],
+  "noteZh": "刚回到某处。get back 还有“拿回”的意思：get my money back。注意 just 放在 got 前面。",
+  "soundZh": "just got back → juss-gaw-back；just 的 t 被吞，got 的 t 与 b 相连几乎不出声；from 弱读成 frm。"
+ },
+ {
+  "id": "c283",
+  "en": "Where do I get off?",
+  "zh": "我在哪一站下车？",
+  "category": "travel",
+  "freq": 2,
+  "register": "neutral",
+  "tags": [
+   "phrasal"
+  ],
+  "examples": [
+   {
+    "en": "Excuse me, where do I get off for City Hall?",
+    "zh": "请问去市政厅在哪一站下车？"
+   },
+   {
+    "en": "I'm new here. Where do I get off for the zoo?",
+    "zh": "我刚来，去动物园在哪站下？"
+   }
+  ],
+  "noteZh": "公交、地铁、火车是 get on / get off；小轿车、出租车才用 get in / get out of。后面可接 for + 目的地。",
+  "soundZh": "Where do I → wheh-duh-ai；get off → ge-toff，t 轻轻带到 off 上，整句像 “wheh-duh-ai-ge-toff”。"
+ },
+ {
+  "id": "c284",
+  "en": "Let's get together …",
+  "zh": "我们找时间聚聚……",
+  "category": "plan",
+  "freq": 1,
+  "register": "neutral",
+  "tags": [
+   "phrasal"
+  ],
+  "examples": [
+   {
+    "en": "Let's get together this weekend.",
+    "zh": "这个周末我们聚聚吧。"
+   },
+   {
+    "en": "A: It's been ages! B: I know. Let's get together soon.",
+    "zh": "A：好久不见了！B：是啊，找时间聚聚。"
+   }
+  ],
+  "noteZh": "约个时间碰面。名词 get-together 就是“小聚”。比 hang out 更像事先约好的聚会。",
+  "soundZh": "Let's get together → lets-ge-tuh-GE-ther；get 的 t 与 to 连成 ge-tuh，together 重音在 -ge-。"
+ },
+ {
+  "id": "c285",
+  "en": "I'm looking for …",
+  "zh": "我在找……",
+  "category": "travel",
+  "freq": 1,
+  "register": "neutral",
+  "tags": [
+   "phrasal"
+  ],
+  "examples": [
+   {
+    "en": "I'm looking for the train station. Is it far?",
+    "zh": "我在找火车站，远吗？"
+   },
+   {
+    "en": "A: Can I help you? B: Yes, I'm looking for a gift for my mom.",
+    "zh": "A：需要帮忙吗？B：要，我想给妈妈挑份礼物。"
+   }
+  ],
+  "noteZh": "look for 强调“找的过程”，find 强调“找到了”。问路、逛店都能用。找到了就说 I found it。",
+  "soundZh": "looking for → LOO-king-fer；for 弱读成 fer，整句像 “aim-LOO-king-fer”。"
+ },
+ {
+  "id": "c286",
+  "en": "Let me look it up.",
+  "zh": "我查一下。",
+  "category": "question",
+  "freq": 1,
+  "register": "neutral",
+  "tags": [
+   "phrasal"
+  ],
+  "examples": [
+   {
+    "en": "I'm not sure about the spelling. Let me look it up.",
+    "zh": "我不确定怎么拼，我查一下。"
+   },
+   {
+    "en": "A: What does 'ubiquitous' mean? B: Let me look it up.",
+    "zh": "A：“ubiquitous”是什么意思？B：我查一下。"
+   }
+  ],
+  "noteZh": "查词典、网上、资料。代词必须夹中间：look it up，不能说 look up it。look up to sb 是“敬佩某人”，别混。",
+  "soundZh": "look it up → loo-ki-dup；it 的 t 变轻 d 连到 up；Let me → lemme，整句像 “lemme-lu-ki-dup”。"
+ },
+ {
+  "id": "c287",
+  "en": "Watch out!",
+  "zh": "小心！",
+  "category": "advice",
+  "freq": 2,
+  "register": "neutral",
+  "tags": [
+   "phrasal"
+  ],
+  "examples": [
+   {
+    "en": "Watch out! There's a car coming.",
+    "zh": "小心！有车过来了。"
+   },
+   {
+    "en": "A: Watch out! The floor is wet. B: Thanks, I almost slipped.",
+    "zh": "A：小心！地是湿的。B：谢谢，我差点滑倒。"
+   }
+  ],
+  "noteZh": "突发危险时的喊声，比 Be careful 更急。后接 for：Watch out for the step。Look out! 意思相同。",
+  "soundZh": "Watch out → wa-CHOUT；tch 与 out 连读成 “chout”，重音在 out 上。"
+ },
+ {
+  "id": "c288",
+  "en": "Can you turn the lights off?",
+  "zh": "你能把灯关了吗？",
+  "category": "request",
+  "freq": 1,
+  "register": "neutral",
+  "tags": [
+   "phrasal"
+  ],
+  "examples": [
+   {
+    "en": "Can you turn the lights off when you leave?",
+    "zh": "你走的时候能把灯关掉吗？"
+   },
+   {
+    "en": "A: I'm ready for bed. B: Can you turn the lights off, please?",
+    "zh": "A：我要睡了。B：能把灯关了吗？"
+   }
+  ],
+  "noteZh": "turn off 对 turn on。名词可放中间或后面：turn off the lights / turn the lights off；代词只能夹中间：turn it off。",
+  "soundZh": "Can you → kenya；turn the lights off → tur-nthuh-lai-tsoff，lights 的 s 连到 off，像 “lai-tsoff”。"
+ },
+ {
+  "id": "c289",
+  "en": "Let me think it over.",
+  "zh": "让我仔细考虑一下。",
+  "category": "filler",
+  "freq": 2,
+  "register": "neutral",
+  "tags": [
+   "phrasal"
+  ],
+  "examples": [
+   {
+    "en": "Let me think it over and let you know tomorrow.",
+    "zh": "让我考虑一下，明天告诉你。"
+   },
+   {
+    "en": "A: Do you want the job? B: Let me think it over.",
+    "zh": "A：这份工作你要吗？B：让我好好想想。"
+   }
+  ],
+  "noteZh": "不当场答复，用于重要决定。比已收的 Let me think. 分量更重、更正式。代词夹中间：think it over。",
+  "soundZh": "think it over → thin-ki-do-ver；it 与 over 连成 “i-do-ver”，t 变轻 d；Let me → lemme。"
+ },
+ {
+  "id": "c290",
+  "en": "Thanks for pointing that out.",
+  "zh": "谢谢你指出来。",
+  "category": "thanks",
+  "freq": 3,
+  "register": "neutral",
+  "tags": [
+   "phrasal"
+  ],
+  "examples": [
+   {
+    "en": "Thanks for pointing that out. I'll fix it right away.",
+    "zh": "谢谢指出，我马上改。"
+   },
+   {
+    "en": "A: You spelled his name wrong. B: Oh, thanks for pointing that out.",
+    "zh": "A：你把他的名字拼错了。B：哦，谢谢你指出来。"
+   }
+  ],
+  "noteZh": "感谢对方指出错误或疏忽。代词夹中间：point it out。也常说 She pointed out that …（她指出……）。",
+  "soundZh": "pointing that out → poy-nin-tha-dout；that 的 t 与 out 连读成 “tha-dout”。"
+ },
+ {
+  "id": "c291",
+  "en": "I'll bring it up …",
+  "zh": "我会提出这件事……",
+  "category": "work",
+  "freq": 3,
+  "register": "neutral",
+  "tags": [
+   "phrasal"
+  ],
+  "examples": [
+   {
+    "en": "I'll bring it up at the next meeting.",
+    "zh": "我会在下次会上提出来。"
+   },
+   {
+    "en": "A: Did you talk to her about the raise? B: Not yet. I'll bring it up on Friday.",
+    "zh": "A：你跟她谈加薪了吗？B：还没，我周五再提。"
+   }
+  ],
+  "noteZh": "提起（话题、问题）。代词夹中间：bring it up。bring up a child 是“抚养孩子”，要靠语境区分。",
+  "soundZh": "I'll bring it up → ail-brin-gi-dup；g 轻轻带过，it 的 t 变轻 d，整串像 “brin-gi-dup”。"
+ },
+ {
+  "id": "c292",
+  "en": "Calm down.",
+  "zh": "冷静点。",
+  "category": "advice",
+  "freq": 1,
+  "register": "neutral",
+  "tags": [
+   "phrasal"
+  ],
+  "examples": [
+   {
+    "en": "Calm down. It's just a small mistake.",
+    "zh": "冷静点，只是个小错误。"
+   },
+   {
+    "en": "A: I can't believe he did that! B: Calm down. Let's hear his side first.",
+    "zh": "A：真不敢相信他那样做！B：冷静点，先听听他怎么说。"
+   }
+  ],
+  "noteZh": "对生气或慌张的人说，语气直接，有时反而更惹火。温和些可说 Hey, take a breath。也可说 calm yourself down。",
+  "soundZh": "calm down → kahm-down；calm 里的 l 不发音，两词连成 “kahm-down”。"
+ },
+ {
+  "id": "c293",
+  "en": "I can't log in.",
+  "zh": "我登录不了。",
+  "category": "problem",
+  "freq": 1,
+  "register": "neutral",
+  "tags": [
+   "phrasal"
+  ],
+  "examples": [
+   {
+    "en": "I can't log in. It says my password is wrong.",
+    "zh": "我登录不了，提示密码错误。"
+   },
+   {
+    "en": "A: Why didn't you reply? B: I can't log in to my email.",
+    "zh": "A：你怎么没回？B：我登不上邮箱。"
+   }
+  ],
+  "noteZh": "log in = sign in；登出是 log out。后接 to + 系统：log in to my account。名词写作 login，重音在前。",
+  "soundZh": "I can't log in → ai-kæn(t)-lah-gin；can't 的 t 常被吞，靠重读的长 /æ/ 区别于 can；log 与 in 连成 “lah-gin”。"
+ },
+ {
+  "id": "c294",
+  "en": "My car broke down.",
+  "zh": "我的车抛锚了。",
+  "category": "problem",
+  "freq": 1,
+  "register": "neutral",
+  "tags": [
+   "phrasal"
+  ],
+  "examples": [
+   {
+    "en": "My car broke down on the highway.",
+    "zh": "我的车在高速上抛锚了。"
+   },
+   {
+    "en": "A: Why are you late? B: My car broke down again.",
+    "zh": "A：你怎么迟到了？B：我的车又坏了。"
+   }
+  ],
+  "noteZh": "车、机器坏了，停止运转，不是“摔碎”。情绪崩溃也用：She broke down and cried。broke 是过去式。",
+  "soundZh": "broke down → bro(k)-down；k 与 d 相邻，k 几乎不出声，听起来像 “bro-down”。"
+ },
+ {
+  "id": "c295",
+  "en": "Hurry up!",
+  "zh": "快点！",
+  "category": "request",
+  "freq": 2,
+  "register": "casual",
+  "tags": [
+   "phrasal"
+  ],
+  "examples": [
+   {
+    "en": "Hurry up! We're going to miss the train.",
+    "zh": "快点！我们要赶不上火车了。"
+   },
+   {
+    "en": "A: Hurry up! The movie starts in five minutes. B: I'm coming!",
+    "zh": "A：快点！电影五分钟后开始。B：来了来了！"
+   }
+  ],
+  "noteZh": "催促别人，熟人之间可以，对陌生人或上级太直接。委婉说法：We’d better hurry。也可说 Let’s hurry up。",
+  "soundZh": "hurry up → HUR-ee-up；up 轻轻靠在 hurry 后面，重音在 hur。"
+ },
+ {
+  "id": "c296",
+  "en": "Do you want to come over?",
+  "zh": "你要不要过来坐坐？",
+  "category": "offer",
+  "freq": 1,
+  "register": "casual",
+  "tags": [
+   "phrasal"
+  ],
+  "examples": [
+   {
+    "en": "Do you want to come over for dinner tonight?",
+    "zh": "今晚要不要过来吃饭？"
+   },
+   {
+    "en": "A: I'm bored. B: Do you want to come over? We're watching a movie.",
+    "zh": "A：我好无聊。B：要不要过来？我们在看电影。"
+   }
+  ],
+  "noteZh": "邀请对方来我这里，比 come to my house 自然。回应：Sure, I’ll be right over。过来时说 come over。",
+  "soundZh": "Do you want to → dyuh-wanna；come over → cum-MO-ver，m 连到 over，整句连成一串。"
+ },
+ {
+  "id": "c297",
+  "en": "Let's move on.",
+  "zh": "我们进入下一个话题吧。／别纠结了。",
+  "category": "connector",
+  "freq": 2,
+  "register": "neutral",
+  "tags": [
+   "phrasal"
+  ],
+  "examples": [
+   {
+    "en": "Let's move on to the next item.",
+    "zh": "我们进入下一项吧。"
+   },
+   {
+    "en": "A: I think we've covered this enough. B: Agreed. Let's move on.",
+    "zh": "A：这个我们讲够了。B：同意，翻篇吧。"
+   }
+  ],
+  "noteZh": "开会推进议程时常用，也指“别再纠结，往前看”：I’m trying to move on（我在努力走出来）。",
+  "soundZh": "move on → moo-von；v 滑到 on 上，像 “MOO-von”；Let's 末尾的 s 轻。"
+ },
+ {
+  "id": "c298",
+  "en": "I'll pay you back.",
+  "zh": "我会还你钱的。",
+  "category": "thanks",
+  "freq": 2,
+  "register": "neutral",
+  "tags": [
+   "phrasal"
+  ],
+  "examples": [
+   {
+    "en": "Thanks for lending me the money. I'll pay you back on Friday.",
+    "zh": "谢谢借我钱，周五还你。"
+   },
+   {
+    "en": "A: Can you cover my lunch? B: Sure. A: Thanks, I'll pay you back tomorrow.",
+    "zh": "A：我的午饭你先垫一下行吗？B：行。A：谢了，明天还你。"
+   }
+  ],
+  "noteZh": "还钱。代词夹中间：pay you back / pay it back。I’ll pay you back for this 则是“我要报复你”，语气完全变了。",
+  "soundZh": "I'll pay you back → ail-pay-yuh-back；you 弱读成 yuh，pay you 连成 “pay-yuh”。"
+ },
+ {
+  "id": "c299",
+  "en": "I messed up.",
+  "zh": "我搞砸了。",
+  "category": "thanks",
+  "freq": 1,
+  "register": "casual",
+  "tags": [
+   "phrasal"
+  ],
+  "examples": [
+   {
+    "en": "I messed up. I sent the email to the wrong person.",
+    "zh": "我搞砸了，把邮件发给错的人了。"
+   },
+   {
+    "en": "A: What happened? B: I messed up the booking. Sorry!",
+    "zh": "A：怎么了？B：我把预订搞砸了，对不起！"
+   }
+  ],
+  "noteZh": "承认自己出错，口语很常见，比 I made a mistake 更随意、更带情绪。后可接对象：mess up the order。",
+  "soundZh": "messed up → messt-up；ed 读 /t/ 与 up 连成 “mess-tup”，听起来像 “meh-stup”。"
+ },
+ {
+  "id": "c300",
+  "en": "Let me write that down.",
+  "zh": "我记一下。",
+  "category": "clarify",
+  "freq": 1,
+  "register": "neutral",
+  "tags": [
+   "phrasal"
+  ],
+  "examples": [
+   {
+    "en": "Let me write that down so I don't forget.",
+    "zh": "我记下来，免得忘了。"
+   },
+   {
+    "en": "A: My number is 555-0142. B: Hold on, let me write that down.",
+    "zh": "A：我的号码是 555-0142。B：等一下，我记一下。"
+   }
+  ],
+  "noteZh": "要记号码、地址时说。代词夹中间：write it down。要对方记下来：Write it down。做笔记是 take notes。",
+  "soundZh": "write that down → rai-tha-down；that 的 t 与 down 的 d 相连，几乎吞掉；Let me → lemme。"
+ },
+ {
+  "id": "c301",
+  "en": "make a decision",
+  "zh": "做决定",
+  "category": "work",
+  "freq": 2,
+  "register": "neutral",
+  "tags": [
+   "collocation"
+  ],
+  "examples": [
+   {
+    "en": "We need to make a decision by Friday.",
+    "zh": "我们周五之前得做出决定。"
+   },
+   {
+    "en": "A: Have you chosen yet? B: No, I can't make a decision without more information.",
+    "zh": "A：你选好了吗？B：还没有，信息不够我没法做决定。"
+   }
+  ],
+  "noteZh": "动词用 make。✗ do a decision。后可接 about：make a decision about it。",
+  "soundZh": "make a → 连成 \"makea\"，a 几乎听不见；decision 重音在第二个音节。"
+ },
+ {
+  "id": "c302",
+  "en": "take a break",
+  "zh": "休息一下",
+  "category": "work",
+  "freq": 1,
+  "register": "neutral",
+  "tags": [
+   "collocation"
+  ],
+  "examples": [
+   {
+    "en": "Let's take a break. We've been at this for two hours.",
+    "zh": "歇一会儿吧，我们已经做了两个小时了。"
+   },
+   {
+    "en": "You look tired. You should take a break.",
+    "zh": "你看起来很累，该休息一下了。"
+   }
+  ],
+  "noteZh": "工作学习中的短暂休息，break 要带 a。✗ have a rest 偏书面。",
+  "soundZh": "take a → \"takea\"；break 的 k 与后面的元音常连读。"
+ },
+ {
+  "id": "c303",
+  "en": "give a presentation",
+  "zh": "做演讲／做汇报",
+  "category": "work",
+  "freq": 2,
+  "register": "neutral",
+  "tags": [
+   "collocation"
+  ],
+  "examples": [
+   {
+    "en": "I have to give a presentation tomorrow morning.",
+    "zh": "我明天早上要做一个汇报。"
+   },
+   {
+    "en": "Who's going to give a presentation at the meeting?",
+    "zh": "会上谁来做汇报？"
+   }
+  ],
+  "noteZh": "\"做汇报\"动词用 give。✗ do a report / make a presentation。",
+  "soundZh": "give a → \"givea\"，v 与 a 连读。"
+ },
+ {
+  "id": "c304",
+  "en": "meet the deadline",
+  "zh": "赶上截止日期",
+  "category": "work",
+  "freq": 3,
+  "register": "neutral",
+  "tags": [
+   "collocation"
+  ],
+  "examples": [
+   {
+    "en": "Can we still meet the deadline if we start today?",
+    "zh": "如果今天开始做，我们还赶得上截止日期吗？"
+   },
+   {
+    "en": "We won't meet the deadline unless we get more help.",
+    "zh": "没有更多人手，我们赶不上截止日期。"
+   }
+  ],
+  "noteZh": "\"赶上截止日期\"用 meet。✗ catch the deadline。错过说 miss the deadline。",
+  "soundZh": "meet the → \"mee-the\"，t 弱化；deadline 重音在 dead。"
+ },
+ {
+  "id": "c305",
+  "en": "in charge of",
+  "zh": "负责……／主管……",
+  "category": "work",
+  "freq": 3,
+  "register": "neutral",
+  "tags": [
+   "collocation"
+  ],
+  "examples": [
+   {
+    "en": "Who's in charge of the budget?",
+    "zh": "谁负责预算？"
+   },
+   {
+    "en": "I'm in charge of the new project.",
+    "zh": "新项目由我负责。"
+   }
+  ],
+  "noteZh": "\"负责某事\"用 in charge of。✗ in charge for。问人：Who's in charge?",
+  "soundZh": "in charge of → \"in charge-uv\"，of 弱读成 /əv/。"
+ },
+ {
+  "id": "c306",
+  "en": "as soon as possible",
+  "zh": "尽快",
+  "category": "work",
+  "freq": 1,
+  "register": "neutral",
+  "tags": [
+   "collocation"
+  ],
+  "examples": [
+   {
+    "en": "Please call me back as soon as possible.",
+    "zh": "请尽快回我电话。"
+   },
+   {
+    "en": "I need an answer as soon as possible.",
+    "zh": "我需要尽快得到答复。"
+   }
+  ],
+  "noteZh": "职场高频，书面缩写 ASAP。✗ as soon as possibly。客气点：as soon as you can。",
+  "soundZh": "as soon as → \"az soon az\"；缩写 ASAP 读 \"ay-sap\" 或逐字母读。"
+ },
+ {
+  "id": "c307",
+  "en": "make a mistake",
+  "zh": "犯错",
+  "category": "problem",
+  "freq": 1,
+  "register": "neutral",
+  "tags": [
+   "collocation"
+  ],
+  "examples": [
+   {
+    "en": "Everyone can make a mistake. Don't worry.",
+    "zh": "谁都会犯错，别担心。"
+   },
+   {
+    "en": "I don't want to make a mistake on my first day.",
+    "zh": "我不想第一天就出错。"
+   }
+  ],
+  "noteZh": "\"犯错\"用 make。✗ do a mistake / do wrong。过去式 made。",
+  "soundZh": "make a mistake → \"makea mistake\"，两个 a 都很弱。"
+ },
+ {
+  "id": "c308",
+  "en": "catch a cold",
+  "zh": "感冒",
+  "category": "problem",
+  "freq": 1,
+  "register": "neutral",
+  "tags": [
+   "collocation"
+  ],
+  "examples": [
+   {
+    "en": "Wear a jacket, or you'll catch a cold.",
+    "zh": "穿件外套，不然会感冒的。"
+   },
+   {
+    "en": "I don't want to catch a cold before the trip.",
+    "zh": "我不想在旅行前感冒。"
+   }
+  ],
+  "noteZh": "\"得感冒\"是 catch a cold，已经感冒说 have a cold。✗ get cold。过去式 caught。",
+  "soundZh": "catch a → \"catcha\"，ch 与 a 连成一个音。"
+ },
+ {
+  "id": "c309",
+  "en": "I'm running late.",
+  "zh": "我要迟到了。",
+  "category": "problem",
+  "freq": 1,
+  "register": "neutral",
+  "tags": [
+   "collocation"
+  ],
+  "examples": [
+   {
+    "en": "Sorry, I'm running late. Start without me.",
+    "zh": "抱歉，我要迟到了，你们先开始吧。"
+   },
+   {
+    "en": "A: Where are you? B: I'm running late, I'll be there in ten minutes.",
+    "zh": "A：你在哪？B：我要晚点到，十分钟后到。"
+   }
+  ],
+  "noteZh": "还没到、会晚到时用。✗ I will late。已经晚了说 I'm late。",
+  "soundZh": "I'm running → \"Im runnin'\"，-ing 常弱读成 -in。"
+ },
+ {
+  "id": "c310",
+  "en": "get a refund",
+  "zh": "退款",
+  "category": "problem",
+  "freq": 3,
+  "register": "neutral",
+  "tags": [
+   "collocation"
+  ],
+  "examples": [
+   {
+    "en": "I'd like to get a refund for this, please.",
+    "zh": "这个我想退款。"
+   },
+   {
+    "en": "A: It doesn't fit. B: Can I get a refund, or only an exchange?",
+    "zh": "A：不合适。B：能退款吗，还是只能换货？"
+   }
+  ],
+  "noteZh": "\"退款\"用 refund。✗ back the money。退货是 return，拿回钱才是 get a refund。",
+  "soundZh": "get a → \"geda\"，t 变成轻快的闪音 /ɾ/，听起来像 d。"
+ },
+ {
+  "id": "c311",
+  "en": "on purpose",
+  "zh": "故意地",
+  "category": "problem",
+  "freq": 3,
+  "register": "neutral",
+  "tags": [
+   "collocation"
+  ],
+  "examples": [
+   {
+    "en": "I'm sorry, I didn't do it on purpose.",
+    "zh": "对不起，我不是故意的。"
+   },
+   {
+    "en": "He left the door open on purpose.",
+    "zh": "他是故意把门开着的。"
+   }
+  ],
+  "noteZh": "\"故意\"是 on purpose。✗ by purpose。\"不小心\"说 by accident。",
+  "soundZh": "on purpose → \"on-pur-pus\"，purpose 末尾弱读成 /pəs/。"
+ },
+ {
+  "id": "c312",
+  "en": "I'm in a hurry.",
+  "zh": "我赶时间。",
+  "category": "problem",
+  "freq": 1,
+  "register": "neutral",
+  "tags": [
+   "collocation"
+  ],
+  "examples": [
+   {
+    "en": "Sorry, I'm in a hurry. Can we talk later?",
+    "zh": "抱歉，我赶时间，能晚点再聊吗？"
+   },
+   {
+    "en": "I'm in a hurry, so I'll just grab a sandwich.",
+    "zh": "我赶时间，随便买个三明治就行。"
+   }
+  ],
+  "noteZh": "\"赶时间\"要带 a。✗ I am hurry / I am very hurry。",
+  "soundZh": "in a → 连读成 \"inna\"；I'm in a hurry → \"Im-inna hurry\"。"
+ },
+ {
+  "id": "c313",
+  "en": "make an appointment",
+  "zh": "预约／约时间",
+  "category": "travel",
+  "freq": 2,
+  "register": "neutral",
+  "tags": [
+   "collocation"
+  ],
+  "examples": [
+   {
+    "en": "I'd like to make an appointment with Dr. Lee.",
+    "zh": "我想预约李医生。"
+   },
+   {
+    "en": "You can make an appointment online.",
+    "zh": "你可以在网上预约。"
+   }
+  ],
+  "noteZh": "看医生、理发等\"预约\"。✗ do an appointment。餐厅订座说 make a reservation。",
+  "soundZh": "make an → \"makean\"，an 与 k 连读。"
+ },
+ {
+  "id": "c314",
+  "en": "take the bus",
+  "zh": "坐公交车",
+  "category": "travel",
+  "freq": 2,
+  "register": "neutral",
+  "tags": [
+   "collocation"
+  ],
+  "examples": [
+   {
+    "en": "I usually take the bus to work.",
+    "zh": "我通常坐公交车上班。"
+   },
+   {
+    "en": "It's faster to take the bus than to drive downtown.",
+    "zh": "去市中心坐公交比开车快。"
+   }
+  ],
+  "noteZh": "交通工具用 take。✗ sit the bus。同理 take the subway / a taxi。",
+  "soundZh": "take the → \"take-the\"，弱读 the /ðə/。"
+ },
+ {
+  "id": "c315",
+  "en": "get lost",
+  "zh": "迷路",
+  "category": "travel",
+  "freq": 2,
+  "register": "neutral",
+  "tags": [
+   "collocation"
+  ],
+  "examples": [
+   {
+    "en": "I always get lost in this part of town.",
+    "zh": "我在城里这一带总是迷路。"
+   },
+   {
+    "en": "Don't worry, you won't get lost. It's a straight road.",
+    "zh": "别担心，不会迷路的，一条直路。"
+   }
+  ],
+  "noteZh": "\"迷路\"是 get lost，过去式 got lost。✗ lose the way。单说 Get lost! 是\"滚开\"。",
+  "soundZh": "get lost → \"geh-lost\"，get 的 t 常被吞掉。"
+ },
+ {
+  "id": "c316",
+  "en": "Can you give me a ride?",
+  "zh": "你能捎我一程吗？",
+  "category": "request",
+  "freq": 2,
+  "register": "casual",
+  "tags": [
+   "collocation"
+  ],
+  "examples": [
+   {
+    "en": "Can you give me a ride to the airport tomorrow?",
+    "zh": "你明天能送我去机场吗？"
+   },
+   {
+    "en": "My car broke down. Can you give me a ride home?",
+    "zh": "我的车坏了，你能送我回家吗？"
+   }
+  ],
+  "noteZh": "\"捎一程\"用 give someone a ride（英式 lift）。✗ send me home 是\"寄\"的意思。",
+  "soundZh": "Can you → \"kinya\"；give me → \"gimme\"；a ride 连成 \"a-ride\"。"
+ },
+ {
+  "id": "c317",
+  "en": "heavy traffic",
+  "zh": "交通拥堵",
+  "category": "travel",
+  "freq": 3,
+  "register": "neutral",
+  "tags": [
+   "collocation"
+  ],
+  "examples": [
+   {
+    "en": "Sorry, I got stuck in heavy traffic.",
+    "zh": "抱歉，我堵在路上了。"
+   },
+   {
+    "en": "There's always heavy traffic on that bridge at five.",
+    "zh": "五点钟那座桥上总是很堵。"
+   }
+  ],
+  "noteZh": "堵车用 heavy traffic。✗ big traffic。traffic 不可数，不加 a。",
+  "soundZh": "heavy traffic → 两词重音都在第一音节：HEAVy TRAFfic。"
+ },
+ {
+  "id": "c318",
+  "en": "on sale",
+  "zh": "在打折",
+  "category": "travel",
+  "freq": 2,
+  "register": "neutral",
+  "tags": [
+   "collocation"
+  ],
+  "examples": [
+   {
+    "en": "These shoes are on sale this week.",
+    "zh": "这双鞋本周打折。"
+   },
+   {
+    "en": "A: Is this jacket on sale? B: Yes, it is thirty percent off.",
+    "zh": "A：这件夹克打折吗？B：打折，七折。"
+   }
+  ],
+  "noteZh": "商品\"在打折\"用 on sale。✗ in sale。for sale 是\"待售\"，别混。",
+  "soundZh": "on sale → \"on-sale\"，on 与 s 轻轻连读。"
+ },
+ {
+  "id": "c319",
+  "en": "Take a look at …",
+  "zh": "看一下……",
+  "category": "request",
+  "freq": 1,
+  "register": "neutral",
+  "tags": [
+   "collocation"
+  ],
+  "examples": [
+   {
+    "en": "Take a look at this and tell me what you think.",
+    "zh": "看一下这个，告诉我你的想法。"
+   },
+   {
+    "en": "Can you take a look at my essay when you have time?",
+    "zh": "你有空时能帮我看一下作文吗？"
+   }
+  ],
+  "noteZh": "请人\"看一眼\"。美式 take a look，英式多说 have a look。✗ see a look。",
+  "soundZh": "Take a look at → 一口气连读 \"ta-ka-look-at\"，几乎没有停顿。"
+ },
+ {
+  "id": "c320",
+  "en": "Give me a call.",
+  "zh": "给我打电话。",
+  "category": "request",
+  "freq": 1,
+  "register": "casual",
+  "tags": [
+   "collocation"
+  ],
+  "examples": [
+   {
+    "en": "Give me a call when you land.",
+    "zh": "落地后给我打个电话。"
+   },
+   {
+    "en": "I'm free tonight. Give me a call.",
+    "zh": "我今晚有空，给我打电话吧。"
+   }
+  ],
+  "noteZh": "\"给我打电话\"用 give me a call。✗ call to me。比 Call me. 更柔和。",
+  "soundZh": "Give me a → \"gimme-a\"；a call 连读。"
+ },
+ {
+  "id": "c321",
+  "en": "I have a question.",
+  "zh": "我有个问题。",
+  "category": "question",
+  "freq": 1,
+  "register": "neutral",
+  "tags": [
+   "collocation"
+  ],
+  "examples": [
+   {
+    "en": "Excuse me, I have a question.",
+    "zh": "打扰一下，我有个问题想问。"
+   },
+   {
+    "en": "I have a question about the schedule.",
+    "zh": "我对日程安排有个问题。"
+   }
+  ],
+  "noteZh": "提问用 question。✗ I have a problem 是\"我遇到麻烦了\"。问人说 ask a question。",
+  "soundZh": "have a → \"havea\"，v 常与 a 连读。"
+ },
+ {
+  "id": "c322",
+  "en": "I have no idea.",
+  "zh": "我完全不知道。",
+  "category": "response",
+  "freq": 1,
+  "register": "neutral",
+  "tags": [
+   "collocation"
+  ],
+  "examples": [
+   {
+    "en": "A: Where's Tom? B: I have no idea.",
+    "zh": "A：汤姆在哪？B：我完全不知道。"
+   },
+   {
+    "en": "Honestly, I have no idea what they want.",
+    "zh": "说实话，我完全不知道他们想要什么。"
+   }
+  ],
+  "noteZh": "\"不知道\"的常用说法。✗ I no idea。简说 No idea. 更强调毫无头绪。",
+  "soundZh": "I have no → \"I've no\"，have 常弱读；no idea → \"no-eye-dea\"。"
+ },
+ {
+  "id": "c323",
+  "en": "It's not a big deal.",
+  "zh": "没什么大不了的。",
+  "category": "response",
+  "freq": 1,
+  "register": "casual",
+  "tags": [
+   "collocation"
+  ],
+  "examples": [
+   {
+    "en": "Don't worry about it. It's not a big deal.",
+    "zh": "别担心，没什么大不了的。"
+   },
+   {
+    "en": "A: I'm so sorry I forgot. B: It's not a big deal.",
+    "zh": "A：真抱歉我忘了。B：没什么大不了的。"
+   }
+  ],
+  "noteZh": "安慰对方、淡化事情。✗ It's not a big thing。反过来 It's a big deal 是\"事情重要\"。",
+  "soundZh": "not a → \"nodda\"，t 变闪音；It's not a big deal → \"Its-nodda-big-deal\"。"
+ },
+ {
+  "id": "c324",
+  "en": "So far, so good.",
+  "zh": "到目前为止还不错。",
+  "category": "response",
+  "freq": 2,
+  "register": "casual",
+  "tags": [
+   "collocation"
+  ],
+  "examples": [
+   {
+    "en": "A: How is the new job? B: So far, so good.",
+    "zh": "A：新工作怎么样？B：目前还不错。"
+   },
+   {
+    "en": "A: Is the car running okay? B: So far, so good.",
+    "zh": "A：车开着还行吗？B：目前还不错。"
+   }
+  ],
+  "noteZh": "被问进展时的固定回答，暗示\"以后不一定\"。✗ Until now it is good。",
+  "soundZh": "So far, so good → 节奏均匀，两个 so 都重读。"
+ },
+ {
+  "id": "c325",
+  "en": "Have a seat.",
+  "zh": "请坐。",
+  "category": "offer",
+  "freq": 2,
+  "register": "neutral",
+  "tags": [
+   "collocation"
+  ],
+  "examples": [
+   {
+    "en": "Come in, have a seat. I'll be right with you.",
+    "zh": "请进，坐吧，我马上来。"
+   },
+   {
+    "en": "Please have a seat. The doctor will see you soon.",
+    "zh": "请坐，医生马上为您看诊。"
+   }
+  ],
+  "noteZh": "客气地请人\"坐下\"，比 Sit down. 柔和得多（Sit down 像命令）。也可说 Take a seat.",
+  "soundZh": "Have a → \"Havea\"；seat 的 t 轻轻停住。"
+ },
+ {
+  "id": "c326",
+  "en": "have a good time",
+  "zh": "玩得开心",
+  "category": "social",
+  "freq": 1,
+  "register": "neutral",
+  "tags": [
+   "collocation"
+  ],
+  "examples": [
+   {
+    "en": "Did you have a good time at the party?",
+    "zh": "你在派对上玩得开心吗？"
+   },
+   {
+    "en": "I hope you have a good time in Paris.",
+    "zh": "希望你在巴黎玩得开心。"
+   }
+  ],
+  "noteZh": "\"玩得开心\"用 have a good time。✗ play happy。祝福说 Have a good time!",
+  "soundZh": "have a good → \"havea goo(d)\"，good 末尾 d 常吞掉，与 time 连读。"
+ },
+ {
+  "id": "c327",
+  "en": "spend time with …",
+  "zh": "和……共度时光",
+  "category": "social",
+  "freq": 1,
+  "register": "neutral",
+  "tags": [
+   "collocation"
+  ],
+  "examples": [
+   {
+    "en": "I like to spend time with my family on weekends.",
+    "zh": "周末我喜欢陪家人。"
+   },
+   {
+    "en": "I don't get to spend time with my kids much on weekdays.",
+    "zh": "工作日我没多少时间陪孩子。"
+   }
+  ],
+  "noteZh": "spend 接时间，with 接人。✗ accompany my family。\"陪\"不要直译成 accompany。",
+  "soundZh": "spend time with → with 弱读成 /wɪð/，常与后面的词连读。"
+ },
+ {
+  "id": "c328",
+  "en": "make friends",
+  "zh": "交朋友",
+  "category": "social",
+  "freq": 2,
+  "register": "neutral",
+  "tags": [
+   "collocation"
+  ],
+  "examples": [
+   {
+    "en": "It's hard to make friends in a new city.",
+    "zh": "在新城市交朋友不容易。"
+   },
+   {
+    "en": "He finds it easy to make friends wherever he goes.",
+    "zh": "他到哪儿都很容易交到朋友。"
+   }
+  ],
+  "noteZh": "\"交朋友\"用 make friends，friend 用复数。✗ do friends。和某人：make friends with her。",
+  "soundZh": "make friends → k 与 f 连读，friends 末尾 d 常吞掉。"
+ },
+ {
+  "id": "c329",
+  "en": "keep a secret",
+  "zh": "保守秘密",
+  "category": "social",
+  "freq": 3,
+  "register": "neutral",
+  "tags": [
+   "collocation"
+  ],
+  "examples": [
+   {
+    "en": "Can you keep a secret?",
+    "zh": "你能保密吗？"
+   },
+   {
+    "en": "I can't keep a secret from her. She always knows.",
+    "zh": "我没法瞒她，她总是看得出来。"
+   }
+  ],
+  "noteZh": "\"保密\"是 keep a secret。✗ hold a secret。告诉别人秘密用 tell a secret。",
+  "soundZh": "keep a → \"keepa\"；secret 重音在第一音节：SEE-cret。"
+ },
+ {
+  "id": "c330",
+  "en": "Feel better soon.",
+  "zh": "祝你早日康复。",
+  "category": "advice",
+  "freq": 2,
+  "register": "neutral",
+  "tags": [
+   "collocation"
+  ],
+  "examples": [
+   {
+    "en": "I heard you're sick. Feel better soon.",
+    "zh": "听说你病了，早点好起来。"
+   },
+   {
+    "en": "A: I've got a fever, so I'm heading home. B: Oh no, feel better soon.",
+    "zh": "A：我发烧了，先回家。B：哎呀，早点好起来。"
+   }
+  ],
+  "noteZh": "对生病或心情不好的人说。Get well soon 也对，Feel better soon 更口语温和。",
+  "soundZh": "better → 闪音 \"bedder\"；Feel better 连读成 \"feel-bedder\"。"
+ },
+ {
+  "id": "c331",
+  "en": "pay attention to …",
+  "zh": "注意……／留意……",
+  "category": "advice",
+  "freq": 1,
+  "register": "neutral",
+  "tags": [
+   "collocation"
+  ],
+  "examples": [
+   {
+    "en": "Pay attention to the road when you drive.",
+    "zh": "开车时注意看路。"
+   },
+   {
+    "en": "You should pay attention to what he says.",
+    "zh": "你该留意他说的话。"
+   }
+  ],
+  "noteZh": "\"注意\"用 pay attention to。✗ pay attention on。老师常说 Pay attention!",
+  "soundZh": "pay attention to → to 弱读成 \"ta\"；attention 重音在第二音节。"
+ },
+ {
+  "id": "c332",
+  "en": "a piece of advice",
+  "zh": "一条建议",
+  "category": "advice",
+  "freq": 3,
+  "register": "neutral",
+  "tags": [
+   "collocation"
+  ],
+  "examples": [
+   {
+    "en": "Let me give you a piece of advice: sleep on it.",
+    "zh": "给你一条建议：睡一觉再决定。"
+   },
+   {
+    "en": "Here's a piece of advice: never sign anything you haven't read.",
+    "zh": "给你个建议：没读过的东西千万别签。"
+   }
+  ],
+  "noteZh": "advice 不可数。✗ an advice / many advices。数量说 a piece of 或 some advice。",
+  "soundZh": "a piece of → \"a piece-a\"，of 弱读成 /ə/。"
+ },
+ {
+  "id": "c333",
+  "en": "take a chance",
+  "zh": "冒一次险／赌一把",
+  "category": "advice",
+  "freq": 3,
+  "register": "neutral",
+  "tags": [
+   "collocation"
+  ],
+  "examples": [
+   {
+    "en": "Sometimes you just have to take a chance.",
+    "zh": "有时候你就得赌一把。"
+   },
+   {
+    "en": "I decided to take a chance and apply for the job.",
+    "zh": "我决定冒一次险，去申请那份工作。"
+   }
+  ],
+  "noteZh": "\"冒险一试\"是 take a chance。✗ catch a chance。抓住机会说 take the opportunity。",
+  "soundZh": "take a chance → \"takea chance\"，两个 a 都弱读。"
+ },
+ {
+  "id": "c334",
+  "en": "make a difference",
+  "zh": "有影响／起作用",
+  "category": "opinion",
+  "freq": 3,
+  "register": "neutral",
+  "tags": [
+   "collocation"
+  ],
+  "examples": [
+   {
+    "en": "One more hour won't make a difference.",
+    "zh": "多一个小时也没什么区别。"
+   },
+   {
+    "en": "Volunteering can really make a difference.",
+    "zh": "做志愿者真的能带来改变。"
+   }
+  ],
+  "noteZh": "\"有影响、有改变\"。否定 It doesn't make a difference 是\"都一样\"。✗ do a difference。",
+  "soundZh": "make a → \"makea\"；difference 常读两个音节 \"diff-rence\"。"
+ },
+ {
+  "id": "c335",
+  "en": "It's a waste of time.",
+  "zh": "这是浪费时间。",
+  "category": "opinion",
+  "freq": 2,
+  "register": "casual",
+  "tags": [
+   "collocation"
+  ],
+  "examples": [
+   {
+    "en": "Don't bother. It's a waste of time.",
+    "zh": "别费劲了，浪费时间。"
+   },
+   {
+    "en": "I think it's a waste of time to argue about this.",
+    "zh": "我觉得为这个争论是浪费时间。"
+   }
+  ],
+  "noteZh": "\"浪费时间\"用 a waste of time。✗ waste of the time。语气直接，对人说要留意。",
+  "soundZh": "a waste of → \"a wayst-a\"；waste 末尾的 t 常被吞掉。"
+ },
+ {
+  "id": "c336",
+  "en": "save time",
+  "zh": "节省时间",
+  "category": "describe",
+  "freq": 2,
+  "register": "neutral",
+  "tags": [
+   "collocation"
+  ],
+  "examples": [
+   {
+    "en": "Take the highway to save time.",
+    "zh": "走高速可以省时间。"
+   },
+   {
+    "en": "Booking online can save time.",
+    "zh": "网上订能省时间。"
+   }
+  ],
+  "noteZh": "\"省时间\"用 save。✗ spare time（那是\"业余时间\"）。同类 save money。",
+  "soundZh": "save time → v 与 t 连读，save 的 v 轻轻带过。"
+ },
+ {
+  "id": "c337",
+  "en": "a couple of …",
+  "zh": "几个……／两三个……",
+  "category": "describe",
+  "freq": 1,
+  "register": "neutral",
+  "tags": [
+   "collocation"
+  ],
+  "examples": [
+   {
+    "en": "I'll be there in a couple of minutes.",
+    "zh": "我几分钟后到。"
+   },
+   {
+    "en": "I only got a couple of hours of sleep.",
+    "zh": "我只睡了两三个小时。"
+   }
+  ],
+  "noteZh": "是\"两三个、几个\"，不是严格的两个。后接复数，必须有 of。",
+  "soundZh": "a couple of → \"a cupla\" 或 \"a couple-a\"，of 弱读成 /ə/。"
+ },
+ {
+  "id": "c338",
+  "en": "in a good mood",
+  "zh": "心情好",
+  "category": "feeling",
+  "freq": 2,
+  "register": "neutral",
+  "tags": [
+   "collocation"
+  ],
+  "examples": [
+   {
+    "en": "She's in a good mood today. Ask her now.",
+    "zh": "她今天心情好，现在去问她。"
+   },
+   {
+    "en": "He's in a good mood because he got promoted.",
+    "zh": "他升职了，心情很好。"
+   }
+  ],
+  "noteZh": "\"心情好\"用 in a good mood，要有 a。✗ mood is good。心情差说 in a bad mood。",
+  "soundZh": "in a good → \"inna good\"；good mood 的 d 与 m 连读。"
+ },
+ {
+  "id": "c339",
+  "en": "under a lot of pressure",
+  "zh": "压力很大",
+  "category": "feeling",
+  "freq": 3,
+  "register": "neutral",
+  "tags": [
+   "collocation"
+  ],
+  "examples": [
+   {
+    "en": "I'm under a lot of pressure at work right now.",
+    "zh": "我现在工作压力很大。"
+   },
+   {
+    "en": "He's been under a lot of pressure lately.",
+    "zh": "他最近压力很大。"
+   }
+  ],
+  "noteZh": "\"压力大\"介词用 under。✗ have big pressure。轻松版：I'm stressed out。",
+  "soundZh": "a lot of → \"a lotta\"，of 弱读几乎只剩 /ə/。"
+ },
+ {
+  "id": "c340",
+  "en": "fall asleep",
+  "zh": "睡着",
+  "category": "experience",
+  "freq": 1,
+  "register": "neutral",
+  "tags": [
+   "collocation"
+  ],
+  "examples": [
+   {
+    "en": "I always fall asleep on the train.",
+    "zh": "我总是在火车上睡着。"
+   },
+   {
+    "en": "Don't fall asleep in the meeting.",
+    "zh": "开会时别睡着。"
+   }
+  ],
+  "noteZh": "\"睡着\"是 fall asleep，过去式 fell asleep。✗ sleep着 / I asleep。",
+  "soundZh": "fall asleep → l 与 a 连读成 \"fall-uh-sleep\"。"
+ },
+ {
+  "id": "c341",
+  "en": "for a while",
+  "zh": "有一阵子／一会儿",
+  "category": "experience",
+  "freq": 2,
+  "register": "neutral",
+  "tags": [
+   "collocation"
+  ],
+  "examples": [
+   {
+    "en": "I'll be here for a while, so take your time.",
+    "zh": "我会在这儿待一阵子，你慢慢来。"
+   },
+   {
+    "en": "We haven't talked for a while.",
+    "zh": "我们有一阵子没聊了。"
+   }
+  ],
+  "noteZh": "\"一阵子\"，时长不定。✗ for while（漏 a）。for a moment 才是很短的一瞬间。",
+  "soundZh": "for a while → \"fra while\"，for 弱读成 /fɚ/。"
+ },
+ {
+  "id": "c342",
+  "en": "In the end, …",
+  "zh": "最后／最终……",
+  "category": "connector",
+  "freq": 2,
+  "register": "neutral",
+  "tags": [
+   "collocation"
+  ],
+  "examples": [
+   {
+    "en": "In the end, we took the train instead.",
+    "zh": "最后我们改坐火车了。"
+   },
+   {
+    "en": "It was hard, but in the end it was worth it.",
+    "zh": "很辛苦，但最后是值得的。"
+   }
+  ],
+  "noteZh": "讲完经过后的\"最终结果\"。✗ At last 偏\"终于\"；at the end of 是\"……的末尾\"。",
+  "soundZh": "In the end → \"Inthe-end\"，the 弱读成 /ðə/ 或 /ði/。"
+ },
+ {
+  "id": "c343",
+  "en": "get ready",
+  "zh": "准备好／做好准备",
+  "category": "plan",
+  "freq": 1,
+  "register": "neutral",
+  "tags": [
+   "collocation"
+  ],
+  "examples": [
+   {
+    "en": "Get ready, we're leaving in five minutes.",
+    "zh": "准备一下，我们五分钟后出发。"
+   },
+   {
+    "en": "I need to get ready for work.",
+    "zh": "我得准备上班了。"
+   }
+  ],
+  "noteZh": "强调\"做准备的动作\"，后接 for。be ready 才是\"已经准备好\"的状态。",
+  "soundZh": "get ready → t 变闪音，听起来像 \"geddy\"；get ready for → \"geddy-for\"。"
+ },
+ {
+  "id": "c344",
+  "en": "I'm on my way.",
+  "zh": "我在路上了。",
+  "category": "plan",
+  "freq": 1,
+  "register": "casual",
+  "tags": [
+   "collocation"
+  ],
+  "examples": [
+   {
+    "en": "A: Where are you? B: I'm on my way.",
+    "zh": "A：你在哪？B：我在路上了。"
+   },
+   {
+    "en": "I'm on my way. See you in ten minutes.",
+    "zh": "我在路上了，十分钟后见。"
+   }
+  ],
+  "noteZh": "已出发、还没到时用。✗ I am on the way to arrive。on the way 是\"顺路\"。",
+  "soundZh": "I'm on my way → \"Im-on-my-way\"，on 与 my 连读。"
+ },
+ {
+  "id": "c345",
+  "en": "on time",
+  "zh": "准时",
+  "category": "plan",
+  "freq": 1,
+  "register": "neutral",
+  "tags": [
+   "collocation"
+  ],
+  "examples": [
+   {
+    "en": "The train left on time.",
+    "zh": "火车准时出发了。"
+   },
+   {
+    "en": "Please be on time tomorrow.",
+    "zh": "明天请准时到。"
+   }
+  ],
+  "noteZh": "on time = 不早不晚，准点。✗ at time。对比 in time（来得及），不要混。",
+  "soundZh": "on time → on 与 t 连读，\"on-time\"几乎没有停顿。"
+ },
+ {
+  "id": "c346",
+  "en": "in time",
+  "zh": "及时／来得及",
+  "category": "plan",
+  "freq": 2,
+  "register": "neutral",
+  "tags": [
+   "collocation"
+  ],
+  "examples": [
+   {
+    "en": "I got to the station just in time.",
+    "zh": "我正好及时赶到了车站。"
+   },
+   {
+    "en": "We got there in time for the movie.",
+    "zh": "我们及时赶到，赶上了电影。"
+   }
+  ],
+  "noteZh": "in time = 在截止前赶上，常接 for。on time 是准点，in time 是没误事。",
+  "soundZh": "in time → n 与 t 连读，\"in-time\"。"
+ },
+ {
+  "id": "c347",
+  "en": "I can't make it.",
+  "zh": "我去不了。／我赶不上。",
+  "category": "plan",
+  "freq": 1,
+  "register": "casual",
+  "tags": [
+   "collocation"
+  ],
+  "examples": [
+   {
+    "en": "Sorry, I can't make it tonight.",
+    "zh": "抱歉，我今晚去不了。"
+   },
+   {
+    "en": "I'm afraid I can't make it to the meeting.",
+    "zh": "恐怕我赶不上这次会议。"
+   }
+  ],
+  "noteZh": "婉拒邀约、说明无法出席。✗ I can't arrive。make it 是\"能赶到、能出席\"。",
+  "soundZh": "can't make it → can't 的 t 常被吞掉，靠元音长短区分 can / can't。"
+ },
+ {
+  "id": "c348",
+  "en": "go for a walk",
+  "zh": "去散步",
+  "category": "plan",
+  "freq": 2,
+  "register": "neutral",
+  "tags": [
+   "collocation"
+  ],
+  "examples": [
+   {
+    "en": "Let's go for a walk after dinner.",
+    "zh": "晚饭后去散步吧。"
+   },
+   {
+    "en": "I like to go for a walk after lunch.",
+    "zh": "我喜欢午饭后散个步。"
+   }
+  ],
+  "noteZh": "\"去散步\"用 go for a walk。✗ go to walk。take a walk 意思相同。",
+  "soundZh": "go for a → \"go fra\"；for a 连成 /fɚə/。"
+ },
+ {
+  "id": "c349",
+  "en": "do the dishes",
+  "zh": "洗碗",
+  "category": "plan",
+  "freq": 2,
+  "register": "casual",
+  "tags": [
+   "collocation"
+  ],
+  "examples": [
+   {
+    "en": "I'll cook, you do the dishes.",
+    "zh": "我做饭，你洗碗。"
+   },
+   {
+    "en": "Who's going to do the dishes?",
+    "zh": "谁来洗碗？"
+   }
+  ],
+  "noteZh": "\"洗碗\"整套固定说法。✗ wash the bowls。同类 do the laundry（洗衣服）。",
+  "soundZh": "do the → \"dothe\"，the 弱读；dishes 重音在 DISH。"
+ },
+ {
+  "id": "c350",
+  "en": "first thing in the morning",
+  "zh": "一大早／明早第一件事",
+  "category": "plan",
+  "freq": 2,
+  "register": "neutral",
+  "tags": [
+   "collocation"
+  ],
+  "examples": [
+   {
+    "en": "I'll call him first thing in the morning.",
+    "zh": "我明早一上班就给他打电话。"
+   },
+   {
+    "en": "Send me the file first thing in the morning.",
+    "zh": "明早第一件事把文件发给我。"
+   }
+  ],
+  "noteZh": "指\"早上最先做的事\"，作状语。✗ the first thing of morning。first thing 可单用。",
+  "soundZh": "first thing → first 的 t 常吞掉，听起来 \"fir(s) thing\"。"
+ }
+]

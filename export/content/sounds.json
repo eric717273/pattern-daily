@@ -1,0 +1,1082 @@
+[
+ {
+  "id": "s01",
+  "name": "going to → gonna",
+  "kind": "reduction",
+  "level": 1,
+  "explanationZh": "表示“将要做某事”的 going to 几乎总是读成 gonna /ˈɡʌnə/，听起来像一个词，to 只剩一个轻轻的 ə。听到“gonna + 动词”就是计划或预测；表示去某地的 going to the store 一般不缩。",
+  "examples": [
+   {
+    "en": "I'm going to call her tonight.",
+    "zh": "我今晚要给她打电话。",
+    "heard": "I'm gonna call her tonight.",
+    "target": "going to call"
+   },
+   {
+    "en": "It's going to rain this afternoon.",
+    "zh": "今天下午要下雨。",
+    "heard": "It's gonna rain this afternoon.",
+    "target": "going to rain"
+   },
+   {
+    "en": "What are you going to do?",
+    "zh": "你打算怎么办？",
+    "heard": "Whatcha gonna do?",
+    "target": "you going to do"
+   }
+  ]
+ },
+ {
+  "id": "s02",
+  "name": "want to → wanna",
+  "kind": "reduction",
+  "level": 1,
+  "explanationZh": "want to 读成 wanna /ˈwɑnə/，t 消失，to 弱化成 ə，两个词连成一个。Do you want to 常变成 “d’ya wanna”，一听到 wanna 就知道后面接动词原形。",
+  "examples": [
+   {
+    "en": "I want to go home.",
+    "zh": "我想回家。",
+    "heard": "I wanna go home.",
+    "target": "want to"
+   },
+   {
+    "en": "Do you want to grab some lunch?",
+    "zh": "要不要一起吃个午饭？",
+    "heard": "D'ya wanna grab some lunch?",
+    "target": "want to grab"
+   },
+   {
+    "en": "I don't want to wait.",
+    "zh": "我不想等。",
+    "heard": "I don't wanna wait.",
+    "target": "want to wait"
+   }
+  ]
+ },
+ {
+  "id": "s03",
+  "name": "to → /tə/ 弱读",
+  "kind": "weak-form",
+  "level": 1,
+  "explanationZh": "句中的 to 几乎总是弱读成 /tə/，在元音后还会变成 /də/（need to → needa），又短又轻，初学者常以为它根本没说。听力里要习惯“动词和名词之间有个很轻的 ta/da”就是 to。",
+  "examples": [
+   {
+    "en": "I need to talk to you.",
+    "zh": "我得跟你谈谈。",
+    "heard": "I needa talk ta you.",
+    "target": "need to talk to"
+   },
+   {
+    "en": "We're about to leave.",
+    "zh": "我们正要走。",
+    "heard": "We're about ta leave.",
+    "target": "about to leave"
+   },
+   {
+    "en": "It's ten to five.",
+    "zh": "现在差十分钟五点。",
+    "heard": "It's ten ta five.",
+    "target": "ten to five"
+   }
+  ]
+ },
+ {
+  "id": "s04",
+  "name": "can /kən/ vs can’t /kænt/",
+  "kind": "weak-form",
+  "level": 1,
+  "explanationZh": "肯定句里的 can 不重读，读成 /kən/，几乎只有 kn；否定的 can’t 重读，元音饱满而且拖长 /kænt/，美式里末尾的 t 常听不见。分辨靠元音和重音：又短又轻是 can，又长又重是 can’t，也要结合上下文判断。",
+  "examples": [
+   {
+    "en": "I can come on Friday.",
+    "zh": "我周五可以来。",
+    "heard": "I k'n come on Friday.",
+    "target": "can come"
+   },
+   {
+    "en": "I can't come on Friday.",
+    "zh": "我周五来不了。",
+    "heard": "I CAN'T come on Friday.",
+    "target": "can't come"
+   },
+   {
+    "en": "She can drive, but she can't park.",
+    "zh": "她会开车，但不会停车。",
+    "heard": "She k'n drive, but she CAN'T park.",
+    "target": "can drive, but she can't"
+   }
+  ]
+ },
+ {
+  "id": "s05",
+  "name": "辅音接元音连读 pick it up",
+  "kind": "linking",
+  "level": 1,
+  "explanationZh": "前一个词以辅音结尾、后一个词以元音开头时，辅音“滑”到下一个词的开头：pick it up 听起来像 pi-ki-dup。不要按单词的边界切分，而要按音节去听。",
+  "examples": [
+   {
+    "en": "Can you pick it up?",
+    "zh": "你能把它捡起来吗？",
+    "heard": "Can ya pi-ki-dup?",
+    "target": "pick it up"
+   },
+   {
+    "en": "Turn it off before you leave.",
+    "zh": "走之前把它关掉。",
+    "heard": "Tur-ni-doff before ya leave.",
+    "target": "Turn it off"
+   },
+   {
+    "en": "You should check it out.",
+    "zh": "你应该去看看。",
+    "heard": "Ya shud che-ki-dout.",
+    "target": "check it out"
+   }
+  ]
+ },
+ {
+  "id": "s06",
+  "name": "I don’t know → I dunno",
+  "kind": "reduction",
+  "level": 1,
+  "explanationZh": "说得快时 I don’t know 变成 I dunno /aɪ dəˈnoʊ/：don’t 里的 t 消失，元音变成 ə，整句只剩 “ai-də-no” 三拍。这是最高频的整句缩读之一，听到就是“我不知道”。",
+  "examples": [
+   {
+    "en": "I don't know what to say.",
+    "zh": "我不知道该说什么。",
+    "heard": "I dunno whadda say.",
+    "target": "I don't know"
+   },
+   {
+    "en": "I don't know him very well.",
+    "zh": "我跟他不太熟。",
+    "heard": "I dunno 'im very well.",
+    "target": "don't know him"
+   },
+   {
+    "en": "Honestly, I don't know where it is.",
+    "zh": "说实话，我不知道它在哪儿。",
+    "heard": "Honestly, I dunno where-ri-is.",
+    "target": "I don't know where"
+   }
+  ]
+ },
+ {
+  "id": "s07",
+  "name": "闪音 T/D：water, better",
+  "kind": "flap",
+  "level": 1,
+  "explanationZh": "两个元音之间（重读音节之后）的 t、d 变成轻快的闪音 /ɾ/，听起来像一个很快的 d：water 像 wadder，better 像 bedder。听到 d 却找不到对应的拼写，多半就是 t。",
+  "examples": [
+   {
+    "en": "I need some water.",
+    "zh": "我需要点水。",
+    "heard": "I need some wah-der.",
+    "target": "some water"
+   },
+   {
+    "en": "That's much better.",
+    "zh": "这好多了。",
+    "heard": "That's much beh-der.",
+    "target": "much better"
+   },
+   {
+    "en": "It's getting late.",
+    "zh": "时间不早了。",
+    "heard": "It's geh-ding late.",
+    "target": "getting late"
+   }
+  ]
+ },
+ {
+  "id": "s08",
+  "name": "got to → gotta",
+  "kind": "reduction",
+  "level": 1,
+  "explanationZh": "got to 读成 gotta /ˈɡɑɾə/，t 变成闪音，to 弱化成 ə，I’ve got to 也就成了 I’ve gotta，表示“必须”。听到 gotta + 动词就是“得做某事”。",
+  "examples": [
+   {
+    "en": "I've got to go.",
+    "zh": "我得走了。",
+    "heard": "I've gotta go.",
+    "target": "got to go"
+   },
+   {
+    "en": "We've got to hurry.",
+    "zh": "我们得快点。",
+    "heard": "We've gotta hurry.",
+    "target": "got to hurry"
+   },
+   {
+    "en": "You've got to try this.",
+    "zh": "你一定得尝尝这个。",
+    "heard": "You've gotta try this.",
+    "target": "got to try"
+   }
+  ]
+ },
+ {
+  "id": "s09",
+  "name": "what do you → whaddya / what are you → whatcha",
+  "kind": "reduction",
+  "level": 1,
+  "explanationZh": "What do you 读成 whaddya /ˈwʌɾjə/，What are you 读成 whatcha /ˈwʌtʃə/，t 与 you 的 y 融合成 “ch”。开头的 what 和结尾的 ya 之间几乎没有停顿，整个疑问句头像一个词。",
+  "examples": [
+   {
+    "en": "What do you want?",
+    "zh": "你想要什么？",
+    "heard": "Whaddya want?",
+    "target": "What do you want"
+   },
+   {
+    "en": "What are you doing?",
+    "zh": "你在干什么？",
+    "heard": "Whatcha doin'?",
+    "target": "What are you doing"
+   },
+   {
+    "en": "What do you think?",
+    "zh": "你怎么看？",
+    "heard": "Whaddya think?",
+    "target": "What do you think"
+   }
+  ]
+ },
+ {
+  "id": "s10",
+  "name": "you → ya",
+  "kind": "reduction",
+  "level": 1,
+  "explanationZh": "不重读的 you 读成 /jə/，听起来像 ya，在 see you、Are you、How are you 中尤其明显。别等着听清晰的 /juː/，听到句中有个很轻的 ya 就是 you。",
+  "examples": [
+   {
+    "en": "How are you doing?",
+    "zh": "你最近怎么样？",
+    "heard": "How're ya doin'?",
+    "target": "How are you"
+   },
+   {
+    "en": "I'll see you tomorrow.",
+    "zh": "明天见。",
+    "heard": "I'll see ya tomorrow.",
+    "target": "see you tomorrow"
+   },
+   {
+    "en": "Are you ready?",
+    "zh": "你准备好了吗？",
+    "heard": "Arya ready?",
+    "target": "Are you ready"
+   }
+  ]
+ },
+ {
+  "id": "s11",
+  "name": "and → /ən/ 弱读",
+  "kind": "weak-form",
+  "level": 1,
+  "explanationZh": "and 弱读成 /ən/ 甚至只剩 /n/，d 消失：salt and pepper 听起来像 salt ’n’ pepper。听到两个词之间有个很轻的 n，那通常就是 and。",
+  "examples": [
+   {
+    "en": "I'll have a coffee and a bagel.",
+    "zh": "我要一杯咖啡和一个贝果。",
+    "heard": "I'll have a coffee 'n' a bagel.",
+    "target": "coffee and a bagel"
+   },
+   {
+    "en": "Salt and pepper, please.",
+    "zh": "请给我盐和胡椒。",
+    "heard": "Salt 'n' pepper, please.",
+    "target": "Salt and pepper"
+   },
+   {
+    "en": "Come in and sit down.",
+    "zh": "进来坐吧。",
+    "heard": "Come in 'n sit down.",
+    "target": "in and sit"
+   }
+  ]
+ },
+ {
+  "id": "s12",
+  "name": "of → /əv/ 弱读",
+  "kind": "weak-form",
+  "level": 1,
+  "explanationZh": "of 弱读成 /əv/，在辅音前往往只剩 /ə/，cup of coffee 像 cuppa coffee；在元音前才会听到 v 并连到下一个词（sick of it → sick-uv-it）。它是两个词之间轻轻的一个 uh。",
+  "examples": [
+   {
+    "en": "I need a cup of coffee.",
+    "zh": "我需要来杯咖啡。",
+    "heard": "I need a cuppa coffee.",
+    "target": "cup of coffee"
+   },
+   {
+    "en": "Most of my friends live nearby.",
+    "zh": "我的朋友大多住在附近。",
+    "heard": "Mosta my friends live nearby.",
+    "target": "Most of my"
+   },
+   {
+    "en": "I'm sick of it.",
+    "zh": "我受够了。",
+    "heard": "I'm sick-uv-it.",
+    "target": "sick of it"
+   }
+  ]
+ },
+ {
+  "id": "s13",
+  "name": "for → /fər/ 弱读",
+  "kind": "weak-form",
+  "level": 1,
+  "explanationZh": "for 弱读成 /fər/，元音变成 ə，只剩 f 加一个卷舌音，听起来像 fer。只有放在句末（What’s it for?）才会重读成 /fɔr/。",
+  "examples": [
+   {
+    "en": "Thanks for everything.",
+    "zh": "谢谢你做的一切。",
+    "heard": "Thanks fer everything.",
+    "target": "Thanks for everything"
+   },
+   {
+    "en": "I waited for an hour.",
+    "zh": "我等了一个小时。",
+    "heard": "I waited fer-an-our.",
+    "target": "for an hour"
+   },
+   {
+    "en": "This gift is for you.",
+    "zh": "这份礼物是给你的。",
+    "heard": "This gift is fer ya.",
+    "target": "is for you"
+   }
+  ]
+ },
+ {
+  "id": "s14",
+  "name": "because → ’cause",
+  "kind": "reduction",
+  "level": 1,
+  "explanationZh": "because 在口语里读成 ’cause /kəz/，常写成 cuz，开头的 be- 整个消失。句中听到一个很短的 cuz，后面接原因，就是“因为”。",
+  "examples": [
+   {
+    "en": "I stayed home because I was tired.",
+    "zh": "我因为累所以待在家里。",
+    "heard": "I stayed home cuz I was tired.",
+    "target": "because I was tired"
+   },
+   {
+    "en": "I'm laughing because it's funny.",
+    "zh": "我笑是因为它好笑。",
+    "heard": "I'm laughing cuz it's funny.",
+    "target": "because it's funny"
+   },
+   {
+    "en": "Why? Because I said so.",
+    "zh": "为什么？因为我这么说。",
+    "heard": "Why? Cuz I said so.",
+    "target": "Because I said so"
+   }
+  ]
+ },
+ {
+  "id": "s15",
+  "name": "have to → hafta / has to → hasta",
+  "kind": "reduction",
+  "level": 2,
+  "explanationZh": "have to 读成 hafta /ˈhæftə/，has to 读成 hasta /ˈhæstə/：后面清辅音 t 把 v、z 也“带清”成 f、s，to 弱化成 ə。听到 hafta/hasta 就是“必须”。",
+  "examples": [
+   {
+    "en": "I have to work late tonight.",
+    "zh": "我今晚要加班。",
+    "heard": "I hafta work late tonight.",
+    "target": "have to work"
+   },
+   {
+    "en": "She has to leave early.",
+    "zh": "她得早点走。",
+    "heard": "She hasta leave early.",
+    "target": "has to leave"
+   },
+   {
+    "en": "Do we have to go?",
+    "zh": "我们非去不可吗？",
+    "heard": "Do we hafta go?",
+    "target": "have to go"
+   }
+  ]
+ },
+ {
+  "id": "s16",
+  "name": "give me → gimme",
+  "kind": "reduction",
+  "level": 2,
+  "explanationZh": "give me 读成 gimme /ˈɡɪmi/，give 末尾的 v 被后面的 m 吞掉。常用来请求或要东西：Gimme a sec（等我一下）。",
+  "examples": [
+   {
+    "en": "Give me a second.",
+    "zh": "等我一下。",
+    "heard": "Gimme a second.",
+    "target": "Give me a second"
+   },
+   {
+    "en": "Can you give me a hand?",
+    "zh": "你能帮我一把吗？",
+    "heard": "Can ya gimme a hand?",
+    "target": "give me a hand"
+   },
+   {
+    "en": "Just give me five minutes.",
+    "zh": "再给我五分钟。",
+    "heard": "Just gimme five minutes.",
+    "target": "give me five minutes"
+   }
+  ]
+ },
+ {
+  "id": "s17",
+  "name": "let me → lemme",
+  "kind": "reduction",
+  "level": 2,
+  "explanationZh": "let me 读成 lemme /ˈlɛmi/，t 被后面的 m 同化而消失。Lemme know、Lemme see、Lemme check 是固定搭配，听到句首的 lemme 就是 let me。",
+  "examples": [
+   {
+    "en": "Let me think about it.",
+    "zh": "让我想想。",
+    "heard": "Lemme think about it.",
+    "target": "Let me think"
+   },
+   {
+    "en": "Let me know if you need anything.",
+    "zh": "需要什么就告诉我。",
+    "heard": "Lemme know if ya need anything.",
+    "target": "Let me know"
+   },
+   {
+    "en": "Hold on, let me check.",
+    "zh": "等一下，我查查看。",
+    "heard": "Hold on, lemme check.",
+    "target": "let me check"
+   }
+  ]
+ },
+ {
+  "id": "s18",
+  "name": "did you → didja",
+  "kind": "assimilation",
+  "level": 2,
+  "explanationZh": "did you 中 d 与 you 的 y 融合成 /dʒ/，读成 didja /ˈdɪdʒə/，像一个词。疑问句开头听到 “didja” 就是 Did you…？",
+  "examples": [
+   {
+    "en": "Did you eat yet?",
+    "zh": "你吃了吗？",
+    "heard": "Didja eat yet?",
+    "target": "Did you eat"
+   },
+   {
+    "en": "Did you hear the news?",
+    "zh": "你听说那个消息了吗？",
+    "heard": "Didja hear the news?",
+    "target": "Did you hear"
+   },
+   {
+    "en": "Did you finish the report?",
+    "zh": "你把报告写完了吗？",
+    "heard": "Didja finish the report?",
+    "target": "Did you finish"
+   }
+  ]
+ },
+ {
+  "id": "s19",
+  "name": "would you / could you → wouldja / couldja",
+  "kind": "assimilation",
+  "level": 2,
+  "explanationZh": "would you、could you 里 d 与 y 融合成 /dʒ/，读成 wouldja /ˈwʊdʒə/、couldja /ˈkʊdʒə/。这是礼貌请求的开头，听到就知道对方在请你做事。",
+  "examples": [
+   {
+    "en": "Would you like some tea?",
+    "zh": "你想喝点茶吗？",
+    "heard": "Wouldja like some tea?",
+    "target": "Would you like"
+   },
+   {
+    "en": "Could you close the window?",
+    "zh": "你能把窗户关上吗？",
+    "heard": "Couldja close the window?",
+    "target": "Could you close"
+   },
+   {
+    "en": "Would you mind helping me?",
+    "zh": "你介意帮我一下吗？",
+    "heard": "Wouldja mind helping me?",
+    "target": "Would you mind"
+   }
+  ]
+ },
+ {
+  "id": "s20",
+  "name": "should have → shoulda / could have → coulda / would have → woulda",
+  "kind": "reduction",
+  "level": 2,
+  "explanationZh": "情态动词后的 have 弱读成 /ə/：should have → shoulda /ˈʃʊdə/，could have → coulda，would have → woulda，表示“本来应该／本来可以”。听起来像 should of，但 of 只是书写错误。",
+  "examples": [
+   {
+    "en": "I should have called you.",
+    "zh": "我本该给你打电话的。",
+    "heard": "I shoulda called ya.",
+    "target": "should have called"
+   },
+   {
+    "en": "We could have taken the train.",
+    "zh": "我们本来可以坐火车的。",
+    "heard": "We coulda taken the train.",
+    "target": "could have taken"
+   },
+   {
+    "en": "He would have helped if you'd asked.",
+    "zh": "你要是开口，他会帮忙的。",
+    "heard": "He woulda helped if ya'd asked.",
+    "target": "would have helped"
+   }
+  ]
+ },
+ {
+  "id": "s21",
+  "name": "them → ’em",
+  "kind": "reduction",
+  "level": 2,
+  "explanationZh": "不重读的 them 读成 ’em /əm/，开头的 th 不发音，像是前一个动词的尾巴：tell ’em、call ’em。别把它听成 him。",
+  "examples": [
+   {
+    "en": "Just tell them the truth.",
+    "zh": "就告诉他们实话吧。",
+    "heard": "Just tell 'em the truth.",
+    "target": "tell them the truth"
+   },
+   {
+    "en": "I'll call them later.",
+    "zh": "我待会儿给他们打电话。",
+    "heard": "I'll call 'em later.",
+    "target": "call them later"
+   },
+   {
+    "en": "Let them know I'm late.",
+    "zh": "告诉他们我会晚点到。",
+    "heard": "Leh-dem know I'm late.",
+    "target": "Let them know"
+   }
+  ]
+ },
+ {
+  "id": "s22",
+  "name": "him / her 脱落 h：tell ’im",
+  "kind": "weak-form",
+  "level": 2,
+  "explanationZh": "代词 him、her、his 不重读时 h 脱落，并与前一个词连在一起：tell him → tell ’im /tɛlɪm/，ask her → ask ’er /æskɚ/。动词后面多出一个很轻的 im 或 er，就是它们。",
+  "examples": [
+   {
+    "en": "Tell him I called.",
+    "zh": "告诉他我来过电话。",
+    "heard": "Tell 'im I called.",
+    "target": "Tell him I called"
+   },
+   {
+    "en": "I'll ask her tomorrow.",
+    "zh": "我明天问问她。",
+    "heard": "I'll ask 'er tomorrow.",
+    "target": "ask her tomorrow"
+   },
+   {
+    "en": "Did you give him the keys?",
+    "zh": "你把钥匙给他了吗？",
+    "heard": "Didja give 'im the keys?",
+    "target": "give him the keys"
+   }
+  ]
+ },
+ {
+  "id": "s23",
+  "name": "kind of → kinda / sort of → sorta",
+  "kind": "reduction",
+  "level": 2,
+  "explanationZh": "kind of 读成 kinda /ˈkaɪndə/，sort of 读成 sorta /ˈsɔrɾə/，of 弱化成 ə。意思是“有点、有几分”，用来把话说得委婉。",
+  "examples": [
+   {
+    "en": "I'm kind of tired.",
+    "zh": "我有点累。",
+    "heard": "I'm kinda tired.",
+    "target": "kind of tired"
+   },
+   {
+    "en": "It's sort of expensive.",
+    "zh": "这有点贵。",
+    "heard": "It's sorta expensive.",
+    "target": "sort of expensive"
+   },
+   {
+    "en": "It was kind of weird.",
+    "zh": "那有点怪。",
+    "heard": "It was kinda weird.",
+    "target": "kind of weird"
+   }
+  ]
+ },
+ {
+  "id": "s24",
+  "name": "T/D 吞音：next day, last night",
+  "kind": "elision",
+  "level": 2,
+  "explanationZh": "词尾 t/d 夹在两个辅音之间时常被吞掉：last night → las’ night，next day → nex’ day，just moved → jus’ moved。你会听到辅音比拼写少，不要因为找不到 t 而卡住。",
+  "examples": [
+   {
+    "en": "I got home late last night.",
+    "zh": "我昨晚很晚才到家。",
+    "heard": "I got home late las night.",
+    "target": "last night"
+   },
+   {
+    "en": "She called me the next day.",
+    "zh": "她第二天给我打了电话。",
+    "heard": "She called me the nex day.",
+    "target": "the next day"
+   },
+   {
+    "en": "I just moved here.",
+    "zh": "我刚搬来这里。",
+    "heard": "I jus moved here.",
+    "target": "just moved here"
+   }
+  ]
+ },
+ {
+  "id": "s25",
+  "name": "跨词闪音：get it, what about, not at all",
+  "kind": "flap",
+  "level": 2,
+  "explanationZh": "词尾的 t 后面接元音开头的词时，t 变成闪音，听起来像 d 并连到下一个词：get it → geddit，what about → whadabout，not at all → no-dadall。整串声音粘在一起，别按单词边界去切。",
+  "examples": [
+   {
+    "en": "I don't get it.",
+    "zh": "我没明白。",
+    "heard": "I don't geddit.",
+    "target": "get it"
+   },
+   {
+    "en": "What about tomorrow?",
+    "zh": "明天怎么样？",
+    "heard": "Whadabout tomorrow?",
+    "target": "What about tomorrow"
+   },
+   {
+    "en": "Thanks. Not at all.",
+    "zh": "谢谢。——不客气。",
+    "heard": "Thanks. No-dadall.",
+    "target": "Not at all"
+   }
+  ]
+ },
+ {
+  "id": "s26",
+  "name": "元音接元音连读 /w/：go out, do it",
+  "kind": "linking",
+  "level": 2,
+  "explanationZh": "词尾是 /oʊ/、/uː/、/aʊ/（圆唇）的词后接元音开头的词时，中间会滑出一个轻轻的 /w/：go out → go-wout，do it → doo-wit，who is → hoo-wiz。多出来的 w 不属于任何词。",
+  "examples": [
+   {
+    "en": "Let's go out for dinner.",
+    "zh": "我们出去吃晚饭吧。",
+    "heard": "Let's go-wout fer dinner.",
+    "target": "go out for dinner"
+   },
+   {
+    "en": "You can do it!",
+    "zh": "你可以的！",
+    "heard": "Ya k'n doo-wit!",
+    "target": "can do it"
+   },
+   {
+    "en": "Who is that guy?",
+    "zh": "那个人是谁？",
+    "heard": "Hoo-wiz that guy?",
+    "target": "Who is that"
+   }
+  ]
+ },
+ {
+  "id": "s27",
+  "name": "元音接元音连读 /j/：I asked, she is",
+  "kind": "linking",
+  "level": 2,
+  "explanationZh": "词尾是 /i/、/eɪ/、/aɪ/（扁唇）的词后接元音开头的词时，中间会滑出一个轻轻的 /j/：I asked → I-yasked，she is → she-yiz，they are → they-yar。多出来的 y 不属于任何词。",
+  "examples": [
+   {
+    "en": "I asked her yesterday.",
+    "zh": "我昨天问过她了。",
+    "heard": "I-yasked 'er yesterday.",
+    "target": "I asked her"
+   },
+   {
+    "en": "She is waiting outside.",
+    "zh": "她在外面等着。",
+    "heard": "She-yiz waiting outside.",
+    "target": "She is waiting"
+   },
+   {
+    "en": "They are late again.",
+    "zh": "他们又迟到了。",
+    "heard": "They-yar late again.",
+    "target": "They are late"
+   }
+  ]
+ },
+ {
+  "id": "s28",
+  "name": "got you → gotcha / meet you → meetcha",
+  "kind": "assimilation",
+  "level": 2,
+  "explanationZh": "词尾 t 与 you 的 y 融合成 /tʃ/：got you → gotcha，meet you → meetcha，get you → getcha。Gotcha 单独说就是“明白了”。",
+  "examples": [
+   {
+    "en": "Okay, got you.",
+    "zh": "好，明白了。",
+    "heard": "Okay, gotcha.",
+    "target": "got you"
+   },
+   {
+    "en": "Nice to meet you.",
+    "zh": "很高兴认识你。",
+    "heard": "Nice ta meetcha.",
+    "target": "Nice to meet you"
+   },
+   {
+    "en": "I'll get you there on time.",
+    "zh": "我会准时送你到那儿。",
+    "heard": "I'll getcha there on time.",
+    "target": "get you there"
+   }
+  ]
+ },
+ {
+  "id": "s29",
+  "name": "don’t you → dontcha",
+  "kind": "assimilation",
+  "level": 3,
+  "explanationZh": "don’t you 中 t 与 y 融合成 /tʃ/，读成 dontcha /ˈdoʊntʃə/。常出现在反问和劝说里：Don’t you think…？ Why don’t you…？",
+  "examples": [
+   {
+    "en": "Don't you think it's too late?",
+    "zh": "你不觉得太晚了吗？",
+    "heard": "Dontcha think it's too late?",
+    "target": "Don't you think"
+   },
+   {
+    "en": "Don't you want to come?",
+    "zh": "你不想来吗？",
+    "heard": "Dontcha wanna come?",
+    "target": "Don't you want to"
+   },
+   {
+    "en": "Why don't you ask him?",
+    "zh": "你为什么不去问问他？",
+    "heard": "Why dontcha ask 'im?",
+    "target": "don't you ask him"
+   }
+  ]
+ },
+ {
+  "id": "s30",
+  "name": "where did you → where’dja",
+  "kind": "assimilation",
+  "level": 3,
+  "explanationZh": "疑问词后的 did you 缩得更短，did 只剩 ’d，再和 you 融合成 /dʒ/：where did you → where’dja，how did you → how’dja，why did you → why’dja。听到 -dja 结尾就是 did you。",
+  "examples": [
+   {
+    "en": "Where did you go?",
+    "zh": "你去哪儿了？",
+    "heard": "Where'dja go?",
+    "target": "Where did you go"
+   },
+   {
+    "en": "How did you know?",
+    "zh": "你怎么知道的？",
+    "heard": "How'dja know?",
+    "target": "How did you know"
+   },
+   {
+    "en": "Why did you leave?",
+    "zh": "你为什么离开？",
+    "heard": "Why'dja leave?",
+    "target": "Why did you leave"
+   }
+  ]
+ },
+ {
+  "id": "s31",
+  "name": "out of → outta / a lot of → a lotta",
+  "kind": "reduction",
+  "level": 3,
+  "explanationZh": "out of 读成 outta /ˈaʊɾə/，a lot of 读成 a lotta /ə ˈlɑɾə/：of 弱化成 ə，t 变成闪音。Get outta here（别开玩笑了）也是常用感叹。",
+  "examples": [
+   {
+    "en": "Get out of here!",
+    "zh": "少来！／不会吧！",
+    "heard": "Get outta here!",
+    "target": "out of here"
+   },
+   {
+    "en": "I'm out of money.",
+    "zh": "我没钱了。",
+    "heard": "I'm outta money.",
+    "target": "out of money"
+   },
+   {
+    "en": "There's a lot of traffic today.",
+    "zh": "今天车很多。",
+    "heard": "There's a lotta traffic today.",
+    "target": "a lot of traffic"
+   }
+  ]
+ },
+ {
+  "id": "s32",
+  "name": "this year → thish year",
+  "kind": "assimilation",
+  "level": 3,
+  "explanationZh": "s 后面紧跟 y 时，两者融合成 /ʃ/：this year → thish year，miss you → mish you。听到词中冒出 sh，却没有 sh 的拼写，可能就是它。",
+  "examples": [
+   {
+    "en": "I'm moving this year.",
+    "zh": "我今年要搬家。",
+    "heard": "I'm moving thish year.",
+    "target": "this year"
+   },
+   {
+    "en": "I miss you so much.",
+    "zh": "我好想你。",
+    "heard": "I mish you so much.",
+    "target": "miss you so much"
+   },
+   {
+    "en": "I haven't finished this yet.",
+    "zh": "这个我还没做完。",
+    "heard": "I haven't finished thish yet.",
+    "target": "this yet"
+   }
+  ]
+ },
+ {
+  "id": "s33",
+  "name": "used to → usta / supposed to → supposta",
+  "kind": "reduction",
+  "level": 3,
+  "explanationZh": "used to 读成 usta /ˈjustə/，supposed to 读成 supposta，词尾 d 被吞掉，to 弱化。used to do（过去常常）和 be used to（习惯于）读音相同。",
+  "examples": [
+   {
+    "en": "I used to live in Boston.",
+    "zh": "我以前住在波士顿。",
+    "heard": "I usta live in Boston.",
+    "target": "used to live"
+   },
+   {
+    "en": "We're supposed to meet at six.",
+    "zh": "我们应该六点见面。",
+    "heard": "We're supposta meet at six.",
+    "target": "supposed to meet"
+   },
+   {
+    "en": "I'm not used to this weather.",
+    "zh": "我不习惯这种天气。",
+    "heard": "I'm not usta this weather.",
+    "target": "used to this weather"
+   }
+  ]
+ },
+ {
+  "id": "s34",
+  "name": "was / were 弱读",
+  "kind": "weak-form",
+  "level": 3,
+  "explanationZh": "不重读的 was 读成 /wəz/（像 wuz），were 读成 /wɚ/，元音都变成 ə，又轻又短，容易被当成没说。was a 常连成 wuza。",
+  "examples": [
+   {
+    "en": "I was at home.",
+    "zh": "我当时在家。",
+    "heard": "I wuz-at home.",
+    "target": "was at home"
+   },
+   {
+    "en": "Where were you last night?",
+    "zh": "你昨晚在哪儿？",
+    "heard": "Where wer ya las night?",
+    "target": "were you last night"
+   },
+   {
+    "en": "It was a great trip.",
+    "zh": "那是一次很棒的旅行。",
+    "heard": "It wuza great trip.",
+    "target": "was a great trip"
+   }
+  ]
+ },
+ {
+  "id": "s35",
+  "name": "have / has 弱读：where’ve you",
+  "kind": "weak-form",
+  "level": 3,
+  "explanationZh": "助动词 have 弱读成 /əv/，has 弱读成 /əz/ 甚至只剩 /z/（She’s already left），并粘在前一个词上：where have → where’ve，I have → I’ve。它几乎总是轻声，最容易漏听。",
+  "examples": [
+   {
+    "en": "Where have you been?",
+    "zh": "你去哪儿了？",
+    "heard": "Where'v ya been?",
+    "target": "Where have you been"
+   },
+   {
+    "en": "She has already left.",
+    "zh": "她已经走了。",
+    "heard": "She's already left.",
+    "target": "has already left"
+   },
+   {
+    "en": "I have no idea.",
+    "zh": "我完全不知道。",
+    "heard": "I'v no idea.",
+    "target": "have no idea"
+   }
+  ]
+ },
+ {
+  "id": "s36",
+  "name": "数字重音：thirteen vs thirty",
+  "kind": "reduction",
+  "level": 3,
+  "explanationZh": "-teen 的重音在后，thir-TEEN 尾音又长又清楚；-ty 的重音在前，THIR-dee 尾音轻短（t 变闪音）。听数字先判断重音位置：重音在后是 13、15、18，重音在前是 30、50、80。",
+  "examples": [
+   {
+    "en": "It costs thirteen dollars.",
+    "zh": "这要十三美元。",
+    "heard": "It costs thir-TEEN dollars.",
+    "target": "thirteen dollars"
+   },
+   {
+    "en": "It costs thirty dollars.",
+    "zh": "这要三十美元。",
+    "heard": "It costs THIR-dee dollars.",
+    "target": "thirty dollars"
+   },
+   {
+    "en": "Is it eighteen or eighty?",
+    "zh": "是十八还是八十？",
+    "heard": "Is it ay-TEEN or AY-dee?",
+    "target": "eighteen or eighty"
+   }
+  ]
+ },
+ {
+  "id": "s37",
+  "name": "N 后吞 T：winter, internet",
+  "kind": "elision",
+  "level": 3,
+  "explanationZh": "重读元音之后，n 和 t 相连时 t 常被吞掉：winter → winner，internet → innernet，twenty → twenny。听到的是 winner，其实说的是 winter，要靠上下文判断。",
+  "examples": [
+   {
+    "en": "It gets cold in winter.",
+    "zh": "冬天会变冷。",
+    "heard": "It gets cold in winner.",
+    "target": "cold in winter"
+   },
+   {
+    "en": "The internet is down again.",
+    "zh": "网又断了。",
+    "heard": "The innernet is down again.",
+    "target": "The internet is down"
+   },
+   {
+    "en": "I'm twenty years old.",
+    "zh": "我二十岁。",
+    "heard": "I'm twenny years old.",
+    "target": "twenty years old"
+   }
+  ]
+ },
+ {
+  "id": "s38",
+  "name": "喉塞音 T：button, can’t go",
+  "kind": "elision",
+  "level": 3,
+  "explanationZh": "t 出现在鼻音 n 之前，或在辅音之前的词尾，常变成喉塞音 /ʔ/，也就是喉咙突然一卡，不出 t 声：button → bu’n，mountain → moun’n，can’t go → can’ go，not sure → no’ sure。",
+  "examples": [
+   {
+    "en": "I can't go tonight.",
+    "zh": "我今晚去不了。",
+    "heard": "I can' go tonight.",
+    "target": "can't go tonight"
+   },
+   {
+    "en": "Press the button.",
+    "zh": "按下按钮。",
+    "heard": "Press the bu'n.",
+    "target": "the button"
+   },
+   {
+    "en": "We climbed a mountain.",
+    "zh": "我们爬了一座山。",
+    "heard": "We climbed a moun'n.",
+    "target": "a mountain"
+   }
+  ]
+ },
+ {
+  "id": "s39",
+  "name": "吞音节：probably, interesting, different",
+  "kind": "reduction",
+  "level": 3,
+  "explanationZh": "多音节词中间不重读的音节常整个消失：probably → prob’ly，interesting → in’resting，different → diff’rent。词的节奏比拼写少一个音节，要按听到的音节数来辨认。",
+  "examples": [
+   {
+    "en": "I'll probably be late.",
+    "zh": "我可能会晚到。",
+    "heard": "I'll prob'ly be late.",
+    "target": "probably be late"
+   },
+   {
+    "en": "It's a really interesting story.",
+    "zh": "这个故事真有意思。",
+    "heard": "It's a really in'resting story.",
+    "target": "interesting story"
+   },
+   {
+    "en": "That's totally different.",
+    "zh": "那完全不一样。",
+    "heard": "That's totally diff'rent.",
+    "target": "totally different"
+   }
+  ]
+ },
+ {
+  "id": "s40",
+  "name": "-ing → -in’",
+  "kind": "reduction",
+  "level": 3,
+  "explanationZh": "词尾不重读的 -ing 常读成 -in’，ng 变成 n：working → workin’，running → runnin’。听到词尾只有一个轻轻的 n，而不是 -ing 的鼻音，很可能是同一个形式。",
+  "examples": [
+   {
+    "en": "I'm working on it.",
+    "zh": "我正在处理。",
+    "heard": "I'm workin' on it.",
+    "target": "working on it"
+   },
+   {
+    "en": "She's running late.",
+    "zh": "她要迟到了。",
+    "heard": "She's runnin' late.",
+    "target": "running late"
+   },
+   {
+    "en": "I'm thinking about quitting.",
+    "zh": "我在考虑辞职。",
+    "heard": "I'm thinkin' about quittin'.",
+    "target": "thinking about quitting"
+   }
+  ]
+ }
+]

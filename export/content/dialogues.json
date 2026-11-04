@@ -1,0 +1,7429 @@
+[
+ {
+  "id": "dl001",
+  "title": "和邻居打招呼",
+  "scene": "social",
+  "category": "greeting",
+  "tier": 1,
+  "turns": [
+   {
+    "speaker": "A",
+    "en": "Hey, Maria! How's it going?",
+    "zh": "嘿，Maria！最近怎么样？"
+   },
+   {
+    "speaker": "B",
+    "en": "Pretty good. Just taking out the trash. You?",
+    "zh": "挺好的，正在倒垃圾。你呢？"
+   },
+   {
+    "speaker": "A",
+    "en": "Not bad. I'd better get going. Take care!",
+    "zh": "还行。我得走了。保重！"
+   }
+  ],
+  "chunkIds": [
+   "c001",
+   "c008",
+   "c010"
+  ],
+  "gist": {
+   "questionZh": "Maria 刚才在做什么？",
+   "optionsZh": [
+    "洗车",
+    "遛狗",
+    "取快递",
+    "倒垃圾"
+   ],
+   "answer": 3
+  },
+  "blanks": [
+   {
+    "turn": 0,
+    "text": "How's it going"
+   },
+   {
+    "turn": 1,
+    "text": "taking out the trash"
+   },
+   {
+    "turn": 2,
+    "text": "I'd better get going"
+   }
+  ]
+ },
+ {
+  "id": "dl002",
+  "title": "周末有什么安排",
+  "scene": "daily",
+  "category": "plan",
+  "tier": 1,
+  "turns": [
+   {
+    "speaker": "A",
+    "en": "What are you up to this weekend?",
+    "zh": "这个周末你有什么安排？"
+   },
+   {
+    "speaker": "B",
+    "en": "Not much. I might see a movie. You?",
+    "zh": "没什么，可能去看场电影。你呢？"
+   },
+   {
+    "speaker": "A",
+    "en": "I'm thinking of going hiking if the weather's nice.",
+    "zh": "要是天气好，我想去爬山。"
+   }
+  ],
+  "chunkIds": [
+   "c191",
+   "c189"
+  ],
+  "gist": {
+   "questionZh": "A 周末想做什么？",
+   "optionsZh": [
+    "在家打扫卫生",
+    "去看电影",
+    "天气好的话去爬山",
+    "去看望爷爷奶奶"
+   ],
+   "answer": 2
+  },
+  "blanks": [
+   {
+    "turn": 0,
+    "text": "up to this weekend"
+   },
+   {
+    "turn": 2,
+    "text": "I'm thinking of"
+   },
+   {
+    "turn": 2,
+    "text": "if the weather's nice"
+   }
+  ]
+ },
+ {
+  "id": "dl003",
+  "title": "抱歉我迟到了",
+  "scene": "daily",
+  "category": "thanks",
+  "tier": 1,
+  "turns": [
+   {
+    "speaker": "A",
+    "en": "Sorry I'm late. The traffic was crazy.",
+    "zh": "抱歉我迟到了。路上堵得太夸张了。"
+   },
+   {
+    "speaker": "B",
+    "en": "No worries. We just sat down.",
+    "zh": "没事，我们也刚坐下。"
+   },
+   {
+    "speaker": "A",
+    "en": "My bad. I should've left earlier.",
+    "zh": "怪我。我该早点出门的。"
+   }
+  ],
+  "chunkIds": [
+   "c129",
+   "c128"
+  ],
+  "gist": {
+   "questionZh": "A 为什么迟到了？",
+   "optionsZh": [
+    "睡过头了",
+    "路上堵车",
+    "找不到地方",
+    "忘记了时间"
+   ],
+   "answer": 1
+  },
+  "blanks": [
+   {
+    "turn": 0,
+    "text": "The traffic was crazy"
+   },
+   {
+    "turn": 1,
+    "text": "No worries"
+   },
+   {
+    "turn": 2,
+    "text": "should've left earlier"
+   }
+  ]
+ },
+ {
+  "id": "dl004",
+  "title": "请朋友搬沙发",
+  "scene": "daily",
+  "category": "request",
+  "tier": 1,
+  "turns": [
+   {
+    "speaker": "A",
+    "en": "Could you do me a favor?",
+    "zh": "你能帮我个忙吗？"
+   },
+   {
+    "speaker": "B",
+    "en": "Sure. What do you need?",
+    "zh": "当然，需要我做什么？"
+   },
+   {
+    "speaker": "A",
+    "en": "Can you give me a hand with this couch?",
+    "zh": "你能帮我抬一下这个沙发吗？"
+   }
+  ],
+  "chunkIds": [
+   "c101",
+   "c102"
+  ],
+  "gist": {
+   "questionZh": "A 想请 B 帮什么忙？",
+   "optionsZh": [
+    "修电脑",
+    "一起搬沙发",
+    "照看小孩",
+    "借一点钱"
+   ],
+   "answer": 1
+  },
+  "blanks": [
+   {
+    "turn": 0,
+    "text": "Could you do me a favor"
+   },
+   {
+    "turn": 2,
+    "text": "give me a hand"
+   },
+   {
+    "turn": 2,
+    "text": "with this couch"
+   }
+  ]
+ },
+ {
+  "id": "dl005",
+  "title": "约午饭，去不了",
+  "scene": "social",
+  "category": "offer",
+  "tier": 1,
+  "turns": [
+   {
+    "speaker": "A",
+    "en": "Want to grab lunch today?",
+    "zh": "今天一起吃午饭吗？"
+   },
+   {
+    "speaker": "B",
+    "en": "I'd love to, but I have a meeting at noon.",
+    "zh": "我很想去，但中午有个会。"
+   },
+   {
+    "speaker": "A",
+    "en": "No problem. Tomorrow, then?",
+    "zh": "没关系，那明天呢？"
+   }
+  ],
+  "chunkIds": [
+   "c117",
+   "c118"
+  ],
+  "gist": {
+   "questionZh": "B 为什么不能一起吃午饭？",
+   "optionsZh": [
+    "中午有会议",
+    "已经吃过了",
+    "要去看医生",
+    "不喜欢那家餐厅"
+   ],
+   "answer": 0
+  },
+  "blanks": [
+   {
+    "turn": 0,
+    "text": "Want to grab lunch"
+   },
+   {
+    "turn": 1,
+    "text": "I'd love to, but"
+   },
+   {
+    "turn": 1,
+    "text": "a meeting at noon"
+   }
+  ]
+ },
+ {
+  "id": "dl006",
+  "title": "咖啡店点单",
+  "scene": "daily",
+  "category": "travel",
+  "tier": 1,
+  "turns": [
+   {
+    "speaker": "A",
+    "en": "Hi. I'll have a medium latte, please.",
+    "zh": "你好，我要一杯中杯拿铁。"
+   },
+   {
+    "speaker": "B",
+    "en": "Sure. For here or to go?",
+    "zh": "好的。在这儿喝还是带走？"
+   },
+   {
+    "speaker": "A",
+    "en": "To go. Can I pay by card?",
+    "zh": "带走。可以刷卡吗？"
+   }
+  ],
+  "chunkIds": [
+   "c229",
+   "c232"
+  ],
+  "gist": {
+   "questionZh": "A 点了什么？",
+   "optionsZh": [
+    "大杯美式",
+    "一杯茶",
+    "热巧克力",
+    "中杯拿铁"
+   ],
+   "answer": 3
+  },
+  "blanks": [
+   {
+    "turn": 0,
+    "text": "I'll have a medium latte"
+   },
+   {
+    "turn": 1,
+    "text": "For here or to go"
+   },
+   {
+    "turn": 2,
+    "text": "Can I pay by card"
+   }
+  ]
+ },
+ {
+  "id": "dl007",
+  "title": "今天太热了",
+  "scene": "daily",
+  "category": "describe",
+  "tier": 1,
+  "turns": [
+   {
+    "speaker": "A",
+    "en": "It's way too hot today.",
+    "zh": "今天热得离谱。"
+   },
+   {
+    "speaker": "B",
+    "en": "Tell me about it. I can't wait to get home and turn on the AC.",
+    "zh": "可不是嘛。我等不及回家开空调了。"
+   },
+   {
+    "speaker": "A",
+    "en": "Same here. I'm not cooking tonight.",
+    "zh": "我也是。今晚我可不做饭了。"
+   }
+  ],
+  "chunkIds": [
+   "c167",
+   "c016",
+   "c154",
+   "c022"
+  ],
+  "gist": {
+   "questionZh": "两个人在聊什么？",
+   "optionsZh": [
+    "周末去哪玩",
+    "晚饭吃什么菜",
+    "今天天气太热",
+    "新买的空调"
+   ],
+   "answer": 2
+  },
+  "blanks": [
+   {
+    "turn": 1,
+    "text": "Tell me about it"
+   },
+   {
+    "turn": 1,
+    "text": "I can't wait to"
+   },
+   {
+    "turn": 1,
+    "text": "turn on the AC"
+   }
+  ]
+ },
+ {
+  "id": "dl008",
+  "title": "妈妈在做饭",
+  "scene": "daily",
+  "category": "offer",
+  "tier": 1,
+  "turns": [
+   {
+    "speaker": "A",
+    "en": "Smells great, Mom! Do you want me to set the table?",
+    "zh": "好香啊，妈！要我摆餐桌吗？"
+   },
+   {
+    "speaker": "B",
+    "en": "Yes, please. And make sure you wash your hands.",
+    "zh": "好的。还有，记得洗手。"
+   },
+   {
+    "speaker": "A",
+    "en": "Okay! How long until dinner?",
+    "zh": "好！还有多久开饭？"
+   }
+  ],
+  "chunkIds": [
+   "c116",
+   "c142"
+  ],
+  "gist": {
+   "questionZh": "A 主动提出要做什么？",
+   "optionsZh": [
+    "洗碗",
+    "倒垃圾",
+    "摆餐桌",
+    "去买面包"
+   ],
+   "answer": 2
+  },
+  "blanks": [
+   {
+    "turn": 0,
+    "text": "Do you want me to"
+   },
+   {
+    "turn": 1,
+    "text": "make sure you wash your hands"
+   },
+   {
+    "turn": 2,
+    "text": "How long until dinner"
+   }
+  ]
+ },
+ {
+  "id": "dl009",
+  "title": "会议改时间了",
+  "scene": "daily",
+  "category": "thanks",
+  "tier": 1,
+  "turns": [
+   {
+    "speaker": "A",
+    "en": "Hey, the meeting moved to three.",
+    "zh": "嘿，会议改到三点了。"
+   },
+   {
+    "speaker": "B",
+    "en": "Oh, thanks for letting me know.",
+    "zh": "哦，谢谢你告诉我。"
+   },
+   {
+    "speaker": "A",
+    "en": "Don't mention it. I almost forgot to tell you.",
+    "zh": "别客气。我差点忘了告诉你。"
+   }
+  ],
+  "chunkIds": [
+   "c134",
+   "c130"
+  ],
+  "gist": {
+   "questionZh": "会议改到了几点？",
+   "optionsZh": [
+    "两点",
+    "三点",
+    "四点",
+    "五点"
+   ],
+   "answer": 1
+  },
+  "blanks": [
+   {
+    "turn": 1,
+    "text": "thanks for letting me know"
+   },
+   {
+    "turn": 2,
+    "text": "Don't mention it"
+   },
+   {
+    "turn": 2,
+    "text": "forgot to tell you"
+   }
+  ]
+ },
+ {
+  "id": "dl010",
+  "title": "邻居的狗生病了",
+  "scene": "social",
+  "category": "response",
+  "tier": 1,
+  "turns": [
+   {
+    "speaker": "A",
+    "en": "My dog got sick last night. We were at the vet till midnight.",
+    "zh": "我的狗昨晚生病了。我们在兽医那待到半夜。"
+   },
+   {
+    "speaker": "B",
+    "en": "Oh no, that's too bad. Is he okay now?",
+    "zh": "哎呀，太糟糕了。它现在没事了吧？"
+   },
+   {
+    "speaker": "A",
+    "en": "He's fine now. I mean, he ate a whole sock!",
+    "zh": "没事了。他居然吃了一整只袜子！"
+   }
+  ],
+  "chunkIds": [
+   "c019",
+   "c032"
+  ],
+  "gist": {
+   "questionZh": "昨晚发生了什么事？",
+   "optionsZh": [
+    "狗生病去看兽医",
+    "狗咬了邻居",
+    "狗走丢了",
+    "狗做了手术"
+   ],
+   "answer": 0
+  },
+  "blanks": [
+   {
+    "turn": 1,
+    "text": "that's too bad"
+   },
+   {
+    "turn": 1,
+    "text": "Is he okay now"
+   },
+   {
+    "turn": 2,
+    "text": "ate a whole sock"
+   }
+  ]
+ },
+ {
+  "id": "dl011",
+  "title": "约朋友出来玩",
+  "scene": "social",
+  "category": "offer",
+  "tier": 1,
+  "turns": [
+   {
+    "speaker": "A",
+    "en": "We should hang out sometime.",
+    "zh": "我们找时间聚一聚吧。"
+   },
+   {
+    "speaker": "B",
+    "en": "Definitely! Are you free Saturday?",
+    "zh": "一定！你周六有空吗？"
+   },
+   {
+    "speaker": "A",
+    "en": "I'd love to, but I'm working. How about Sunday?",
+    "zh": "我想去，但我要上班。周日怎么样？"
+   }
+  ],
+  "chunkIds": [
+   "c241",
+   "c118"
+  ],
+  "gist": {
+   "questionZh": "A 周六为什么不行？",
+   "optionsZh": [
+    "要去旅行",
+    "要陪家人",
+    "要看医生",
+    "要上班"
+   ],
+   "answer": 3
+  },
+  "blanks": [
+   {
+    "turn": 0,
+    "text": "We should hang out"
+   },
+   {
+    "turn": 1,
+    "text": "Are you free Saturday"
+   },
+   {
+    "turn": 2,
+    "text": "I'd love to, but"
+   }
+  ]
+ },
+ {
+  "id": "dl012",
+  "title": "周末过得怎么样",
+  "scene": "social",
+  "category": "social",
+  "tier": 1,
+  "turns": [
+   {
+    "speaker": "A",
+    "en": "How was your weekend?",
+    "zh": "周末过得怎么样？"
+   },
+   {
+    "speaker": "B",
+    "en": "Great! We drove four hours to the beach, but it was totally worth it.",
+    "zh": "很棒！我们开了四个小时去海边，但完全值得。"
+   },
+   {
+    "speaker": "A",
+    "en": "No way! Four hours? I'd have stayed home.",
+    "zh": "不会吧！四个小时？我就待在家里了。"
+   }
+  ],
+  "chunkIds": [
+   "c243",
+   "c165",
+   "c014"
+  ],
+  "gist": {
+   "questionZh": "B 周末去了哪里？",
+   "optionsZh": [
+    "爬山",
+    "去朋友家",
+    "湖边",
+    "海边"
+   ],
+   "answer": 3
+  },
+  "blanks": [
+   {
+    "turn": 0,
+    "text": "How was your weekend"
+   },
+   {
+    "turn": 1,
+    "text": "it was totally worth it"
+   },
+   {
+    "turn": 2,
+    "text": "No way"
+   }
+  ]
+ },
+ {
+  "id": "dl013",
+  "title": "能开一下窗吗",
+  "scene": "daily",
+  "category": "request",
+  "tier": 1,
+  "turns": [
+   {
+    "speaker": "A",
+    "en": "Do you mind if I open the window?",
+    "zh": "我可以开一下窗吗？"
+   },
+   {
+    "speaker": "B",
+    "en": "Go ahead. It's kind of stuffy in here.",
+    "zh": "开吧，这里有点闷。"
+   },
+   {
+    "speaker": "A",
+    "en": "Thanks. That's better.",
+    "zh": "谢谢，好多了。"
+   }
+  ],
+  "chunkIds": [
+   "c103",
+   "c166"
+  ],
+  "gist": {
+   "questionZh": "A 想做什么？",
+   "optionsZh": [
+    "关灯",
+    "开空调",
+    "开窗",
+    "关门"
+   ],
+   "answer": 2
+  },
+  "blanks": [
+   {
+    "turn": 0,
+    "text": "Do you mind if I"
+   },
+   {
+    "turn": 1,
+    "text": "It's kind of stuffy"
+   },
+   {
+    "turn": 1,
+    "text": "Go ahead"
+   }
+  ]
+ },
+ {
+  "id": "dl014",
+  "title": "面试前的鼓励",
+  "scene": "daily",
+  "category": "advice",
+  "tier": 1,
+  "turns": [
+   {
+    "speaker": "A",
+    "en": "I'm a bit stressed out. My interview is tomorrow.",
+    "zh": "我有点压力大。我明天要面试。"
+   },
+   {
+    "speaker": "B",
+    "en": "You'll be fine. Take your time with each answer. Good luck with it!",
+    "zh": "你会没问题的。每个问题慢慢回答。祝顺利！"
+   },
+   {
+    "speaker": "A",
+    "en": "Thanks. I really appreciate it.",
+    "zh": "谢谢，真的很感谢。"
+   }
+  ],
+  "chunkIds": [
+   "c152",
+   "c147",
+   "c145",
+   "c127"
+  ],
+  "gist": {
+   "questionZh": "A 为什么有压力？",
+   "optionsZh": [
+    "明天要考试",
+    "明天要面试",
+    "明天要搬家",
+    "明天要演讲"
+   ],
+   "answer": 1
+  },
+  "blanks": [
+   {
+    "turn": 0,
+    "text": "I'm a bit stressed out"
+   },
+   {
+    "turn": 1,
+    "text": "Take your time"
+   },
+   {
+    "turn": 2,
+    "text": "I really appreciate it"
+   }
+  ]
+ },
+ {
+  "id": "dl015",
+  "title": "推荐一部剧",
+  "scene": "social",
+  "category": "describe",
+  "tier": 2,
+  "turns": [
+   {
+    "speaker": "A",
+    "en": "Have you watched anything good lately?",
+    "zh": "你最近看过什么好看的吗？"
+   },
+   {
+    "speaker": "B",
+    "en": "Yeah! I just finished this cooking drama. It's one of the best shows I've seen.",
+    "zh": "有！我刚看完一部美食剧，是我看过最好的剧之一。"
+   },
+   {
+    "speaker": "A",
+    "en": "What's it about?",
+    "zh": "讲的是什么？"
+   },
+   {
+    "speaker": "B",
+    "en": "A chef taking over his family's restaurant. It's kind of stressful, though.",
+    "zh": "一个厨师接手家里的餐厅。不过有点让人紧张。"
+   },
+   {
+    "speaker": "A",
+    "en": "I'm not a big fan of stressful shows. But I'll give it a shot.",
+    "zh": "我不太喜欢压抑紧张的剧。不过我会试一试。"
+   }
+  ],
+  "chunkIds": [
+   "c173",
+   "c166",
+   "c055",
+   "c146"
+  ],
+  "gist": {
+   "questionZh": "A 对这部剧是什么态度？",
+   "optionsZh": [
+    "不太爱看紧张的剧，但愿意试试",
+    "不感兴趣，不会看",
+    "已经看过了，很喜欢",
+    "觉得太无聊了"
+   ],
+   "answer": 0
+  },
+  "blanks": [
+   {
+    "turn": 1,
+    "text": "one of the best shows"
+   },
+   {
+    "turn": 3,
+    "text": "kind of stressful"
+   },
+   {
+    "turn": 4,
+    "text": "give it a shot"
+   }
+  ]
+ },
+ {
+  "id": "dl016",
+  "title": "晚饭临时取消",
+  "scene": "daily",
+  "category": "plan",
+  "tier": 2,
+  "turns": [
+   {
+    "speaker": "A",
+    "en": "Hey, are we still on for dinner tonight?",
+    "zh": "嘿，我们今晚的晚饭还照常吗？"
+   },
+   {
+    "speaker": "B",
+    "en": "I'm so sorry, something came up. My boss wants me to stay late.",
+    "zh": "真对不起，临时有事。老板要我留下来加班。"
+   },
+   {
+    "speaker": "A",
+    "en": "That's too bad. Want to do tomorrow instead?",
+    "zh": "太可惜了。改到明天怎么样？"
+   },
+   {
+    "speaker": "B",
+    "en": "Yes! Let me check my calendar and I'll let you know.",
+    "zh": "好！我看一下日程再告诉你。"
+   }
+  ],
+  "chunkIds": [
+   "c196",
+   "c019",
+   "c192"
+  ],
+  "gist": {
+   "questionZh": "B 为什么取消了今晚的晚饭？",
+   "optionsZh": [
+    "老板要她加班",
+    "忘记了约定",
+    "身体不舒服",
+    "要去接孩子"
+   ],
+   "answer": 0
+  },
+  "blanks": [
+   {
+    "turn": 1,
+    "text": "something came up"
+   },
+   {
+    "turn": 2,
+    "text": "That's too bad"
+   },
+   {
+    "turn": 3,
+    "text": "I'll let you know"
+   }
+  ]
+ },
+ {
+  "id": "dl017",
+  "title": "多年后偶遇老同学",
+  "scene": "social",
+  "category": "greeting",
+  "tier": 2,
+  "turns": [
+   {
+    "speaker": "A",
+    "en": "Oh my gosh, Tom? Long time no see!",
+    "zh": "天哪，Tom？好久不见！"
+   },
+   {
+    "speaker": "B",
+    "en": "Dana! What a small world! It's been, what, ten years?",
+    "zh": "Dana！世界真小！有十年了吧？"
+   },
+   {
+    "speaker": "A",
+    "en": "At least. What have you been up to?",
+    "zh": "至少十年了。你这些年都在忙什么？"
+   },
+   {
+    "speaker": "B",
+    "en": "I moved to Seattle and started my own bakery. You?",
+    "zh": "我搬到西雅图，开了家自己的面包店。你呢？"
+   },
+   {
+    "speaker": "A",
+    "en": "Nice! I'm still here, teaching. Let's keep in touch this time.",
+    "zh": "不错！我还在这儿教书。这次我们保持联系吧。"
+   }
+  ],
+  "chunkIds": [
+   "c003",
+   "c249",
+   "c007",
+   "c246"
+  ],
+  "gist": {
+   "questionZh": "两人是什么关系？",
+   "optionsZh": [
+    "现在的同事",
+    "亲戚",
+    "邻居",
+    "多年没见的老同学"
+   ],
+   "answer": 3
+  },
+  "blanks": [
+   {
+    "turn": 0,
+    "text": "Long time no see"
+   },
+   {
+    "turn": 2,
+    "text": "What have you been up to"
+   },
+   {
+    "turn": 4,
+    "text": "Let's keep in touch"
+   }
+  ]
+ },
+ {
+  "id": "dl018",
+  "title": "抱怨堵车",
+  "scene": "daily",
+  "category": "problem",
+  "tier": 2,
+  "turns": [
+   {
+    "speaker": "A",
+    "en": "There you are! I was getting worried.",
+    "zh": "你可算来了！我正担心呢。"
+   },
+   {
+    "speaker": "B",
+    "en": "Sorry, the traffic was insane. An accident on the highway, I think.",
+    "zh": "抱歉，堵得太离谱了。好像是高速上出了事故。"
+   },
+   {
+    "speaker": "A",
+    "en": "Ugh. I'm sick of that road. It keeps getting worse.",
+    "zh": "唉，我受够那条路了。越来越糟。"
+   },
+   {
+    "speaker": "B",
+    "en": "Honestly, I'm thinking of taking the train from now on.",
+    "zh": "说真的，我在考虑以后改坐火车。"
+   }
+  ],
+  "chunkIds": [
+   "c156",
+   "c207",
+   "c189"
+  ],
+  "gist": {
+   "questionZh": "B 以后打算怎么通勤？",
+   "optionsZh": [
+    "继续开车",
+    "骑自行车",
+    "坐火车",
+    "搬家"
+   ],
+   "answer": 2
+  },
+  "blanks": [
+   {
+    "turn": 2,
+    "text": "I'm sick of"
+   },
+   {
+    "turn": 2,
+    "text": "It keeps getting worse"
+   },
+   {
+    "turn": 3,
+    "text": "I'm thinking of taking the train"
+   }
+  ]
+ },
+ {
+  "id": "dl019",
+  "title": "服装店试衣服",
+  "scene": "daily",
+  "category": "travel",
+  "tier": 2,
+  "turns": [
+   {
+    "speaker": "A",
+    "en": "Hi there. Can I help you find anything?",
+    "zh": "你好，需要我帮你找点什么吗？"
+   },
+   {
+    "speaker": "B",
+    "en": "I'm just looking, thanks. Actually, can I try this on?",
+    "zh": "我随便看看，谢谢。对了，我能试穿这件吗？"
+   },
+   {
+    "speaker": "A",
+    "en": "Sure. The fitting rooms are right over there.",
+    "zh": "当然，试衣间就在那边。"
+   },
+   {
+    "speaker": "B",
+    "en": "Okay, it's kind of tight. Do you have this in a larger size?",
+    "zh": "好的，这件有点紧。有大一号的吗？"
+   },
+   {
+    "speaker": "A",
+    "en": "Let me check the back.",
+    "zh": "我去后面看看。"
+   }
+  ],
+  "chunkIds": [
+   "c227",
+   "c234",
+   "c233",
+   "c166"
+  ],
+  "gist": {
+   "questionZh": "顾客试穿后遇到了什么问题？",
+   "optionsZh": [
+    "颜色不喜欢",
+    "衣服有点紧",
+    "价格太贵",
+    "衣服有点长"
+   ],
+   "answer": 1
+  },
+  "blanks": [
+   {
+    "turn": 1,
+    "text": "I'm just looking"
+   },
+   {
+    "turn": 1,
+    "text": "try this on"
+   },
+   {
+    "turn": 3,
+    "text": "Do you have this in"
+   }
+  ]
+ },
+ {
+  "id": "dl020",
+  "title": "给妹妹挑生日礼物",
+  "scene": "daily",
+  "category": "advice",
+  "tier": 2,
+  "turns": [
+   {
+    "speaker": "A",
+    "en": "I need a birthday gift for my sister. Any ideas?",
+    "zh": "我得给妹妹买个生日礼物，有主意吗？"
+   },
+   {
+    "speaker": "B",
+    "en": "What's she like?",
+    "zh": "她是什么样的人？"
+   },
+   {
+    "speaker": "A",
+    "en": "She's super into yoga, but I don't know much about it.",
+    "zh": "她超爱瑜伽，可我不太懂这个。"
+   },
+   {
+    "speaker": "B",
+    "en": "If I were you, I'd get her a nice yoga mat. The other day, I saw some on sale.",
+    "zh": "要是我，就给她买个好点的瑜伽垫。前几天我在商场看到有打折的。"
+   },
+   {
+    "speaker": "A",
+    "en": "Sounds good. Let's go take a look.",
+    "zh": "好啊，我们去看看。"
+   }
+  ],
+  "chunkIds": [
+   "c144",
+   "c178",
+   "c021"
+  ],
+  "gist": {
+   "questionZh": "B 建议给妹妹买什么？",
+   "optionsZh": [
+    "一本烹饪书",
+    "瑜伽垫",
+    "水杯",
+    "运动鞋"
+   ],
+   "answer": 1
+  },
+  "blanks": [
+   {
+    "turn": 3,
+    "text": "If I were you, I'd"
+   },
+   {
+    "turn": 3,
+    "text": "The other day"
+   },
+   {
+    "turn": 4,
+    "text": "Sounds good"
+   }
+  ]
+ },
+ {
+  "id": "dl021",
+  "title": "厨房里的鸡汤",
+  "scene": "daily",
+  "category": "question",
+  "tier": 2,
+  "turns": [
+   {
+    "speaker": "A",
+    "en": "Something smells amazing. What are you making?",
+    "zh": "好香啊，你在做什么？"
+   },
+   {
+    "speaker": "B",
+    "en": "My mom's chicken soup. I've been meaning to try it for ages.",
+    "zh": "我妈妈的鸡汤。我早就想试着做了。"
+   },
+   {
+    "speaker": "A",
+    "en": "How long does it take to make?",
+    "zh": "要做多久？"
+   },
+   {
+    "speaker": "B",
+    "en": "About an hour. Feel free to taste it when it is ready.",
+    "zh": "大概一个小时。好了你可以尝尝。"
+   },
+   {
+    "speaker": "A",
+    "en": "Yes, please. I'm starving.",
+    "zh": "好啊，我饿坏了。"
+   }
+  ],
+  "chunkIds": [
+   "c188",
+   "c090",
+   "c115"
+  ],
+  "gist": {
+   "questionZh": "B 在做什么？",
+   "optionsZh": [
+    "妈妈的鸡汤",
+    "意大利面",
+    "蛋糕",
+    "炒饭"
+   ],
+   "answer": 0
+  },
+  "blanks": [
+   {
+    "turn": 1,
+    "text": "I've been meaning to"
+   },
+   {
+    "turn": 2,
+    "text": "How long does it take to"
+   },
+   {
+    "turn": 3,
+    "text": "Feel free to"
+   }
+  ]
+ },
+ {
+  "id": "dl022",
+  "title": "妈妈的电话叮嘱",
+  "scene": "daily",
+  "category": "advice",
+  "tier": 2,
+  "turns": [
+   {
+    "speaker": "A",
+    "en": "Hi, Mom. Sorry about that. Work's been crazy.",
+    "zh": "妈，抱歉。最近工作忙疯了。"
+   },
+   {
+    "speaker": "B",
+    "en": "It's okay, honey. Are you eating enough? Make sure you eat real food.",
+    "zh": "没事，宝贝。你吃得够吗？一定要好好吃饭。"
+   },
+   {
+    "speaker": "A",
+    "en": "Mom, I'm fine. I'm not living on instant noodles. Well, not every day.",
+    "zh": "妈，我很好。我没天天吃泡面。嗯，也没有每天吃。"
+   },
+   {
+    "speaker": "B",
+    "en": "Don't forget to call your grandma. She misses you.",
+    "zh": "别忘了给你奶奶打个电话，她想你了。"
+   }
+  ],
+  "chunkIds": [
+   "c132",
+   "c142",
+   "c143"
+  ],
+  "gist": {
+   "questionZh": "妈妈提醒女儿别忘了做什么？",
+   "optionsZh": [
+    "多睡觉",
+    "周末回家",
+    "寄点钱回家",
+    "给奶奶打电话"
+   ],
+   "answer": 3
+  },
+  "blanks": [
+   {
+    "turn": 0,
+    "text": "Sorry about that"
+   },
+   {
+    "turn": 1,
+    "text": "Make sure you eat"
+   },
+   {
+    "turn": 3,
+    "text": "Don't forget to call"
+   }
+  ]
+ },
+ {
+  "id": "dl023",
+  "title": "电话里请人接孩子",
+  "scene": "daily",
+  "category": "request",
+  "tier": 2,
+  "turns": [
+   {
+    "speaker": "A",
+    "en": "Hey, do you have a minute?",
+    "zh": "嘿，你有空吗？"
+   },
+   {
+    "speaker": "B",
+    "en": "Sure, what's up?",
+    "zh": "有，怎么了？"
+   },
+   {
+    "speaker": "A",
+    "en": "I was wondering if you could pick up the kids on Thursday.",
+    "zh": "我想问问你周四能不能帮忙接一下孩子。"
+   },
+   {
+    "speaker": "B",
+    "en": "Let me see … yeah, I can do that. No problem.",
+    "zh": "我看看……可以，没问题。"
+   },
+   {
+    "speaker": "A",
+    "en": "You're the best. I owe you one.",
+    "zh": "你最好了。我欠你一次。"
+   }
+  ],
+  "chunkIds": [
+   "c106",
+   "c002",
+   "c107",
+   "c027",
+   "c131"
+  ],
+  "gist": {
+   "questionZh": "A 请 B 帮什么忙？",
+   "optionsZh": [
+    "借一辆车",
+    "周末照看宠物",
+    "周四接孩子",
+    "帮忙搬家"
+   ],
+   "answer": 2
+  },
+  "blanks": [
+   {
+    "turn": 0,
+    "text": "do you have a minute"
+   },
+   {
+    "turn": 2,
+    "text": "I was wondering if"
+   },
+   {
+    "turn": 4,
+    "text": "I owe you one"
+   }
+  ]
+ },
+ {
+  "id": "dl024",
+  "title": "周末要下雨怎么办",
+  "scene": "daily",
+  "category": "plan",
+  "tier": 2,
+  "turns": [
+   {
+    "speaker": "A",
+    "en": "Did you see the forecast? It's supposed to rain all weekend.",
+    "zh": "你看天气预报了吗？据说整个周末都下雨。"
+   },
+   {
+    "speaker": "B",
+    "en": "Seriously? There goes our picnic.",
+    "zh": "真的？那野餐泡汤了。"
+   },
+   {
+    "speaker": "A",
+    "en": "Let's play it by ear. Maybe it'll clear up on Sunday.",
+    "zh": "到时候再看吧，也许周日会放晴。"
+   },
+   {
+    "speaker": "B",
+    "en": "Fair enough. And if not, why don't we just order pizza and watch movies?",
+    "zh": "有道理。要是不行，我们干脆点披萨看电影吧？"
+   }
+  ],
+  "chunkIds": [
+   "c195",
+   "c015",
+   "c119"
+  ],
+  "gist": {
+   "questionZh": "如果周末一直下雨，他们打算怎么办？",
+   "optionsZh": [
+    "改到下周野餐",
+    "去商场逛街",
+    "在家点披萨看电影",
+    "去朋友家聚会"
+   ],
+   "answer": 2
+  },
+  "blanks": [
+   {
+    "turn": 2,
+    "text": "Let's play it by ear"
+   },
+   {
+    "turn": 3,
+    "text": "Fair enough"
+   },
+   {
+    "turn": 3,
+    "text": "why don't we just order pizza"
+   }
+  ]
+ },
+ {
+  "id": "dl025",
+  "title": "邀请来家里聚会",
+  "scene": "social",
+  "category": "offer",
+  "tier": 2,
+  "turns": [
+   {
+    "speaker": "A",
+    "en": "We're having a few people over Saturday. Want to come?",
+    "zh": "周六我们请几个人来家里，你来吗？"
+   },
+   {
+    "speaker": "B",
+    "en": "Count me in! What can I bring?",
+    "zh": "算我一个！我带点什么？"
+   },
+   {
+    "speaker": "A",
+    "en": "Just yourself. Well, maybe some drinks.",
+    "zh": "人来就行。嗯，也许带点饮料。"
+   },
+   {
+    "speaker": "B",
+    "en": "Done. Would it be okay if I brought my roommate?",
+    "zh": "没问题。我可以带我室友吗？"
+   },
+   {
+    "speaker": "A",
+    "en": "Be my guest. The more, the merrier.",
+    "zh": "尽管带。人越多越热闹。"
+   }
+  ],
+  "chunkIds": [
+   "c122",
+   "c108",
+   "c125"
+  ],
+  "gist": {
+   "questionZh": "B 想额外带谁一起去？",
+   "optionsZh": [
+    "同事",
+    "室友",
+    "弟弟",
+    "邻居"
+   ],
+   "answer": 1
+  },
+  "blanks": [
+   {
+    "turn": 1,
+    "text": "Count me in"
+   },
+   {
+    "turn": 3,
+    "text": "Would it be okay if"
+   },
+   {
+    "turn": 4,
+    "text": "Be my guest"
+   }
+  ]
+ },
+ {
+  "id": "dl026",
+  "title": "电话里说我迟到了",
+  "scene": "social",
+  "category": "experience",
+  "tier": 2,
+  "turns": [
+   {
+    "speaker": "A",
+    "en": "Hey, where are you? Everyone's already here.",
+    "zh": "嘿，你在哪儿呢？大家都到了。"
+   },
+   {
+    "speaker": "B",
+    "en": "I'm so sorry! I lost track of time. I'm leaving right now.",
+    "zh": "太抱歉了！我忘了时间。我马上出发。"
+   },
+   {
+    "speaker": "A",
+    "en": "No worries. Do you remember how to get here?",
+    "zh": "没事。你还记得怎么过来吗？"
+   },
+   {
+    "speaker": "B",
+    "en": "Yeah, I was about to call you, actually. Could you send me the address again?",
+    "zh": "记得，其实我正要给你打电话。你能再发我一下地址吗？"
+   },
+   {
+    "speaker": "A",
+    "en": "Sure. See you soon.",
+    "zh": "好的，一会儿见。"
+   }
+  ],
+  "chunkIds": [
+   "c186",
+   "c129",
+   "c185"
+  ],
+  "gist": {
+   "questionZh": "B 为什么还没到？",
+   "optionsZh": [
+    "忘了时间",
+    "路上堵车",
+    "迷路了",
+    "车坏了"
+   ],
+   "answer": 0
+  },
+  "blanks": [
+   {
+    "turn": 1,
+    "text": "lost track of time"
+   },
+   {
+    "turn": 2,
+    "text": "No worries"
+   },
+   {
+    "turn": 3,
+    "text": "I was about to"
+   }
+  ]
+ },
+ {
+  "id": "dl027",
+  "title": "聚会上自我介绍",
+  "scene": "social",
+  "category": "social",
+  "tier": 2,
+  "turns": [
+   {
+    "speaker": "A",
+    "en": "Hi, I don't think we've met. I'm Jen.",
+    "zh": "你好，我想我们没见过。我是 Jen。"
+   },
+   {
+    "speaker": "B",
+    "en": "Nice to meet you, Jen. I'm Dave. How do you know Chris?",
+    "zh": "很高兴认识你，Jen。我是 Dave。你怎么认识 Chris 的？"
+   },
+   {
+    "speaker": "A",
+    "en": "We went to college together. What do you do for a living?",
+    "zh": "我们是大学同学。你是做什么工作的？"
+   },
+   {
+    "speaker": "B",
+    "en": "I'm a graphic designer. Chris is actually my boss.",
+    "zh": "我是平面设计师。Chris 其实是我老板。"
+   },
+   {
+    "speaker": "A",
+    "en": "No way! He never told me that.",
+    "zh": "不会吧！他从没跟我说过。"
+   }
+  ],
+  "chunkIds": [
+   "c005",
+   "c240",
+   "c242",
+   "c014"
+  ],
+  "gist": {
+   "questionZh": "Dave 和 Chris 是什么关系？",
+   "optionsZh": [
+    "大学同学",
+    "邻居",
+    "Dave 是 Chris 的学生",
+    "Chris 是 Dave 的老板"
+   ],
+   "answer": 3
+  },
+  "blanks": [
+   {
+    "turn": 1,
+    "text": "How do you know"
+   },
+   {
+    "turn": 2,
+    "text": "you do for a living"
+   },
+   {
+    "turn": 4,
+    "text": "No way"
+   }
+  ]
+ },
+ {
+  "id": "dl028",
+  "title": "打听好吃的餐厅",
+  "scene": "daily",
+  "category": "question",
+  "tier": 2,
+  "turns": [
+   {
+    "speaker": "A",
+    "en": "Is there a good place to eat around here?",
+    "zh": "这附近有好吃的地方吗？"
+   },
+   {
+    "speaker": "B",
+    "en": "There's a little Thai place on Main. It's nothing special inside, but the pad thai is amazing.",
+    "zh": "大街上有家小泰餐馆。里面很普通，但泰式炒粉特别棒。"
+   },
+   {
+    "speaker": "A",
+    "en": "Sounds good. Do I need a reservation?",
+    "zh": "听起来不错。需要预订吗？"
+   },
+   {
+    "speaker": "B",
+    "en": "Not on a weeknight. Just go early, though. It fills up fast.",
+    "zh": "工作日晚上不用。不过要早点去，很快就满了。"
+   }
+  ],
+  "chunkIds": [
+   "c095",
+   "c171",
+   "c021"
+  ],
+  "gist": {
+   "questionZh": "B 推荐的餐厅有什么特点？",
+   "optionsZh": [
+    "装修豪华，菜一般",
+    "只能外带",
+    "价格便宜，但很远",
+    "环境普通，菜很好吃"
+   ],
+   "answer": 3
+  },
+  "blanks": [
+   {
+    "turn": 0,
+    "text": "Is there a good place to"
+   },
+   {
+    "turn": 1,
+    "text": "It's nothing special"
+   },
+   {
+    "turn": 2,
+    "text": "Sounds good"
+   }
+  ]
+ },
+ {
+  "id": "dl029",
+  "title": "好久不见，近况如何",
+  "scene": "social",
+  "category": "greeting",
+  "tier": 3,
+  "turns": [
+   {
+    "speaker": "A",
+    "en": "Hey, stranger! How have you been?",
+    "zh": "嘿，大忙人！你最近怎么样？"
+   },
+   {
+    "speaker": "B",
+    "en": "Not bad, not bad. Honestly, it's been kind of a rough year.",
+    "zh": "还行还行。说实话，今年有点难熬。"
+   },
+   {
+    "speaker": "A",
+    "en": "Oh no. What happened?",
+    "zh": "哎呀，怎么了？"
+   },
+   {
+    "speaker": "B",
+    "en": "Well, I got laid off in March. I mean, I saw it coming, but it still hurt.",
+    "zh": "嗯，我三月份被裁员了。我是说，我早料到了，可还是挺难受的。"
+   },
+   {
+    "speaker": "A",
+    "en": "Man, I'm sorry. Did you end up finding something?",
+    "zh": "唉，真遗憾。你后来找到工作了吗？"
+   },
+   {
+    "speaker": "B",
+    "en": "Yeah, actually. I ended up at a smaller company, and it turned out to be way better.",
+    "zh": "找到了。我最后去了一家小公司，结果好得多。"
+   },
+   {
+    "speaker": "A",
+    "en": "Good for you! That's such a relief, right?",
+    "zh": "太好了！这下松了口气吧？"
+   }
+  ],
+  "chunkIds": [
+   "c004",
+   "c032",
+   "c181",
+   "c180",
+   "c023",
+   "c162"
+  ],
+  "gist": {
+   "questionZh": "B 今年经历了什么？",
+   "optionsZh": [
+    "搬到了新城市",
+    "自己创业成功了",
+    "被裁员，后来找到了更好的工作",
+    "生了一场大病"
+   ],
+   "answer": 2
+  },
+  "blanks": [
+   {
+    "turn": 1,
+    "text": "kind of a rough year"
+   },
+   {
+    "turn": 3,
+    "text": "I saw it coming"
+   },
+   {
+    "turn": 5,
+    "text": "I ended up at"
+   }
+  ]
+ },
+ {
+  "id": "dl030",
+  "title": "餐厅里的迟到道歉",
+  "scene": "daily",
+  "category": "thanks",
+  "tier": 3,
+  "turns": [
+   {
+    "speaker": "A",
+    "en": "There you are! I was about to order without you.",
+    "zh": "你可来了！我差点不等你就点菜了。"
+   },
+   {
+    "speaker": "B",
+    "en": "I know, I know. My bad. The subway just stopped dead between stations.",
+    "zh": "我知道我知道，怪我。地铁在两站之间突然停了。"
+   },
+   {
+    "speaker": "A",
+    "en": "Seriously? For how long?",
+    "zh": "真的？停了多久？"
+   },
+   {
+    "speaker": "B",
+    "en": "Like, twenty minutes. And no signal, so I couldn't even text you.",
+    "zh": "大概二十分钟。还没信号，连消息都发不出去。"
+   },
+   {
+    "speaker": "A",
+    "en": "Ugh, that's the worst. Don't be too hard on yourself. It's not your fault.",
+    "zh": "唉，太糟糕了。别太自责，这不是你的错。"
+   },
+   {
+    "speaker": "B",
+    "en": "Thanks. Anyway, it's on me. It's the least I could do.",
+    "zh": "谢谢。对了，这顿我请。这是我最起码该做的。"
+   }
+  ],
+  "chunkIds": [
+   "c128",
+   "c149",
+   "c038",
+   "c121",
+   "c136"
+  ],
+  "gist": {
+   "questionZh": "B 为什么迟到了？",
+   "optionsZh": [
+    "公交车晚点",
+    "地铁在途中停了",
+    "开车堵在路上",
+    "手机没电，找不到地方"
+   ],
+   "answer": 1
+  },
+  "blanks": [
+   {
+    "turn": 1,
+    "text": "My bad"
+   },
+   {
+    "turn": 4,
+    "text": "Don't be too hard on yourself"
+   },
+   {
+    "turn": 5,
+    "text": "It's the least I could do"
+   }
+  ]
+ },
+ {
+  "id": "dl031",
+  "title": "改期去湖边",
+  "scene": "social",
+  "category": "plan",
+  "tier": 3,
+  "turns": [
+   {
+    "speaker": "A",
+    "en": "So, are we still on for the lake next weekend?",
+    "zh": "那我们下周末去湖边还算数吗？"
+   },
+   {
+    "speaker": "B",
+    "en": "I'd love to, but I'm booked solid on Saturday. It's my sister's wedding stuff.",
+    "zh": "我很想去，但周六排满了，是我姐姐婚礼的事。"
+   },
+   {
+    "speaker": "A",
+    "en": "Oh right! I forgot. Well, what about Sunday?",
+    "zh": "哦对！我忘了。那周日呢？"
+   },
+   {
+    "speaker": "B",
+    "en": "Sunday could work. Let me see … I have brunch at eleven, but I'm free after that.",
+    "zh": "周日可以。我看看……十一点有个早午餐，之后都有空。"
+   },
+   {
+    "speaker": "A",
+    "en": "Perfect. I mean, it's a two-hour drive, so we'd get there by three.",
+    "zh": "太好了。我是说，开车要两小时，三点前能到。"
+   },
+   {
+    "speaker": "B",
+    "en": "Works for me. I'll let you know if anything changes.",
+    "zh": "我可以。有变化我告诉你。"
+   },
+   {
+    "speaker": "A",
+    "en": "Sounds good. Let's play it by ear and keep it loose.",
+    "zh": "好。我们别安排太死，到时候再说。"
+   }
+  ],
+  "chunkIds": [
+   "c118",
+   "c200",
+   "c027",
+   "c032",
+   "c192",
+   "c021",
+   "c195"
+  ],
+  "gist": {
+   "questionZh": "他们最后决定什么时候去湖边？",
+   "optionsZh": [
+    "下周日",
+    "下周六",
+    "这周六",
+    "下周五晚上"
+   ],
+   "answer": 0
+  },
+  "blanks": [
+   {
+    "turn": 1,
+    "text": "I'd love to, but"
+   },
+   {
+    "turn": 1,
+    "text": "booked solid"
+   },
+   {
+    "turn": 6,
+    "text": "play it by ear"
+   }
+  ]
+ },
+ {
+  "id": "dl032",
+  "title": "楼上邻居太吵",
+  "scene": "daily",
+  "category": "problem",
+  "tier": 3,
+  "turns": [
+   {
+    "speaker": "A",
+    "en": "Did you sleep okay? You look exhausted.",
+    "zh": "你睡得好吗？你看起来累坏了。"
+   },
+   {
+    "speaker": "B",
+    "en": "Not really. The neighbors upstairs were having a party until, like, three a.m.",
+    "zh": "不太好。楼上邻居开派对开到凌晨三点。"
+   },
+   {
+    "speaker": "A",
+    "en": "Again? That's the second time this month. I've had it with them.",
+    "zh": "又来？这个月第二次了。我受够他们了。"
+   },
+   {
+    "speaker": "B",
+    "en": "Same here. It drives me crazy.",
+    "zh": "我也是。真的快把我逼疯了。"
+   },
+   {
+    "speaker": "A",
+    "en": "You might want to talk to them first. Maybe leave a note.",
+    "zh": "你可以先跟他们谈谈，或者留张字条。"
+   },
+   {
+    "speaker": "B",
+    "en": "Yeah. And if it keeps happening, I'll take care of it. I'll call the landlord.",
+    "zh": "嗯。要是还这样，我就来处理，我会打给房东。"
+   }
+  ],
+  "chunkIds": [
+   "c211",
+   "c022",
+   "c153",
+   "c138",
+   "c207",
+   "c208"
+  ],
+  "gist": {
+   "questionZh": "B 昨晚为什么没睡好？",
+   "optionsZh": [
+    "楼上邻居开派对",
+    "隔壁装修",
+    "工作加班",
+    "街上很吵"
+   ],
+   "answer": 0
+  },
+  "blanks": [
+   {
+    "turn": 2,
+    "text": "I've had it with"
+   },
+   {
+    "turn": 3,
+    "text": "It drives me crazy"
+   },
+   {
+    "turn": 4,
+    "text": "You might want to"
+   }
+  ]
+ },
+ {
+  "id": "dl033",
+  "title": "打电话吐槽工作",
+  "scene": "daily",
+  "category": "feeling",
+  "tier": 3,
+  "turns": [
+   {
+    "speaker": "A",
+    "en": "Hey, you got a sec? I just need to vent.",
+    "zh": "嘿，有空吗？我想吐槽一下。"
+   },
+   {
+    "speaker": "B",
+    "en": "Of course. What's going on?",
+    "zh": "当然，怎么了？"
+   },
+   {
+    "speaker": "A",
+    "en": "My boss just dumped another project on me. I'm so over it.",
+    "zh": "老板又扔给我一个项目。我真是受够了。"
+   },
+   {
+    "speaker": "B",
+    "en": "Ugh, I hear you. You've been working crazy hours.",
+    "zh": "唉，我懂你。你一直在疯狂加班。"
+   },
+   {
+    "speaker": "A",
+    "en": "I know. I'm wiped out. I can't even think straight anymore.",
+    "zh": "是啊，我累垮了，脑子都转不动了。"
+   },
+   {
+    "speaker": "B",
+    "en": "Hang in there. And take a day off if you can. You've earned it.",
+    "zh": "坚持住。可以的话请一天假，你应得的。"
+   }
+  ],
+  "chunkIds": [
+   "c151",
+   "c025",
+   "c163",
+   "c140"
+  ],
+  "gist": {
+   "questionZh": "A 打电话主要是为了什么？",
+   "optionsZh": [
+    "请假",
+    "问工作建议",
+    "约朋友吃饭",
+    "吐槽工作压力"
+   ],
+   "answer": 3
+  },
+  "blanks": [
+   {
+    "turn": 2,
+    "text": "I'm so over it"
+   },
+   {
+    "turn": 4,
+    "text": "I'm wiped out"
+   },
+   {
+    "turn": 5,
+    "text": "Hang in there"
+   }
+  ]
+ },
+ {
+  "id": "dl034",
+  "title": "一起烤饼干",
+  "scene": "daily",
+  "category": "describe",
+  "tier": 3,
+  "turns": [
+   {
+    "speaker": "A",
+    "en": "Okay, the recipe says two cups of sugar. Two!",
+    "zh": "好，食谱上说要两杯糖。两杯！"
+   },
+   {
+    "speaker": "B",
+    "en": "It's way too much. Hang on a second, let me look.",
+    "zh": "那也太多了。等一下，我看看。"
+   },
+   {
+    "speaker": "A",
+    "en": "Oh, it says two tablespoons. I read it wrong. My bad.",
+    "zh": "哦，写的是两汤匙。我看错了，怪我。"
+   },
+   {
+    "speaker": "B",
+    "en": "Ha! We'd have made candy. Okay, flour next. How much?",
+    "zh": "哈！那我们就做成糖了。好，接下来是面粉。多少？"
+   },
+   {
+    "speaker": "A",
+    "en": "One and a half cups. Let me see … yeah, one and a half.",
+    "zh": "一杯半。我看看……对，一杯半。"
+   },
+   {
+    "speaker": "B",
+    "en": "Got it. Honestly, I feel like we should've just bought cookies.",
+    "zh": "知道了。说实话，我觉得我们直接买饼干就好了。"
+   },
+   {
+    "speaker": "A",
+    "en": "Oh, come on. I mean, it's your grandma's recipe. It'll be worth it.",
+    "zh": "拜托。这可是你奶奶的配方，值得的。"
+   }
+  ],
+  "chunkIds": [
+   "c167",
+   "c028",
+   "c128",
+   "c027",
+   "c051",
+   "c032"
+  ],
+  "gist": {
+   "questionZh": "他们差点犯了什么错误？",
+   "optionsZh": [
+    "把盐当成了糖",
+    "烤箱温度调错",
+    "把两汤匙糖看成两杯",
+    "忘记放面粉"
+   ],
+   "answer": 2
+  },
+  "blanks": [
+   {
+    "turn": 1,
+    "text": "Hang on a second"
+   },
+   {
+    "turn": 2,
+    "text": "My bad"
+   },
+   {
+    "turn": 5,
+    "text": "I feel like we should've"
+   }
+  ]
+ },
+ {
+  "id": "dl035",
+  "title": "求推荐好看的剧",
+  "scene": "social",
+  "category": "describe",
+  "tier": 3,
+  "turns": [
+   {
+    "speaker": "A",
+    "en": "Okay, I need a new show to binge. Any suggestions?",
+    "zh": "好，我需要一部新剧来追。有推荐吗？"
+   },
+   {
+    "speaker": "B",
+    "en": "Have you tried that new detective series? It's hit or miss at first, but it gets really good.",
+    "zh": "你看过那部新的侦探剧吗？一开始有点看运气，但越来越好看。"
+   },
+   {
+    "speaker": "A",
+    "en": "Hit or miss how?",
+    "zh": "怎么个看运气？"
+   },
+   {
+    "speaker": "B",
+    "en": "The first two episodes are slow. It's better than I expected, though. By episode four, I couldn't stop.",
+    "zh": "前两集很慢。不过比我想象的好，到第四集我就停不下来了。"
+   },
+   {
+    "speaker": "A",
+    "en": "Hmm. I'm not in the mood for anything too dark, though.",
+    "zh": "嗯。不过我现在不想看太黑暗的。"
+   },
+   {
+    "speaker": "B",
+    "en": "It's not that dark. It's more of a mystery, you know? And the lead is hilarious.",
+    "zh": "没那么黑暗，更像悬疑剧。而且主角超搞笑。"
+   },
+   {
+    "speaker": "A",
+    "en": "Okay, you've sold me. I'll give it a shot this weekend.",
+    "zh": "好吧，你说服我了。这个周末我试试。"
+   }
+  ],
+  "chunkIds": [
+   "c174",
+   "c170",
+   "c160",
+   "c031",
+   "c146"
+  ],
+  "gist": {
+   "questionZh": "A 最后决定怎么做？",
+   "optionsZh": [
+    "不看了，太慢了",
+    "这个周末试着看看",
+    "先问问别的朋友",
+    "马上开始看"
+   ],
+   "answer": 1
+  },
+  "blanks": [
+   {
+    "turn": 1,
+    "text": "It's hit or miss"
+   },
+   {
+    "turn": 3,
+    "text": "better than I expected"
+   },
+   {
+    "turn": 4,
+    "text": "I'm not in the mood for"
+   }
+  ]
+ },
+ {
+  "id": "dl036",
+  "title": "和邻居聊天气",
+  "scene": "daily",
+  "category": "social",
+  "tier": 3,
+  "turns": [
+   {
+    "speaker": "A",
+    "en": "Morning! Can you believe this weather?",
+    "zh": "早！你能相信这天气吗？"
+   },
+   {
+    "speaker": "B",
+    "en": "I know, right? One day it's seventy, the next day it's snowing.",
+    "zh": "就是啊！今天二十几度，明天就下雪。"
+   },
+   {
+    "speaker": "A",
+    "en": "Tell me about it. I left my umbrella at home, and I got soaked.",
+    "zh": "可不是嘛。我把伞落在家里，淋得浑身湿透。"
+   },
+   {
+    "speaker": "B",
+    "en": "Oh no. That's the worst. Speaking of weather, are you doing anything for the long weekend?",
+    "zh": "哎呀，太惨了。说到天气，长周末你有什么安排吗？"
+   },
+   {
+    "speaker": "A",
+    "en": "I haven't decided yet. I'm thinking of just staying in.",
+    "zh": "还没决定。我想干脆待在家里。"
+   },
+   {
+    "speaker": "B",
+    "en": "Honestly, that sounds perfect. We're supposed to get another storm anyway.",
+    "zh": "说实话，这样最好。反正又要来一场暴风雨了。"
+   },
+   {
+    "speaker": "A",
+    "en": "Yeah. Well, I'd better get going. Stay dry!",
+    "zh": "是啊。好了，我得走了。别淋湿了！"
+   }
+  ],
+  "chunkIds": [
+   "c016",
+   "c047",
+   "c198",
+   "c189",
+   "c008"
+  ],
+  "gist": {
+   "questionZh": "A 长周末大概怎么过？",
+   "optionsZh": [
+    "出门旅行",
+    "待在家里",
+    "去看雪",
+    "加班"
+   ],
+   "answer": 1
+  },
+  "blanks": [
+   {
+    "turn": 3,
+    "text": "Speaking of weather"
+   },
+   {
+    "turn": 4,
+    "text": "I haven't decided yet"
+   },
+   {
+    "turn": 6,
+    "text": "I'd better get going"
+   }
+  ]
+ },
+ {
+  "id": "dl037",
+  "title": "兄妹商量感恩节",
+  "scene": "daily",
+  "category": "plan",
+  "tier": 3,
+  "turns": [
+   {
+    "speaker": "A",
+    "en": "So, Mom called me again about Thanksgiving.",
+    "zh": "妈妈又打电话来说感恩节的事。"
+   },
+   {
+    "speaker": "B",
+    "en": "Let me guess. She wants us there at noon sharp?",
+    "zh": "让我猜猜，她要我们中午十二点整到？"
+   },
+   {
+    "speaker": "A",
+    "en": "Ha. Yes. And she wants me to bring three pies.",
+    "zh": "哈，对。还要我带三个派。"
+   },
+   {
+    "speaker": "B",
+    "en": "Three? You're kidding!",
+    "zh": "三个？你开玩笑吧！"
+   },
+   {
+    "speaker": "A",
+    "en": "I wish. I told her I'll see how it goes. Work's insane right now.",
+    "zh": "我倒希望是。我跟她说看情况。我现在工作忙翻了。"
+   },
+   {
+    "speaker": "B",
+    "en": "Just make one and tell her the oven broke.",
+    "zh": "就做一个，跟她说烤箱坏了。"
+   },
+   {
+    "speaker": "A",
+    "en": "Ha! The thing is, she'd just send a repairman.",
+    "zh": "哈！问题是，她会直接派个修理工来。"
+   },
+   {
+    "speaker": "B",
+    "en": "Fair enough. Okay, I'll make two pies, you make one. Deal?",
+    "zh": "有道理。好吧，我做两个，你做一个。成交？"
+   }
+  ],
+  "chunkIds": [
+   "c020",
+   "c190",
+   "c043",
+   "c015"
+  ],
+  "gist": {
+   "questionZh": "最后两人怎么分工做派？",
+   "optionsZh": [
+    "B 做两个，A 做一个",
+    "A 做三个",
+    "各做一个，再买一个",
+    "全部买现成的"
+   ],
+   "answer": 0
+  },
+  "blanks": [
+   {
+    "turn": 3,
+    "text": "You're kidding"
+   },
+   {
+    "turn": 4,
+    "text": "I'll see how it goes"
+   },
+   {
+    "turn": 6,
+    "text": "The thing is"
+   }
+  ]
+ },
+ {
+  "id": "dl038",
+  "title": "茶水间聊周末",
+  "scene": "social",
+  "category": "social",
+  "tier": 3,
+  "turns": [
+   {
+    "speaker": "A",
+    "en": "Morning! How was your weekend?",
+    "zh": "早！周末过得怎么样？"
+   },
+   {
+    "speaker": "B",
+    "en": "Pretty low-key, honestly. I ran into my old landlord at the grocery store.",
+    "zh": "说实话挺平淡的。我在超市碰到了以前的房东。"
+   },
+   {
+    "speaker": "A",
+    "en": "No way! The one who never fixed your heater?",
+    "zh": "不会吧！就是那个一直不修你暖气的？"
+   },
+   {
+    "speaker": "B",
+    "en": "The very same. I mean, I wanted to say something, but he asked about my mom.",
+    "zh": "就是他。我本来想说点什么，可他问起了我妈妈。"
+   },
+   {
+    "speaker": "A",
+    "en": "Ha, classic. So what did you do?",
+    "zh": "哈，太典型了。那你怎么办的？"
+   },
+   {
+    "speaker": "B",
+    "en": "I just said, take care, and left. I wasn't starting a fight over a heater, you know?",
+    "zh": "我就说了句保重，然后溜了。我总不能为了暖气吵一架吧？"
+   }
+  ],
+  "chunkIds": [
+   "c243",
+   "c183",
+   "c014",
+   "c032",
+   "c010",
+   "c031"
+  ],
+  "gist": {
+   "questionZh": "B 周末遇到了谁？",
+   "optionsZh": [
+    "以前的同事",
+    "老同学",
+    "邻居",
+    "以前的房东"
+   ],
+   "answer": 3
+  },
+  "blanks": [
+   {
+    "turn": 0,
+    "text": "How was your weekend"
+   },
+   {
+    "turn": 1,
+    "text": "I ran into"
+   },
+   {
+    "turn": 5,
+    "text": "take care"
+   }
+  ]
+ },
+ {
+  "id": "dl039",
+  "title": "游戏之夜去不了",
+  "scene": "social",
+  "category": "offer",
+  "tier": 3,
+  "turns": [
+   {
+    "speaker": "A",
+    "en": "Hey, we're having a game night Friday. Can you make it?",
+    "zh": "嘿，周五我们有个游戏之夜，你能来吗？"
+   },
+   {
+    "speaker": "B",
+    "en": "Ugh, I can't. Something came up. My little brother's recital. Rain check?",
+    "zh": "唉，去不了。有事，我弟弟的演奏会。下次行吗？"
+   },
+   {
+    "speaker": "A",
+    "en": "Totally. We do this every month, so next time, for sure.",
+    "zh": "当然。我们每个月都办，下次一定来。"
+   },
+   {
+    "speaker": "B",
+    "en": "Definitely. Hey, do you want me to bring snacks next time?",
+    "zh": "一定。对了，下次要我带点零食吗？"
+   },
+   {
+    "speaker": "A",
+    "en": "Snacks would be amazing. I'll take you up on that.",
+    "zh": "零食太棒了。那就麻烦你了。"
+   },
+   {
+    "speaker": "B",
+    "en": "Deal. Have a good one!",
+    "zh": "一言为定。祝你过得愉快！"
+   }
+  ],
+  "chunkIds": [
+   "c196",
+   "c123",
+   "c116",
+   "c124",
+   "c011"
+  ],
+  "gist": {
+   "questionZh": "B 周五为什么去不了？",
+   "optionsZh": [
+    "要加班",
+    "身体不舒服",
+    "弟弟有演奏会",
+    "要出差"
+   ],
+   "answer": 2
+  },
+  "blanks": [
+   {
+    "turn": 1,
+    "text": "Something came up"
+   },
+   {
+    "turn": 1,
+    "text": "Rain check"
+   },
+   {
+    "turn": 4,
+    "text": "I'll take you up on that"
+   }
+  ]
+ },
+ {
+  "id": "dl040",
+  "title": "陪朋友挑沙发",
+  "scene": "daily",
+  "category": "opinion",
+  "tier": 3,
+  "turns": [
+   {
+    "speaker": "A",
+    "en": "Okay, what do you think of this couch?",
+    "zh": "好，你觉得这个沙发怎么样？"
+   },
+   {
+    "speaker": "B",
+    "en": "Honestly, it looks nice, but it's kind of small for your living room.",
+    "zh": "说实话，看着不错，但对你的客厅来说有点小。"
+   },
+   {
+    "speaker": "A",
+    "en": "Really? I feel like it'd fit.",
+    "zh": "是吗？我觉得放得下。"
+   },
+   {
+    "speaker": "B",
+    "en": "If you ask me, you'll want something bigger. Trust me.",
+    "zh": "依我看，你会想要更大一点的。相信我。"
+   },
+   {
+    "speaker": "A",
+    "en": "But the bigger one costs a fortune. I'm saving up for a trip, you know.",
+    "zh": "可大的那款贵得要命。我在攒钱去旅行呢。"
+   },
+   {
+    "speaker": "B",
+    "en": "Fair enough. Let's figure it out. Maybe they have a floor model on sale.",
+    "zh": "有道理。我们想想办法，也许有展示款在打折。"
+   },
+   {
+    "speaker": "A",
+    "en": "Good idea. Let me flag down a salesperson.",
+    "zh": "好主意。我去叫个店员。"
+   }
+  ],
+  "chunkIds": [
+   "c166",
+   "c056",
+   "c197",
+   "c031",
+   "c204",
+   "c015"
+  ],
+  "gist": {
+   "questionZh": "A 为什么不想买更大的沙发？",
+   "optionsZh": [
+    "家里放不下",
+    "不喜欢那个颜色",
+    "太贵，她想存钱去旅行",
+    "店里没有现货"
+   ],
+   "answer": 2
+  },
+  "blanks": [
+   {
+    "turn": 3,
+    "text": "If you ask me"
+   },
+   {
+    "turn": 4,
+    "text": "I'm saving up for"
+   },
+   {
+    "turn": 5,
+    "text": "Let's figure it out"
+   }
+  ]
+ },
+ {
+  "id": "dl041",
+  "title": "走廊寒暄",
+  "scene": "work",
+  "category": "greeting",
+  "tier": 1,
+  "turns": [
+   {
+    "speaker": "A",
+    "en": "Hey, Mark. How's it going?",
+    "zh": "嘿，马克，最近怎么样？"
+   },
+   {
+    "speaker": "B",
+    "en": "Not bad. Just got out of a long meeting.",
+    "zh": "还行，刚开完一个很长的会。"
+   },
+   {
+    "speaker": "A",
+    "en": "Ugh, I hear you.",
+    "zh": "唉，我懂。"
+   }
+  ],
+  "chunkIds": [
+   "c001",
+   "c025"
+  ],
+  "gist": {
+   "questionZh": "马克刚才在做什么？",
+   "optionsZh": [
+    "开了一个很长的会",
+    "吃了一顿很长的午饭",
+    "刚出差回来",
+    "面试了一位新人"
+   ],
+   "answer": 0
+  },
+  "blanks": [
+   {
+    "turn": 0,
+    "text": "How's it going"
+   },
+   {
+    "turn": 1,
+    "text": "Just got out of"
+   },
+   {
+    "turn": 2,
+    "text": "I hear you"
+   }
+  ]
+ },
+ {
+  "id": "dl042",
+  "title": "请同事帮忙看表格",
+  "scene": "work",
+  "category": "request",
+  "tier": 1,
+  "turns": [
+   {
+    "speaker": "A",
+    "en": "Do you have a minute? I could use some help with this spreadsheet.",
+    "zh": "你有空吗？这个电子表格我需要点帮助。"
+   },
+   {
+    "speaker": "B",
+    "en": "Sure. Give me five minutes, then I'll swing by your desk.",
+    "zh": "行。给我五分钟，然后我去你座位那边。"
+   }
+  ],
+  "chunkIds": [
+   "c106",
+   "c110"
+  ],
+  "gist": {
+   "questionZh": "说话人想请同事做什么？",
+   "optionsZh": [
+    "借他的电脑",
+    "帮忙看一个电子表格",
+    "一起订午餐",
+    "帮忙打印文件"
+   ],
+   "answer": 1
+  },
+  "blanks": [
+   {
+    "turn": 0,
+    "text": "Do you have a minute"
+   },
+   {
+    "turn": 0,
+    "text": "I could use some help"
+   },
+   {
+    "turn": 1,
+    "text": "swing by your desk"
+   }
+  ]
+ },
+ {
+  "id": "dl043",
+  "title": "你静音了",
+  "scene": "work",
+  "category": "work",
+  "tier": 1,
+  "turns": [
+   {
+    "speaker": "A",
+    "en": "Sorry, Dana, you're on mute.",
+    "zh": "不好意思，达娜，你静音了。"
+   },
+   {
+    "speaker": "B",
+    "en": "Oh, my bad. Can you hear me now?",
+    "zh": "哦，我的错。现在能听到我吗？"
+   },
+   {
+    "speaker": "A",
+    "en": "Yep, loud and clear.",
+    "zh": "能，很清楚。"
+   }
+  ],
+  "chunkIds": [
+   "c219",
+   "c128"
+  ],
+  "gist": {
+   "questionZh": "为什么一开始大家听不到达娜？",
+   "optionsZh": [
+    "她的网速太慢",
+    "她的摄像头坏了",
+    "她的麦克风被静音了",
+    "她迟到了"
+   ],
+   "answer": 2
+  },
+  "blanks": [
+   {
+    "turn": 0,
+    "text": "you're on mute"
+   },
+   {
+    "turn": 1,
+    "text": "my bad"
+   },
+   {
+    "turn": 2,
+    "text": "loud and clear"
+   }
+  ]
+ },
+ {
+  "id": "dl044",
+  "title": "问一下报告进度",
+  "scene": "work",
+  "category": "work",
+  "tier": 1,
+  "turns": [
+   {
+    "speaker": "A",
+    "en": "Any updates on the client proposal?",
+    "zh": "客户提案有什么进展吗？"
+   },
+   {
+    "speaker": "B",
+    "en": "Almost done. I'll send it over by noon.",
+    "zh": "快好了。我中午前发给你。"
+   },
+   {
+    "speaker": "A",
+    "en": "Perfect. Thanks for letting me know.",
+    "zh": "太好了，谢谢你告诉我。"
+   }
+  ],
+  "chunkIds": [
+   "c221",
+   "c134"
+  ],
+  "gist": {
+   "questionZh": "B 打算什么时候把提案发出去？",
+   "optionsZh": [
+    "下班之前",
+    "明天早上",
+    "本周五",
+    "中午之前"
+   ],
+   "answer": 3
+  },
+  "blanks": [
+   {
+    "turn": 0,
+    "text": "Any updates on"
+   },
+   {
+    "turn": 1,
+    "text": "send it over by noon"
+   },
+   {
+    "turn": 2,
+    "text": "Thanks for letting me know"
+   }
+  ]
+ },
+ {
+  "id": "dl045",
+  "title": "会议改到周四",
+  "scene": "work",
+  "category": "plan",
+  "tier": 1,
+  "turns": [
+   {
+    "speaker": "A",
+    "en": "Can we push it to Thursday? Something came up.",
+    "zh": "能改到周四吗？临时有点事。"
+   },
+   {
+    "speaker": "B",
+    "en": "No problem. How about ten? Does that work for you?",
+    "zh": "没问题。十点怎么样？你方便吗？"
+   }
+  ],
+  "chunkIds": [
+   "c217",
+   "c196",
+   "c220"
+  ],
+  "gist": {
+   "questionZh": "A 为什么想改会议时间？",
+   "optionsZh": [
+    "临时有事",
+    "想早点下班",
+    "会议室被占了",
+    "要出差"
+   ],
+   "answer": 0
+  },
+  "blanks": [
+   {
+    "turn": 0,
+    "text": "Can we push it to"
+   },
+   {
+    "turn": 0,
+    "text": "Something came up"
+   },
+   {
+    "turn": 1,
+    "text": "Does that work for you"
+   }
+  ]
+ },
+ {
+  "id": "dl046",
+  "title": "约同事吃午饭",
+  "scene": "work",
+  "category": "offer",
+  "tier": 1,
+  "turns": [
+   {
+    "speaker": "A",
+    "en": "Want to grab lunch? There's a new taco place nearby.",
+    "zh": "要不要去吃午饭？附近新开了一家墨西哥卷饼店。"
+   },
+   {
+    "speaker": "B",
+    "en": "Count me in. I'm starving.",
+    "zh": "算我一个，我饿坏了。"
+   }
+  ],
+  "chunkIds": [
+   "c117",
+   "c122"
+  ],
+  "gist": {
+   "questionZh": "他们打算去哪里吃饭？",
+   "optionsZh": [
+    "公司食堂",
+    "附近新开的墨西哥卷饼店",
+    "一家日料店",
+    "点外卖在工位吃"
+   ],
+   "answer": 1
+  },
+  "blanks": [
+   {
+    "turn": 0,
+    "text": "Want to grab lunch"
+   },
+   {
+    "turn": 0,
+    "text": "new taco place"
+   },
+   {
+    "turn": 1,
+    "text": "Count me in"
+   }
+  ]
+ },
+ {
+  "id": "dl047",
+  "title": "欢迎新同事",
+  "scene": "work",
+  "category": "greeting",
+  "tier": 1,
+  "turns": [
+   {
+    "speaker": "A",
+    "en": "You must be Priya. I'm Tom. Nice to meet you.",
+    "zh": "你一定是普丽娅吧。我是汤姆，很高兴认识你。"
+   },
+   {
+    "speaker": "B",
+    "en": "Nice to meet you too. It's my first day.",
+    "zh": "我也很高兴认识你。今天是我第一天上班。"
+   },
+   {
+    "speaker": "A",
+    "en": "Welcome aboard! Let me know if you need anything.",
+    "zh": "欢迎加入！有需要随时告诉我。"
+   }
+  ],
+  "chunkIds": [
+   "c005",
+   "c114"
+  ],
+  "gist": {
+   "questionZh": "普丽娅今天是什么情况？",
+   "optionsZh": [
+    "第一次出差",
+    "刚被调到新部门",
+    "第一天上班",
+    "明天就要辞职"
+   ],
+   "answer": 2
+  },
+  "blanks": [
+   {
+    "turn": 0,
+    "text": "Nice to meet you"
+   },
+   {
+    "turn": 1,
+    "text": "It's my first day"
+   },
+   {
+    "turn": 2,
+    "text": "Welcome aboard"
+   }
+  ]
+ },
+ {
+  "id": "dl048",
+  "title": "上线时间有分歧",
+  "scene": "work",
+  "category": "agree",
+  "tier": 1,
+  "turns": [
+   {
+    "speaker": "A",
+    "en": "If you ask me, we should launch next week.",
+    "zh": "要我说，我们下周就该上线。"
+   },
+   {
+    "speaker": "B",
+    "en": "I'm not so sure about that. We still have a few bugs.",
+    "zh": "我不太确定。我们还有几个漏洞没修。"
+   }
+  ],
+  "chunkIds": [
+   "c056",
+   "c071"
+  ],
+  "gist": {
+   "questionZh": "B 为什么不同意下周上线？",
+   "optionsZh": [
+    "客户还没确认",
+    "预算用完了",
+    "人手不够",
+    "还有几个漏洞没修"
+   ],
+   "answer": 3
+  },
+  "blanks": [
+   {
+    "turn": 0,
+    "text": "If you ask me"
+   },
+   {
+    "turn": 1,
+    "text": "not so sure about that"
+   },
+   {
+    "turn": 1,
+    "text": "a few bugs"
+   }
+  ]
+ },
+ {
+  "id": "dl049",
+  "title": "提醒交报告",
+  "scene": "work",
+  "category": "advice",
+  "tier": 1,
+  "turns": [
+   {
+    "speaker": "A",
+    "en": "Don't forget to send the report. It's due tomorrow.",
+    "zh": "别忘了发报告，明天就截止了。"
+   },
+   {
+    "speaker": "B",
+    "en": "I know, I know. I'll take care of it.",
+    "zh": "我知道我知道，我来搞定。"
+   }
+  ],
+  "chunkIds": [
+   "c143",
+   "c208"
+  ],
+  "gist": {
+   "questionZh": "报告什么时候截止？",
+   "optionsZh": [
+    "明天",
+    "今天下班前",
+    "下周一",
+    "本周五"
+   ],
+   "answer": 0
+  },
+  "blanks": [
+   {
+    "turn": 0,
+    "text": "Don't forget to send"
+   },
+   {
+    "turn": 0,
+    "text": "It's due tomorrow"
+   },
+   {
+    "turn": 1,
+    "text": "take care of it"
+   }
+  ]
+ },
+ {
+  "id": "dl050",
+  "title": "作文什么时候交",
+  "scene": "study",
+  "category": "question",
+  "tier": 1,
+  "turns": [
+   {
+    "speaker": "A",
+    "en": "Any idea when the essay's due?",
+    "zh": "你知道作文什么时候交吗？"
+   },
+   {
+    "speaker": "B",
+    "en": "Let me see. Yeah, next Monday.",
+    "zh": "我看看。嗯，下周一。"
+   }
+  ],
+  "chunkIds": [
+   "c089",
+   "c027"
+  ],
+  "gist": {
+   "questionZh": "A 在打听什么？",
+   "optionsZh": [
+    "考试的时间",
+    "作文的截止日期",
+    "课程大纲在哪里",
+    "老师的办公室在哪"
+   ],
+   "answer": 1
+  },
+  "blanks": [
+   {
+    "turn": 0,
+    "text": "Any idea when"
+   },
+   {
+    "turn": 1,
+    "text": "Let me see"
+   },
+   {
+    "turn": 1,
+    "text": "next Monday"
+   }
+  ]
+ },
+ {
+  "id": "dl051",
+  "title": "借周一的笔记",
+  "scene": "study",
+  "category": "request",
+  "tier": 1,
+  "turns": [
+   {
+    "speaker": "A",
+    "en": "Can I borrow your notes from Monday? I missed class.",
+    "zh": "我能借你周一的笔记吗？我没来上课。"
+   },
+   {
+    "speaker": "B",
+    "en": "Sure, no problem. I'll text you a photo.",
+    "zh": "行，没问题。我把照片发给你。"
+   },
+   {
+    "speaker": "A",
+    "en": "Thanks! I owe you one.",
+    "zh": "谢谢！我欠你一个人情。"
+   }
+  ],
+  "chunkIds": [
+   "c105",
+   "c131"
+  ],
+  "gist": {
+   "questionZh": "A 为什么要借笔记？",
+   "optionsZh": [
+    "自己的笔记丢了",
+    "想复印一份",
+    "周一没去上课",
+    "要送给朋友"
+   ],
+   "answer": 2
+  },
+  "blanks": [
+   {
+    "turn": 0,
+    "text": "Can I borrow your notes"
+   },
+   {
+    "turn": 1,
+    "text": "I'll text you a photo"
+   },
+   {
+    "turn": 2,
+    "text": "I owe you one"
+   }
+  ]
+ },
+ {
+  "id": "dl052",
+  "title": "约好一起复习",
+  "scene": "study",
+  "category": "offer",
+  "tier": 1,
+  "turns": [
+   {
+    "speaker": "A",
+    "en": "Why don't we study together for the midterm?",
+    "zh": "我们要不要一起复习期中考试？"
+   },
+   {
+    "speaker": "B",
+    "en": "Sounds good. Library at seven?",
+    "zh": "好啊。七点在图书馆？"
+   }
+  ],
+  "chunkIds": [
+   "c119",
+   "c021"
+  ],
+  "gist": {
+   "questionZh": "他们提议在哪里复习？",
+   "optionsZh": [
+    "咖啡店",
+    "宿舍",
+    "空教室",
+    "图书馆"
+   ],
+   "answer": 3
+  },
+  "blanks": [
+   {
+    "turn": 0,
+    "text": "Why don't we"
+   },
+   {
+    "turn": 0,
+    "text": "for the midterm"
+   },
+   {
+    "turn": 1,
+    "text": "Sounds good"
+   }
+  ]
+ },
+ {
+  "id": "dl053",
+  "title": "午饭我请",
+  "scene": "work",
+  "category": "offer",
+  "tier": 1,
+  "turns": [
+   {
+    "speaker": "A",
+    "en": "Put your wallet away. It's on me today.",
+    "zh": "把钱包收起来，今天我请。"
+   },
+   {
+    "speaker": "B",
+    "en": "Really? Thanks, Sam. I'll get the next one.",
+    "zh": "真的吗？谢谢你，山姆。下次我请。"
+   },
+   {
+    "speaker": "A",
+    "en": "Don't mention it.",
+    "zh": "别客气。"
+   }
+  ],
+  "chunkIds": [
+   "c121",
+   "c130"
+  ],
+  "gist": {
+   "questionZh": "这顿午饭谁付钱？",
+   "optionsZh": [
+    "A 请客",
+    "B 请客",
+    "两人各付各的",
+    "公司报销"
+   ],
+   "answer": 0
+  },
+  "blanks": [
+   {
+    "turn": 0,
+    "text": "Put your wallet away"
+   },
+   {
+    "turn": 0,
+    "text": "It's on me"
+   },
+   {
+    "turn": 2,
+    "text": "Don't mention it"
+   }
+  ]
+ },
+ {
+  "id": "dl054",
+  "title": "聊聊周末",
+  "scene": "work",
+  "category": "social",
+  "tier": 1,
+  "turns": [
+   {
+    "speaker": "A",
+    "en": "How was your weekend?",
+    "zh": "周末过得怎么样？"
+   },
+   {
+    "speaker": "B",
+    "en": "Pretty chill. Mostly stayed in. You?",
+    "zh": "挺悠闲的，基本都待在家里。你呢？"
+   },
+   {
+    "speaker": "A",
+    "en": "Same here. I barely left the couch.",
+    "zh": "我也一样，几乎没离开过沙发。"
+   }
+  ],
+  "chunkIds": [
+   "c243",
+   "c022"
+  ],
+  "gist": {
+   "questionZh": "B 周末大部分时间在做什么？",
+   "optionsZh": [
+    "去爬山",
+    "待在家里",
+    "加班",
+    "出去旅行"
+   ],
+   "answer": 1
+  },
+  "blanks": [
+   {
+    "turn": 0,
+    "text": "How was your weekend"
+   },
+   {
+    "turn": 1,
+    "text": "Mostly stayed in"
+   },
+   {
+    "turn": 2,
+    "text": "Same here"
+   }
+  ]
+ },
+ {
+  "id": "dl055",
+  "title": "登录漏洞的进展",
+  "scene": "work",
+  "category": "work",
+  "tier": 2,
+  "turns": [
+   {
+    "speaker": "A",
+    "en": "Okay, Jess, what's the status on the login bug?",
+    "zh": "好，杰丝，登录那个漏洞现在什么情况？"
+   },
+   {
+    "speaker": "B",
+    "en": "I'm having trouble reproducing it. It only happens on some phones.",
+    "zh": "我很难重现它。只有一些手机上才会出现。"
+   },
+   {
+    "speaker": "A",
+    "en": "Have you checked the logs yet?",
+    "zh": "日志查过了吗？"
+   },
+   {
+    "speaker": "B",
+    "en": "Not yet. I'll go through them now. I'll let you know.",
+    "zh": "还没有。我现在就去看，有结果告诉你。"
+   },
+   {
+    "speaker": "A",
+    "en": "Sounds good. Thanks.",
+    "zh": "好的，谢谢。"
+   }
+  ],
+  "chunkIds": [
+   "c210",
+   "c192",
+   "c021"
+  ],
+  "gist": {
+   "questionZh": "杰丝为什么还没修好这个漏洞？",
+   "optionsZh": [
+    "没有人给她权限",
+    "她这几天请假了",
+    "很难重现这个问题",
+    "漏洞已经修好了"
+   ],
+   "answer": 2
+  },
+  "blanks": [
+   {
+    "turn": 1,
+    "text": "I'm having trouble"
+   },
+   {
+    "turn": 1,
+    "text": "some phones"
+   },
+   {
+    "turn": 3,
+    "text": "I'll let you know"
+   }
+  ]
+ },
+ {
+  "id": "dl056",
+  "title": "改约一对一会议",
+  "scene": "work",
+  "category": "plan",
+  "tier": 2,
+  "turns": [
+   {
+    "speaker": "A",
+    "en": "Hi Lena, I need to reschedule our one-on-one. I'm booked solid tomorrow.",
+    "zh": "嗨，莉娜，我得改一下我们的一对一。我明天日程排得满满的。"
+   },
+   {
+    "speaker": "B",
+    "en": "No worries. When are you free?",
+    "zh": "没事。你什么时候有空？"
+   },
+   {
+    "speaker": "A",
+    "en": "How about Wednesday afternoon, around three?",
+    "zh": "周三下午三点左右怎么样？"
+   },
+   {
+    "speaker": "B",
+    "en": "Three works for me. I'll update the invite.",
+    "zh": "三点可以。我来更新邀请。"
+   }
+  ],
+  "chunkIds": [
+   "c200",
+   "c129"
+  ],
+  "gist": {
+   "questionZh": "A 为什么要改时间？",
+   "optionsZh": [
+    "生病了",
+    "要出差",
+    "忘了这个会",
+    "明天日程排满了"
+   ],
+   "answer": 3
+  },
+  "blanks": [
+   {
+    "turn": 0,
+    "text": "I'm booked solid"
+   },
+   {
+    "turn": 1,
+    "text": "When are you free"
+   },
+   {
+    "turn": 3,
+    "text": "update the invite"
+   }
+  ]
+ },
+ {
+  "id": "dl057",
+  "title": "视频会议声音断了",
+  "scene": "work",
+  "category": "problem",
+  "tier": 2,
+  "turns": [
+   {
+    "speaker": "A",
+    "en": "Chris, I can barely hear you. It keeps cutting out.",
+    "zh": "克里斯，我几乎听不清你。声音一直断。"
+   },
+   {
+    "speaker": "B",
+    "en": "Sorry, bear with me. My Wi-Fi's acting up.",
+    "zh": "抱歉，请稍等。我的无线网有点抽风。"
+   },
+   {
+    "speaker": "A",
+    "en": "Try turning your camera off. That usually helps.",
+    "zh": "试试把摄像头关掉，通常有用。"
+   },
+   {
+    "speaker": "B",
+    "en": "Okay, done. Is that any better?",
+    "zh": "好了，关了。现在好点吗？"
+   },
+   {
+    "speaker": "A",
+    "en": "Much better. Go ahead.",
+    "zh": "好多了，你说吧。"
+   }
+  ],
+  "chunkIds": [
+   "c207",
+   "c037"
+  ],
+  "gist": {
+   "questionZh": "A 建议克里斯怎么解决声音断断续续？",
+   "optionsZh": [
+    "把摄像头关掉",
+    "换一台电脑",
+    "重启路由器",
+    "改用手机打电话进来"
+   ],
+   "answer": 0
+  },
+  "blanks": [
+   {
+    "turn": 0,
+    "text": "It keeps cutting out"
+   },
+   {
+    "turn": 1,
+    "text": "bear with me"
+   },
+   {
+    "turn": 3,
+    "text": "Is that any better"
+   }
+  ]
+ },
+ {
+  "id": "dl058",
+  "title": "听取演讲反馈",
+  "scene": "work",
+  "category": "advice",
+  "tier": 2,
+  "turns": [
+   {
+    "speaker": "A",
+    "en": "Got a minute? I wanted to give you some feedback on your presentation.",
+    "zh": "有空吗？我想就你的演讲给你一些反馈。"
+   },
+   {
+    "speaker": "B",
+    "en": "Of course. Go ahead.",
+    "zh": "当然，请说。"
+   },
+   {
+    "speaker": "A",
+    "en": "Overall, it was great. You might want to slow down a bit, though.",
+    "zh": "整体很棒。不过你可能要稍微慢一点。"
+   },
+   {
+    "speaker": "B",
+    "en": "Yeah, I was nervous. I talk fast when I'm stressed.",
+    "zh": "是啊，我紧张了。一有压力我就说得快。"
+   },
+   {
+    "speaker": "A",
+    "en": "Totally normal. Just take your time next time.",
+    "zh": "很正常。下次慢慢来就好。"
+   }
+  ],
+  "chunkIds": [
+   "c138",
+   "c147"
+  ],
+  "gist": {
+   "questionZh": "A 给 B 的主要建议是什么？",
+   "optionsZh": [
+    "多放几张图表",
+    "说话慢一点",
+    "提前十分钟到场",
+    "少讲一些数据"
+   ],
+   "answer": 1
+  },
+  "blanks": [
+   {
+    "turn": 0,
+    "text": "give you some feedback"
+   },
+   {
+    "turn": 2,
+    "text": "You might want to"
+   },
+   {
+    "turn": 4,
+    "text": "take your time"
+   }
+  ]
+ },
+ {
+  "id": "dl059",
+  "title": "礼貌地表示不同意",
+  "scene": "work",
+  "category": "agree",
+  "tier": 2,
+  "turns": [
+   {
+    "speaker": "A",
+    "en": "I think we should skip the live demo and just send a video.",
+    "zh": "我觉得我们可以不做现场演示，直接发个视频。"
+   },
+   {
+    "speaker": "B",
+    "en": "I see where you're coming from, but clients love live demos.",
+    "zh": "我明白你的想法，不过客户喜欢现场演示。"
+   },
+   {
+    "speaker": "A",
+    "en": "True, but live demos can go wrong.",
+    "zh": "是，但现场演示可能出岔子。"
+   },
+   {
+    "speaker": "B",
+    "en": "Fair enough. Let's prep a backup video, just in case.",
+    "zh": "有道理。那我们准备个备用视频，以防万一。"
+   }
+  ],
+  "chunkIds": [
+   "c072",
+   "c015"
+  ],
+  "gist": {
+   "questionZh": "最后他们决定怎么做？",
+   "optionsZh": [
+    "只发视频，不做演示",
+    "取消这次演示",
+    "做现场演示，同时备一个视频",
+    "换一位客户"
+   ],
+   "answer": 2
+  },
+  "blanks": [
+   {
+    "turn": 1,
+    "text": "I see where you're coming from"
+   },
+   {
+    "turn": 3,
+    "text": "Fair enough"
+   },
+   {
+    "turn": 3,
+    "text": "just in case"
+   }
+  ]
+ },
+ {
+  "id": "dl060",
+  "title": "带新同事熟悉环境",
+  "scene": "work",
+  "category": "offer",
+  "tier": 2,
+  "turns": [
+   {
+    "speaker": "A",
+    "en": "Okay, that's your laptop. The Wi-Fi password's on the sticky note.",
+    "zh": "好，这是你的笔记本电脑。无线网密码写在便利贴上。"
+   },
+   {
+    "speaker": "B",
+    "en": "Great, thanks. Where can I find the shared drive?",
+    "zh": "太好了，谢谢。共享盘在哪里找？"
+   },
+   {
+    "speaker": "A",
+    "en": "I'll send you the link. Feel free to ask me anything.",
+    "zh": "我把链接发你。有什么尽管问我。"
+   },
+   {
+    "speaker": "B",
+    "en": "Thanks. I'm sure I'll have a ton of questions this week.",
+    "zh": "谢谢。这周我肯定有一大堆问题。"
+   },
+   {
+    "speaker": "A",
+    "en": "Ask away. That's how everybody learns.",
+    "zh": "尽管问，大家都是这么学的。"
+   }
+  ],
+  "chunkIds": [
+   "c091",
+   "c115"
+  ],
+  "gist": {
+   "questionZh": "A 对新同事的态度是什么？",
+   "optionsZh": [
+    "希望他自己摸索",
+    "只回答工作相关的问题",
+    "让他去问人事部",
+    "欢迎他随时提问"
+   ],
+   "answer": 3
+  },
+  "blanks": [
+   {
+    "turn": 1,
+    "text": "Where can I find"
+   },
+   {
+    "turn": 2,
+    "text": "Feel free to ask"
+   },
+   {
+    "turn": 3,
+    "text": "a ton of questions"
+   }
+  ]
+ },
+ {
+  "id": "dl061",
+  "title": "午饭吃什么",
+  "scene": "work",
+  "category": "offer",
+  "tier": 2,
+  "turns": [
+   {
+    "speaker": "A",
+    "en": "Where do you want to eat today?",
+    "zh": "今天想去哪儿吃？"
+   },
+   {
+    "speaker": "B",
+    "en": "I'm easy. I'd rather not do pizza again, though.",
+    "zh": "我都行。不过我不想再吃披萨了。"
+   },
+   {
+    "speaker": "A",
+    "en": "Fair. Why don't we try the Thai place on Main?",
+    "zh": "行。我们去试试主街那家泰国菜吧？"
+   },
+   {
+    "speaker": "B",
+    "en": "Sounds good. Let me grab my jacket.",
+    "zh": "好啊，我去拿一下外套。"
+   }
+  ],
+  "chunkIds": [
+   "c053",
+   "c119",
+   "c021"
+  ],
+  "gist": {
+   "questionZh": "B 对午饭有什么要求？",
+   "optionsZh": [
+    "不想再吃披萨",
+    "想吃泰国菜",
+    "想点外卖",
+    "不想出门"
+   ],
+   "answer": 0
+  },
+  "blanks": [
+   {
+    "turn": 1,
+    "text": "I'd rather not do pizza"
+   },
+   {
+    "turn": 2,
+    "text": "Why don't we try"
+   },
+   {
+    "turn": 3,
+    "text": "grab my jacket"
+   }
+  ]
+ },
+ {
+  "id": "dl062",
+  "title": "申请延期交论文",
+  "scene": "study",
+  "category": "request",
+  "tier": 2,
+  "turns": [
+   {
+    "speaker": "A",
+    "en": "Professor Gomez, I was wondering if I could get an extension on the paper.",
+    "zh": "戈麦斯教授，我想问问论文能不能延期。"
+   },
+   {
+    "speaker": "B",
+    "en": "Sure, what's going on?",
+    "zh": "可以，怎么了？"
+   },
+   {
+    "speaker": "A",
+    "en": "I've been sick all week, and I'm way behind.",
+    "zh": "我病了一整周，落下太多了。"
+   },
+   {
+    "speaker": "B",
+    "en": "That's too bad. I can give you until Friday.",
+    "zh": "真遗憾。我可以给你宽限到周五。"
+   }
+  ],
+  "chunkIds": [
+   "c107",
+   "c019"
+  ],
+  "gist": {
+   "questionZh": "教授最后怎么答复？",
+   "optionsZh": [
+    "不同意延期",
+    "同意宽限到周五",
+    "宽限到下周一",
+    "让他找系主任"
+   ],
+   "answer": 1
+  },
+  "blanks": [
+   {
+    "turn": 0,
+    "text": "I was wondering if"
+   },
+   {
+    "turn": 0,
+    "text": "an extension on the paper"
+   },
+   {
+    "turn": 3,
+    "text": "until Friday"
+   }
+  ]
+ },
+ {
+  "id": "dl063",
+  "title": "问同学作业是哪些",
+  "scene": "study",
+  "category": "clarify",
+  "tier": 2,
+  "turns": [
+   {
+    "speaker": "A",
+    "en": "Hey, I zoned out. I'm not sure which problems I'm supposed to do.",
+    "zh": "嘿，我刚走神了。我不确定该做哪些题。"
+   },
+   {
+    "speaker": "B",
+    "en": "Page 52, one through fifteen. Odds only.",
+    "zh": "第52页，第1到15题，只做奇数题。"
+   },
+   {
+    "speaker": "A",
+    "en": "Just to be clear, we skip the even ones?",
+    "zh": "确认一下，偶数题就不用做了？"
+   },
+   {
+    "speaker": "B",
+    "en": "Right. Odd numbers only. It's on the board.",
+    "zh": "对，只做奇数。黑板上写着呢。"
+   }
+  ],
+  "chunkIds": [
+   "c194",
+   "c083"
+  ],
+  "gist": {
+   "questionZh": "作业要做哪些题？",
+   "optionsZh": [
+    "第52页全部题目",
+    "第52页的偶数题",
+    "第52页1到15题的奇数题",
+    "第15页以后的题"
+   ],
+   "answer": 2
+  },
+  "blanks": [
+   {
+    "turn": 0,
+    "text": "I'm supposed to do"
+   },
+   {
+    "turn": 1,
+    "text": "Odds only"
+   },
+   {
+    "turn": 2,
+    "text": "Just to be clear"
+   }
+  ]
+ },
+ {
+  "id": "dl064",
+  "title": "约好小组学习",
+  "scene": "study",
+  "category": "plan",
+  "tier": 2,
+  "turns": [
+   {
+    "speaker": "A",
+    "en": "Are we still on for the study group tomorrow?",
+    "zh": "我们明天的学习小组还照常吗？"
+   },
+   {
+    "speaker": "B",
+    "en": "Yep. I might be a few minutes late, though.",
+    "zh": "照常。不过我可能会晚几分钟。"
+   },
+   {
+    "speaker": "A",
+    "en": "No rush. Just make sure you bring your chapter six notes.",
+    "zh": "不急。记得带上第六章的笔记。"
+   },
+   {
+    "speaker": "B",
+    "en": "Got it. I've been meaning to review those anyway.",
+    "zh": "好的。我本来就一直想复习那些。"
+   },
+   {
+    "speaker": "A",
+    "en": "Perfect. See you at four, then.",
+    "zh": "好，那四点见。"
+   }
+  ],
+  "chunkIds": [
+   "c142",
+   "c188"
+  ],
+  "gist": {
+   "questionZh": "A 提醒 B 带什么？",
+   "optionsZh": [
+    "教科书",
+    "笔记本电脑",
+    "练习题",
+    "第六章的笔记"
+   ],
+   "answer": 3
+  },
+  "blanks": [
+   {
+    "turn": 0,
+    "text": "still on for"
+   },
+   {
+    "turn": 2,
+    "text": "make sure you bring"
+   },
+   {
+    "turn": 3,
+    "text": "I've been meaning to"
+   }
+  ]
+ },
+ {
+  "id": "dl065",
+  "title": "请同事帮忙",
+  "scene": "work",
+  "category": "request",
+  "tier": 2,
+  "turns": [
+   {
+    "speaker": "A",
+    "en": "Hey Raj, can you give me a hand with this deck?",
+    "zh": "嘿，拉杰，这份幻灯片你能帮我一下吗？"
+   },
+   {
+    "speaker": "B",
+    "en": "Sure. What do you need?",
+    "zh": "行，你需要什么？"
+   },
+   {
+    "speaker": "A",
+    "en": "I can't figure out why the charts keep shifting.",
+    "zh": "我搞不懂为什么图表老是乱跑。"
+   },
+   {
+    "speaker": "B",
+    "en": "Oh, that's a layout thing. Let me show you.",
+    "zh": "哦，那是版式的问题。我给你演示一下。"
+   }
+  ],
+  "chunkIds": [
+   "c102",
+   "c206"
+  ],
+  "gist": {
+   "questionZh": "A 遇到了什么问题？",
+   "optionsZh": [
+    "图表位置总是乱动",
+    "幻灯片打不开",
+    "数据算错了",
+    "字体太小"
+   ],
+   "answer": 0
+  },
+  "blanks": [
+   {
+    "turn": 0,
+    "text": "give me a hand"
+   },
+   {
+    "turn": 2,
+    "text": "I can't figure out"
+   },
+   {
+    "turn": 3,
+    "text": "Let me show you"
+   }
+  ]
+ },
+ {
+  "id": "dl066",
+  "title": "截止日期提前了",
+  "scene": "work",
+  "category": "feeling",
+  "tier": 2,
+  "turns": [
+   {
+    "speaker": "A",
+    "en": "You look stressed. What's going on?",
+    "zh": "你看起来压力很大，怎么了？"
+   },
+   {
+    "speaker": "B",
+    "en": "The deadline got moved up to Monday. I'm a bit stressed out.",
+    "zh": "截止日期提前到周一了。我有点焦虑。"
+   },
+   {
+    "speaker": "A",
+    "en": "Ouch. Anything I can take off your plate?",
+    "zh": "哎呀。有什么我可以帮你分担的吗？"
+   },
+   {
+    "speaker": "B",
+    "en": "Maybe the slides? That'd be huge.",
+    "zh": "要不幻灯片？那就帮大忙了。"
+   },
+   {
+    "speaker": "A",
+    "en": "Done. Hang in there.",
+    "zh": "没问题。加油撑住。"
+   }
+  ],
+  "chunkIds": [
+   "c152",
+   "c140"
+  ],
+  "gist": {
+   "questionZh": "B 压力大的原因是什么？",
+   "optionsZh": [
+    "被老板批评了",
+    "截止日期提前到了周一",
+    "同事突然离职了",
+    "忘记参加会议了"
+   ],
+   "answer": 1
+  },
+  "blanks": [
+   {
+    "turn": 1,
+    "text": "I'm a bit stressed out"
+   },
+   {
+    "turn": 2,
+    "text": "take off your plate"
+   },
+   {
+    "turn": 4,
+    "text": "Hang in there"
+   }
+  ]
+ },
+ {
+  "id": "dl067",
+  "title": "聊聊业余爱好",
+  "scene": "work",
+  "category": "social",
+  "tier": 2,
+  "turns": [
+   {
+    "speaker": "A",
+    "en": "So, what do you do for fun outside of work?",
+    "zh": "那你下班后有什么消遣？"
+   },
+   {
+    "speaker": "B",
+    "en": "I'm really into rock climbing. There's a gym near here.",
+    "zh": "我特别迷攀岩。这附近有个攀岩馆。"
+   },
+   {
+    "speaker": "A",
+    "en": "No way! I've always wanted to try that.",
+    "zh": "不会吧！我一直想试试。"
+   },
+   {
+    "speaker": "B",
+    "en": "We should go together sometime.",
+    "zh": "我们哪天可以一起去。"
+   }
+  ],
+  "chunkIds": [
+   "c239",
+   "c247",
+   "c014"
+  ],
+  "gist": {
+   "questionZh": "B 的业余爱好是什么？",
+   "optionsZh": [
+    "跑步",
+    "游泳",
+    "攀岩",
+    "打篮球"
+   ],
+   "answer": 2
+  },
+  "blanks": [
+   {
+    "turn": 0,
+    "text": "what do you do for fun"
+   },
+   {
+    "turn": 1,
+    "text": "I'm really into"
+   },
+   {
+    "turn": 2,
+    "text": "No way"
+   }
+  ]
+ },
+ {
+  "id": "dl068",
+  "title": "婉拒下班聚会",
+  "scene": "work",
+  "category": "offer",
+  "tier": 2,
+  "turns": [
+   {
+    "speaker": "A",
+    "en": "A few of us are going to happy hour tonight. Want to come?",
+    "zh": "我们几个今晚去小酌一杯，你来吗？"
+   },
+   {
+    "speaker": "B",
+    "en": "I'd love to, but I have to finish this report. Rain check?",
+    "zh": "我想去，但我得把这份报告写完。下次行吗？"
+   },
+   {
+    "speaker": "A",
+    "en": "Of course. Good luck with the report!",
+    "zh": "当然。报告加油！"
+   },
+   {
+    "speaker": "B",
+    "en": "Thanks. Have fun tonight!",
+    "zh": "谢谢，今晚玩得开心！"
+   }
+  ],
+  "chunkIds": [
+   "c118",
+   "c123",
+   "c145"
+  ],
+  "gist": {
+   "questionZh": "B 为什么不去聚会？",
+   "optionsZh": [
+    "不喜欢喝酒",
+    "已经有别的安排",
+    "身体不舒服",
+    "要把报告写完"
+   ],
+   "answer": 3
+  },
+  "blanks": [
+   {
+    "turn": 1,
+    "text": "I'd love to, but"
+   },
+   {
+    "turn": 1,
+    "text": "Rain check"
+   },
+   {
+    "turn": 2,
+    "text": "Good luck with the report"
+   }
+  ]
+ },
+ {
+  "id": "dl069",
+  "title": "周会汇报迁移进度",
+  "scene": "work",
+  "category": "work",
+  "tier": 3,
+  "turns": [
+   {
+    "speaker": "A",
+    "en": "Okay, let's go around. Sam, where are we on the migration?",
+    "zh": "好，我们轮流说。山姆，迁移做到哪一步了？"
+   },
+   {
+    "speaker": "B",
+    "en": "So, we're about eighty percent done. The thing is, the payments module is trickier than we thought.",
+    "zh": "我们完成了大概八成。问题是支付模块比我们想的棘手。"
+   },
+   {
+    "speaker": "A",
+    "en": "Meaning what, a delay?",
+    "zh": "意思是要延期吗？"
+   },
+   {
+    "speaker": "B",
+    "en": "Possibly. I'd say we need another week, give or take.",
+    "zh": "有可能。我估计还要一周，上下浮动一点。"
+   },
+   {
+    "speaker": "A",
+    "en": "Hmm. I hear you, but the launch date is locked.",
+    "zh": "嗯，我理解，但上线日期已经定死了。"
+   },
+   {
+    "speaker": "B",
+    "en": "Right. Can we push the reporting piece to the next sprint, then?",
+    "zh": "明白。那能把报表部分推到下个迭代吗？"
+   },
+   {
+    "speaker": "A",
+    "en": "That could work. Let's take this offline and sort out the details.",
+    "zh": "可以考虑。我们会后单独把细节理一理。"
+   },
+   {
+    "speaker": "B",
+    "en": "Works for me. I'll send you a breakdown by end of day.",
+    "zh": "没问题。我今天下班前把明细发你。"
+   }
+  ],
+  "chunkIds": [
+   "c043",
+   "c058",
+   "c224",
+   "c025"
+  ],
+  "gist": {
+   "questionZh": "山姆的迁移项目遇到了什么麻烦？",
+   "optionsZh": [
+    "支付模块比预想的难，可能要多一周",
+    "预算不够",
+    "团队成员离职了",
+    "客户临时改了需求"
+   ],
+   "answer": 0
+  },
+  "blanks": [
+   {
+    "turn": 1,
+    "text": "The thing is"
+   },
+   {
+    "turn": 3,
+    "text": "give or take"
+   },
+   {
+    "turn": 6,
+    "text": "Let's take this offline"
+   }
+  ]
+ },
+ {
+  "id": "dl070",
+  "title": "给同事提反馈",
+  "scene": "work",
+  "category": "work",
+  "tier": 3,
+  "turns": [
+   {
+    "speaker": "A",
+    "en": "Hey, got a sec? I wanted to talk about yesterday's client call.",
+    "zh": "嘿，有空吗？我想聊聊昨天的客户电话会。"
+   },
+   {
+    "speaker": "B",
+    "en": "Sure. How'd I do?",
+    "zh": "好啊，我表现怎么样？"
+   },
+   {
+    "speaker": "A",
+    "en": "To be honest, you were great on the data. But you kind of talked over Mike a couple times.",
+    "zh": "说实话，你讲数据讲得很好。但有几次打断了迈克。"
+   },
+   {
+    "speaker": "B",
+    "en": "Oh no. I didn't even notice. Was it that obvious?",
+    "zh": "哦不，我完全没发觉。有那么明显吗？"
+   },
+   {
+    "speaker": "A",
+    "en": "Not really. I just figured you'd want to know.",
+    "zh": "也不算。我只是觉得你会想知道。"
+   },
+   {
+    "speaker": "B",
+    "en": "No, I really appreciate it. I'm still getting used to these calls.",
+    "zh": "不，我真的很感谢。我还在适应这种电话会。"
+   },
+   {
+    "speaker": "A",
+    "en": "Don't be too hard on yourself. You've only been here three weeks.",
+    "zh": "别对自己太苛刻。你才来三个星期。"
+   },
+   {
+    "speaker": "B",
+    "en": "Ha, fair enough. I'll work on it.",
+    "zh": "哈，也对。我会改进的。"
+   }
+  ],
+  "chunkIds": [
+   "c052",
+   "c127",
+   "c149",
+   "c015"
+  ],
+  "gist": {
+   "questionZh": "A 给 B 的反馈是什么？",
+   "optionsZh": [
+    "幻灯片做得太花哨",
+    "数据讲得很好，但有几次打断了同事",
+    "开会迟到了",
+    "没有准备数据"
+   ],
+   "answer": 1
+  },
+  "blanks": [
+   {
+    "turn": 2,
+    "text": "To be honest"
+   },
+   {
+    "turn": 5,
+    "text": "I really appreciate it"
+   },
+   {
+    "turn": 6,
+    "text": "Don't be too hard on yourself"
+   }
+  ]
+ },
+ {
+  "id": "dl071",
+  "title": "撞会了，协调时间",
+  "scene": "work",
+  "category": "plan",
+  "tier": 3,
+  "turns": [
+   {
+    "speaker": "A",
+    "en": "Hey, Nina. Sorry to bother you, but I double-booked myself on Thursday.",
+    "zh": "嘿，妮娜。打扰一下，我周四把时间重复订了。"
+   },
+   {
+    "speaker": "B",
+    "en": "Ugh, that happens to me all the time. Which meetings?",
+    "zh": "唉，我也经常这样。是哪两个会？"
+   },
+   {
+    "speaker": "A",
+    "en": "Our design review and a call with legal. I can't move legal.",
+    "zh": "我们的设计评审，还有一个法务的电话会。法务那个动不了。"
+   },
+   {
+    "speaker": "B",
+    "en": "Okay. Could we do the review first thing Friday instead?",
+    "zh": "好。那我们改到周五一早做评审行吗？"
+   },
+   {
+    "speaker": "A",
+    "en": "Let me see. I've got a dentist appointment at nine, but I'm free after ten.",
+    "zh": "我看看。我九点要看牙医，但十点以后有空。"
+   },
+   {
+    "speaker": "B",
+    "en": "Ten works. I'll update the invite and let the others know.",
+    "zh": "十点可以。我来更新邀请并通知其他人。"
+   },
+   {
+    "speaker": "A",
+    "en": "Perfect. I owe you one.",
+    "zh": "太好了，我欠你一个人情。"
+   }
+  ],
+  "chunkIds": [
+   "c133",
+   "c027",
+   "c131"
+  ],
+  "gist": {
+   "questionZh": "A 为什么要改设计评审的时间？",
+   "optionsZh": [
+    "设计稿还没做完",
+    "A 周四请假",
+    "周四同时订了两个会，法务会不能动",
+    "会议室不够用"
+   ],
+   "answer": 2
+  },
+  "blanks": [
+   {
+    "turn": 0,
+    "text": "Sorry to bother you"
+   },
+   {
+    "turn": 4,
+    "text": "Let me see"
+   },
+   {
+    "turn": 6,
+    "text": "I owe you one"
+   }
+  ]
+ },
+ {
+  "id": "dl072",
+  "title": "新人入职第一天",
+  "scene": "work",
+  "category": "work",
+  "tier": 3,
+  "turns": [
+   {
+    "speaker": "A",
+    "en": "Hey Hana, welcome! I'm Josh, your onboarding buddy. How's your first morning going?",
+    "zh": "嗨，哈娜，欢迎！我是乔希，你的入职伙伴。第一个上午还顺利吗？"
+   },
+   {
+    "speaker": "B",
+    "en": "Pretty overwhelming, to be honest. So many logins and so many acronyms.",
+    "zh": "说实话挺懵的。那么多账号，那么多缩写。"
+   },
+   {
+    "speaker": "A",
+    "en": "Tell me about it. I was lost for a month.",
+    "zh": "我太懂了。我当初懵了一个月。"
+   },
+   {
+    "speaker": "B",
+    "en": "Really? That makes me feel better. Is there a cheat sheet or something?",
+    "zh": "真的吗？那我心里好受点了。有没有速查表之类的？"
+   },
+   {
+    "speaker": "A",
+    "en": "Actually, yes. I'll send you our glossary. And don't worry about memorizing it all.",
+    "zh": "正好有。我把术语表发你。不用急着全背下来。"
+   },
+   {
+    "speaker": "B",
+    "en": "Thanks. Also, who should I talk to about getting a badge?",
+    "zh": "谢谢。另外，门禁卡该找谁办？"
+   },
+   {
+    "speaker": "A",
+    "en": "Front desk. Want to grab lunch with the team after that?",
+    "zh": "前台。办完之后要不要跟团队一起吃午饭？"
+   },
+   {
+    "speaker": "B",
+    "en": "I'd love that. Thanks for making this so easy.",
+    "zh": "太好了。谢谢你让一切这么轻松。"
+   }
+  ],
+  "chunkIds": [
+   "c052",
+   "c016",
+   "c098",
+   "c117"
+  ],
+  "gist": {
+   "questionZh": "B 想请教 A 什么事情（对话后半段）？",
+   "optionsZh": [
+    "怎么报销差旅费",
+    "怎么订会议室",
+    "怎么连公司 VPN",
+    "在哪里、找谁办门禁卡"
+   ],
+   "answer": 3
+  },
+  "blanks": [
+   {
+    "turn": 1,
+    "text": "to be honest"
+   },
+   {
+    "turn": 5,
+    "text": "who should I talk to about"
+   },
+   {
+    "turn": 6,
+    "text": "Want to grab lunch"
+   }
+  ]
+ },
+ {
+  "id": "dl073",
+  "title": "选哪家供应商",
+  "scene": "work",
+  "category": "agree",
+  "tier": 3,
+  "turns": [
+   {
+    "speaker": "A",
+    "en": "So I looked at both vendors, and I'm leaning toward Vendor B.",
+    "zh": "我看了两家供应商，我倾向于选 B。"
+   },
+   {
+    "speaker": "B",
+    "en": "Really? Honestly, I'm not a big fan of their support setup.",
+    "zh": "是吗？说实话，我不太喜欢他们的客服安排。"
+   },
+   {
+    "speaker": "A",
+    "en": "Hmm. What's the deal with their support? I thought it was fine.",
+    "zh": "嗯。他们的客服到底怎么回事？我还以为挺好的。"
+   },
+   {
+    "speaker": "B",
+    "en": "Their response time's all over the place. We got burned last year.",
+    "zh": "他们的响应时间忽快忽慢。我们去年吃过亏。"
+   },
+   {
+    "speaker": "A",
+    "en": "That's a good point. But Vendor A costs twice as much.",
+    "zh": "这点说得对。但 A 的价格是两倍。"
+   },
+   {
+    "speaker": "B",
+    "en": "True. Let's get both on a call. I'd say it depends on the SLA.",
+    "zh": "确实。我们把两家都约来开个会。我觉得要看服务协议。"
+   }
+  ],
+  "chunkIds": [
+   "c199",
+   "c055",
+   "c100",
+   "c066",
+   "c054"
+  ],
+  "gist": {
+   "questionZh": "B 为什么对供应商 B 有顾虑？",
+   "optionsZh": [
+    "他们的客服响应时间不稳定",
+    "价格太高",
+    "产品功能太少",
+    "公司规模太小"
+   ],
+   "answer": 0
+  },
+  "blanks": [
+   {
+    "turn": 0,
+    "text": "I'm leaning toward"
+   },
+   {
+    "turn": 1,
+    "text": "I'm not a big fan of"
+   },
+   {
+    "turn": 4,
+    "text": "That's a good point"
+   }
+  ]
+ },
+ {
+  "id": "dl074",
+  "title": "请同事顶班",
+  "scene": "work",
+  "category": "request",
+  "tier": 3,
+  "turns": [
+   {
+    "speaker": "A",
+    "en": "Hey Tina, any chance you could cover the support queue on Friday afternoon?",
+    "zh": "嘿，蒂娜，周五下午你能不能帮我顶一下客服队列？"
+   },
+   {
+    "speaker": "B",
+    "en": "What's going on Friday?",
+    "zh": "周五怎么了？"
+   },
+   {
+    "speaker": "A",
+    "en": "My daughter has a school thing. I'm supposed to be there by two.",
+    "zh": "我女儿学校有活动。我两点前得到。"
+   },
+   {
+    "speaker": "B",
+    "en": "Oh, how sweet. Yeah, I can cover. I was going to leave early, but it's no big deal.",
+    "zh": "哦，真好。行，我能顶。我本来想早走，不过没关系。"
+   },
+   {
+    "speaker": "A",
+    "en": "Are you sure? I don't want to mess up your plans.",
+    "zh": "你确定吗？我不想打乱你的计划。"
+   },
+   {
+    "speaker": "B",
+    "en": "Honestly, don't sweat it. You covered for me in March.",
+    "zh": "真的，别放在心上。三月你也帮我顶过。"
+   },
+   {
+    "speaker": "A",
+    "en": "Okay, then I owe you one. I'll bring donuts Monday.",
+    "zh": "那好，我欠你一次。周一我带甜甜圈。"
+   },
+   {
+    "speaker": "B",
+    "en": "Now you're talking!",
+    "zh": "这话我爱听！"
+   }
+  ],
+  "chunkIds": [
+   "c113",
+   "c194",
+   "c150",
+   "c131"
+  ],
+  "gist": {
+   "questionZh": "A 为什么请蒂娜顶班？",
+   "optionsZh": [
+    "要去看病",
+    "周五下午要去女儿的学校活动",
+    "要出差",
+    "要搬家"
+   ],
+   "answer": 1
+  },
+  "blanks": [
+   {
+    "turn": 0,
+    "text": "any chance you could"
+   },
+   {
+    "turn": 5,
+    "text": "don't sweat it"
+   },
+   {
+    "turn": 6,
+    "text": "I owe you one"
+   }
+  ]
+ },
+ {
+  "id": "dl075",
+  "title": "跟进财务数据",
+  "scene": "work",
+  "category": "work",
+  "tier": 3,
+  "turns": [
+   {
+    "speaker": "A",
+    "en": "Morning! Just to follow up on the budget numbers. Did finance get back to you?",
+    "zh": "早！跟进一下预算数字。财务回复你了吗？"
+   },
+   {
+    "speaker": "B",
+    "en": "Not yet. I pinged them twice. I'll get back to you by lunch.",
+    "zh": "还没有。我催了两次。午饭前我再回你。"
+   },
+   {
+    "speaker": "A",
+    "en": "Okay. It's kind of urgent. The VP wants them before the two o'clock meeting.",
+    "zh": "好。有点急。副总想在两点的会前拿到。"
+   },
+   {
+    "speaker": "B",
+    "en": "Understood. If I don't hear back soon, I'll walk over to their desk.",
+    "zh": "明白。要是一直没回音，我就直接走到他们工位去。"
+   },
+   {
+    "speaker": "A",
+    "en": "Love that. Just a heads-up that the VP likes things in a one-pager.",
+    "zh": "好主意。提醒一下，副总喜欢一页纸的格式。"
+   },
+   {
+    "speaker": "B",
+    "en": "Noted. I'll have it ready by one-thirty.",
+    "zh": "记下了。我一点半前准备好。"
+   }
+  ],
+  "chunkIds": [
+   "c215",
+   "c216",
+   "c225"
+  ],
+  "gist": {
+   "questionZh": "B 接下来打算怎么做？",
+   "optionsZh": [
+    "直接请副总联系财务",
+    "取消下午的会",
+    "午饭前回复，必要时亲自去财务那里找人",
+    "先自己估算一个数字"
+   ],
+   "answer": 2
+  },
+  "blanks": [
+   {
+    "turn": 0,
+    "text": "Just to follow up on"
+   },
+   {
+    "turn": 1,
+    "text": "I'll get back to you"
+   },
+   {
+    "turn": 4,
+    "text": "Just a heads-up that"
+   }
+  ]
+ },
+ {
+  "id": "dl076",
+  "title": "食堂碰到同事",
+  "scene": "work",
+  "category": "social",
+  "tier": 3,
+  "turns": [
+   {
+    "speaker": "A",
+    "en": "Long time no see! You've been hiding in meetings all week.",
+    "zh": "好久不见！你整个星期都躲在会议里。"
+   },
+   {
+    "speaker": "B",
+    "en": "I know, right? I'm wiped out. I've had six calls today.",
+    "zh": "可不是嘛？我累垮了。今天已经开了六个会。"
+   },
+   {
+    "speaker": "A",
+    "en": "Ouch. Is it always this crazy, or is it just the launch?",
+    "zh": "哎呀。一直这么疯狂，还是只是因为要上线？"
+   },
+   {
+    "speaker": "B",
+    "en": "It's mostly the launch. It turns out nobody wrote the docs.",
+    "zh": "主要是上线。结果发现没人写文档。"
+   },
+   {
+    "speaker": "A",
+    "en": "Classic. Speaking of docs, did you ever finish that onboarding guide?",
+    "zh": "老套路了。说到文档，你那份入职指南写完了吗？"
+   },
+   {
+    "speaker": "B",
+    "en": "Ha, I've been meaning to. Remind me after the launch?",
+    "zh": "哈，我一直想写。上线以后再提醒我行吗？"
+   }
+  ],
+  "chunkIds": [
+   "c003",
+   "c163",
+   "c050",
+   "c047",
+   "c188"
+  ],
+  "gist": {
+   "questionZh": "B 最近为什么这么累？",
+   "optionsZh": [
+    "熬夜写文档",
+    "刚出差回来",
+    "刚换了新工作",
+    "连续开了很多会，项目快上线"
+   ],
+   "answer": 3
+  },
+  "blanks": [
+   {
+    "turn": 0,
+    "text": "Long time no see"
+   },
+   {
+    "turn": 1,
+    "text": "I'm wiped out"
+   },
+   {
+    "turn": 4,
+    "text": "Speaking of docs"
+   }
+  ]
+ },
+ {
+  "id": "dl077",
+  "title": "向教授请教习题",
+  "scene": "study",
+  "category": "problem",
+  "tier": 3,
+  "turns": [
+   {
+    "speaker": "A",
+    "en": "Hi, Professor Park. Do you have a minute? I'm having trouble with the problem set.",
+    "zh": "您好，帕克教授。您有空吗？这套习题我做起来有困难。"
+   },
+   {
+    "speaker": "B",
+    "en": "Of course. Come on in. What seems to be the problem?",
+    "zh": "当然，进来吧。哪里有问题？"
+   },
+   {
+    "speaker": "A",
+    "en": "I can't figure out question three. I keep getting a negative number.",
+    "zh": "第三题我搞不懂，算出来总是负数。"
+   },
+   {
+    "speaker": "B",
+    "en": "Let me see your work. Ah, you dropped a negative sign on line two.",
+    "zh": "我看看你的过程。啊，你在第二行漏了一个负号。"
+   },
+   {
+    "speaker": "A",
+    "en": "Oh! That's embarrassing. I've been staring at it for an hour.",
+    "zh": "哦！太尴尬了。我盯着它看了一个小时。"
+   },
+   {
+    "speaker": "B",
+    "en": "Don't be too hard on yourself. It happens to everyone.",
+    "zh": "别对自己太苛刻，每个人都会这样。"
+   },
+   {
+    "speaker": "A",
+    "en": "Thanks so much for your time.",
+    "zh": "非常感谢您抽时间。"
+   }
+  ],
+  "chunkIds": [
+   "c106",
+   "c210",
+   "c205",
+   "c206",
+   "c149"
+  ],
+  "gist": {
+   "questionZh": "A 的第三题为什么算不对？",
+   "optionsZh": [
+    "第二行漏写了一个负号",
+    "公式记错了",
+    "抄错了题目",
+    "计算器坏了"
+   ],
+   "answer": 0
+  },
+  "blanks": [
+   {
+    "turn": 1,
+    "text": "What seems to be the problem"
+   },
+   {
+    "turn": 2,
+    "text": "I can't figure out"
+   },
+   {
+    "turn": 3,
+    "text": "dropped a negative sign"
+   }
+  ]
+ },
+ {
+  "id": "dl078",
+  "title": "小组项目分工",
+  "scene": "study",
+  "category": "plan",
+  "tier": 3,
+  "turns": [
+   {
+    "speaker": "A",
+    "en": "Okay, group project. We've got three weeks. How should we split it up?",
+    "zh": "好，小组项目。我们有三周。怎么分工？"
+   },
+   {
+    "speaker": "B",
+    "en": "I'm thinking of taking the research part. I did something similar last semester.",
+    "zh": "我想负责调研部分。我上学期做过类似的。"
+   },
+   {
+    "speaker": "A",
+    "en": "Works for me. I can do the slides. Maya's good at writing, so maybe she takes the report?",
+    "zh": "可以。我来做幻灯片。玛雅文笔好，也许她来写报告？"
+   },
+   {
+    "speaker": "B",
+    "en": "Makes sense. Does she know yet? She missed class Tuesday.",
+    "zh": "有道理。她知道了吗？她周二没来上课。"
+   },
+   {
+    "speaker": "A",
+    "en": "Not yet. I'll text her tonight. We should lock in a deadline for first drafts.",
+    "zh": "还没，我今晚发消息给她。我们该定个初稿的截止日期。"
+   },
+   {
+    "speaker": "B",
+    "en": "Why don't we aim for the fifteenth? That leaves a week to revise.",
+    "zh": "我们定在十五号怎么样？这样还有一周修改。"
+   },
+   {
+    "speaker": "A",
+    "en": "Perfect. Let's touch base on Sunday to see how it's going.",
+    "zh": "好极了。周日我们碰个头，看看进展如何。"
+   },
+   {
+    "speaker": "B",
+    "en": "Great, I think we're on the same page.",
+    "zh": "太好了，我觉得我们想到一块儿了。"
+   }
+  ],
+  "chunkIds": [
+   "c189",
+   "c119",
+   "c214",
+   "c070"
+  ],
+  "gist": {
+   "questionZh": "他们把第一稿的截止时间定在什么时候？",
+   "optionsZh": [
+    "月底",
+    "十五号，留一周修改",
+    "下周一",
+    "明天"
+   ],
+   "answer": 1
+  },
+  "blanks": [
+   {
+    "turn": 1,
+    "text": "I'm thinking of"
+   },
+   {
+    "turn": 5,
+    "text": "Why don't we aim for"
+   },
+   {
+    "turn": 6,
+    "text": "touch base on Sunday"
+   }
+  ]
+ },
+ {
+  "id": "dl079",
+  "title": "期中考试怎么复习",
+  "scene": "study",
+  "category": "advice",
+  "tier": 3,
+  "turns": [
+   {
+    "speaker": "A",
+    "en": "Hey, have you started studying for the chem midterm? Honestly, I'm freaking out.",
+    "zh": "嘿，你开始复习化学期中了吗？说实话，我慌了。"
+   },
+   {
+    "speaker": "B",
+    "en": "A little. If I were you, I'd start with the practice exams. They're close to the real thing.",
+    "zh": "开始了一点。要是我，就先做模拟卷，跟真题很接近。"
+   },
+   {
+    "speaker": "A",
+    "en": "Wait, there are practice exams? Where can I find them?",
+    "zh": "等等，还有模拟卷？在哪里能找到？"
+   },
+   {
+    "speaker": "B",
+    "en": "On the course site, under Resources. Professor Lin posted them last week.",
+    "zh": "在课程网站的资源栏里。林教授上周发的。"
+   },
+   {
+    "speaker": "A",
+    "en": "Wow, I totally missed that. Thanks for letting me know.",
+    "zh": "哇，我完全没注意到。谢谢你告诉我。"
+   },
+   {
+    "speaker": "B",
+    "en": "No worries. We could quiz each other this weekend if you want.",
+    "zh": "没事。你愿意的话，这周末我们可以互相提问。"
+   },
+   {
+    "speaker": "A",
+    "en": "Yes, please. You're a lifesaver.",
+    "zh": "好啊，太好了。你真是救星。"
+   }
+  ],
+  "chunkIds": [
+   "c158",
+   "c144",
+   "c091",
+   "c134",
+   "c129"
+  ],
+  "gist": {
+   "questionZh": "B 建议 A 怎么复习期中考试？",
+   "optionsZh": [
+    "先去问教授",
+    "先组织学习小组",
+    "先做模拟卷",
+    "通宵突击背书"
+   ],
+   "answer": 2
+  },
+  "blanks": [
+   {
+    "turn": 0,
+    "text": "I'm freaking out"
+   },
+   {
+    "turn": 1,
+    "text": "If I were you, I'd"
+   },
+   {
+    "turn": 2,
+    "text": "Where can I find"
+   }
+  ]
+ },
+ {
+  "id": "dl080",
+  "title": "弄清作文要求",
+  "scene": "study",
+  "category": "clarify",
+  "tier": 3,
+  "turns": [
+   {
+    "speaker": "A",
+    "en": "Excuse me, Ms. Reed. Sorry, I didn't catch that. Could you say that again?",
+    "zh": "打扰一下，里德老师。抱歉，我没听清。能再说一遍吗？"
+   },
+   {
+    "speaker": "B",
+    "en": "Sure. The essay needs three sources, and at least one has to be a book.",
+    "zh": "好的。作文需要三个来源，至少有一个得是书。"
+   },
+   {
+    "speaker": "A",
+    "en": "Got it. Just to be clear, does an e-book count?",
+    "zh": "明白。确认一下，电子书算吗？"
+   },
+   {
+    "speaker": "B",
+    "en": "It does. Good question. But no websites, even if they look official.",
+    "zh": "算。问得好。但不能用网站，哪怕看起来很正式。"
+   },
+   {
+    "speaker": "A",
+    "en": "Okay. And what do you mean by properly cited? Is there a specific format?",
+    "zh": "好。那您说的规范引用是什么意思？有指定格式吗？"
+   },
+   {
+    "speaker": "B",
+    "en": "Use MLA. I'll post a sample tonight. Does that make sense?",
+    "zh": "用 MLA 格式。我今晚会发一份范例。这样清楚吗？"
+   },
+   {
+    "speaker": "A",
+    "en": "Yes, perfect. Thank you!",
+    "zh": "清楚了，太好了。谢谢！"
+   }
+  ],
+  "chunkIds": [
+   "c076",
+   "c077",
+   "c083",
+   "c079",
+   "c082"
+  ],
+  "gist": {
+   "questionZh": "老师对这篇作文的要求是什么？",
+   "optionsZh": [
+    "两个来源，网站也可以",
+    "三个来源，任何网站都行",
+    "只用书，不需要引用格式",
+    "三个来源，至少一本书，不能用网站，用 MLA 格式"
+   ],
+   "answer": 3
+  },
+  "blanks": [
+   {
+    "turn": 0,
+    "text": "Sorry, I didn't catch that"
+   },
+   {
+    "turn": 2,
+    "text": "Just to be clear"
+   },
+   {
+    "turn": 4,
+    "text": "what do you mean by"
+   }
+  ]
+ },
+ {
+  "id": "dl081",
+  "title": "咖啡店点单",
+  "scene": "travel",
+  "category": "request",
+  "tier": 1,
+  "turns": [
+   {
+    "speaker": "A",
+    "en": "Hi, what can I get you?",
+    "zh": "你好，想喝点什么？"
+   },
+   {
+    "speaker": "B",
+    "en": "I'll have a medium latte, please. Could I get oat milk instead?",
+    "zh": "我要一杯中杯拿铁。可以换成燕麦奶吗？"
+   },
+   {
+    "speaker": "A",
+    "en": "Sure, no problem. That'll be five twenty-five.",
+    "zh": "没问题。一共五块二毛五。"
+   }
+  ],
+  "chunkIds": [
+   "c229",
+   "c104"
+  ],
+  "gist": {
+   "questionZh": "顾客点了什么？",
+   "optionsZh": [
+    "中杯拿铁，换成燕麦奶",
+    "大杯美式，不加奶",
+    "中杯拿铁，加双份浓缩",
+    "大杯茶，加燕麦奶"
+   ],
+   "answer": 0
+  },
+  "blanks": [
+   {
+    "turn": 1,
+    "text": "I'll have a medium latte"
+   },
+   {
+    "turn": 1,
+    "text": "Could I get oat milk"
+   },
+   {
+    "turn": 2,
+    "text": "five twenty-five"
+   }
+  ]
+ },
+ {
+  "id": "dl082",
+  "title": "超市结账",
+  "scene": "travel",
+  "category": "request",
+  "tier": 1,
+  "turns": [
+   {
+    "speaker": "A",
+    "en": "Your total is twenty-three forty. Cash or card?",
+    "zh": "一共二十三块四。现金还是刷卡？"
+   },
+   {
+    "speaker": "B",
+    "en": "Can I pay by card? Would you mind using paper bags?",
+    "zh": "我可以刷卡吗？能麻烦用纸袋吗？"
+   },
+   {
+    "speaker": "A",
+    "en": "Sure, no problem. Just insert it right here.",
+    "zh": "没问题。把卡插在这里就行。"
+   }
+  ],
+  "chunkIds": [
+   "c232",
+   "c109"
+  ],
+  "gist": {
+   "questionZh": "顾客提出了什么要求？",
+   "optionsZh": [
+    "现金付款，并且用塑料袋",
+    "刷卡付款，并且用纸袋",
+    "现金付款，并且用纸袋",
+    "刷卡付款，并且要收据"
+   ],
+   "answer": 1
+  },
+  "blanks": [
+   {
+    "turn": 0,
+    "text": "twenty-three forty"
+   },
+   {
+    "turn": 1,
+    "text": "Can I pay by card"
+   },
+   {
+    "turn": 1,
+    "text": "Would you mind using"
+   }
+  ]
+ },
+ {
+  "id": "dl083",
+  "title": "酒店入住",
+  "scene": "travel",
+  "category": "travel",
+  "tier": 1,
+  "turns": [
+   {
+    "speaker": "A",
+    "en": "Good evening. Do you have a reservation?",
+    "zh": "晚上好，您有预订吗？"
+   },
+   {
+    "speaker": "B",
+    "en": "Yes, I have a reservation under Chen. Do you happen to know if breakfast is included?",
+    "zh": "有，订的是陈。你知道早餐包不包含吗？"
+   },
+   {
+    "speaker": "A",
+    "en": "It is. Seven to ten, and you're in room four-twelve.",
+    "zh": "包含，七点到十点。您的房间是四一二。"
+   }
+  ],
+  "chunkIds": [
+   "c235",
+   "c099"
+  ],
+  "gist": {
+   "questionZh": "早餐的供应时间是什么时候？",
+   "optionsZh": [
+    "七点到十一点",
+    "八点到十点",
+    "七点到十点",
+    "六点到九点"
+   ],
+   "answer": 2
+  },
+  "blanks": [
+   {
+    "turn": 1,
+    "text": "I have a reservation under Chen"
+   },
+   {
+    "turn": 2,
+    "text": "Seven to ten"
+   },
+   {
+    "turn": 2,
+    "text": "room four-twelve"
+   }
+  ]
+ },
+ {
+  "id": "dl084",
+  "title": "机场值机",
+  "scene": "travel",
+  "category": "request",
+  "tier": 1,
+  "turns": [
+   {
+    "speaker": "A",
+    "en": "Passport, please. Are you checking any bags?",
+    "zh": "请出示护照。有托运行李吗？"
+   },
+   {
+    "speaker": "B",
+    "en": "Just this one. Could I get a window seat?",
+    "zh": "就这一件。能给我靠窗的座位吗？"
+   },
+   {
+    "speaker": "A",
+    "en": "Let me see … Yes, seat twenty-two A. Boarding starts at six forty.",
+    "zh": "我看看……可以，22A。六点四十开始登机。"
+   }
+  ],
+  "chunkIds": [
+   "c104",
+   "c027"
+  ],
+  "gist": {
+   "questionZh": "几点开始登机？",
+   "optionsZh": [
+    "六点十四",
+    "七点四十",
+    "六点零四",
+    "六点四十"
+   ],
+   "answer": 3
+  },
+  "blanks": [
+   {
+    "turn": 1,
+    "text": "Could I get a window seat"
+   },
+   {
+    "turn": 2,
+    "text": "seat twenty-two A"
+   },
+   {
+    "turn": 2,
+    "text": "at six forty"
+   }
+  ]
+ },
+ {
+  "id": "dl085",
+  "title": "过安检",
+  "scene": "travel",
+  "category": "request",
+  "tier": 1,
+  "turns": [
+   {
+    "speaker": "A",
+    "en": "Laptops out of the bag, please. And empty your pockets.",
+    "zh": "请把笔记本电脑从包里拿出来，口袋也清空。"
+   },
+   {
+    "speaker": "B",
+    "en": "Oh, sorry about that. Would it be okay if I keep my shoes on?",
+    "zh": "哦，不好意思。我可以不脱鞋吗？"
+   },
+   {
+    "speaker": "A",
+    "en": "Yes, shoes can stay on. Go ahead and step through.",
+    "zh": "可以，鞋不用脱。请往前走。"
+   }
+  ],
+  "chunkIds": [
+   "c132",
+   "c108"
+  ],
+  "gist": {
+   "questionZh": "顾客问了什么？",
+   "optionsZh": [
+    "可不可以不脱鞋",
+    "可不可以带水进去",
+    "笔记本电脑可不可以不拿出来",
+    "可不可以走另一条通道"
+   ],
+   "answer": 0
+  },
+  "blanks": [
+   {
+    "turn": 0,
+    "text": "Laptops out of the bag"
+   },
+   {
+    "turn": 1,
+    "text": "Would it be okay if I"
+   },
+   {
+    "turn": 2,
+    "text": "shoes can stay on"
+   }
+  ]
+ },
+ {
+  "id": "dl086",
+  "title": "打车去机场",
+  "scene": "travel",
+  "category": "question",
+  "tier": 1,
+  "turns": [
+   {
+    "speaker": "A",
+    "en": "Hop in. Where to?",
+    "zh": "上车吧，去哪儿？"
+   },
+   {
+    "speaker": "B",
+    "en": "The airport, please. How long does it take to get there?",
+    "zh": "去机场。到那儿要多久？"
+   },
+   {
+    "speaker": "A",
+    "en": "About twenty minutes. Make sure you buckle up.",
+    "zh": "大概二十分钟。记得系好安全带。"
+   }
+  ],
+  "chunkIds": [
+   "c090",
+   "c142"
+  ],
+  "gist": {
+   "questionZh": "去机场大约要多久？",
+   "optionsZh": [
+    "一个小时",
+    "二十分钟",
+    "十分钟",
+    "四十分钟"
+   ],
+   "answer": 1
+  },
+  "blanks": [
+   {
+    "turn": 1,
+    "text": "How long does it take"
+   },
+   {
+    "turn": 2,
+    "text": "About twenty minutes"
+   },
+   {
+    "turn": 2,
+    "text": "Make sure you buckle up"
+   }
+  ]
+ },
+ {
+  "id": "dl087",
+  "title": "问路找地铁",
+  "scene": "travel",
+  "category": "question",
+  "tier": 1,
+  "turns": [
+   {
+    "speaker": "A",
+    "en": "Excuse me, sorry to bother you. Where's the nearest subway station?",
+    "zh": "打扰一下，不好意思。最近的地铁站在哪儿？"
+   },
+   {
+    "speaker": "B",
+    "en": "Go straight two blocks, then turn left. It's on your right.",
+    "zh": "直走两个街区，然后左转，就在你右手边。"
+   },
+   {
+    "speaker": "A",
+    "en": "Got it. Thank you so much!",
+    "zh": "明白了，非常感谢！"
+   }
+  ],
+  "chunkIds": [
+   "c133",
+   "c237"
+  ],
+  "gist": {
+   "questionZh": "去地铁站怎么走？",
+   "optionsZh": [
+    "先左转，再直走两个街区",
+    "直走两个街区，再右转",
+    "直走两个街区，再左转",
+    "直走一个街区，再右转"
+   ],
+   "answer": 2
+  },
+  "blanks": [
+   {
+    "turn": 0,
+    "text": "Where's the nearest subway station"
+   },
+   {
+    "turn": 1,
+    "text": "Go straight two blocks"
+   },
+   {
+    "turn": 1,
+    "text": "turn left"
+   }
+  ]
+ },
+ {
+  "id": "dl088",
+  "title": "药店买药",
+  "scene": "travel",
+  "category": "request",
+  "tier": 1,
+  "turns": [
+   {
+    "speaker": "A",
+    "en": "Hi. Do you have anything for a sore throat? I'm allergic to penicillin.",
+    "zh": "你好，有治嗓子疼的药吗？我对青霉素过敏。"
+   },
+   {
+    "speaker": "B",
+    "en": "These lozenges are fine. Make sure you take one every four hours.",
+    "zh": "这款润喉糖可以，记得每四小时含一片。"
+   },
+   {
+    "speaker": "A",
+    "en": "Perfect. I'll take them.",
+    "zh": "好，我就买这个。"
+   }
+  ],
+  "chunkIds": [
+   "c236",
+   "c142"
+  ],
+  "gist": {
+   "questionZh": "这种药应该怎么吃？",
+   "optionsZh": [
+    "每天三次，每次两片",
+    "饭前半小时吃",
+    "每晚睡前一片",
+    "每四小时一片"
+   ],
+   "answer": 3
+  },
+  "blanks": [
+   {
+    "turn": 0,
+    "text": "I'm allergic to penicillin"
+   },
+   {
+    "turn": 1,
+    "text": "Make sure you take one"
+   },
+   {
+    "turn": 1,
+    "text": "every four hours"
+   }
+  ]
+ },
+ {
+  "id": "dl089",
+  "title": "银行存支票",
+  "scene": "travel",
+  "category": "request",
+  "tier": 1,
+  "turns": [
+   {
+    "speaker": "A",
+    "en": "Hi, I'd like to deposit this check.",
+    "zh": "你好，我想存这张支票。"
+   },
+   {
+    "speaker": "B",
+    "en": "Sure. Could I get your ID, please? And sign on the back.",
+    "zh": "好的。能给我看一下您的证件吗？还请在背面签名。"
+   },
+   {
+    "speaker": "A",
+    "en": "Here you go. How long does it take to clear?",
+    "zh": "给您。多久能到账？"
+   }
+  ],
+  "chunkIds": [
+   "c104",
+   "c090"
+  ],
+  "gist": {
+   "questionZh": "顾客在银行办什么业务？",
+   "optionsZh": [
+    "存支票",
+    "取现金",
+    "开新账户",
+    "换外币"
+   ],
+   "answer": 0
+  },
+  "blanks": [
+   {
+    "turn": 1,
+    "text": "Could I get your ID"
+   },
+   {
+    "turn": 1,
+    "text": "sign on the back"
+   },
+   {
+    "turn": 2,
+    "text": "How long does it take"
+   }
+  ]
+ },
+ {
+  "id": "dl090",
+  "title": "电话报修网络",
+  "scene": "travel",
+  "category": "problem",
+  "tier": 1,
+  "turns": [
+   {
+    "speaker": "A",
+    "en": "Thanks for calling. How can I help you today?",
+    "zh": "感谢来电，今天有什么可以帮您？"
+   },
+   {
+    "speaker": "B",
+    "en": "I'm having trouble with my internet. It keeps cutting out.",
+    "zh": "我的网络有问题，老是断线。"
+   },
+   {
+    "speaker": "A",
+    "en": "Sorry about that. Let me see what I can do.",
+    "zh": "抱歉。我来看看能怎么处理。"
+   }
+  ],
+  "chunkIds": [
+   "c210",
+   "c207",
+   "c132",
+   "c209"
+  ],
+  "gist": {
+   "questionZh": "顾客遇到了什么问题？",
+   "optionsZh": [
+    "电视没有信号",
+    "网络老是断线",
+    "账单金额不对",
+    "手机丢了"
+   ],
+   "answer": 1
+  },
+  "blanks": [
+   {
+    "turn": 1,
+    "text": "I'm having trouble with my internet"
+   },
+   {
+    "turn": 1,
+    "text": "It keeps cutting out"
+   },
+   {
+    "turn": 2,
+    "text": "Sorry about that"
+   }
+  ]
+ },
+ {
+  "id": "dl091",
+  "title": "换码退款",
+  "scene": "travel",
+  "category": "problem",
+  "tier": 1,
+  "turns": [
+   {
+    "speaker": "A",
+    "en": "Hi, this jacket's too small. Do you have this in a medium?",
+    "zh": "你好，这件夹克太小了。有中码吗？"
+   },
+   {
+    "speaker": "B",
+    "en": "Let me see … Sorry, we're out of mediums. I can refund you, though.",
+    "zh": "我看看……不好意思，中码没货了。不过可以退款。"
+   },
+   {
+    "speaker": "A",
+    "en": "Okay. Could I get it back on my card?",
+    "zh": "好的。能退回到我的卡上吗？"
+   }
+  ],
+  "chunkIds": [
+   "c233",
+   "c027",
+   "c104"
+  ],
+  "gist": {
+   "questionZh": "为什么最后要退款？",
+   "optionsZh": [
+    "不喜欢这个颜色",
+    "买贵了想退差价",
+    "尺码太小，店里又没有中码",
+    "夹克有质量问题"
+   ],
+   "answer": 2
+  },
+  "blanks": [
+   {
+    "turn": 0,
+    "text": "Do you have this in"
+   },
+   {
+    "turn": 1,
+    "text": "we're out of mediums"
+   },
+   {
+    "turn": 2,
+    "text": "Could I get it back"
+   }
+  ]
+ },
+ {
+  "id": "dl092",
+  "title": "邮局寄包裹",
+  "scene": "travel",
+  "category": "question",
+  "tier": 1,
+  "turns": [
+   {
+    "speaker": "A",
+    "en": "Hi, I'd like to mail this to China. Any idea when it'll get there?",
+    "zh": "你好，我想把这个寄到中国。你知道什么时候能到吗？"
+   },
+   {
+    "speaker": "B",
+    "en": "Express is about a week. It's thirty-eight fifty.",
+    "zh": "快递大约一周，三十八块五。"
+   },
+   {
+    "speaker": "A",
+    "en": "Okay, I'll have express, please.",
+    "zh": "好的，我要快递。"
+   }
+  ],
+  "chunkIds": [
+   "c089",
+   "c229"
+  ],
+  "gist": {
+   "questionZh": "快递要多久、多少钱？",
+   "optionsZh": [
+    "大约一周，二十八块五",
+    "大约三周，三十八块五",
+    "大约三天，四十八块五",
+    "大约一周，三十八块五"
+   ],
+   "answer": 3
+  },
+  "blanks": [
+   {
+    "turn": 0,
+    "text": "Any idea when it'll get there"
+   },
+   {
+    "turn": 1,
+    "text": "about a week"
+   },
+   {
+    "turn": 1,
+    "text": "thirty-eight fifty"
+   }
+  ]
+ },
+ {
+  "id": "dl093",
+  "title": "健身房入会",
+  "scene": "travel",
+  "category": "question",
+  "tier": 1,
+  "turns": [
+   {
+    "speaker": "A",
+    "en": "Hi, I'm interested in joining. How does this work?",
+    "zh": "你好，我想入会。流程是怎样的？"
+   },
+   {
+    "speaker": "B",
+    "en": "It's forty-nine a month, with no contract. Feel free to look around.",
+    "zh": "每月四十九，不用签合同。请随便看看。"
+   },
+   {
+    "speaker": "A",
+    "en": "Sounds good. Thanks!",
+    "zh": "好的，谢谢！"
+   }
+  ],
+  "chunkIds": [
+   "c094",
+   "c115",
+   "c021"
+  ],
+  "gist": {
+   "questionZh": "这家健身房的会费是怎样的？",
+   "optionsZh": [
+    "每月四十九，不签合同",
+    "每月十九，要签合同",
+    "每月九十，不签合同",
+    "每年四百九，要签合同"
+   ],
+   "answer": 0
+  },
+  "blanks": [
+   {
+    "turn": 0,
+    "text": "How does this work"
+   },
+   {
+    "turn": 1,
+    "text": "forty-nine a month"
+   },
+   {
+    "turn": 1,
+    "text": "Feel free to look around"
+   }
+  ]
+ },
+ {
+  "id": "dl094",
+  "title": "理发店剪发",
+  "scene": "travel",
+  "category": "request",
+  "tier": 1,
+  "turns": [
+   {
+    "speaker": "A",
+    "en": "Hi! What are we doing today?",
+    "zh": "你好！今天想怎么剪？"
+   },
+   {
+    "speaker": "B",
+    "en": "Just a trim, please. Make sure you leave the top long.",
+    "zh": "稍微修一下就好。记得把头顶留长一点。"
+   },
+   {
+    "speaker": "A",
+    "en": "Okay. Do you want me to blow-dry it after?",
+    "zh": "好的。剪完要帮你吹干吗？"
+   }
+  ],
+  "chunkIds": [
+   "c142",
+   "c116"
+  ],
+  "gist": {
+   "questionZh": "顾客想怎么剪？",
+   "optionsZh": [
+    "把头发烫卷",
+    "稍微修剪，头顶留长",
+    "剃成平头",
+    "把头发染色"
+   ],
+   "answer": 1
+  },
+  "blanks": [
+   {
+    "turn": 1,
+    "text": "Just a trim, please"
+   },
+   {
+    "turn": 1,
+    "text": "leave the top long"
+   },
+   {
+    "turn": 2,
+    "text": "Do you want me to"
+   }
+  ]
+ },
+ {
+  "id": "dl095",
+  "title": "餐厅报名字",
+  "scene": "travel",
+  "category": "travel",
+  "tier": 2,
+  "turns": [
+   {
+    "speaker": "A",
+    "en": "Hi, welcome. Do you have a reservation?",
+    "zh": "欢迎光临，您有预订吗？"
+   },
+   {
+    "speaker": "B",
+    "en": "Yes, I have a reservation under Wang. Table for four at seven.",
+    "zh": "有，订的是王。四位，七点。"
+   },
+   {
+    "speaker": "A",
+    "en": "Great. Your table's not quite ready. It'll be about five minutes.",
+    "zh": "好的。您的桌子还没准备好，大概要五分钟。"
+   },
+   {
+    "speaker": "B",
+    "en": "No worries. Is there a good place to wait?",
+    "zh": "没事。有什么好的地方可以等吗？"
+   },
+   {
+    "speaker": "A",
+    "en": "Sure, the bar's right over there. I'll come find you.",
+    "zh": "有，酒吧就在那边。我会去找您。"
+   }
+  ],
+  "chunkIds": [
+   "c235",
+   "c129",
+   "c095"
+  ],
+  "gist": {
+   "questionZh": "还要等多久才有桌子？",
+   "optionsZh": [
+    "大约五十分钟",
+    "马上就好",
+    "大约五分钟",
+    "大约十五分钟"
+   ],
+   "answer": 2
+  },
+  "blanks": [
+   {
+    "turn": 1,
+    "text": "I have a reservation under Wang"
+   },
+   {
+    "turn": 1,
+    "text": "Table for four at seven"
+   },
+   {
+    "turn": 2,
+    "text": "about five minutes"
+   }
+  ]
+ },
+ {
+  "id": "dl096",
+  "title": "点菜说过敏",
+  "scene": "travel",
+  "category": "request",
+  "tier": 2,
+  "turns": [
+   {
+    "speaker": "A",
+    "en": "Take your time. Let me know when you're ready.",
+    "zh": "慢慢来，准备好了告诉我。"
+   },
+   {
+    "speaker": "B",
+    "en": "We're ready. I'm allergic to shellfish, though. Is the pad thai okay?",
+    "zh": "我们好了。不过我对贝类过敏，泰式炒河粉可以吗？"
+   },
+   {
+    "speaker": "A",
+    "en": "Let me check. Yep, no shellfish in that. It does have peanuts.",
+    "zh": "我问一下。可以，里面没有贝类，但有花生。"
+   },
+   {
+    "speaker": "B",
+    "en": "That's fine. I'll have that, with chicken.",
+    "zh": "没关系。我要这个，加鸡肉。"
+   },
+   {
+    "speaker": "A",
+    "en": "Got it. Anything to drink?",
+    "zh": "好的。要喝点什么？"
+   }
+  ],
+  "chunkIds": [
+   "c147",
+   "c236",
+   "c229"
+  ],
+  "gist": {
+   "questionZh": "关于泰式炒河粉，服务员说了什么？",
+   "optionsZh": [
+    "有贝类，没有花生",
+    "既没有贝类也没有花生",
+    "贝类和花生都有",
+    "没有贝类，但有花生"
+   ],
+   "answer": 3
+  },
+  "blanks": [
+   {
+    "turn": 1,
+    "text": "I'm allergic to shellfish"
+   },
+   {
+    "turn": 3,
+    "text": "I'll have that"
+   },
+   {
+    "turn": 4,
+    "text": "Anything to drink"
+   }
+  ]
+ },
+ {
+  "id": "dl097",
+  "title": "结账各付一半",
+  "scene": "travel",
+  "category": "request",
+  "tier": 2,
+  "turns": [
+   {
+    "speaker": "A",
+    "en": "Excuse me, can I get the check, please?",
+    "zh": "打扰一下，请结账。"
+   },
+   {
+    "speaker": "B",
+    "en": "Sure. Together or separate?",
+    "zh": "好的。一起还是分开？"
+   },
+   {
+    "speaker": "A",
+    "en": "Can we split the bill? Just down the middle.",
+    "zh": "能平分吗？一人一半就行。"
+   },
+   {
+    "speaker": "B",
+    "en": "Okay. Your half is thirty-one fifty.",
+    "zh": "好的。您这一半是三十一块五。"
+   },
+   {
+    "speaker": "A",
+    "en": "Here's forty. Keep the change.",
+    "zh": "这是四十块，不用找了。"
+   }
+  ],
+  "chunkIds": [
+   "c226",
+   "c238",
+   "c228"
+  ],
+  "gist": {
+   "questionZh": "每人要付多少钱？",
+   "optionsZh": [
+    "三十一块五",
+    "二十一块五",
+    "四十一块五",
+    "三十块零五毛"
+   ],
+   "answer": 0
+  },
+  "blanks": [
+   {
+    "turn": 1,
+    "text": "Together or separate"
+   },
+   {
+    "turn": 3,
+    "text": "is thirty-one fifty"
+   },
+   {
+    "turn": 4,
+    "text": "Keep the change"
+   }
+  ]
+ },
+ {
+  "id": "dl098",
+  "title": "剩菜打包",
+  "scene": "travel",
+  "category": "request",
+  "tier": 2,
+  "turns": [
+   {
+    "speaker": "A",
+    "en": "How was everything?",
+    "zh": "都还满意吗？"
+   },
+   {
+    "speaker": "B",
+    "en": "Delicious. Could I get a box for the rest?",
+    "zh": "很好吃。能给我一个盒子装剩下的吗？"
+   },
+   {
+    "speaker": "A",
+    "en": "Sure thing. Do you want me to bring the check too?",
+    "zh": "当然。要不要我把账单也拿来？"
+   },
+   {
+    "speaker": "B",
+    "en": "Yes, please. And thanks, everything was great.",
+    "zh": "好的，谢谢。一切都很棒。"
+   }
+  ],
+  "chunkIds": [
+   "c104",
+   "c116"
+  ],
+  "gist": {
+   "questionZh": "顾客向服务员要了什么？",
+   "optionsZh": [
+    "再点一份主菜",
+    "打包盒和账单",
+    "甜点和咖啡",
+    "换一张桌子"
+   ],
+   "answer": 1
+  },
+  "blanks": [
+   {
+    "turn": 1,
+    "text": "Could I get a box"
+   },
+   {
+    "turn": 2,
+    "text": "Do you want me to"
+   },
+   {
+    "turn": 2,
+    "text": "bring the check too"
+   }
+  ]
+ },
+ {
+  "id": "dl099",
+  "title": "房间空调坏了",
+  "scene": "travel",
+  "category": "problem",
+  "tier": 2,
+  "turns": [
+   {
+    "speaker": "A",
+    "en": "Front desk, how can I help you?",
+    "zh": "前台，有什么可以帮您？"
+   },
+   {
+    "speaker": "B",
+    "en": "Hi, I'm in room three-oh-five. The air conditioner's broken. It's not working at all.",
+    "zh": "你好，我在三〇五房。空调坏了，完全不工作。"
+   },
+   {
+    "speaker": "A",
+    "en": "I'm so sorry about that. Do you want me to send someone up?",
+    "zh": "非常抱歉。要我派人上去看看吗？"
+   },
+   {
+    "speaker": "B",
+    "en": "Yes, please. Any idea when they can come?",
+    "zh": "好的。你知道他们什么时候能来吗？"
+   },
+   {
+    "speaker": "A",
+    "en": "Maintenance can be there in about ten minutes.",
+    "zh": "维修人员大约十分钟后到。"
+   }
+  ],
+  "chunkIds": [
+   "c202",
+   "c132",
+   "c116",
+   "c089"
+  ],
+  "gist": {
+   "questionZh": "维修人员多久能到？",
+   "optionsZh": [
+    "大约一个小时",
+    "明天早上",
+    "大约十分钟",
+    "大约十五分钟"
+   ],
+   "answer": 2
+  },
+  "blanks": [
+   {
+    "turn": 1,
+    "text": "room three-oh-five"
+   },
+   {
+    "turn": 1,
+    "text": "It's not working"
+   },
+   {
+    "turn": 4,
+    "text": "in about ten minutes"
+   }
+  ]
+ },
+ {
+  "id": "dl100",
+  "title": "淋浴没热水",
+  "scene": "travel",
+  "category": "problem",
+  "tier": 2,
+  "turns": [
+   {
+    "speaker": "A",
+    "en": "Hi, I'm in room six-fourteen. I'm afraid there's a problem with the shower.",
+    "zh": "你好，我在六一四房，淋浴好像有点问题。"
+   },
+   {
+    "speaker": "B",
+    "en": "What seems to be the problem?",
+    "zh": "是什么问题？"
+   },
+   {
+    "speaker": "A",
+    "en": "There's no hot water. It keeps running cold.",
+    "zh": "没有热水，一直是冷水。"
+   },
+   {
+    "speaker": "B",
+    "en": "Sorry about that. Let me move you to room seven-oh-two.",
+    "zh": "抱歉。我给您换到七〇二房。"
+   }
+  ],
+  "chunkIds": [
+   "c203",
+   "c205",
+   "c207",
+   "c132"
+  ],
+  "gist": {
+   "questionZh": "前台最后是怎么解决的？",
+   "optionsZh": [
+    "派人来修热水器",
+    "给客人退款",
+    "送一壶热水",
+    "给客人换房间"
+   ],
+   "answer": 3
+  },
+  "blanks": [
+   {
+    "turn": 0,
+    "text": "room six-fourteen"
+   },
+   {
+    "turn": 2,
+    "text": "no hot water"
+   },
+   {
+    "turn": 3,
+    "text": "room seven-oh-two"
+   }
+  ]
+ },
+ {
+  "id": "dl101",
+  "title": "柜台租车",
+  "scene": "travel",
+  "category": "request",
+  "tier": 2,
+  "turns": [
+   {
+    "speaker": "A",
+    "en": "Hi, I have a reservation under Smith.",
+    "zh": "你好，我订的是史密斯。"
+   },
+   {
+    "speaker": "B",
+    "en": "Let me see … Yes, a compact for three days. Can I see your license?",
+    "zh": "我看看……有，小型车，三天。能看一下驾照吗？"
+   },
+   {
+    "speaker": "A",
+    "en": "Here you go. Where can I find the car?",
+    "zh": "给您。车在哪里？"
+   },
+   {
+    "speaker": "B",
+    "en": "Row C, spot fourteen. Full coverage is twelve a day, if you want it.",
+    "zh": "C排，十四号车位。全险每天十二块，需要的话可以加。"
+   },
+   {
+    "speaker": "A",
+    "en": "I'll pass, thanks.",
+    "zh": "不用了，谢谢。"
+   }
+  ],
+  "chunkIds": [
+   "c235",
+   "c027",
+   "c091"
+  ],
+  "gist": {
+   "questionZh": "顾客最后怎么选？",
+   "optionsZh": [
+    "不加全险",
+    "加了全险",
+    "换一辆大车",
+    "多租几天"
+   ],
+   "answer": 0
+  },
+  "blanks": [
+   {
+    "turn": 1,
+    "text": "a compact for three days"
+   },
+   {
+    "turn": 2,
+    "text": "Where can I find the car"
+   },
+   {
+    "turn": 3,
+    "text": "spot fourteen"
+   }
+  ]
+ },
+ {
+  "id": "dl102",
+  "title": "网约车上车",
+  "scene": "travel",
+  "category": "request",
+  "tier": 2,
+  "turns": [
+   {
+    "speaker": "A",
+    "en": "Hey, are you Kevin?",
+    "zh": "嘿，你是凯文吗？"
+   },
+   {
+    "speaker": "B",
+    "en": "That's me. Would you mind opening the trunk?",
+    "zh": "是我。能麻烦打开后备箱吗？"
+   },
+   {
+    "speaker": "A",
+    "en": "Sure thing. Just the one bag?",
+    "zh": "好的。就一个包吗？"
+   },
+   {
+    "speaker": "B",
+    "en": "Yep. Do you happen to know if there's traffic on the bridge?",
+    "zh": "对。你知道桥上堵不堵吗？"
+   },
+   {
+    "speaker": "A",
+    "en": "Looks pretty clear. We'll be there in about twenty minutes.",
+    "zh": "看起来很通畅，大概二十分钟到。"
+   }
+  ],
+  "chunkIds": [
+   "c109",
+   "c099"
+  ],
+  "gist": {
+   "questionZh": "司机怎么说路况？",
+   "optionsZh": [
+    "桥上有点堵，大约四十分钟",
+    "桥上很通畅，大约二十分钟",
+    "桥上堵车，要一个小时",
+    "桥正在维修，要绕路"
+   ],
+   "answer": 1
+  },
+  "blanks": [
+   {
+    "turn": 1,
+    "text": "Would you mind opening the trunk"
+   },
+   {
+    "turn": 3,
+    "text": "traffic on the bridge"
+   },
+   {
+    "turn": 4,
+    "text": "about twenty minutes"
+   }
+  ]
+ },
+ {
+  "id": "dl103",
+  "title": "问路去博物馆",
+  "scene": "travel",
+  "category": "question",
+  "tier": 2,
+  "turns": [
+   {
+    "speaker": "A",
+    "en": "Sorry to bother you. What's the best way to get to the art museum?",
+    "zh": "打扰了。去艺术博物馆怎么走最好？"
+   },
+   {
+    "speaker": "B",
+    "en": "It's about ten blocks. You could walk, but the bus is faster.",
+    "zh": "大概十个街区。可以走路，但坐公交更快。"
+   },
+   {
+    "speaker": "A",
+    "en": "Where can I find the bus stop?",
+    "zh": "公交站在哪儿？"
+   },
+   {
+    "speaker": "B",
+    "en": "Right across the street. Take the number twelve, and get off at Pine Street.",
+    "zh": "就在街对面。坐十二路，在松树街下车。"
+   },
+   {
+    "speaker": "A",
+    "en": "Perfect. Thanks so much!",
+    "zh": "太好了，多谢！"
+   }
+  ],
+  "chunkIds": [
+   "c133",
+   "c096",
+   "c091"
+  ],
+  "gist": {
+   "questionZh": "应该坐几路公交车？",
+   "optionsZh": [
+    "二十路",
+    "十三路",
+    "十二路",
+    "十路"
+   ],
+   "answer": 2
+  },
+  "blanks": [
+   {
+    "turn": 0,
+    "text": "What's the best way to"
+   },
+   {
+    "turn": 1,
+    "text": "about ten blocks"
+   },
+   {
+    "turn": 3,
+    "text": "get off at Pine Street"
+   }
+  ]
+ },
+ {
+  "id": "dl104",
+  "title": "电话约门诊",
+  "scene": "travel",
+  "category": "request",
+  "tier": 2,
+  "turns": [
+   {
+    "speaker": "A",
+    "en": "Dr. Lee's office, how can I help?",
+    "zh": "李医生诊所，请问有什么可以帮您？"
+   },
+   {
+    "speaker": "B",
+    "en": "Hi, I'd like to make an appointment. Any chance you could fit me in this week?",
+    "zh": "你好，我想预约。这周能给我安排一下吗？"
+   },
+   {
+    "speaker": "A",
+    "en": "Let me see … I only have Thursday at ten fifteen.",
+    "zh": "我看看……只有周四十点十五分。"
+   },
+   {
+    "speaker": "B",
+    "en": "Anything in the afternoon?",
+    "zh": "下午有吗？"
+   },
+   {
+    "speaker": "A",
+    "en": "Yes, Thursday at four forty-five. I'll put you down.",
+    "zh": "有，周四四点四十五分。我给您登记上。"
+   }
+  ],
+  "chunkIds": [
+   "c113",
+   "c027"
+  ],
+  "gist": {
+   "questionZh": "最后预约在什么时间？",
+   "optionsZh": [
+    "周四上午十点十五分",
+    "周五下午四点十五分",
+    "周四下午两点四十五分",
+    "周四下午四点四十五分"
+   ],
+   "answer": 3
+  },
+  "blanks": [
+   {
+    "turn": 1,
+    "text": "Any chance you could"
+   },
+   {
+    "turn": 2,
+    "text": "Thursday at ten fifteen"
+   },
+   {
+    "turn": 4,
+    "text": "four forty-five"
+   }
+  ]
+ },
+ {
+  "id": "dl105",
+  "title": "取款机坏了",
+  "scene": "travel",
+  "category": "problem",
+  "tier": 2,
+  "turns": [
+   {
+    "speaker": "A",
+    "en": "Excuse me, I'm having trouble with this ATM.",
+    "zh": "打扰一下，这台取款机有问题。"
+   },
+   {
+    "speaker": "B",
+    "en": "Oh, that machine? It's out of order. There's another one inside.",
+    "zh": "哦，那台吗？坏了。里面还有一台。"
+   },
+   {
+    "speaker": "A",
+    "en": "Do you happen to know if it's open?",
+    "zh": "你知道它开着吗？"
+   },
+   {
+    "speaker": "B",
+    "en": "Yes, it's open until nine. Just make sure you take your receipt.",
+    "zh": "开着，营业到九点。记得拿好小票。"
+   }
+  ],
+  "chunkIds": [
+   "c210",
+   "c213",
+   "c099",
+   "c142"
+  ],
+  "gist": {
+   "questionZh": "里面的取款机营业到几点？",
+   "optionsZh": [
+    "九点",
+    "五点",
+    "十点",
+    "七点"
+   ],
+   "answer": 0
+  },
+  "blanks": [
+   {
+    "turn": 0,
+    "text": "I'm having trouble with this ATM"
+   },
+   {
+    "turn": 1,
+    "text": "out of order"
+   },
+   {
+    "turn": 3,
+    "text": "open until nine"
+   }
+  ]
+ },
+ {
+  "id": "dl106",
+  "title": "拿错饮料",
+  "scene": "travel",
+  "category": "problem",
+  "tier": 2,
+  "turns": [
+   {
+    "speaker": "A",
+    "en": "Medium hot latte for Amy?",
+    "zh": "中杯热拿铁，是艾米的吗？"
+   },
+   {
+    "speaker": "B",
+    "en": "Oh, I ordered an iced one. There must be some mistake.",
+    "zh": "哦，我点的是冰的。肯定哪里弄错了。"
+   },
+   {
+    "speaker": "A",
+    "en": "My bad! Let me make you a new one. Just a minute.",
+    "zh": "我的错！我给您重做一杯，稍等。"
+   },
+   {
+    "speaker": "B",
+    "en": "No worries. Thanks!",
+    "zh": "没事，谢谢！"
+   }
+  ],
+  "chunkIds": [
+   "c212",
+   "c128",
+   "c129"
+  ],
+  "gist": {
+   "questionZh": "出了什么差错？",
+   "optionsZh": [
+    "顾客没点这杯饮料",
+    "顾客点的是冰的，做成了热的",
+    "饮料太甜了",
+    "杯子尺寸不对"
+   ],
+   "answer": 1
+  },
+  "blanks": [
+   {
+    "turn": 1,
+    "text": "There must be some mistake"
+   },
+   {
+    "turn": 2,
+    "text": "make you a new one"
+   },
+   {
+    "turn": 3,
+    "text": "No worries"
+   }
+  ]
+ },
+ {
+  "id": "dl107",
+  "title": "航班延误",
+  "scene": "travel",
+  "category": "problem",
+  "tier": 2,
+  "turns": [
+   {
+    "speaker": "A",
+    "en": "Excuse me, is the Denver flight still on time?",
+    "zh": "打扰一下，飞丹佛的航班还准点吗？"
+   },
+   {
+    "speaker": "B",
+    "en": "I'm afraid it's been delayed. Boarding is now at eight forty.",
+    "zh": "恐怕延误了。现在八点四十开始登机。"
+   },
+   {
+    "speaker": "A",
+    "en": "Oh no. Do you happen to know why?",
+    "zh": "哎呀，你知道是什么原因吗？"
+   },
+   {
+    "speaker": "B",
+    "en": "Hang on a second. Let me check. Looks like a crew issue. Sorry about that.",
+    "zh": "稍等，我查一下。好像是机组的问题。抱歉。"
+   }
+  ],
+  "chunkIds": [
+   "c099",
+   "c028",
+   "c132"
+  ],
+  "gist": {
+   "questionZh": "航班为什么延误？",
+   "optionsZh": [
+    "飞机机械故障",
+    "空中管制",
+    "机组方面的问题",
+    "天气不好"
+   ],
+   "answer": 2
+  },
+  "blanks": [
+   {
+    "turn": 0,
+    "text": "still on time"
+   },
+   {
+    "turn": 1,
+    "text": "Boarding is now at eight forty"
+   },
+   {
+    "turn": 2,
+    "text": "Do you happen to know why"
+   }
+  ]
+ },
+ {
+  "id": "dl108",
+  "title": "电话约理发",
+  "scene": "travel",
+  "category": "request",
+  "tier": 2,
+  "turns": [
+   {
+    "speaker": "A",
+    "en": "Hi, I'd like to book a haircut for Saturday morning.",
+    "zh": "你好，我想预约周六上午剪头发。"
+   },
+   {
+    "speaker": "B",
+    "en": "Let me see … I have ten thirty with Maria.",
+    "zh": "我看看……十点半可以，找玛丽亚。"
+   },
+   {
+    "speaker": "A",
+    "en": "Sounds good. I'll take it.",
+    "zh": "好的，就订这个。"
+   },
+   {
+    "speaker": "B",
+    "en": "Great. Could I get your name and phone number?",
+    "zh": "好的。能告诉我您的姓名和电话吗？"
+   },
+   {
+    "speaker": "A",
+    "en": "It's Lin. L-I-N. Five five five, oh one four two.",
+    "zh": "我姓林，L-I-N。电话五五五，零一四二。"
+   }
+  ],
+  "chunkIds": [
+   "c027",
+   "c021",
+   "c104"
+  ],
+  "gist": {
+   "questionZh": "预约的是什么时间？",
+   "optionsZh": [
+    "周六上午十点",
+    "周日上午十点半",
+    "周六下午三点半",
+    "周六上午十点半"
+   ],
+   "answer": 3
+  },
+  "blanks": [
+   {
+    "turn": 1,
+    "text": "ten thirty with Maria"
+   },
+   {
+    "turn": 3,
+    "text": "Could I get your name"
+   },
+   {
+    "turn": 4,
+    "text": "oh one four two"
+   }
+  ]
+ },
+ {
+  "id": "dl109",
+  "title": "咖啡店高峰点单",
+  "scene": "travel",
+  "category": "request",
+  "tier": 3,
+  "turns": [
+   {
+    "speaker": "A",
+    "en": "Hi there, welcome in. What can I get started for you?",
+    "zh": "你好，欢迎光临，先来点什么？"
+   },
+   {
+    "speaker": "B",
+    "en": "Could I get a large iced latte and a blueberry muffin?",
+    "zh": "我要一杯大杯冰拿铁和一个蓝莓玛芬。"
+   },
+   {
+    "speaker": "A",
+    "en": "You got it. Want the muffin warmed up?",
+    "zh": "没问题。玛芬要加热吗？"
+   },
+   {
+    "speaker": "B",
+    "en": "Yes, please. Do you have oat milk?",
+    "zh": "要，谢谢。你们有燕麦奶吗？"
+   },
+   {
+    "speaker": "A",
+    "en": "Sure do. It's fifty cents extra. Anything else I can get you?",
+    "zh": "有的，加五十美分。还要别的吗？"
+   },
+   {
+    "speaker": "B",
+    "en": "That's it. Can I pay by card?",
+    "zh": "就这些。可以刷卡吗？"
+   },
+   {
+    "speaker": "A",
+    "en": "Of course. That'll be fourteen fifty. For here or to go?",
+    "zh": "当然可以。一共十四块五。堂食还是外带？"
+   },
+   {
+    "speaker": "B",
+    "en": "To go, please. And keep the change.",
+    "zh": "外带。零钱不用找了。"
+   }
+  ],
+  "chunkIds": [
+   "c104",
+   "c232",
+   "c228"
+  ],
+  "gist": {
+   "questionZh": "一共要付多少钱？",
+   "optionsZh": [
+    "十四块五",
+    "十四块零五",
+    "四十块五",
+    "十五块四"
+   ],
+   "answer": 0
+  },
+  "blanks": [
+   {
+    "turn": 4,
+    "text": "Anything else I can get you"
+   },
+   {
+    "turn": 5,
+    "text": "Can I pay by card"
+   },
+   {
+    "turn": 6,
+    "text": "That'll be fourteen fifty"
+   }
+  ]
+ },
+ {
+  "id": "dl110",
+  "title": "结账时价格不对",
+  "scene": "travel",
+  "category": "problem",
+  "tier": 3,
+  "turns": [
+   {
+    "speaker": "A",
+    "en": "Hi, how's it going? Did you find everything okay today?",
+    "zh": "你好，今天好吗？东西都找齐了吗？"
+   },
+   {
+    "speaker": "B",
+    "en": "Yep, thanks. Hang on a second. The chicken says eleven ninety-nine.",
+    "zh": "找齐了，谢谢。等一下，鸡肉显示十一块九十九。"
+   },
+   {
+    "speaker": "A",
+    "en": "Let me see … Yeah, that's the regular price.",
+    "zh": "我看看……对，这是原价。"
+   },
+   {
+    "speaker": "B",
+    "en": "There must be some mistake. The sign said eight ninety-nine.",
+    "zh": "肯定弄错了。牌子上写的是八块九十九。"
+   },
+   {
+    "speaker": "A",
+    "en": "Oh, you're right. Sorry about that. I'll take care of it.",
+    "zh": "哦，您说得对。抱歉，我来处理。"
+   },
+   {
+    "speaker": "B",
+    "en": "Thanks. I really appreciate it.",
+    "zh": "谢谢，太感谢了。"
+   },
+   {
+    "speaker": "A",
+    "en": "No problem. Your total's thirty-seven sixty. Cash or card?",
+    "zh": "不客气。一共三十七块六。现金还是刷卡？"
+   }
+  ],
+  "chunkIds": [
+   "c028",
+   "c027",
+   "c212",
+   "c132",
+   "c208",
+   "c127"
+  ],
+  "gist": {
+   "questionZh": "顾客对什么提出了疑问？",
+   "optionsZh": [
+    "商品已经过期",
+    "鸡肉的结账价比标价高",
+    "少找了零钱",
+    "多扫了一件商品"
+   ],
+   "answer": 1
+  },
+  "blanks": [
+   {
+    "turn": 1,
+    "text": "Hang on a second"
+   },
+   {
+    "turn": 3,
+    "text": "There must be some mistake"
+   },
+   {
+    "turn": 6,
+    "text": "Your total's thirty-seven sixty"
+   }
+  ]
+ },
+ {
+  "id": "dl111",
+  "title": "酒店办入住",
+  "scene": "travel",
+  "category": "travel",
+  "tier": 3,
+  "turns": [
+   {
+    "speaker": "A",
+    "en": "Good evening, welcome. Checking in?",
+    "zh": "晚上好，欢迎。办理入住吗？"
+   },
+   {
+    "speaker": "B",
+    "en": "Yes. I have a reservation under Zhang, for three nights.",
+    "zh": "是的，订的是张，住三晚。"
+   },
+   {
+    "speaker": "A",
+    "en": "Let me see … Zhang. Got it. Could I get a credit card and some ID?",
+    "zh": "我看看……张，找到了。能给我一张信用卡和证件吗？"
+   },
+   {
+    "speaker": "B",
+    "en": "Sure, here you go. Is breakfast included?",
+    "zh": "好，给您。含早餐吗？"
+   },
+   {
+    "speaker": "A",
+    "en": "It is. Wi-Fi's free, too, and checkout's at eleven.",
+    "zh": "含的。Wi-Fi 也免费，退房时间是十一点。"
+   },
+   {
+    "speaker": "B",
+    "en": "Great. Would you mind giving me a room on a high floor?",
+    "zh": "太好了。能麻烦给我一间高楼层的房间吗？"
+   },
+   {
+    "speaker": "A",
+    "en": "No problem. You're in room twelve-oh-six. Elevators are on your left.",
+    "zh": "没问题。您住一二〇六房，电梯在左手边。"
+   },
+   {
+    "speaker": "B",
+    "en": "Perfect. Thanks so much!",
+    "zh": "太好了，多谢！"
+   }
+  ],
+  "chunkIds": [
+   "c235",
+   "c027",
+   "c104",
+   "c109"
+  ],
+  "gist": {
+   "questionZh": "退房时间是几点？",
+   "optionsZh": [
+    "十二点",
+    "九点",
+    "十一点",
+    "十点"
+   ],
+   "answer": 2
+  },
+  "blanks": [
+   {
+    "turn": 1,
+    "text": "I have a reservation under Zhang"
+   },
+   {
+    "turn": 4,
+    "text": "checkout's at eleven"
+   },
+   {
+    "turn": 6,
+    "text": "room twelve-oh-six"
+   }
+  ]
+ },
+ {
+  "id": "dl112",
+  "title": "行李超重",
+  "scene": "travel",
+  "category": "problem",
+  "tier": 3,
+  "turns": [
+   {
+    "speaker": "A",
+    "en": "Next, please. Passport, and where are you headed?",
+    "zh": "下一位。护照，您要去哪儿？"
+   },
+   {
+    "speaker": "B",
+    "en": "Seattle. I'm just checking this one bag.",
+    "zh": "西雅图。我就托运这一件。"
+   },
+   {
+    "speaker": "A",
+    "en": "Okay, up on the scale. Oh, it's fifty-six pounds. The limit's fifty.",
+    "zh": "好，放到秤上。哦，五十六磅，限重是五十磅。"
+   },
+   {
+    "speaker": "B",
+    "en": "Oh no. What's the best way to fix that? I don't want to pay extra.",
+    "zh": "糟了。怎么处理最好？我不想多付钱。"
+   },
+   {
+    "speaker": "A",
+    "en": "Move a few things to your carry-on, or pay seventy-five dollars.",
+    "zh": "把一些东西挪到随身行李里，或者付七十五美元。"
+   },
+   {
+    "speaker": "B",
+    "en": "I'll move some stuff. Hang on a second.",
+    "zh": "我挪一些东西，稍等一下。"
+   },
+   {
+    "speaker": "A",
+    "en": "Take your time. Perfect, forty-eight pounds. Boarding's at four ten, gate B twelve.",
+    "zh": "慢慢来。很好，四十八磅。四点十分登机，B12 登机口。"
+   }
+  ],
+  "chunkIds": [
+   "c096",
+   "c028",
+   "c147"
+  ],
+  "gist": {
+   "questionZh": "行李有什么问题？",
+   "optionsZh": [
+    "尺寸太大",
+    "里面有违禁液体",
+    "没有提前登记",
+    "超重了，限重五十磅"
+   ],
+   "answer": 3
+  },
+  "blanks": [
+   {
+    "turn": 2,
+    "text": "fifty-six pounds"
+   },
+   {
+    "turn": 3,
+    "text": "What's the best way to"
+   },
+   {
+    "turn": 6,
+    "text": "Boarding's at four ten"
+   }
+  ]
+ },
+ {
+  "id": "dl113",
+  "title": "赶飞机的出租车",
+  "scene": "travel",
+  "category": "travel",
+  "tier": 3,
+  "turns": [
+   {
+    "speaker": "A",
+    "en": "Where to?",
+    "zh": "去哪儿？"
+   },
+   {
+    "speaker": "B",
+    "en": "Terminal Two, please. Do you happen to know if there's traffic on the highway?",
+    "zh": "二号航站楼。你知道高速上堵不堵吗？"
+   },
+   {
+    "speaker": "A",
+    "en": "Looks okay right now. Should take about thirty-five minutes.",
+    "zh": "现在还行，大概三十五分钟。"
+   },
+   {
+    "speaker": "B",
+    "en": "Great. Would you mind turning up the air? It's a bit warm.",
+    "zh": "好。能把空调开大一点吗？有点热。"
+   },
+   {
+    "speaker": "A",
+    "en": "Sure thing. You got a flight today?",
+    "zh": "没问题。您今天有航班？"
+   },
+   {
+    "speaker": "B",
+    "en": "Yeah, at five fifteen. I'm kind of cutting it close.",
+    "zh": "对，五点十五分。时间有点紧。"
+   },
+   {
+    "speaker": "A",
+    "en": "Don't sweat it. We'll make it.",
+    "zh": "别担心，我们赶得上。"
+   },
+   {
+    "speaker": "B",
+    "en": "I really appreciate it.",
+    "zh": "太感谢了。"
+   }
+  ],
+  "chunkIds": [
+   "c099",
+   "c109",
+   "c150",
+   "c127"
+  ],
+  "gist": {
+   "questionZh": "乘客的航班是几点？",
+   "optionsZh": [
+    "五点十五分",
+    "五点五十分",
+    "三点十五分",
+    "五点三十分"
+   ],
+   "answer": 0
+  },
+  "blanks": [
+   {
+    "turn": 2,
+    "text": "about thirty-five minutes"
+   },
+   {
+    "turn": 5,
+    "text": "at five fifteen"
+   },
+   {
+    "turn": 6,
+    "text": "Don't sweat it"
+   }
+  ]
+ },
+ {
+  "id": "dl114",
+  "title": "退还坏掉的搅拌机",
+  "scene": "travel",
+  "category": "problem",
+  "tier": 3,
+  "turns": [
+   {
+    "speaker": "A",
+    "en": "Hi there. Can I help you?",
+    "zh": "你好，需要帮忙吗？"
+   },
+   {
+    "speaker": "B",
+    "en": "Hi. I bought this blender last week, and it's not working.",
+    "zh": "你好，我上周买了这台搅拌机，现在用不了。"
+   },
+   {
+    "speaker": "A",
+    "en": "Oh, sorry about that. Do you have the receipt?",
+    "zh": "哦，抱歉。有小票吗？"
+   },
+   {
+    "speaker": "B",
+    "en": "Right here. Could I get a refund?",
+    "zh": "在这儿。能退款吗？"
+   },
+   {
+    "speaker": "A",
+    "en": "Sure. I'll need your ID. It'll go back on your card in three to five days.",
+    "zh": "可以，我需要看您的证件。三到五天会退回您的卡上。"
+   },
+   {
+    "speaker": "B",
+    "en": "Sorry, I didn't catch that.",
+    "zh": "不好意思，我没听清。"
+   },
+   {
+    "speaker": "A",
+    "en": "Three to five business days. Have a good one.",
+    "zh": "三到五个工作日。祝您愉快。"
+   }
+  ],
+  "chunkIds": [
+   "c202",
+   "c132",
+   "c104",
+   "c076",
+   "c011"
+  ],
+  "gist": {
+   "questionZh": "退款多久到账？",
+   "optionsZh": [
+    "当天到账",
+    "三到五个工作日",
+    "一到两天",
+    "七到十天"
+   ],
+   "answer": 1
+  },
+  "blanks": [
+   {
+    "turn": 1,
+    "text": "it's not working"
+   },
+   {
+    "turn": 4,
+    "text": "in three to five days"
+   },
+   {
+    "turn": 6,
+    "text": "Have a good one"
+   }
+  ]
+ },
+ {
+  "id": "dl115",
+  "title": "电话找回密码",
+  "scene": "travel",
+  "category": "problem",
+  "tier": 3,
+  "turns": [
+   {
+    "speaker": "A",
+    "en": "Thanks for calling. This is Dana. How can I help you today?",
+    "zh": "感谢来电，我是黛娜。请问有什么可以帮您？"
+   },
+   {
+    "speaker": "B",
+    "en": "Hi, Dana. I'm having trouble logging into my account. It keeps saying my password is wrong.",
+    "zh": "你好，黛娜。我登录不了账户，一直提示密码错误。"
+   },
+   {
+    "speaker": "A",
+    "en": "Sorry about that. Could I get your account number?",
+    "zh": "抱歉。能告诉我您的账号吗？"
+   },
+   {
+    "speaker": "B",
+    "en": "Sure. It's four seven two, six one nine.",
+    "zh": "好的，是四七二，六一九。"
+   },
+   {
+    "speaker": "A",
+    "en": "Thanks. Hang on a second … Okay, I've sent a reset link to your email.",
+    "zh": "谢谢。稍等……好了，我给您的邮箱发了重置链接。"
+   },
+   {
+    "speaker": "B",
+    "en": "Got it. Do you happen to know how long the link works?",
+    "zh": "收到了。你知道链接多久有效吗？"
+   },
+   {
+    "speaker": "A",
+    "en": "It expires in twenty-four hours. Anything else I can help with?",
+    "zh": "二十四小时后失效。还有别的需要帮忙吗？"
+   },
+   {
+    "speaker": "B",
+    "en": "That's it. Thanks, Dana.",
+    "zh": "没了，谢谢你，黛娜。"
+   }
+  ],
+  "chunkIds": [
+   "c210",
+   "c207",
+   "c132",
+   "c104",
+   "c028",
+   "c099"
+  ],
+  "gist": {
+   "questionZh": "顾客遇到了什么问题？",
+   "optionsZh": [
+    "网速太慢",
+    "想取消套餐",
+    "登录不了账户，提示密码错误",
+    "账单金额不对"
+   ],
+   "answer": 2
+  },
+  "blanks": [
+   {
+    "turn": 1,
+    "text": "I'm having trouble"
+   },
+   {
+    "turn": 3,
+    "text": "four seven two, six one nine"
+   },
+   {
+    "turn": 6,
+    "text": "expires in twenty-four hours"
+   }
+  ]
+ },
+ {
+  "id": "dl116",
+  "title": "健身房办会员",
+  "scene": "travel",
+  "category": "question",
+  "tier": 3,
+  "turns": [
+   {
+    "speaker": "A",
+    "en": "Hi, welcome in. Have you been here before?",
+    "zh": "你好，欢迎。您以前来过吗？"
+   },
+   {
+    "speaker": "B",
+    "en": "No, it's my first time. I'm thinking of joining. How does this work?",
+    "zh": "没有，第一次来。我想入会，流程是怎样的？"
+   },
+   {
+    "speaker": "A",
+    "en": "Two options. Month-to-month is forty-nine a month, or thirty-five a month with a year contract.",
+    "zh": "两种：按月是每月四十九，签一年合同是每月三十五。"
+   },
+   {
+    "speaker": "B",
+    "en": "I see. What's the deal with the year contract?",
+    "zh": "明白了。年度合同有什么说法？"
+   },
+   {
+    "speaker": "A",
+    "en": "You can't cancel for twelve months. There's also a twenty-five-dollar sign-up fee.",
+    "zh": "十二个月内不能取消，另外还有二十五美元的注册费。"
+   },
+   {
+    "speaker": "B",
+    "en": "Okay, I'll go with month-to-month, I think.",
+    "zh": "好，我想我选按月的。"
+   },
+   {
+    "speaker": "A",
+    "en": "Sounds good. Feel free to look around while I print this up.",
+    "zh": "好的。我打印文件的时候，您可以随便看看。"
+   }
+  ],
+  "chunkIds": [
+   "c189",
+   "c094",
+   "c100",
+   "c018",
+   "c021",
+   "c115"
+  ],
+  "gist": {
+   "questionZh": "关于年度合同，工作人员说了什么限制？",
+   "optionsZh": [
+    "必须一次付清全款",
+    "每周只能来三次",
+    "只能在白天使用",
+    "十二个月内不能取消"
+   ],
+   "answer": 3
+  },
+  "blanks": [
+   {
+    "turn": 2,
+    "text": "forty-nine a month"
+   },
+   {
+    "turn": 4,
+    "text": "cancel for twelve months"
+   },
+   {
+    "turn": 6,
+    "text": "Feel free to look around"
+   }
+  ]
+ },
+ {
+  "id": "dl117",
+  "title": "寄国际包裹",
+  "scene": "travel",
+  "category": "question",
+  "tier": 3,
+  "turns": [
+   {
+    "speaker": "A",
+    "en": "Next in line! What can I do for you today?",
+    "zh": "下一位！今天需要办什么？"
+   },
+   {
+    "speaker": "B",
+    "en": "Hi. I need to send this to Shanghai. Any idea when it'd get there?",
+    "zh": "你好，我想把这个寄到上海。你知道什么时候能到吗？"
+   },
+   {
+    "speaker": "A",
+    "en": "Let me see … Priority is six to ten business days. It's forty-two fifty.",
+    "zh": "我看看……优先邮寄要六到十个工作日，四十二块五。"
+   },
+   {
+    "speaker": "B",
+    "en": "Hmm, it's a bit much. Anything cheaper?",
+    "zh": "嗯，有点贵。有便宜点的吗？"
+   },
+   {
+    "speaker": "A",
+    "en": "Economy is twenty-one dollars, but it takes three or four weeks.",
+    "zh": "经济邮寄二十一美元，但要三四周。"
+   },
+   {
+    "speaker": "B",
+    "en": "Okay, I'll have economy, then.",
+    "zh": "好吧，那我选经济邮寄。"
+   },
+   {
+    "speaker": "A",
+    "en": "Great. Fill out this customs form, and I'll ring you up.",
+    "zh": "好的。填一下这张海关单，我给您结账。"
+   }
+  ],
+  "chunkIds": [
+   "c089",
+   "c027",
+   "c175",
+   "c229"
+  ],
+  "gist": {
+   "questionZh": "顾客最后选了哪种寄法？",
+   "optionsZh": [
+    "二十一美元的经济邮寄",
+    "四十二块五的优先邮寄",
+    "特快专递",
+    "决定不寄了"
+   ],
+   "answer": 0
+  },
+  "blanks": [
+   {
+    "turn": 1,
+    "text": "Any idea when"
+   },
+   {
+    "turn": 2,
+    "text": "six to ten business days"
+   },
+   {
+    "turn": 4,
+    "text": "Economy is twenty-one dollars"
+   }
+  ]
+ },
+ {
+  "id": "dl118",
+  "title": "药店买咳嗽药",
+  "scene": "travel",
+  "category": "request",
+  "tier": 3,
+  "turns": [
+   {
+    "speaker": "A",
+    "en": "Hi there. What seems to be the problem?",
+    "zh": "你好，哪里不舒服？"
+   },
+   {
+    "speaker": "B",
+    "en": "I've had a bad cough for a week. I can't sleep.",
+    "zh": "我咳嗽一周了，很严重，睡不着。"
+   },
+   {
+    "speaker": "A",
+    "en": "Sorry to hear that. Do you take any other medication?",
+    "zh": "真遗憾。你还在吃别的药吗？"
+   },
+   {
+    "speaker": "B",
+    "en": "No, but I'm allergic to aspirin.",
+    "zh": "没有，但我对阿司匹林过敏。"
+   },
+   {
+    "speaker": "A",
+    "en": "Okay. This syrup is aspirin-free. Two teaspoons every six hours, and make sure you drink lots of water.",
+    "zh": "好的。这款糖浆不含阿司匹林。每六小时两茶匙，并且要多喝水。"
+   },
+   {
+    "speaker": "B",
+    "en": "Got it. What if it doesn't get better?",
+    "zh": "明白了。要是没好转怎么办？"
+   },
+   {
+    "speaker": "A",
+    "en": "Then you might want to see a doctor. That'll be eleven forty-nine.",
+    "zh": "那你可能得去看医生了。一共十一块四十九。"
+   },
+   {
+    "speaker": "B",
+    "en": "Okay. Thanks for letting me know.",
+    "zh": "好的，谢谢你告诉我。"
+   }
+  ],
+  "chunkIds": [
+   "c205",
+   "c236",
+   "c142",
+   "c138",
+   "c134"
+  ],
+  "gist": {
+   "questionZh": "这种糖浆应该怎么服用？",
+   "optionsZh": [
+    "睡前一茶匙",
+    "每六小时两茶匙",
+    "每十二小时一片",
+    "每天三次，每次一粒"
+   ],
+   "answer": 1
+  },
+  "blanks": [
+   {
+    "turn": 3,
+    "text": "I'm allergic to aspirin"
+   },
+   {
+    "turn": 4,
+    "text": "Two teaspoons every six hours"
+   },
+   {
+    "turn": 6,
+    "text": "That'll be eleven forty-nine"
+   }
+  ]
+ },
+ {
+  "id": "dl119",
+  "title": "租车注意油费",
+  "scene": "travel",
+  "category": "request",
+  "tier": 3,
+  "turns": [
+   {
+    "speaker": "A",
+    "en": "Hi, welcome. Do you have a reservation?",
+    "zh": "你好，欢迎。您有预订吗？"
+   },
+   {
+    "speaker": "B",
+    "en": "Yes, I have a reservation under Brown. A midsize for four days.",
+    "zh": "有，订的是布朗，中型车，四天。"
+   },
+   {
+    "speaker": "A",
+    "en": "Let me see … Brown. Got it. I'll need your license and a credit card.",
+    "zh": "我看看……布朗，找到了。需要您的驾照和一张信用卡。"
+   },
+   {
+    "speaker": "B",
+    "en": "Here you go. Does the price include insurance?",
+    "zh": "给您。价格含保险吗？"
+   },
+   {
+    "speaker": "A",
+    "en": "Basic is included. Full coverage is fifteen dollars a day. Do you want me to add it?",
+    "zh": "含基本险。全险每天十五美元，要加吗？"
+   },
+   {
+    "speaker": "B",
+    "en": "I'm okay, thanks. What's the deal with gas? Do I return it full?",
+    "zh": "不用了，谢谢。油是怎么算的？要加满还吗？"
+   },
+   {
+    "speaker": "A",
+    "en": "Yes, return it with a full tank, or it's nine dollars a gallon.",
+    "zh": "是的，要加满油还车，否则每加仑九美元。"
+   },
+   {
+    "speaker": "B",
+    "en": "Good to know. Where can I find the car?",
+    "zh": "知道了。车在哪里？"
+   }
+  ],
+  "chunkIds": [
+   "c235",
+   "c027",
+   "c116",
+   "c100",
+   "c091"
+  ],
+  "gist": {
+   "questionZh": "如果还车时没加满油，会怎样？",
+   "optionsZh": [
+    "不收任何费用",
+    "从押金里扣除",
+    "按每加仑九美元收费",
+    "罚款五十美元"
+   ],
+   "answer": 2
+  },
+  "blanks": [
+   {
+    "turn": 1,
+    "text": "I have a reservation under Brown"
+   },
+   {
+    "turn": 4,
+    "text": "fifteen dollars a day"
+   },
+   {
+    "turn": 6,
+    "text": "nine dollars a gallon"
+   }
+  ]
+ },
+ {
+  "id": "dl120",
+  "title": "餐厅午餐点单",
+  "scene": "travel",
+  "category": "travel",
+  "tier": 3,
+  "turns": [
+   {
+    "speaker": "A",
+    "en": "Hi, guys! Two for lunch?",
+    "zh": "你们好！两位用午餐？"
+   },
+   {
+    "speaker": "B",
+    "en": "Yes, please. Would it be okay if we sat by the window?",
+    "zh": "是的。我们坐靠窗的位子可以吗？"
+   },
+   {
+    "speaker": "A",
+    "en": "Sure thing. Right this way. Can I start you off with some drinks?",
+    "zh": "没问题，这边请。先给你们上点饮料吗？"
+   },
+   {
+    "speaker": "B",
+    "en": "Two waters, please. What's good here?",
+    "zh": "两杯水。这里什么好吃？"
+   },
+   {
+    "speaker": "A",
+    "en": "The salmon's great. It's fourteen ninety-five, with rice and a salad.",
+    "zh": "三文鱼很棒。十四块九十五，配米饭和沙拉。"
+   },
+   {
+    "speaker": "B",
+    "en": "I'll have that. And my friend will have the soup.",
+    "zh": "我要这个。我朋友要汤。"
+   },
+   {
+    "speaker": "A",
+    "en": "Perfect. Anything else I can get you? Some bread for the table?",
+    "zh": "好的。还要别的吗？桌上来点面包？"
+   },
+   {
+    "speaker": "B",
+    "en": "Sure, bread sounds good. Thanks.",
+    "zh": "好，面包不错，谢谢。"
+   }
+  ],
+  "chunkIds": [
+   "c108",
+   "c229",
+   "c021"
+  ],
+  "gist": {
+   "questionZh": "两位客人点了什么？",
+   "optionsZh": [
+    "两份三文鱼",
+    "两份汤",
+    "一份三文鱼，一份沙拉",
+    "一份三文鱼，一份汤"
+   ],
+   "answer": 3
+  },
+  "blanks": [
+   {
+    "turn": 1,
+    "text": "Would it be okay if we"
+   },
+   {
+    "turn": 4,
+    "text": "It's fourteen ninety-five"
+   },
+   {
+    "turn": 5,
+    "text": "I'll have that"
+   }
+  ]
+ }
+]
